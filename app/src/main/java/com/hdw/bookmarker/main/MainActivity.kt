@@ -22,6 +22,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        viewModel.getInstalledBrowsers()
         setContent {
             BookMarkerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
