@@ -1,7 +1,7 @@
 package com.hdw.bookmarker.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.hdw.bookmarker.main.MainScreen
@@ -19,11 +19,10 @@ fun AppNavHost(
         slideComposable<Route.Main> {
             val viewModel: MainViewModel = hiltViewModel()
             MainScreen(
-                installedBrowsers = viewModel.getInstalledBrowsers(),
+                viewModel = viewModel,
                 onSettingsClick = {
                     navController.navigate(Route.Settings)
-                },
-                onSyncClick = viewModel::onSync
+                }
             )
         }
         slideComposable<Route.Settings> {

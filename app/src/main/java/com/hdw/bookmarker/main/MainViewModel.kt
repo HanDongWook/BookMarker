@@ -4,16 +4,34 @@ import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.model.BrowserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 import javax.inject.Inject
 
+data class MainState(val installedBrowsers: List<BrowserInfo> = emptyList(), val isLoading: Boolean = false)
+
+sealed interface MainSideEffect {
+    data class ShowSyncStarted(val browserName: String) : MainSideEffect
+    data class ShowError(val message: String) : MainSideEffect
+}
+
 @HiltViewModel
 class MainViewModel @Inject constructor(private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase) :
-    ViewModel() {
+    ViewModel(),
+    ContainerHost<MainState, MainSideEffect> {
 
-    fun getInstalledBrowsers(): List<BrowserInfo> = getInstalledBrowsersUseCase()
+    override val container = container<MainState, MainSideEffect>(MainState()) {
+        loadInstalledBrowsers()
+    }
 
-    fun onSync(browser: BrowserInfo) {
-        Timber.e("onSync: $browser")
+    private fun loadInstalledBrowsers() = intent {
+        val browsers = getInstalledBrowsersUseCase()
+        reduce { state.copy(installedBrowsers = browsers) }
+    }
+
+    fun onSyncClick(browser: BrowserInfo) = intent {
+        Timber.d("Syncing browser: ${browser.appName}")
+        postSideEffect(MainSideEffect.ShowSyncStarted(browser.appName))
     }
 }

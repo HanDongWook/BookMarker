@@ -1,10 +1,10 @@
 package com.hdw.bookmarker.main
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
@@ -18,24 +18,40 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
-import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.R
 import com.hdw.bookmarker.main.drawer.DrawerContent
-import com.hdw.bookmarker.model.BrowserInfo
+import com.hdw.bookmarker.util.toast.showToast
 import kotlinx.coroutines.launch
+import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    installedBrowsers: List<BrowserInfo>,
-    onSettingsClick: () -> Unit,
-    onSyncClick: (BrowserInfo) -> Unit
+    viewModel: MainViewModel,
+    onSettingsClick: () -> Unit
 ) {
+    val state by viewModel.collectAsState()
+    val context = LocalContext.current
+
+    viewModel.collectSideEffect { sideEffect ->
+        when (sideEffect) {
+            is MainSideEffect.ShowSyncStarted -> {
+                context.showToast("Syncing ${sideEffect.browserName}...")
+            }
+            is MainSideEffect.ShowError -> {
+                context.showToast(sideEffect.message)
+            }
+        }
+    }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val configuration = LocalConfiguration.current
@@ -56,8 +72,8 @@ fun MainScreen(
                     .fillMaxHeight()
             ) {
                 DrawerContent(
-                    installedBrowsers = installedBrowsers,
-                    onSyncClick = onSyncClick
+                    installedBrowsers = state.installedBrowsers,
+                    onSyncClick = viewModel::onSyncClick
                 )
             }
         }

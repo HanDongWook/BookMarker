@@ -3,9 +3,9 @@ package com.hdw.bookmarker.base
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import com.hdw.bookmarker.R
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import com.hdw.bookmarker.R
 
 abstract class BaseActivity : ComponentActivity() {
 
@@ -19,20 +19,23 @@ abstract class BaseActivity : ComponentActivity() {
     }
 
     private fun setupBackPressedHandler() {
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val currentTime = System.currentTimeMillis()
-                if (currentTime - backPressedTime < backPressedInterval) {
-                    finish()
-                } else {
-                    backPressedTime = currentTime
-                    Toast.makeText(
-                        this@BaseActivity,
-                        R.string.press_back_to_exit,
-                        Toast.LENGTH_SHORT
-                    ).show()
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val currentTime = System.currentTimeMillis()
+                    if (currentTime - backPressedTime < backPressedInterval) {
+                        finish()
+                    } else {
+                        backPressedTime = currentTime
+                        Toast.makeText(
+                            this@BaseActivity,
+                            R.string.press_back_to_exit,
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    }
                 }
-            }
-        })
+            },
+        )
     }
 }
