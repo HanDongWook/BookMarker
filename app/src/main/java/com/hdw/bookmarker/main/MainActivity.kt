@@ -3,7 +3,9 @@ package com.hdw.bookmarker.main
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.navigation.compose.rememberNavController
 import com.hdw.bookmarker.base.BaseActivity
+import com.hdw.bookmarker.navigation.BookMarkerNavHost
 import com.hdw.bookmarker.ui.theme.BookMarkerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,7 +18,9 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BookMarkerTheme {
-                MainScreen(
+                val navController = rememberNavController()
+                BookMarkerNavHost(
+                    navController = navController,
                     installedBrowsers = viewModel.getInstalledBrowsers()
                 )
             }
