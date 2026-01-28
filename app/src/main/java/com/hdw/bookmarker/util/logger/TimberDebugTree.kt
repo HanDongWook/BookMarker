@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.core.log
+package com.hdw.bookmarker.util.logger
 
 import timber.log.Timber
 
