@@ -3,7 +3,7 @@ package com.hdw.bookmarker.initializer
 import android.content.Context
 import androidx.startup.Initializer
 import com.hdw.bookmarker.BuildConfig
-import com.hdw.bookmarker.core.log.TimberDebugTree
+import com.hdw.bookmarker.util.logger.TimberDebugTree
 import timber.log.Timber
 
 class AppInitializer : Initializer<Unit> {
