@@ -10,6 +10,8 @@ kotlin = "2.3.0"
 composeBom = "2026.01.00"
 timber = "5.0.1"
 appStartup = "1.2.0"
+appcompat = "1.7.1"
+material = "1.13.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -29,8 +31,11 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "appStartup" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 
