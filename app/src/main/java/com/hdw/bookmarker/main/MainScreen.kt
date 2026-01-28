@@ -1,10 +1,12 @@
 package com.hdw.bookmarker.main
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.ui.Alignment
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
@@ -25,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.R
 import com.hdw.bookmarker.main.drawer.DrawerContent
@@ -109,6 +112,7 @@ fun MainScreen(
             }
         ) { innerPadding ->
             MainContent(
+                bookmarksEmpty = state.bookmarks.isEmpty(),
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -116,6 +120,21 @@ fun MainScreen(
 }
 
 @Composable
-private fun MainContent(modifier: Modifier = Modifier) {
-
+private fun MainContent(
+    bookmarksEmpty: Boolean,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = 32.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        if (bookmarksEmpty) {
+            Text(
+                text = stringResource(R.string.no_bookmarks_message),
+                textAlign = TextAlign.Center
+            )
+        }
+    }
 }

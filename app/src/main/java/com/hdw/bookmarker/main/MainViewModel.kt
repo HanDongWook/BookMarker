@@ -2,6 +2,7 @@ package com.hdw.bookmarker.main
 
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.domain.usecase.GetInstalledBrowsersUseCase
+import com.hdw.bookmarker.model.Bookmark
 import com.hdw.bookmarker.model.BrowserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost
@@ -9,7 +10,11 @@ import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 import javax.inject.Inject
 
-data class MainState(val installedBrowsers: List<BrowserInfo> = emptyList(), val isLoading: Boolean = false)
+data class MainState(
+    val installedBrowsers: List<BrowserInfo> = emptyList(),
+    val bookmarks: List<Bookmark> = emptyList(),
+    val isLoading: Boolean = false
+)
 
 sealed interface MainSideEffect {
     data class ShowSyncStarted(val browserName: String) : MainSideEffect

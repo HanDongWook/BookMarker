@@ -9,4 +9,5 @@
     <string name="hello_android">Hello Android!</string>
     <string name="press_back_to_exit">Press \'back\' button one more time to close app</string>
     <string name="sync">Sync</string>
+    <string name="no_bookmarks_message">No bookmarks connected.\nTry syncing your bookmarks.</string>
 </resources>
