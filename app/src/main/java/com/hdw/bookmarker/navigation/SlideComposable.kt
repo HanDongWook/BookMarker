@@ -2,6 +2,8 @@ package com.hdw.bookmarker.navigation
 
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
@@ -21,16 +23,10 @@ inline fun <reified T : Any> NavGraphBuilder.slideComposable(
             )
         },
         exitTransition = {
-            slideOutOfContainer(
-                towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                animationSpec = tween(ANIMATION_DURATION),
-            )
+            ExitTransition.None
         },
         popEnterTransition = {
-            slideIntoContainer(
-                towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                animationSpec = tween(ANIMATION_DURATION),
-            )
+            EnterTransition.None
         },
         popExitTransition = {
             slideOutOfContainer(
