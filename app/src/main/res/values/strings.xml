@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">BookMarker</string>
 
-    <string name="browser">Browser</string>
+    <string name="installed_browser">Installed browsers</string>
     <string name="menu_description">메뉴</string>
     <string name="menu_home">홈</string>
     <string name="menu_bookmark">북마크</string>
     <string name="menu_settings">설정</string>
     <string name="hello_android">Hello Android!</string>
     <string name="press_back_to_exit">Press \'back\' button one more time to close app</string>
+    <string name="sync">Sync</string>
 </resources>

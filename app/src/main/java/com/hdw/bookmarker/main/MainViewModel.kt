@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.model.BrowserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -11,4 +12,8 @@ class MainViewModel @Inject constructor(private val getInstalledBrowsersUseCase:
     ViewModel() {
 
     fun getInstalledBrowsers(): List<BrowserInfo> = getInstalledBrowsersUseCase()
+
+    fun onSync(browser: BrowserInfo) {
+        Timber.e("onSync: $browser")
+    }
 }

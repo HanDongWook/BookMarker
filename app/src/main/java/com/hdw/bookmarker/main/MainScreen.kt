@@ -33,12 +33,13 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(
     installedBrowsers: List<BrowserInfo>,
-    onSettingsClick: () -> Unit
+    onSettingsClick: () -> Unit,
+    onSyncClick: (BrowserInfo) -> Unit
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val configuration = LocalConfiguration.current
-    val drawerWidth = (configuration.screenWidthDp * 0.6).dp
+    val drawerWidth = (configuration.screenWidthDp * 0.7).dp
 
     BackHandler(enabled = drawerState.isOpen) {
         scope.launch {
@@ -54,7 +55,10 @@ fun MainScreen(
                     .width(drawerWidth)
                     .fillMaxHeight()
             ) {
-                DrawerContent(installedBrowsers = installedBrowsers)
+                DrawerContent(
+                    installedBrowsers = installedBrowsers,
+                    onSyncClick = onSyncClick
+                )
             }
         }
     ) {

@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Sync
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,43 +25,57 @@ import com.hdw.bookmarker.model.BrowserInfo
 
 
 @Composable
-fun DrawerContent(installedBrowsers: List<BrowserInfo>) {
+fun DrawerContent(
+    installedBrowsers: List<BrowserInfo>,
+    onSyncClick: (BrowserInfo) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
     ) {
         Text(
-            text = stringResource(R.string.browser),
+            text = stringResource(R.string.installed_browser),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
         installedBrowsers.forEach { browser ->
-            BrowserItem(browser = browser)
+            BrowserItem(
+                browser = browser,
+                onSyncClick = { onSyncClick(browser) }
+            )
         }
     }
 }
 
 @Composable
-private fun BrowserItem(browser: BrowserInfo) {
+private fun BrowserItem(
+    browser: BrowserInfo,
+    onSyncClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        browser.icon?.let { icon ->
-            Image(
-                painter = rememberDrawablePainter(drawable = icon),
-                contentDescription = browser.appName,
-                modifier = Modifier.size(40.dp)
-            )
-        }
+        Image(
+            painter = rememberDrawablePainter(drawable = browser.icon),
+            contentDescription = browser.appName,
+            modifier = Modifier.size(40.dp)
+        )
         Spacer(modifier = Modifier.width(12.dp))
         Text(
             text = browser.appName,
-            style = MaterialTheme.typography.bodyLarge
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.weight(1f)
         )
+        IconButton(onClick = onSyncClick) {
+            Icon(
+                imageVector = Icons.Default.Sync,
+                contentDescription = stringResource(R.string.sync)
+            )
+        }
     }
 }
