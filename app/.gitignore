@@ -1,1 +1,11 @@
-/build
+# generated files
+bin/
+gen/
+out/
+build/
+generated/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+.idea/*
