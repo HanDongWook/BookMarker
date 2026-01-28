@@ -7,11 +7,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase
-) : ViewModel() {
+class MainViewModel @Inject constructor(private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase) :
+    ViewModel() {
 
-    fun getInstalledBrowsers(): List<BrowserInfo> {
-        return getInstalledBrowsersUseCase()
-    }
+    fun getInstalledBrowsers(): List<BrowserInfo> = getInstalledBrowsersUseCase()
 }

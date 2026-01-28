@@ -1,0 +1,50 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+plugins {
+    `kotlin-dsl`
+}
+
+group = "com.hdw.bookmarker.buildlogic"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
+}
+
+dependencies {
+    compileOnly(libs.android.gradleApiPlugin)
+    compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.spotless.gradlePlugin)
+    compileOnly(libs.detekt.gradlePlugin)
+}
+
+gradlePlugin {
+    plugins {
+        register("androidApplication") {
+            id = libs.plugins.bookmarker.android.application.get().pluginId
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+        register("androidLibrary") {
+            id = libs.plugins.bookmarker.android.library.get().pluginId
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
+        register("hilt") {
+            id = libs.plugins.bookmarker.hilt.get().pluginId
+            implementationClass = "HiltConventionPlugin"
+        }
+        register("jvmLibrary") {
+            id = libs.plugins.bookmarker.jvm.library.get().pluginId
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
+        register("codeQuality") {
+            id = libs.plugins.bookmarker.code.quality.get().pluginId
+            implementationClass = "CodeQualityConventionPlugin"
+        }
+    }
+}
