@@ -9,9 +9,7 @@ import com.hdw.bookmarker.model.BrowserInfo
 import timber.log.Timber
 import javax.inject.Inject
 
-class BrowserRepositoryImpl @Inject constructor(
-    private val application: Application
-) : BrowserRepository {
+class BrowserRepositoryImpl @Inject constructor(private val application: Application) : BrowserRepository {
 
     override fun getInstalledBrowsers(): List<BrowserInfo> {
         val packageManager = application.packageManager
@@ -21,7 +19,7 @@ class BrowserRepositoryImpl @Inject constructor(
         }
         val resolveInfoList = packageManager.queryIntentActivities(
             browserIntent,
-            PackageManager.MATCH_ALL
+            PackageManager.MATCH_ALL,
         )
 
         val browsers = resolveInfoList.mapNotNull { resolveInfo ->
@@ -34,7 +32,7 @@ class BrowserRepositoryImpl @Inject constructor(
                 BrowserInfo(
                     packageName = packageName,
                     appName = appName,
-                    icon = icon
+                    icon = icon,
                 )
             } catch (e: PackageManager.NameNotFoundException) {
                 Timber.e(e, "Failed to get browser info")

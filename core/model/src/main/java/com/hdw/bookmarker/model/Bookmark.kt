@@ -5,5 +5,5 @@ data class Bookmark(
     val title: String,
     val url: String,
     val folder: String? = null,
-    val createdAt: Long? = null
+    val createdAt: Long? = null,
 )

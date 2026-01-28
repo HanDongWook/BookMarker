@@ -14,9 +14,6 @@ object DomainModule {
 
     @Provides
     @Singleton
-    fun provideGetInstalledBrowsersUseCase(
-        browserRepository: BrowserRepository
-    ): GetInstalledBrowsersUseCase {
-        return GetInstalledBrowsersUseCase(browserRepository)
-    }
+    fun provideGetInstalledBrowsersUseCase(browserRepository: BrowserRepository): GetInstalledBrowsersUseCase =
+        GetInstalledBrowsersUseCase(browserRepository)
 }

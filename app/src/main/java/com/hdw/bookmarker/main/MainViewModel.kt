@@ -13,7 +13,7 @@ import javax.inject.Inject
 data class MainState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
     val bookmarks: List<Bookmark> = emptyList(),
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
 )
 
 sealed interface MainSideEffect {

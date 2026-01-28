@@ -14,7 +14,5 @@ abstract class DataModule {
 
     @Binds
     @Singleton
-    abstract fun bindBrowserRepository(
-        browserRepositoryImpl: BrowserRepositoryImpl
-    ): BrowserRepository
+    abstract fun bindBrowserRepository(browserRepositoryImpl: BrowserRepositoryImpl): BrowserRepository
 }
