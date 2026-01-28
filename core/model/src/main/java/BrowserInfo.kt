@@ -1,3 +1,5 @@
+package com.hdw.bookmarker.model
+
 import android.graphics.drawable.Drawable
 
 data class BrowserInfo(
