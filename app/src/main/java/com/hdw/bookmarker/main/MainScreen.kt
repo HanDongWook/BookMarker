@@ -23,12 +23,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.R
+import com.hdw.bookmarker.main.drawer.DrawerContent
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,6 +40,12 @@ fun MainScreen() {
     val scope = rememberCoroutineScope()
     val configuration = LocalConfiguration.current
     val drawerWidth = (configuration.screenWidthDp * 0.6).dp
+
+    BackHandler(enabled = drawerState.isOpen) {
+        scope.launch {
+            drawerState.close()
+        }
+    }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -77,20 +85,6 @@ fun MainScreen() {
                 modifier = Modifier.padding(innerPadding)
             )
         }
-    }
-}
-
-@Composable
-private fun DrawerContent() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        Text(
-            text = stringResource(R.string.app_name),
-            modifier = Modifier.padding(16.dp)
-        )
     }
 }
 

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">BookMarker</string>
+
+    <string name="browser">Browser</string>
     <string name="menu_description">메뉴</string>
     <string name="menu_home">홈</string>
     <string name="menu_bookmark">북마크</string>
