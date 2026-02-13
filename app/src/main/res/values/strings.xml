@@ -6,8 +6,7 @@
     <string name="menu_home">홈</string>
     <string name="menu_bookmark">북마크</string>
     <string name="menu_settings">설정</string>
-    <string name="hello_android">Hello Android!</string>
     <string name="press_back_to_exit">Press \'back\' button one more time to close app</string>
     <string name="sync">Sync</string>
-    <string name="no_bookmarks_message">No bookmarks connected.\nTry syncing your bookmarks.</string>
+    <string name="no_browsers_connected">No browsers connected.\nTry syncing your browsers.</string>
 </resources>
