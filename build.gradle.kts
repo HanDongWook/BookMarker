@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.dependency.analysis)
     alias(libs.plugins.spotless)
     alias(libs.plugins.detekt)
 }
@@ -17,4 +18,14 @@ tasks.register("codeQualityCheck") {
     val leafModules = subprojects.filter { it.buildFile.exists() }
     dependsOn(leafModules.map { "${it.path}:spotlessApply" })
     dependsOn(leafModules.map { "${it.path}:detekt" })
+}
+
+dependencyAnalysis {
+    issues {
+        all {
+            onAny {
+                severity("warn")
+            }
+        }
+    }
 }
