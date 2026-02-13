@@ -132,7 +132,7 @@ private fun MainContent(
     ) {
         if (bookmarksEmpty) {
             Text(
-                text = stringResource(R.string.no_bookmarks_message),
+                text = stringResource(R.string.no_browsers_connected),
                 textAlign = TextAlign.Center
             )
         }
