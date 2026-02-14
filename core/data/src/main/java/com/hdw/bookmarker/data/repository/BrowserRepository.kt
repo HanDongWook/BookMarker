@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.domain.repository
+package com.hdw.bookmarker.data.repository
 
 import com.hdw.bookmarker.model.BrowserInfo
 
