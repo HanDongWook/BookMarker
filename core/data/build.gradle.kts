@@ -9,7 +9,6 @@ android {
 
 dependencies {
     implementation(projects.core.model)
-    implementation(projects.core.domain)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.timber)
