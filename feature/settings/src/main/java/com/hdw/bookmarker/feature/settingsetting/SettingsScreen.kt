@@ -13,17 +13,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.hdw.bookmarker.core.ui.R
+import androidx.compose.ui.platform.LocalResources
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     onBackClick: () -> Unit,
 ) {
+    val resources = LocalResources.current
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = "Settings") },
+                title = { Text(text = resources.getString(R.string.settings)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(

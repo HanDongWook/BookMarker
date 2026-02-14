@@ -8,6 +8,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.ui)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)

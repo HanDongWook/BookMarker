@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
-import com.hdw.bookmarker.R
+import com.hdw.bookmarker.core.ui.R
 
 abstract class BaseActivity : ComponentActivity() {
 
