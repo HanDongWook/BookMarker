@@ -27,6 +27,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -43,6 +44,7 @@ fun HomeScreen(
 ) {
     val state by viewModel.collectAsState()
     val context = LocalContext.current
+    val resources = LocalResources.current
 
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
@@ -50,7 +52,7 @@ fun HomeScreen(
                 Toast
                     .makeText(
                         context,
-                        context.resources.getString(R.string.home_syncing, sideEffect.browserName),
+                        resources.getString(R.string.home_syncing, sideEffect.browserName),
                         Toast.LENGTH_SHORT
                     ).show()
             }
