@@ -1,6 +1,7 @@
-package com.hdw.bookmarker.main
+package com.hdw.bookmarker.feature.home
 
 import androidx.activity.compose.BackHandler
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,17 +30,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.hdw.bookmarker.R
-import com.hdw.bookmarker.main.drawer.DrawerContent
-import com.hdw.bookmarker.util.toast.showToast
+import com.hdw.bookmarker.feature.home.drawer.DrawerContent
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(
-    viewModel: MainViewModel,
+fun HomeScreen(
+    viewModel: HomeViewModel,
     onSettingsClick: () -> Unit
 ) {
     val state by viewModel.collectAsState()
@@ -48,10 +47,16 @@ fun MainScreen(
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
             is MainSideEffect.ShowSyncStarted -> {
-                context.showToast("Syncing ${sideEffect.browserName}...")
+                Toast
+                    .makeText(
+                        context,
+                        context.resources.getString(R.string.home_syncing, sideEffect.browserName),
+                        Toast.LENGTH_SHORT
+                    ).show()
             }
+
             is MainSideEffect.ShowError -> {
-                context.showToast(sideEffect.message)
+                Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -85,7 +90,7 @@ fun MainScreen(
             modifier = Modifier.fillMaxSize(),
             topBar = {
                 TopAppBar(
-                    title = { Text(stringResource(R.string.app_name)) },
+                    title = { Text(stringResource(R.string.home_title)) },
                     navigationIcon = {
                         IconButton(
                             onClick = {
@@ -96,7 +101,7 @@ fun MainScreen(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Menu,
-                                contentDescription = stringResource(R.string.menu_description)
+                                contentDescription = stringResource(R.string.home_menu_description)
                             )
                         }
                     },
@@ -104,7 +109,7 @@ fun MainScreen(
                         IconButton(onClick = onSettingsClick) {
                             Icon(
                                 imageVector = Icons.Default.Settings,
-                                contentDescription = stringResource(R.string.menu_settings)
+                                contentDescription = stringResource(R.string.home_menu_settings)
                             )
                         }
                     }
@@ -132,7 +137,7 @@ private fun MainContent(
     ) {
         if (bookmarksEmpty) {
             Text(
-                text = stringResource(R.string.no_browsers_connected),
+                text = stringResource(R.string.home_no_browsers_connected),
                 textAlign = TextAlign.Center
             )
         }

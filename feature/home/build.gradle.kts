@@ -1,39 +1,30 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.bookmarker.android.library)
+    alias(libs.plugins.bookmarker.hilt)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "com.hdw.bookmarker.feature.home"
-    compileSdk {
-        version = release(36)
-    }
-
-    defaultConfig {
-        minSdk = 26
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    implementation(projects.core.domain)
+    implementation(projects.core.model)
+
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.accompanist.drawablepainter)
+
+    implementation(libs.orbit.core)
+    implementation(libs.orbit.viewmodel)
+    implementation(libs.orbit.compose)
+
+    implementation(libs.timber)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

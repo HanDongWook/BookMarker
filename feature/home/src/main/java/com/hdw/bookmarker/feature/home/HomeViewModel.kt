@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.main
+package com.hdw.bookmarker.feature.home
 
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.domain.usecase.GetInstalledBrowsersUseCase
@@ -22,7 +22,7 @@ sealed interface MainSideEffect {
 }
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase) :
+class HomeViewModel @Inject constructor(private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase) :
     ViewModel(),
     ContainerHost<MainState, MainSideEffect> {
 
