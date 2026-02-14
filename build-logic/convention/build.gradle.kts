@@ -46,5 +46,9 @@ gradlePlugin {
             id = libs.plugins.bookmarker.code.quality.get().pluginId
             implementationClass = "CodeQualityConventionPlugin"
         }
+        register("androidFeature") {
+            id = libs.plugins.bookmarker.android.feature.get().pluginId
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
     }
 }

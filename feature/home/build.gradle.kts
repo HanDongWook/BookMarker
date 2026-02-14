@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.bookmarker.android.library)
+    alias(libs.plugins.bookmarker.android.feature)
     alias(libs.plugins.bookmarker.hilt)
     alias(libs.plugins.kotlin.compose)
 }
@@ -11,7 +11,6 @@ android {
 dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.model)
-    implementation(projects.core.ui)
 
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
