@@ -1,4 +1,4 @@
-package com.dongwook.feature.settings
+package com.hdw.bookmarker.feature.settingsetting
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.dongwook.feature.settings.test", appContext.packageName)
+        assertEquals("com.hdw.bookmarker.feature.settingsetting.test", appContext.packageName)
     }
 }
