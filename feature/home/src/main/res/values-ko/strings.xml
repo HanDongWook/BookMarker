@@ -1,0 +1,9 @@
+<resources>
+    <string name="home_title">BookMarker</string>
+    <string name="home_menu_description">메뉴</string>
+    <string name="home_menu_settings">설정</string>
+    <string name="home_sync">동기화</string>
+    <string name="home_installed_browser">설치된 브라우저</string>
+    <string name="home_no_browsers_connected">연결된 브라우저가 없습니다.\n브라우저를 동기화해보세요.</string>
+    <string name="home_syncing">%1$s 동기화 중...</string>
+</resources>

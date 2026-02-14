@@ -34,12 +34,11 @@ android {
 
 dependencies {
     // feature
+    implementation(projects.feature.home)
     implementation(projects.feature.settings)
 
     // core
     implementation(projects.core.data)
-    implementation(projects.core.model)
-    implementation(projects.core.domain)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -54,13 +53,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
-
-    implementation(libs.accompanist.drawablepainter)
-
-    implementation(libs.orbit.core)
-    implementation(libs.orbit.viewmodel)
-    implementation(libs.orbit.compose)
-    testImplementation(libs.orbit.test)
 
     implementation(libs.timber)
     implementation(libs.androidx.startup)

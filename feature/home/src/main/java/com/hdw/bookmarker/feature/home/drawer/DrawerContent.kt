@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.main.drawer
+package com.hdw.bookmarker.feature.home.drawer
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
-import com.hdw.bookmarker.R
+import com.hdw.bookmarker.feature.home.R
 import com.hdw.bookmarker.model.BrowserInfo
 
 
@@ -35,7 +35,7 @@ fun DrawerContent(
             .padding(16.dp)
     ) {
         Text(
-            text = stringResource(R.string.installed_browser),
+            text = stringResource(R.string.home_installed_browser),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(bottom = 16.dp)
         )
@@ -74,7 +74,7 @@ private fun BrowserItem(
         IconButton(onClick = onSyncClick) {
             Icon(
                 imageVector = Icons.Default.Sync,
-                contentDescription = stringResource(R.string.sync)
+                contentDescription = stringResource(R.string.home_sync)
             )
         }
     }

@@ -6,9 +6,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.hdw.bookmarker.R
+import com.hdw.bookmarker.feature.home.HomeScreen
+import com.hdw.bookmarker.feature.home.HomeViewModel
 import com.hdw.bookmarker.feature.settingsetting.SettingsScreen
-import com.hdw.bookmarker.main.MainScreen
-import com.hdw.bookmarker.main.MainViewModel
 
 @Composable
 fun AppNavHost(
@@ -16,11 +16,11 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Route.Main
+        startDestination = Route.Home
     ) {
-        slideComposable<Route.Main> {
-            val viewModel: MainViewModel = hiltViewModel()
-            MainScreen(
+        slideComposable<Route.Home> {
+            val viewModel: HomeViewModel = hiltViewModel()
+            HomeScreen(
                 viewModel = viewModel,
                 onSettingsClick = {
                     navController.navigate(Route.Settings)
