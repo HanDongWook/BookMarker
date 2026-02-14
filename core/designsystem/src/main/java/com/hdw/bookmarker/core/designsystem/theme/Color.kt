@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.ui.theme
+package com.hdw.bookmarker.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
 import com.hdw.bookmarker.base.BaseActivity
+import com.hdw.bookmarker.core.designsystem.theme.BookMarkerTheme
 import com.hdw.bookmarker.navigation.AppNavHost
-import com.hdw.bookmarker.ui.theme.BookMarkerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
