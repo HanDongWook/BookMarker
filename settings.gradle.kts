@@ -25,7 +25,10 @@ rootProject.name = "BookMarker"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app")
+
+include(":feature:settings")
+include(":feature:home")
+
 include(":core:model")
 include(":core:data")
 include(":core:domain")
-include(":feature:settings")
