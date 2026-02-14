@@ -1,12 +1,14 @@
 package com.hdw.bookmarker.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.hdw.bookmarker.R
+import com.hdw.bookmarker.feature.settingsetting.SettingsScreen
 import com.hdw.bookmarker.main.MainScreen
 import com.hdw.bookmarker.main.MainViewModel
-import com.hdw.bookmarker.settings.SettingsScreen
 
 @Composable
 fun AppNavHost(
@@ -27,6 +29,7 @@ fun AppNavHost(
         }
         slideComposable<Route.Settings> {
             SettingsScreen(
+                title = stringResource(R.string.menu_settings),
                 onBackClick = {
                     navController.popBackStack()
                 }

@@ -1,4 +1,4 @@
-package com.dongwook.feature.settings
+package com.hdw.bookmarker.feature.settingsetting
 
 import org.junit.Test
 
