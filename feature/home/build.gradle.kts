@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.bookmarker.android.feature)
     alias(libs.plugins.bookmarker.android.library.compose)
     alias(libs.plugins.bookmarker.hilt)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.bookmarker.android.mvi.orbit)
 }
 
 android {
@@ -17,11 +17,8 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.extended)
-    implementation(libs.accompanist.drawablepainter)
 
-    implementation(libs.orbit.core)
-    implementation(libs.orbit.viewmodel)
-    implementation(libs.orbit.compose)
+    implementation(libs.accompanist.drawablepainter)
 
     implementation(libs.timber)
 

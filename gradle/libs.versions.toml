@@ -1,6 +1,6 @@
 [versions]
 accompanist = "0.37.3"
-agp = "9.0.0"
+agp = "9.0.1"
 androidxNavigation = "2.9.7"
 coreKtx = "1.17.0"
 junit = "4.13.2"
@@ -84,3 +84,4 @@ bookmarker-android-feature = { id = "bookmarker.android.feature" }
 bookmarker-jvm-library = { id = "bookmarker.jvm.library" }
 bookmarker-code-quality = { id = "bookmarker.code.quality" }
 bookmarker-android-library-compose = { id = "bookmarker.android.library.compose" }
+bookmarker-android-mvi-orbit = { id = "bookmarker.android.mvi.orbit" }

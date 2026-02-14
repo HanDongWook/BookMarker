@@ -55,5 +55,9 @@ gradlePlugin {
             id = libs.plugins.bookmarker.android.library.compose.get().pluginId
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
+        register("androidMviOrbit") {
+            id = libs.plugins.bookmarker.android.mvi.orbit.get().pluginId
+            implementationClass = "AndroidMviOrbitPlugin"
+        }
     }
 }
