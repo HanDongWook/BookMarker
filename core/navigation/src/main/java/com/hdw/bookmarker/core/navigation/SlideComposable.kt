@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.navigation
+package com.hdw.bookmarker.core.navigation
 
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedContentTransitionScope

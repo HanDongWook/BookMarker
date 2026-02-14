@@ -17,14 +17,13 @@ import androidx.compose.ui.Modifier
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    title: String,
     onBackClick: () -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(title) },
+                title = { Text(text = "Settings") },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(

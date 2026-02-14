@@ -5,7 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
 import com.hdw.bookmarker.base.BaseActivity
 import com.hdw.bookmarker.core.designsystem.theme.BookMarkerTheme
-import com.hdw.bookmarker.navigation.AppNavHost
+import com.hdw.bookmarker.core.navigation.AppNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,7 +16,9 @@ class MainActivity : BaseActivity() {
         setContent {
             BookMarkerTheme {
                 val navController = rememberNavController()
-                AppNavHost(navController = navController)
+                AppNavHost(
+                    navController = navController
+                )
             }
         }
     }
