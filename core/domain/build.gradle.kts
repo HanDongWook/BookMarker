@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hdw.bookmarker.domain"
+    namespace = "com.hdw.bookmarker.core.domain"
 }
 
 dependencies {

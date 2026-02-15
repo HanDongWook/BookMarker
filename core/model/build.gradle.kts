@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.hdw.bookmarker.model"
+    namespace = "com.hdw.bookmarker.core.model"
 }
