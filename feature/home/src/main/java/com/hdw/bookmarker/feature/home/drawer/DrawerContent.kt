@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.feature.home.R
-import com.hdw.bookmarker.core.model.BrowserInfo
+import com.hdw.bookmarker.core.model.browser.BrowserInfo
 
 
 @Composable
