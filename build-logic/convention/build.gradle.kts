@@ -27,8 +27,12 @@ dependencies {
 
 gradlePlugin {
     plugins {
+        register("androidApplicationCompose") {
+            id = libs.plugins.bookmarker.android.application.compose.get().pluginId
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
         register("androidApplication") {
-            id = libs.plugins.bookmarker.android.application.get().pluginId
+            id = libs.plugins.bookmarker.android.application.asProvider().get().pluginId
             implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("androidLibrary") {

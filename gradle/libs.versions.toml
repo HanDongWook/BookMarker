@@ -93,10 +93,14 @@ dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.r
 
 # Plugins defined by bookmarker
 bookmarker-android-application = { id = "bookmarker.android.application" }
+bookmarker-android-application-compose = { id = "bookmarker.android.application.compose" }
+
 bookmarker-android-library = { id = "bookmarker.android.library" }
+bookmarker-android-library-compose = { id = "bookmarker.android.library.compose" }
+
 bookmarker-hilt = { id = "bookmarker.hilt" }
 bookmarker-android-feature = { id = "bookmarker.android.feature" }
 bookmarker-jvm-library = { id = "bookmarker.jvm.library" }
 bookmarker-code-quality = { id = "bookmarker.code.quality" }
-bookmarker-android-library-compose = { id = "bookmarker.android.library.compose" }
+
 bookmarker-android-mvi-orbit = { id = "bookmarker.android.mvi.orbit" }
