@@ -1,9 +1,9 @@
-package com.hdw.bookmarker.domain.di
+package com.hdw.bookmarker.core.domain.di
 
-import com.hdw.bookmarker.data.repository.BookmarkRepository
-import com.hdw.bookmarker.data.repository.BrowserRepository
-import com.hdw.bookmarker.domain.usecase.GetBookmarksUseCase
-import com.hdw.bookmarker.domain.usecase.GetInstalledBrowsersUseCase
+import com.hdw.bookmarker.core.data.repository.BookmarkRepository
+import com.hdw.bookmarker.core.data.repository.BrowserRepository
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

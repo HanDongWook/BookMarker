@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.model
+package com.hdw.bookmarker.core.model
 
 data class Bookmark(
     val id: Long,

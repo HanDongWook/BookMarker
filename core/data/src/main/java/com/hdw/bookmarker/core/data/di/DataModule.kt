@@ -1,9 +1,9 @@
-package com.hdw.bookmarker.data.di
+package com.hdw.bookmarker.core.data.di
 
-import com.hdw.bookmarker.data.repository.BookmarkRepository
-import com.hdw.bookmarker.data.repository.BookmarkRepositoryImpl
-import com.hdw.bookmarker.data.repository.BrowserRepositoryImpl
-import com.hdw.bookmarker.data.repository.BrowserRepository
+import com.hdw.bookmarker.core.data.repository.BookmarkRepository
+import com.hdw.bookmarker.core.data.repository.BookmarkRepositoryImpl
+import com.hdw.bookmarker.core.data.repository.BrowserRepositoryImpl
+import com.hdw.bookmarker.core.data.repository.BrowserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

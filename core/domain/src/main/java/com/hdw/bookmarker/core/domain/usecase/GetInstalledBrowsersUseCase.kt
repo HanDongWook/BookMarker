@@ -1,7 +1,7 @@
-package com.hdw.bookmarker.domain.usecase
+package com.hdw.bookmarker.core.domain.usecase
 
-import com.hdw.bookmarker.data.repository.BrowserRepository
-import com.hdw.bookmarker.model.BrowserInfo
+import com.hdw.bookmarker.core.data.repository.BrowserRepository
+import com.hdw.bookmarker.core.model.BrowserInfo
 import javax.inject.Inject
 
 class GetInstalledBrowsersUseCase @Inject constructor(

@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.model
+package com.hdw.bookmarker.core.model
 
 import android.graphics.drawable.Drawable
 
