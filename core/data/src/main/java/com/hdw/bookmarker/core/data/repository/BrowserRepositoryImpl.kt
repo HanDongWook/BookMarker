@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.core.net.toUri
-import com.hdw.bookmarker.core.model.BrowserInfo
+import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import timber.log.Timber
 import javax.inject.Inject
 
