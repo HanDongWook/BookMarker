@@ -1,6 +1,6 @@
-package com.hdw.bookmarker.data.repository
+package com.hdw.bookmarker.core.data.repository
 
-import com.hdw.bookmarker.model.Browser
+import com.hdw.bookmarker.core.model.Browser
 import timber.log.Timber
 import javax.inject.Inject
 

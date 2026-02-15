@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.model
+package com.hdw.bookmarker.core.model
 
 enum class Browser {
     CHROME,

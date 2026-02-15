@@ -1,6 +1,6 @@
-package com.hdw.bookmarker.data.repository
+package com.hdw.bookmarker.core.data.repository
 
-import com.hdw.bookmarker.model.BrowserInfo
+import com.hdw.bookmarker.core.model.BrowserInfo
 
 interface BrowserRepository {
     /**
