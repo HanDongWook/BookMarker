@@ -1,9 +1,12 @@
 package com.hdw.bookmarker.feature.home
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
-import com.hdw.bookmarker.domain.usecase.GetInstalledBrowsersUseCase
-import com.hdw.bookmarker.model.Bookmark
-import com.hdw.bookmarker.model.BrowserInfo
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
+import com.hdw.bookmarker.core.model.bookmark.Bookmark
+import com.hdw.bookmarker.core.model.browser.Browser
+import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
@@ -19,11 +22,14 @@ data class MainState(
 sealed interface MainSideEffect {
     data class ShowSyncStarted(val browserName: String) : MainSideEffect
     data class ShowError(val message: String) : MainSideEffect
+    object OpenFilePicker : MainSideEffect
 }
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase) :
-    ViewModel(),
+class HomeViewModel @Inject constructor(
+    private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
+    private val getBookmarksUseCase: GetBookmarksUseCase
+) : ViewModel(),
     ContainerHost<MainState, MainSideEffect> {
 
     override val container = container<MainState, MainSideEffect>(MainState()) {
@@ -35,8 +41,21 @@ class HomeViewModel @Inject constructor(private val getInstalledBrowsersUseCase:
         reduce { state.copy(installedBrowsers = browsers) }
     }
 
+    fun openFilePicker() = intent {
+        Timber.d("Opening file picker")
+        postSideEffect(MainSideEffect.OpenFilePicker)
+    }
+
     fun onSyncClick(browser: BrowserInfo) = intent {
         Timber.d("Syncing browser: ${browser.appName}")
-        postSideEffect(MainSideEffect.ShowSyncStarted(browser.appName))
+        openFilePicker()
+    }
+
+    fun onHtmlFileSelected(uri: Uri) = intent {
+        Timber.d("Selected html file uri: $uri")
+    }
+
+    private fun getBookmarks() = intent {
+        val bookmarks = getBookmarksUseCase(browser = Browser.CHROME)
     }
 }

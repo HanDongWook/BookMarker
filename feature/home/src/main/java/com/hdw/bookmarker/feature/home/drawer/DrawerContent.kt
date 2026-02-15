@@ -1,6 +1,7 @@
 package com.hdw.bookmarker.feature.home.drawer
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.feature.home.R
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
-
 
 @Composable
 fun DrawerContent(
@@ -57,7 +56,8 @@ private fun BrowserItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .padding(vertical = 8.dp)
+            .clickable(onClick = onSyncClick),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
@@ -71,11 +71,9 @@ private fun BrowserItem(
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.weight(1f)
         )
-        IconButton(onClick = onSyncClick) {
-            Icon(
-                imageVector = Icons.Default.Sync,
-                contentDescription = stringResource(R.string.home_sync)
-            )
-        }
+        Icon(
+            imageVector = Icons.Default.Sync,
+            contentDescription = stringResource(R.string.home_sync)
+        )
     }
 }

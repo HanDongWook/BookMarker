@@ -1,7 +1,9 @@
 package com.hdw.bookmarker.feature.home
 
-import androidx.activity.compose.BackHandler
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,8 +33,7 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.hdw.bookmarker.core.ui.util.findActivity
-import com.hdw.bookmarker.core.ui.util.startFilePicker
+import com.hdw.bookmarker.core.model.MimeTypes
 import com.hdw.bookmarker.feature.home.drawer.DrawerContent
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
@@ -47,6 +48,11 @@ fun HomeScreen(
     val state by viewModel.collectAsState()
     val context = LocalContext.current
     val resources = LocalResources.current
+    val htmlPickerLauncher = rememberLauncherForActivityResult(OpenDocument()) { uri ->
+        if (uri != null) {
+            viewModel.onHtmlFileSelected(uri)
+        }
+    }
 
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
@@ -62,8 +68,13 @@ fun HomeScreen(
             is MainSideEffect.ShowError -> {
                 Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
             }
+
+            is MainSideEffect.OpenFilePicker -> {
+                htmlPickerLauncher.launch(arrayOf(MimeTypes.HTML))
+            }
         }
     }
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val configuration = LocalConfiguration.current
