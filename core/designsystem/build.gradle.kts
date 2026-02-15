@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.bookmarker.android.library)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.bookmarker.android.library.compose)
 }
 
 android {
@@ -8,7 +8,6 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
 

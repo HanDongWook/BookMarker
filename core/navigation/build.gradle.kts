@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.bookmarker.android.library)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.bookmarker.android.library.compose)
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -12,8 +12,8 @@ dependencies {
     implementation(projects.feature.home)
     implementation(projects.feature.settings)
 
-    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
+
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.kotlinx.serialization.json)

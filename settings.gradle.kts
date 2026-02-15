@@ -26,12 +26,13 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app")
 
-include(":feature:settings")
-include(":feature:home")
-
 include(":core:model")
 include(":core:data")
 include(":core:domain")
 include(":core:designsystem")
 include(":core:navigation")
 include(":core:ui")
+include(":core:common")
+
+include(":feature:settings")
+include(":feature:home")
