@@ -17,7 +17,7 @@ class MainActivity : BaseActivity() {
             BookMarkerTheme {
                 val navController = rememberNavController()
                 AppNavHost(
-                    navController = navController
+                    navController = navController,
                 )
             }
         }
