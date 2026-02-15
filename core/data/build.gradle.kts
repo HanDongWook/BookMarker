@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hdw.bookmarker.data"
+    namespace = "com.hdw.bookmarker.core.data"
 }
 
 dependencies {
@@ -12,4 +12,5 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.timber)
+    implementation(libs.jsoup)
 }
