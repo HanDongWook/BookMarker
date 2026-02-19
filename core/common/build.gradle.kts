@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.bookmarker.android.library)
-    alias(libs.plugins.bookmarker.android.library.compose)
+    alias(libs.plugins.bookmarker.hilt)
 }
 
 android {
