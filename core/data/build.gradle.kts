@@ -15,6 +15,8 @@ dependencies {
     implementation(libs.jsoup)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
