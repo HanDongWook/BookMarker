@@ -5,6 +5,7 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -112,10 +113,16 @@ fun HomeScreen(
                 )
             }
         ) { innerPadding ->
-            HomContent(
-                bookmarksEmpty = state.bookmarks.isEmpty(),
-                modifier = Modifier.padding(innerPadding)
-            )
+            Column(modifier = Modifier.padding(innerPadding)) {
+                ConnectedBrowserBar(
+                    installedBrowsers = state.installedBrowsers,
+                    connectedBrowserPackages = state.connectedBrowserPackages
+                )
+                HomContent(
+                    bookmarksEmpty = state.bookmarks.isEmpty(),
+                    modifier = Modifier.weight(1f)
+                )
+            }
         }
     }
 }

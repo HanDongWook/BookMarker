@@ -15,4 +15,5 @@
     <string name="home_error_parse">Failed to parse bookmark format.</string>
     <string name="home_error_unsupported_browser">Unsupported browser.</string>
     <string name="home_error_unknown">An unknown error occurred.</string>
+    <string name="home_connected_browser_icon_cd">%1$s icon</string>
 </resources>
