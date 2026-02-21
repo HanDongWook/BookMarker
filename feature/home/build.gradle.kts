@@ -19,6 +19,7 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
 
     implementation(libs.accompanist.drawablepainter)
+    implementation(libs.coil.compose)
 
     implementation(libs.timber)
 
