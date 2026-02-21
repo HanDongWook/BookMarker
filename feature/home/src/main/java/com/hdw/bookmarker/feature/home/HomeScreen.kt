@@ -116,33 +116,33 @@ fun HomeScreen(
             Column(modifier = Modifier.padding(innerPadding)) {
                 ConnectedBrowserBar(
                     installedBrowsers = state.installedBrowsers,
-                    connectedBrowserPackages = state.connectedBrowserPackages
+                    connectedBrowserPackages = state.connectedBrowsers
                 )
-                HomContent(
-                    bookmarksEmpty = state.bookmarks.isEmpty(),
-                    modifier = Modifier.weight(1f)
-                )
+
+                if (state.installedBrowsers.isEmpty()) {
+                    NoConnectedBrowsers(modifier = Modifier.weight(1f))
+                } else {
+                    BookmarkContent(
+                        modifier = Modifier.weight(1f),
+                        bookmarkDocument = state.bookmarkDocument
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-private fun HomContent(
-    bookmarksEmpty: Boolean,
-    modifier: Modifier = Modifier
-) {
+private fun NoConnectedBrowsers(modifier: Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 32.dp),
         contentAlignment = Alignment.Center
     ) {
-        if (bookmarksEmpty) {
-            Text(
-                text = stringResource(R.string.home_no_browsers_connected),
-                textAlign = TextAlign.Center
-            )
-        }
+        Text(
+            text = stringResource(R.string.home_no_browsers_connected),
+            textAlign = TextAlign.Center
+        )
     }
 }

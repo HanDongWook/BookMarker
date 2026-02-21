@@ -42,10 +42,7 @@ fun ConnectedBrowserBar(
             val isConnected = connectedBrowserPackages.contains(browser.packageName)
             Image(
                 painter = rememberDrawablePainter(drawable = browser.icon),
-                contentDescription = stringResource(
-                    id = R.string.home_connected_browser_icon_cd,
-                    browser.appName
-                ),
+                contentDescription = null,
                 modifier = Modifier
                     .size(40.dp)
                     .padding(vertical = 2.dp)

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.model.bookmark.Bookmark
+import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
 import com.hdw.bookmarker.core.model.browser.Browser
@@ -18,8 +19,8 @@ import javax.inject.Inject
 
 data class MainState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
-    val connectedBrowserPackages: Set<String> = emptySet(),
-    val bookmarks: List<Bookmark> = emptyList(),
+    val connectedBrowsers: Set<String> = emptySet(),
+    val bookmarkDocument: BookmarkDocument? = null,
     val isLoading: Boolean = false,
 )
 
@@ -39,6 +40,7 @@ class HomeViewModel @Inject constructor(
     private val getBookmarksUseCase: GetBookmarksUseCase
 ) : ViewModel(),
     ContainerHost<MainState, MainSideEffect> {
+
     private var pendingSyncBrowserPackage: String? = null
 
     override val container = container<MainState, MainSideEffect>(MainState()) {
@@ -66,12 +68,11 @@ class HomeViewModel @Inject constructor(
         val targetBrowserPackage = pendingSyncBrowserPackage
         when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = uri)) {
             is BookmarkImportResult.Success -> {
-                val parsedCount = result.document.rootItems.size
-                Timber.d("Bookmark html imported successfully. rootItems=%d", parsedCount)
                 if (targetBrowserPackage != null) {
                     reduce {
                         state.copy(
-                            connectedBrowserPackages = state.connectedBrowserPackages + targetBrowserPackage
+                            connectedBrowsers = state.connectedBrowsers + targetBrowserPackage,
+                            bookmarkDocument = result.document
                         )
                     }
                 }
