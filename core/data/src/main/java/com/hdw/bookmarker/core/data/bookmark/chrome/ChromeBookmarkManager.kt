@@ -23,14 +23,12 @@ class ChromeBookmarkManager @Inject constructor(
                 ?.bufferedReader(Charsets.UTF_8)
                 ?.use { it.readText() }
                 ?: return BookmarkImportResult.Failure(
-                    error = BookmarkImportError.INVALID_URI,
-                    message = "Cannot open uri: $uri"
+                    error = BookmarkImportError.INVALID_URI
                 )
 
             if (htmlContent.isBlank()) {
                 return BookmarkImportResult.Failure(
-                    error = BookmarkImportError.EMPTY_CONTENT,
-                    message = "Bookmark html is empty."
+                    error = BookmarkImportError.EMPTY_CONTENT
                 )
             }
 
