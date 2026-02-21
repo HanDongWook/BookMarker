@@ -18,6 +18,7 @@ import javax.inject.Inject
 
 data class MainState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
+    val connectedBrowserPackages: Set<String> = emptySet(),
     val bookmarks: List<Bookmark> = emptyList(),
     val isLoading: Boolean = false,
 )
@@ -38,6 +39,7 @@ class HomeViewModel @Inject constructor(
     private val getBookmarksUseCase: GetBookmarksUseCase
 ) : ViewModel(),
     ContainerHost<MainState, MainSideEffect> {
+    private var pendingSyncBrowserPackage: String? = null
 
     override val container = container<MainState, MainSideEffect>(MainState()) {
         loadInstalledBrowsers()
@@ -55,15 +57,24 @@ class HomeViewModel @Inject constructor(
 
     fun onSyncClick(browser: BrowserInfo) = intent {
         Timber.e("Syncing browser: ${browser.appName}")
+        pendingSyncBrowserPackage = browser.packageName
         openFilePicker()
     }
 
     fun onHtmlFileSelected(uri: Uri) = intent {
         Timber.e("Selected html file uri: $uri")
+        val targetBrowserPackage = pendingSyncBrowserPackage
         when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = uri)) {
             is BookmarkImportResult.Success -> {
                 val parsedCount = result.document.rootItems.size
                 Timber.d("Bookmark html imported successfully. rootItems=%d", parsedCount)
+                if (targetBrowserPackage != null) {
+                    reduce {
+                        state.copy(
+                            connectedBrowserPackages = state.connectedBrowserPackages + targetBrowserPackage
+                        )
+                    }
+                }
             }
 
             is BookmarkImportResult.Failure -> {
@@ -76,6 +87,7 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
+        pendingSyncBrowserPackage = null
     }
 
     @StringRes
