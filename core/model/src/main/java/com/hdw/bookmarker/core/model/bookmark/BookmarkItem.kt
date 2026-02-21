@@ -6,14 +6,14 @@ sealed class BookmarkItem {
         val url: String,
         val addDate: String?,
         val lastModified: String?,
-        val iconUri: String?
+        val iconUri: String?,
     ) : BookmarkItem()
 
     data class Folder(
         val title: String,
         val addDate: String?,
         val lastModified: String?,
-        val children: List<BookmarkItem>
+        val children: List<BookmarkItem>,
     ) : BookmarkItem()
 
     fun isBookmark(): Boolean = this is Bookmark

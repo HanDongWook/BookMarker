@@ -7,5 +7,5 @@ enum class Browser {
     EDGE,
     OPERA,
     IE,
-    UNKNOWN;
+    UNKNOWN,
 }

@@ -6,4 +6,13 @@
     <string name="home_installed_browser">Installed browsers</string>
     <string name="home_no_browsers_connected">No browsers connected.\nTry syncing your browsers.</string>
     <string name="home_syncing">Syncing %1$s...</string>
+    <string name="home_error_with_detail">%1$s (%2$s)</string>
+    <string name="home_error_invalid_uri">The file path is invalid.</string>
+    <string name="home_error_file_not_found">Bookmark file not found.</string>
+    <string name="home_error_permission_denied">No permission to read the file.</string>
+    <string name="home_error_io">An error occurred while reading the file.</string>
+    <string name="home_error_empty_content">The bookmark file is empty.</string>
+    <string name="home_error_parse">Failed to parse bookmark format.</string>
+    <string name="home_error_unsupported_browser">Unsupported browser.</string>
+    <string name="home_error_unknown">An unknown error occurred.</string>
 </resources>

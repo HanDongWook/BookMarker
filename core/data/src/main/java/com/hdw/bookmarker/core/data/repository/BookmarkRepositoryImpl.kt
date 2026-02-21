@@ -2,7 +2,7 @@ package com.hdw.bookmarker.core.data.repository
 
 import android.net.Uri
 import com.hdw.bookmarker.core.data.bookmark.chrome.ChromeBookmarkManager
-import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportError
+import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
 import com.hdw.bookmarker.core.model.browser.Browser
 import timber.log.Timber
@@ -16,8 +16,7 @@ class BookmarkRepositoryImpl @Inject constructor(
         return when(browser) {
             Browser.CHROME -> handleChromeBookMarker(uri)
             else -> BookmarkImportResult.Failure(
-                error = BookmarkImportError.UNSUPPORTED_BROWSER,
-                message = "Browser $browser is not supported yet."
+                error = BookmarkImportError.UNSUPPORTED_BROWSER
             )
         }
     }

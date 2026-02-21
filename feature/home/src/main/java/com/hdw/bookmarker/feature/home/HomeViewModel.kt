@@ -1,11 +1,12 @@
 package com.hdw.bookmarker.feature.home
 
 import android.net.Uri
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.model.bookmark.Bookmark
-import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportError
+import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
 import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
@@ -23,7 +24,11 @@ data class MainState(
 
 sealed interface MainSideEffect {
     data class ShowSyncStarted(val browserName: String) : MainSideEffect
-    data class ShowError(val message: String) : MainSideEffect
+    data class ShowError(
+        @param:StringRes val messageResId: Int,
+        val detail: String? = null
+    ) : MainSideEffect
+
     object OpenFilePicker : MainSideEffect
 }
 
@@ -62,23 +67,28 @@ class HomeViewModel @Inject constructor(
             }
 
             is BookmarkImportResult.Failure -> {
-                val message = result.error.toUiMessage(result.message)
                 Timber.e("Bookmark html import failed. error=%s, message=%s", result.error, result.message)
-                postSideEffect(MainSideEffect.ShowError(message))
+                postSideEffect(
+                    MainSideEffect.ShowError(
+                        messageResId = result.error.toUiMessageResId(),
+                        detail = result.message
+                    )
+                )
             }
         }
     }
 
-    private fun BookmarkImportError.toUiMessage(detail: String?): String {
+    @StringRes
+    private fun BookmarkImportError.toUiMessageResId(): Int {
         return when (this) {
-            BookmarkImportError.INVALID_URI -> "파일 경로가 잘못되었어요."
-            BookmarkImportError.FILE_NOT_FOUND -> "북마크 파일을 찾을 수 없어요."
-            BookmarkImportError.PERMISSION_DENIED -> "파일 읽기 권한이 없어요."
-            BookmarkImportError.IO_ERROR -> "파일을 읽는 중 오류가 발생했어요."
-            BookmarkImportError.EMPTY_CONTENT -> "북마크 파일 내용이 비어 있어요."
-            BookmarkImportError.PARSE_ERROR -> "북마크 형식을 해석하지 못했어요."
-            BookmarkImportError.UNSUPPORTED_BROWSER -> "지원하지 않는 브라우저예요."
-            BookmarkImportError.UNKNOWN -> "알 수 없는 오류가 발생했어요."
-        } + if (detail.isNullOrBlank()) "" else " ($detail)"
+            BookmarkImportError.INVALID_URI -> R.string.home_error_invalid_uri
+            BookmarkImportError.FILE_NOT_FOUND -> R.string.home_error_file_not_found
+            BookmarkImportError.PERMISSION_DENIED -> R.string.home_error_permission_denied
+            BookmarkImportError.IO_ERROR -> R.string.home_error_io
+            BookmarkImportError.EMPTY_CONTENT -> R.string.home_error_empty_content
+            BookmarkImportError.PARSE_ERROR -> R.string.home_error_parse
+            BookmarkImportError.UNSUPPORTED_BROWSER -> R.string.home_error_unsupported_browser
+            BookmarkImportError.UNKNOWN -> R.string.home_error_unknown
+        }
     }
 }

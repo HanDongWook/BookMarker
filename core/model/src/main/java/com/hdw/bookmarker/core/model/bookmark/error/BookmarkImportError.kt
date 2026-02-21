@@ -8,5 +8,5 @@ enum class BookmarkImportError {
     EMPTY_CONTENT,
     PARSE_ERROR,
     UNSUPPORTED_BROWSER,
-    UNKNOWN
+    UNKNOWN,
 }
