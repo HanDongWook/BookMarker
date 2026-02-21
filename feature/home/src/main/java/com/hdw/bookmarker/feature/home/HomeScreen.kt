@@ -116,7 +116,7 @@ fun HomeScreen(
             Column(modifier = Modifier.padding(innerPadding)) {
                 ConnectedBrowserBar(
                     installedBrowsers = state.installedBrowsers,
-                    connectedBrowserPackages = state.connectedBrowsers
+                    connectedBrowserPackages = state.connectedBrowserPackages
                 )
 
                 if (state.installedBrowsers.isEmpty()) {

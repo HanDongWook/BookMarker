@@ -5,7 +5,6 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
-import com.hdw.bookmarker.core.model.bookmark.Bookmark
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
@@ -19,7 +18,7 @@ import javax.inject.Inject
 
 data class MainState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
-    val connectedBrowsers: Set<String> = emptySet(),
+    val connectedBrowserPackages: Set<String> = emptySet(),
     val bookmarkDocument: BookmarkDocument? = null,
     val isLoading: Boolean = false,
 )
@@ -71,7 +70,7 @@ class HomeViewModel @Inject constructor(
                 if (targetBrowserPackage != null) {
                     reduce {
                         state.copy(
-                            connectedBrowsers = state.connectedBrowsers + targetBrowserPackage,
+                            connectedBrowserPackages = state.connectedBrowserPackages + targetBrowserPackage,
                             bookmarkDocument = result.document
                         )
                     }
