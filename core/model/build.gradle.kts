@@ -5,3 +5,7 @@ plugins {
 android {
     namespace = "com.hdw.bookmarker.core.model"
 }
+
+dependencies {
+    implementation(libs.timber)
+}
