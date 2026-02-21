@@ -4,6 +4,8 @@ import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -18,8 +20,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -29,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.MimeTypes
 import com.hdw.bookmarker.feature.home.drawer.DrawerContent
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -100,6 +105,30 @@ fun HomeScreen(
             }
         }
     ) {
+        val pagerState = rememberPagerState(
+            initialPage = state.installedBrowsers
+                .indexOfFirst { it.packageName == state.selectedBrowserPackage }
+                .takeIf { it >= 0 } ?: 0,
+            pageCount = { state.installedBrowsers.size }
+        )
+
+        LaunchedEffect(state.selectedBrowserPackage, state.installedBrowsers) {
+            val selectedPackage = state.selectedBrowserPackage ?: return@LaunchedEffect
+            val targetPage = state.installedBrowsers.indexOfFirst { it.packageName == selectedPackage }
+            if (targetPage >= 0 && targetPage != pagerState.currentPage) {
+                pagerState.animateScrollToPage(targetPage)
+            }
+        }
+
+        LaunchedEffect(pagerState, state.installedBrowsers) {
+            if (state.installedBrowsers.isEmpty()) return@LaunchedEffect
+            snapshotFlow { pagerState.settledPage }
+                .distinctUntilChanged()
+                .collect { page ->
+                    state.installedBrowsers.getOrNull(page)?.packageName?.let(viewModel::onBrowserSelected)
+                }
+        }
+
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
@@ -116,16 +145,33 @@ fun HomeScreen(
             Column(modifier = Modifier.padding(innerPadding)) {
                 ConnectedBrowserBar(
                     installedBrowsers = state.installedBrowsers,
-                    connectedBrowserPackages = state.connectedBrowserPackages
+                    connectedBrowserPackages = state.connectedBrowserPackages,
+                    selectedBrowserPackage = state.selectedBrowserPackage,
+                    onBrowserClick = { packageName ->
+                        viewModel.onBrowserSelected(packageName)
+                        val targetPage = state.installedBrowsers
+                            .indexOfFirst { it.packageName == packageName }
+                        if (targetPage >= 0 && targetPage != pagerState.currentPage) {
+                            scope.launch {
+                                pagerState.animateScrollToPage(targetPage)
+                            }
+                        }
+                    }
                 )
 
                 if (state.installedBrowsers.isEmpty()) {
                     NoConnectedBrowsers(modifier = Modifier.weight(1f))
                 } else {
-                    BookmarkContent(
-                        modifier = Modifier.weight(1f),
-                        bookmarkDocument = state.bookmarkDocument
-                    )
+                    HorizontalPager(
+                        state = pagerState,
+                        modifier = Modifier.weight(1f)
+                    ) { page ->
+                        val browserPackage = state.installedBrowsers[page].packageName
+                        BookmarkContent(
+                            modifier = Modifier.fillMaxSize(),
+                            bookmarkDocument = state.bookmarkDocuments[browserPackage]
+                        )
+                    }
                 }
             }
         }

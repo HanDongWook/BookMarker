@@ -19,7 +19,8 @@ import javax.inject.Inject
 data class MainState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
     val connectedBrowserPackages: Set<String> = emptySet(),
-    val bookmarkDocument: BookmarkDocument? = null,
+    val bookmarkDocuments: Map<String, BookmarkDocument> = emptyMap(),
+    val selectedBrowserPackage: String? = null,
     val isLoading: Boolean = false,
 )
 
@@ -48,7 +49,12 @@ class HomeViewModel @Inject constructor(
 
     private fun loadInstalledBrowsers() = intent {
         val browsers = getInstalledBrowsersUseCase()
-        reduce { state.copy(installedBrowsers = browsers) }
+        reduce {
+            state.copy(
+                installedBrowsers = browsers,
+                selectedBrowserPackage = state.selectedBrowserPackage ?: browsers.firstOrNull()?.packageName
+            )
+        }
     }
 
     fun openFilePicker() = intent {
@@ -59,7 +65,12 @@ class HomeViewModel @Inject constructor(
     fun onSyncClick(browser: BrowserInfo) = intent {
         Timber.e("Syncing browser: ${browser.appName}")
         pendingSyncBrowserPackage = browser.packageName
+        reduce { state.copy(selectedBrowserPackage = browser.packageName) }
         openFilePicker()
+    }
+
+    fun onBrowserSelected(packageName: String) = intent {
+        reduce { state.copy(selectedBrowserPackage = packageName) }
     }
 
     fun onHtmlFileSelected(uri: Uri) = intent {
@@ -71,7 +82,8 @@ class HomeViewModel @Inject constructor(
                     reduce {
                         state.copy(
                             connectedBrowserPackages = state.connectedBrowserPackages + targetBrowserPackage,
-                            bookmarkDocument = result.document
+                            bookmarkDocuments = state.bookmarkDocuments + (targetBrowserPackage to result.document),
+                            selectedBrowserPackage = targetBrowserPackage
                         )
                     }
                 }

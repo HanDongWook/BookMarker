@@ -1,6 +1,7 @@
 package com.hdw.bookmarker.feature.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,6 +26,8 @@ import com.hdw.bookmarker.core.model.browser.BrowserInfo
 fun ConnectedBrowserBar(
     installedBrowsers: List<BrowserInfo>,
     connectedBrowserPackages: Set<String>,
+    selectedBrowserPackage: String?,
+    onBrowserClick: (String) -> Unit,
 ) {
     if (installedBrowsers.isEmpty()) return
 
@@ -41,21 +44,26 @@ fun ConnectedBrowserBar(
     ) {
         items(installedBrowsers, key = { it.packageName }) { browser ->
             val isConnected = connectedBrowserPackages.contains(browser.packageName)
+            val isSelected = selectedBrowserPackage == browser.packageName
             Surface(
-                color = if (isConnected) {
+                color = if (isSelected) {
                     MaterialTheme.colorScheme.primaryContainer
                 } else {
                     Color.Transparent
                 },
                 shape = MaterialTheme.shapes.small
             ) {
-                Box(modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)) {
+                Box(
+                    modifier = Modifier
+                        .clickable { onBrowserClick(browser.packageName) }
+                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                ) {
                     Image(
                         painter = rememberDrawablePainter(drawable = browser.icon),
                         contentDescription = null,
                         modifier = Modifier
                             .size(36.dp)
-                            .alpha(if (isConnected) 1f else 0.6f)
+                            .alpha(if (isConnected) 1f else 0.5f)
                     )
                 }
             }
