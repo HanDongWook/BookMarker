@@ -34,33 +34,33 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
-import androidx.core.net.toUri
 
 @Composable
 fun BookmarkContent(
     bookmarkDocument: BookmarkDocument?,
     selectedBrowserIcon: Drawable?,
     onImportClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     if (bookmarkDocument == null || bookmarkDocument.rootItems.isEmpty()) {
         Box(
             modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 if (selectedBrowserIcon != null) {
                     Image(
                         painter = rememberDrawablePainter(drawable = selectedBrowserIcon),
                         contentDescription = null,
-                        modifier = Modifier.size(48.dp)
+                        modifier = Modifier.size(48.dp),
                     )
                 }
                 Text(text = stringResource(R.string.home_no_bookmarks_imported))
@@ -78,13 +78,13 @@ fun BookmarkContent(
     val visibleNodes = remember(bookmarkDocument, expandedFolders.toMap()) {
         flattenBookmarkTree(
             items = bookmarkDocument.rootItems,
-            expandedFolders = expandedFolders
+            expandedFolders = expandedFolders,
         )
     }
 
     LazyColumn(
         modifier = modifier.fillMaxSize().padding(start = 2.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp)
+        verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         items(items = visibleNodes, key = { it.key }) { node ->
             when (val item = node.item) {
@@ -99,14 +99,14 @@ fun BookmarkContent(
                             } else {
                                 expandedFolders[node.key] = true
                             }
-                        }
+                        },
                     )
                 }
 
                 is BookmarkItem.Bookmark -> {
                     BookmarkLeafRow(
                         bookmark = item,
-                        depth = node.depth
+                        depth = node.depth,
                     )
                 }
             }
@@ -115,23 +115,18 @@ fun BookmarkContent(
 }
 
 @Composable
-private fun BookmarkFolderRow(
-    folder: BookmarkItem.Folder,
-    depth: Int,
-    isExpanded: Boolean,
-    onToggle: () -> Unit
-) {
+private fun BookmarkFolderRow(folder: BookmarkItem.Folder, depth: Int, isExpanded: Boolean, onToggle: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onToggle)
             .padding(start = (depth * 16).dp, end = 12.dp, top = 8.dp, bottom = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = Icons.Default.Folder,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary
+            tint = MaterialTheme.colorScheme.primary,
         )
         Text(
             text = folder.title,
@@ -140,47 +135,40 @@ private fun BookmarkFolderRow(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .padding(start = 10.dp)
-                .weight(1f)
+                .weight(1f),
         )
         Icon(
             imageVector = if (isExpanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-            contentDescription = null
+            contentDescription = null,
         )
     }
 }
 
 @Composable
-private fun BookmarkLeafRow(
-    bookmark: BookmarkItem.Bookmark,
-    depth: Int
-) {
+private fun BookmarkLeafRow(bookmark: BookmarkItem.Bookmark, depth: Int) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = (depth * 16).dp + 8.dp, end = 12.dp, top = 6.dp, bottom = 6.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         BookmarkSiteImage(
             iconUri = bookmark.iconUri,
             url = bookmark.url,
-            title = bookmark.title
+            title = bookmark.title,
         )
         Text(
             text = bookmark.title,
             style = MaterialTheme.typography.bodyMedium,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(start = 10.dp)
+            modifier = Modifier.padding(start = 10.dp),
         )
     }
 }
 
 @Composable
-private fun BookmarkSiteImage(
-    iconUri: String?,
-    url: String,
-    title: String
-) {
+private fun BookmarkSiteImage(iconUri: String?, url: String, title: String) {
     val candidateUrl = remember(iconUri, url) {
         iconUri
             ?.takeIf { it.startsWith("http://") || it.startsWith("https://") }
@@ -193,7 +181,7 @@ private fun BookmarkSiteImage(
         modifier = Modifier.size(20.dp),
         error = rememberVectorPainter(image = Icons.Default.Language),
         fallback = rememberVectorPainter(image = Icons.Default.Language),
-        placeholder = rememberVectorPainter(image = Icons.Default.Language)
+        placeholder = rememberVectorPainter(image = Icons.Default.Language),
     )
 }
 
@@ -201,7 +189,7 @@ private fun flattenBookmarkTree(
     items: List<BookmarkItem>,
     expandedFolders: Map<String, Boolean>,
     depth: Int = 0,
-    parentKey: String = "root"
+    parentKey: String = "root",
 ): List<VisibleBookmarkNode> {
     val flattened = mutableListOf<VisibleBookmarkNode>()
     items.forEachIndexed { index, item ->
@@ -210,15 +198,15 @@ private fun flattenBookmarkTree(
             VisibleBookmarkNode(
                 key = nodeKey,
                 depth = depth,
-                item = item
-            )
+                item = item,
+            ),
         )
         if (item is BookmarkItem.Folder && expandedFolders[nodeKey] == true) {
             flattened += flattenBookmarkTree(
                 items = item.children,
                 expandedFolders = expandedFolders,
                 depth = depth + 1,
-                parentKey = nodeKey
+                parentKey = nodeKey,
             )
         }
     }
@@ -231,11 +219,7 @@ private fun buildFaviconUrl(url: String): String? {
     return "https://www.google.com/s2/favicons?sz=64&domain=$host"
 }
 
-private data class VisibleBookmarkNode(
-    val key: String,
-    val depth: Int,
-    val item: BookmarkItem
-)
+private data class VisibleBookmarkNode(val key: String, val depth: Int, val item: BookmarkItem)
 
 private val ExpandedFoldersSaver = Saver<SnapshotStateMap<String, Boolean>, ArrayList<String>>(
     save = { state ->
@@ -251,5 +235,5 @@ private val ExpandedFoldersSaver = Saver<SnapshotStateMap<String, Boolean>, Arra
                 this[key] = true
             }
         }
-    }
+    },
 )

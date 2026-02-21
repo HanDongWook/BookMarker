@@ -25,6 +25,7 @@ class CodeQualityConventionPlugin : Plugin<Project> {
                                 "android" to "true",
                                 "ktlint_standard_backing-property-naming" to "disabled",
                                 "ktlint_standard_no-unused-imports" to "enabled",
+                                "ktlint_function_naming_ignore_when_annotated_with" to "Composable",
                                 "max_line_length" to "120",
                                 "indent_size" to "4",
                             )

@@ -38,9 +38,9 @@ fun ConnectedBrowserBar(
         contentPadding = PaddingValues(
             start = 8.dp,
             end = 8.dp,
-            bottom = 8.dp
+            bottom = 8.dp,
         ),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(installedBrowsers, key = { it.packageName }) { browser ->
             val isConnected = connectedBrowserPackages.contains(browser.packageName)
@@ -51,19 +51,19 @@ fun ConnectedBrowserBar(
                 } else {
                     Color.Transparent
                 },
-                shape = MaterialTheme.shapes.small
+                shape = MaterialTheme.shapes.small,
             ) {
                 Box(
                     modifier = Modifier
                         .clickable { onBrowserClick(browser.packageName) }
-                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                        .padding(horizontal = 6.dp, vertical = 2.dp),
                 ) {
                     Image(
                         painter = rememberDrawablePainter(drawable = browser.icon),
                         contentDescription = null,
                         modifier = Modifier
                             .size(36.dp)
-                            .alpha(if (isConnected) 1f else 0.5f)
+                            .alpha(if (isConnected) 1f else 0.5f),
                     )
                 }
             }

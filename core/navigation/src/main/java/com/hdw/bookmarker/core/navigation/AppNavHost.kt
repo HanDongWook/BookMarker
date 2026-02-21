@@ -12,7 +12,7 @@ import com.hdw.bookmarker.feature.settingsetting.SettingsScreen
 fun AppNavHost(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Route.Home
+        startDestination = Route.Home,
     ) {
         slideComposable<Route.Home> {
             val viewModel: HomeViewModel = hiltViewModel()
@@ -20,14 +20,14 @@ fun AppNavHost(navController: NavHostController) {
                 viewModel = viewModel,
                 onSettingsClick = {
                     navController.navigate(Route.Settings)
-                }
+                },
             )
         }
         slideComposable<Route.Settings> {
             SettingsScreen(
                 onBackClick = {
                     navController.popBackStack()
-                }
+                },
             )
         }
     }

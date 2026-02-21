@@ -13,14 +13,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.hdw.bookmarker.core.ui.R
 import androidx.compose.ui.platform.LocalResources
+import com.hdw.bookmarker.core.ui.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(
-    onBackClick: () -> Unit,
-) {
+fun SettingsScreen(onBackClick: () -> Unit) {
     val resources = LocalResources.current
     Scaffold(
         modifier = Modifier.fillMaxSize(),

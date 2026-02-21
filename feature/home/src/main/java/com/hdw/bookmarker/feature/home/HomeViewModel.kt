@@ -26,10 +26,7 @@ data class MainState(
 
 sealed interface MainSideEffect {
     data class ShowSyncStarted(val browserName: String) : MainSideEffect
-    data class ShowError(
-        @param:StringRes val messageResId: Int,
-        val detail: String? = null
-    ) : MainSideEffect
+    data class ShowError(@param:StringRes val messageResId: Int, val detail: String? = null) : MainSideEffect
 
     object OpenFilePicker : MainSideEffect
 }
@@ -37,7 +34,7 @@ sealed interface MainSideEffect {
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
-    private val getBookmarksUseCase: GetBookmarksUseCase
+    private val getBookmarksUseCase: GetBookmarksUseCase,
 ) : ViewModel(),
     ContainerHost<MainState, MainSideEffect> {
 
@@ -52,7 +49,7 @@ class HomeViewModel @Inject constructor(
         reduce {
             state.copy(
                 installedBrowsers = browsers,
-                selectedBrowserPackage = state.selectedBrowserPackage ?: browsers.firstOrNull()?.packageName
+                selectedBrowserPackage = state.selectedBrowserPackage ?: browsers.firstOrNull()?.packageName,
             )
         }
     }
@@ -88,7 +85,7 @@ class HomeViewModel @Inject constructor(
                         state.copy(
                             connectedBrowserPackages = state.connectedBrowserPackages + targetBrowserPackage,
                             bookmarkDocuments = state.bookmarkDocuments + (targetBrowserPackage to result.document),
-                            selectedBrowserPackage = targetBrowserPackage
+                            selectedBrowserPackage = targetBrowserPackage,
                         )
                     }
                 }
@@ -99,8 +96,8 @@ class HomeViewModel @Inject constructor(
                 postSideEffect(
                     MainSideEffect.ShowError(
                         messageResId = result.error.toUiMessageResId(),
-                        detail = result.message
-                    )
+                        detail = result.message,
+                    ),
                 )
             }
         }
@@ -108,16 +105,14 @@ class HomeViewModel @Inject constructor(
     }
 
     @StringRes
-    private fun BookmarkImportError.toUiMessageResId(): Int {
-        return when (this) {
-            BookmarkImportError.INVALID_URI -> R.string.home_error_invalid_uri
-            BookmarkImportError.FILE_NOT_FOUND -> R.string.home_error_file_not_found
-            BookmarkImportError.PERMISSION_DENIED -> R.string.home_error_permission_denied
-            BookmarkImportError.IO_ERROR -> R.string.home_error_io
-            BookmarkImportError.EMPTY_CONTENT -> R.string.home_error_empty_content
-            BookmarkImportError.PARSE_ERROR -> R.string.home_error_parse
-            BookmarkImportError.UNSUPPORTED_BROWSER -> R.string.home_error_unsupported_browser
-            BookmarkImportError.UNKNOWN -> R.string.home_error_unknown
-        }
+    private fun BookmarkImportError.toUiMessageResId(): Int = when (this) {
+        BookmarkImportError.INVALID_URI -> R.string.home_error_invalid_uri
+        BookmarkImportError.FILE_NOT_FOUND -> R.string.home_error_file_not_found
+        BookmarkImportError.PERMISSION_DENIED -> R.string.home_error_permission_denied
+        BookmarkImportError.IO_ERROR -> R.string.home_error_io
+        BookmarkImportError.EMPTY_CONTENT -> R.string.home_error_empty_content
+        BookmarkImportError.PARSE_ERROR -> R.string.home_error_parse
+        BookmarkImportError.UNSUPPORTED_BROWSER -> R.string.home_error_unsupported_browser
+        BookmarkImportError.UNKNOWN -> R.string.home_error_unknown
     }
 }

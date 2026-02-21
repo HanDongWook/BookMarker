@@ -1,31 +1,23 @@
 package com.hdw.bookmarker.feature.home
 
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.ui.Alignment
-import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
@@ -38,10 +30,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
-fun HomeScreen(
-    viewModel: HomeViewModel,
-    onSettingsClick: () -> Unit
-) {
+fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit) {
     val state by viewModel.collectAsState()
     val context = LocalContext.current
     val resources = LocalResources.current
@@ -58,7 +47,7 @@ fun HomeScreen(
                     .makeText(
                         context,
                         resources.getString(R.string.home_syncing, sideEffect.browserName),
-                        Toast.LENGTH_SHORT
+                        Toast.LENGTH_SHORT,
                     ).show()
             }
 
@@ -84,7 +73,7 @@ fun HomeScreen(
         initialPage = state.installedBrowsers
             .indexOfFirst { it.packageName == state.selectedBrowserPackage }
             .takeIf { it >= 0 } ?: 0,
-        pageCount = { state.installedBrowsers.size }
+        pageCount = { state.installedBrowsers.size },
     )
 
     LaunchedEffect(state.selectedBrowserPackage, state.installedBrowsers) {
@@ -106,11 +95,7 @@ fun HomeScreen(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = {
-            HomeTopAppBar(
-                onSettingsClick = onSettingsClick
-            )
-        }
+        topBar = { HomeTopAppBar(onSettingsClick = onSettingsClick) },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             ConnectedBrowserBar(
@@ -126,7 +111,7 @@ fun HomeScreen(
                             pagerState.animateScrollToPage(targetPage)
                         }
                     }
-                }
+                },
             )
 
             if (state.installedBrowsers.isEmpty()) {
@@ -134,7 +119,7 @@ fun HomeScreen(
             } else {
                 HorizontalPager(
                     state = pagerState,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
                 ) { page ->
                     val browser = state.installedBrowsers[page]
                     val browserPackage = browser.packageName
@@ -142,7 +127,7 @@ fun HomeScreen(
                         modifier = Modifier.fillMaxSize(),
                         bookmarkDocument = state.bookmarkDocuments[browserPackage],
                         selectedBrowserIcon = browser.icon,
-                        onImportClick = viewModel::onImportClick
+                        onImportClick = viewModel::onImportClick,
                     )
                 }
             }
@@ -156,11 +141,11 @@ private fun NoConnectedBrowsers(modifier: Modifier) {
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 32.dp),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = stringResource(R.string.home_no_browsers_connected),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
     }
 }
