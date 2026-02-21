@@ -16,4 +16,5 @@
     <string name="home_error_unsupported_browser">Unsupported browser.</string>
     <string name="home_error_unknown">An unknown error occurred.</string>
     <string name="home_no_bookmarks_imported">No bookmarks imported yet.</string>
+    <string name="home_import_bookmarks">Import bookmarks</string>
 </resources>

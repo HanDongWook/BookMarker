@@ -166,10 +166,13 @@ fun HomeScreen(
                         state = pagerState,
                         modifier = Modifier.weight(1f)
                     ) { page ->
-                        val browserPackage = state.installedBrowsers[page].packageName
+                        val browser = state.installedBrowsers[page]
+                        val browserPackage = browser.packageName
                         BookmarkContent(
                             modifier = Modifier.fillMaxSize(),
-                            bookmarkDocument = state.bookmarkDocuments[browserPackage]
+                            bookmarkDocument = state.bookmarkDocuments[browserPackage],
+                            selectedBrowserIcon = browser.icon,
+                            onImportClick = viewModel::onImportClick
                         )
                     }
                 }

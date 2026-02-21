@@ -1,8 +1,11 @@
 package com.hdw.bookmarker.feature.home
 
+import android.graphics.drawable.Drawable
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +18,7 @@ import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.Language
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import androidx.core.net.toUri
@@ -38,6 +43,8 @@ import androidx.core.net.toUri
 @Composable
 fun BookmarkContent(
     bookmarkDocument: BookmarkDocument?,
+    selectedBrowserIcon: Drawable?,
+    onImportClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (bookmarkDocument == null || bookmarkDocument.rootItems.isEmpty()) {
@@ -45,7 +52,22 @@ fun BookmarkContent(
             modifier = modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = stringResource(R.string.home_no_bookmarks_imported))
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                if (selectedBrowserIcon != null) {
+                    Image(
+                        painter = rememberDrawablePainter(drawable = selectedBrowserIcon),
+                        contentDescription = null,
+                        modifier = Modifier.size(48.dp)
+                    )
+                }
+                Text(text = stringResource(R.string.home_no_bookmarks_imported))
+                Button(onClick = onImportClick) {
+                    Text(text = stringResource(R.string.home_import_bookmarks))
+                }
+            }
         }
         return
     }

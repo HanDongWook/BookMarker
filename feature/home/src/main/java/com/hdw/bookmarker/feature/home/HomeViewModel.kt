@@ -73,9 +73,14 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(selectedBrowserPackage = packageName) }
     }
 
+    fun onImportClick() = intent {
+        pendingSyncBrowserPackage = state.selectedBrowserPackage
+        openFilePicker()
+    }
+
     fun onHtmlFileSelected(uri: Uri) = intent {
         Timber.e("Selected html file uri: $uri")
-        val targetBrowserPackage = pendingSyncBrowserPackage
+        val targetBrowserPackage = pendingSyncBrowserPackage ?: state.selectedBrowserPackage
         when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = uri)) {
             is BookmarkImportResult.Success -> {
                 if (targetBrowserPackage != null) {
