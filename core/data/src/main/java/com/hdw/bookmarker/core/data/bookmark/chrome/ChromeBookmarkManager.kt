@@ -12,9 +12,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ChromeBookmarkManager @Inject constructor(
-    @param:ApplicationContext private val context: Context
-) {
+class ChromeBookmarkManager @Inject constructor(@param:ApplicationContext private val context: Context) {
     private val parser = ChromeBookmarkParser()
 
     fun parsingHtml(uri: Uri): BookmarkImportResult {
@@ -23,12 +21,12 @@ class ChromeBookmarkManager @Inject constructor(
                 ?.bufferedReader(Charsets.UTF_8)
                 ?.use { it.readText() }
                 ?: return BookmarkImportResult.Failure(
-                    error = BookmarkImportError.INVALID_URI
+                    error = BookmarkImportError.INVALID_URI,
                 )
 
             if (htmlContent.isBlank()) {
                 return BookmarkImportResult.Failure(
-                    error = BookmarkImportError.EMPTY_CONTENT
+                    error = BookmarkImportError.EMPTY_CONTENT,
                 )
             }
 
@@ -38,31 +36,31 @@ class ChromeBookmarkManager @Inject constructor(
             Timber.e(exception, "Permission denied while reading bookmark html. uri=%s", uri)
             BookmarkImportResult.Failure(
                 error = BookmarkImportError.PERMISSION_DENIED,
-                message = exception.message
+                message = exception.message,
             )
         } catch (exception: FileNotFoundException) {
             Timber.e(exception, "Bookmark html file not found. uri=%s", uri)
             BookmarkImportResult.Failure(
                 error = BookmarkImportError.FILE_NOT_FOUND,
-                message = exception.message
+                message = exception.message,
             )
         } catch (exception: IOException) {
             Timber.e(exception, "I/O error while reading bookmark html. uri=%s", uri)
             BookmarkImportResult.Failure(
                 error = BookmarkImportError.IO_ERROR,
-                message = exception.message
+                message = exception.message,
             )
         } catch (exception: IllegalArgumentException) {
             Timber.e(exception, "Invalid bookmark uri. uri=%s", uri)
             BookmarkImportResult.Failure(
                 error = BookmarkImportError.INVALID_URI,
-                message = exception.message
+                message = exception.message,
             )
         } catch (exception: Exception) {
             Timber.e(exception, "Unknown parse error while reading bookmark html. uri=%s", uri)
             BookmarkImportResult.Failure(
                 error = BookmarkImportError.PARSE_ERROR,
-                message = exception.message
+                message = exception.message,
             )
         }
     }

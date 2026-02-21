@@ -8,8 +8,7 @@ import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import timber.log.Timber
 import javax.inject.Inject
 
-class BrowserRepositoryImpl @Inject constructor(private val application: Application) :
-    BrowserRepository {
+class BrowserRepositoryImpl @Inject constructor(private val application: Application) : BrowserRepository {
 
     override fun getInstalledBrowsers(): List<BrowserInfo> {
         val packageManager = application.packageManager

@@ -2,20 +2,15 @@ package com.hdw.bookmarker.core.data.bookmark.chrome
 
 import com.hdw.bookmarker.core.data.bookmark.BookmarkParser
 import com.hdw.bookmarker.core.data.bookmark.util.Attribute
-import com.hdw.bookmarker.core.data.bookmark.util.Link
-import com.hdw.bookmarker.core.data.bookmark.util.Separator
 import com.hdw.bookmarker.core.data.bookmark.util.Tag
 import com.hdw.bookmarker.core.model.bookmark.Bookmark
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
-import com.hdw.bookmarker.core.model.browser.Browser
-import java.io.InputStream
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
-import timber.log.Timber
 
-class ChromeBookmarkParser: BookmarkParser {
+class ChromeBookmarkParser : BookmarkParser {
 
     override fun getBookmarkDocument(html: String): BookmarkDocument {
         val doc: Document = Jsoup.parse(html)
@@ -50,8 +45,8 @@ class ChromeBookmarkParser: BookmarkParser {
                         url = directAnchor.attr(Attribute.HREF),
                         addDate = directAnchor.attr(Attribute.ADD_DATE).takeIf { it.isNotBlank() },
                         lastModified = directAnchor.attr(Attribute.LAST_MODIFIED).takeIf { it.isNotBlank() },
-                        iconUri = directAnchor.attr(Attribute.ICON_URI).takeIf { it.isNotBlank() }
-                    )
+                        iconUri = directAnchor.attr(Attribute.ICON_URI).takeIf { it.isNotBlank() },
+                    ),
                 )
                 continue
             }
@@ -71,21 +66,19 @@ class ChromeBookmarkParser: BookmarkParser {
                     title = directH3.text(),
                     addDate = directH3.attr(Attribute.ADD_DATE).takeIf { it.isNotBlank() },
                     lastModified = directH3.attr(Attribute.LAST_MODIFIED).takeIf { it.isNotBlank() },
-                    children = children
-                )
+                    children = children,
+                ),
             )
         }
 
         return items
     }
 
-    private fun unwrapParagraphChildren(container: Element): List<Element> {
-        return container.children().flatMap { child ->
-            if (child.tagName().equals(Tag.PARAGRAPH, ignoreCase = true)) {
-                unwrapParagraphChildren(child)
-            } else {
-                listOf(child)
-            }
+    private fun unwrapParagraphChildren(container: Element): List<Element> = container.children().flatMap { child ->
+        if (child.tagName().equals(Tag.PARAGRAPH, ignoreCase = true)) {
+            unwrapParagraphChildren(child)
+        } else {
+            listOf(child)
         }
     }
 }

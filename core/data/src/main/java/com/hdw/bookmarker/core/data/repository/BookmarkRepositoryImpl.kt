@@ -8,20 +8,18 @@ import com.hdw.bookmarker.core.model.browser.Browser
 import timber.log.Timber
 import javax.inject.Inject
 
-class BookmarkRepositoryImpl @Inject constructor(
-    private val chromeBookmarkManager: ChromeBookmarkManager
-) : BookmarkRepository {
+class BookmarkRepositoryImpl @Inject constructor(private val chromeBookmarkManager: ChromeBookmarkManager) :
+    BookmarkRepository {
     override fun getBookMarks(browser: Browser, uri: Uri): BookmarkImportResult {
         Timber.d("getBookMarks browser:$browser")
-        return when(browser) {
+        return when (browser) {
             Browser.CHROME -> handleChromeBookMarker(uri)
+
             else -> BookmarkImportResult.Failure(
-                error = BookmarkImportError.UNSUPPORTED_BROWSER
+                error = BookmarkImportError.UNSUPPORTED_BROWSER,
             )
         }
     }
 
-    private fun handleChromeBookMarker(uri: Uri): BookmarkImportResult {
-        return chromeBookmarkManager.parsingHtml(uri)
-    }
+    private fun handleChromeBookMarker(uri: Uri): BookmarkImportResult = chromeBookmarkManager.parsingHtml(uri)
 }

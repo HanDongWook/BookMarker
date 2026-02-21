@@ -32,7 +32,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.MimeTypes
-import com.hdw.bookmarker.feature.home.drawer.DrawerContent
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
@@ -79,102 +78,72 @@ fun HomeScreen(
         }
     }
 
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    val configuration = LocalConfiguration.current
-    val drawerWidth = (configuration.screenWidthDp * 0.7).dp
 
-    BackHandler(enabled = drawerState.isOpen) {
-        scope.launch {
-            drawerState.close()
+    val pagerState = rememberPagerState(
+        initialPage = state.installedBrowsers
+            .indexOfFirst { it.packageName == state.selectedBrowserPackage }
+            .takeIf { it >= 0 } ?: 0,
+        pageCount = { state.installedBrowsers.size }
+    )
+
+    LaunchedEffect(state.selectedBrowserPackage, state.installedBrowsers) {
+        val selectedPackage = state.selectedBrowserPackage ?: return@LaunchedEffect
+        val targetPage = state.installedBrowsers.indexOfFirst { it.packageName == selectedPackage }
+        if (targetPage >= 0 && targetPage != pagerState.currentPage) {
+            pagerState.animateScrollToPage(targetPage)
         }
     }
 
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        drawerContent = {
-            ModalDrawerSheet(
-                modifier = Modifier
-                    .width(drawerWidth)
-                    .fillMaxHeight()
-            ) {
-                DrawerContent(
-                    installedBrowsers = state.installedBrowsers,
-                    onSyncClick = viewModel::onSyncClick
-                )
+    LaunchedEffect(pagerState, state.installedBrowsers) {
+        if (state.installedBrowsers.isEmpty()) return@LaunchedEffect
+        snapshotFlow { pagerState.settledPage }
+            .distinctUntilChanged()
+            .collect { page ->
+                state.installedBrowsers.getOrNull(page)?.packageName?.let(viewModel::onBrowserSelected)
             }
-        }
-    ) {
-        val pagerState = rememberPagerState(
-            initialPage = state.installedBrowsers
-                .indexOfFirst { it.packageName == state.selectedBrowserPackage }
-                .takeIf { it >= 0 } ?: 0,
-            pageCount = { state.installedBrowsers.size }
-        )
+    }
 
-        LaunchedEffect(state.selectedBrowserPackage, state.installedBrowsers) {
-            val selectedPackage = state.selectedBrowserPackage ?: return@LaunchedEffect
-            val targetPage = state.installedBrowsers.indexOfFirst { it.packageName == selectedPackage }
-            if (targetPage >= 0 && targetPage != pagerState.currentPage) {
-                pagerState.animateScrollToPage(targetPage)
-            }
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            HomeTopAppBar(
+                onSettingsClick = onSettingsClick
+            )
         }
-
-        LaunchedEffect(pagerState, state.installedBrowsers) {
-            if (state.installedBrowsers.isEmpty()) return@LaunchedEffect
-            snapshotFlow { pagerState.settledPage }
-                .distinctUntilChanged()
-                .collect { page ->
-                    state.installedBrowsers.getOrNull(page)?.packageName?.let(viewModel::onBrowserSelected)
-                }
-        }
-
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            topBar = {
-                HomeTopAppBar(
-                    onMenuClick = {
+    ) { innerPadding ->
+        Column(modifier = Modifier.padding(innerPadding)) {
+            ConnectedBrowserBar(
+                installedBrowsers = state.installedBrowsers,
+                connectedBrowserPackages = state.connectedBrowserPackages,
+                selectedBrowserPackage = state.selectedBrowserPackage,
+                onBrowserClick = { packageName ->
+                    viewModel.onBrowserSelected(packageName)
+                    val targetPage = state.installedBrowsers
+                        .indexOfFirst { it.packageName == packageName }
+                    if (targetPage >= 0 && targetPage != pagerState.currentPage) {
                         scope.launch {
-                            drawerState.open()
-                        }
-                    },
-                    onSettingsClick = onSettingsClick
-                )
-            }
-        ) { innerPadding ->
-            Column(modifier = Modifier.padding(innerPadding)) {
-                ConnectedBrowserBar(
-                    installedBrowsers = state.installedBrowsers,
-                    connectedBrowserPackages = state.connectedBrowserPackages,
-                    selectedBrowserPackage = state.selectedBrowserPackage,
-                    onBrowserClick = { packageName ->
-                        viewModel.onBrowserSelected(packageName)
-                        val targetPage = state.installedBrowsers
-                            .indexOfFirst { it.packageName == packageName }
-                        if (targetPage >= 0 && targetPage != pagerState.currentPage) {
-                            scope.launch {
-                                pagerState.animateScrollToPage(targetPage)
-                            }
+                            pagerState.animateScrollToPage(targetPage)
                         }
                     }
-                )
+                }
+            )
 
-                if (state.installedBrowsers.isEmpty()) {
-                    NoConnectedBrowsers(modifier = Modifier.weight(1f))
-                } else {
-                    HorizontalPager(
-                        state = pagerState,
-                        modifier = Modifier.weight(1f)
-                    ) { page ->
-                        val browser = state.installedBrowsers[page]
-                        val browserPackage = browser.packageName
-                        BookmarkContent(
-                            modifier = Modifier.fillMaxSize(),
-                            bookmarkDocument = state.bookmarkDocuments[browserPackage],
-                            selectedBrowserIcon = browser.icon,
-                            onImportClick = viewModel::onImportClick
-                        )
-                    }
+            if (state.installedBrowsers.isEmpty()) {
+                NoConnectedBrowsers(modifier = Modifier.weight(1f))
+            } else {
+                HorizontalPager(
+                    state = pagerState,
+                    modifier = Modifier.weight(1f)
+                ) { page ->
+                    val browser = state.installedBrowsers[page]
+                    val browserPackage = browser.packageName
+                    BookmarkContent(
+                        modifier = Modifier.fillMaxSize(),
+                        bookmarkDocument = state.bookmarkDocuments[browserPackage],
+                        selectedBrowserIcon = browser.icon,
+                        onImportClick = viewModel::onImportClick
+                    )
                 }
             }
         }

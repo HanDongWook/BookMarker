@@ -15,19 +15,10 @@ import androidx.compose.ui.res.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopAppBar(
-    onMenuClick: () -> Unit,
     onSettingsClick: () -> Unit
 ) {
     TopAppBar(
         title = { Text(stringResource(R.string.home_title)) },
-        navigationIcon = {
-            IconButton(onClick = onMenuClick) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = stringResource(R.string.home_menu_description)
-                )
-            }
-        },
         actions = {
             IconButton(onClick = onSettingsClick) {
                 Icon(
