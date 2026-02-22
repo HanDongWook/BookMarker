@@ -15,7 +15,5 @@ interface SettingsMavericksModule {
     @Binds
     @IntoMap
     @ViewModelKey(SettingsViewModel::class)
-    fun bindSettingsViewModelFactory(
-        factory: SettingsViewModel.Factory,
-    ): AssistedViewModelFactory<*, *>
+    fun bindSettingsViewModelFactory(factory: SettingsViewModel.Factory): AssistedViewModelFactory<*, *>
 }
