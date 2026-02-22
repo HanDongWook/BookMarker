@@ -30,4 +30,9 @@
     <string name="import_guide_open_guide_failed">Could not open guide page.</string>
     <string name="import_guide_open_downloads_failed">Could not open Downloads.</string>
     <string name="open_bookmark_failed">Could not open bookmark link.</string>
+    <string name="import_skipped_same_file">Same file already imported. Skipped.</string>
+    <string name="import_overwrite_dialog_title">Overwrite imported bookmarks?</string>
+    <string name="import_overwrite_dialog_message">A different bookmark file was detected. If you continue, the existing imported bookmarks will be removed and replaced.</string>
+    <string name="import_overwrite_dialog_confirm">Overwrite</string>
+    <string name="import_overwrite_dialog_cancel">Cancel</string>
 </resources>

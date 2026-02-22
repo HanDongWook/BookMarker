@@ -30,4 +30,9 @@
     <string name="import_guide_open_guide_failed">가이드 페이지를 열 수 없어요.</string>
     <string name="import_guide_open_downloads_failed">다운로드를 열 수 없어요.</string>
     <string name="open_bookmark_failed">북마크 링크를 열 수 없어요.</string>
+    <string name="import_skipped_same_file">이미 같은 파일을 가져왔어요. 작업을 건너뛰었습니다.</string>
+    <string name="import_overwrite_dialog_title">기존 북마크를 덮어쓸까요?</string>
+    <string name="import_overwrite_dialog_message">다른 북마크 파일이 감지되었습니다. 계속하면 기존에 가져온 북마크 내용은 사라지고 새 파일 내용으로 교체됩니다.</string>
+    <string name="import_overwrite_dialog_confirm">덮어쓰기</string>
+    <string name="import_overwrite_dialog_cancel">취소</string>
 </resources>

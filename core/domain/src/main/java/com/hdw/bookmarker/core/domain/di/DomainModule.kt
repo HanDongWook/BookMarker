@@ -2,8 +2,12 @@ package com.hdw.bookmarker.core.domain.di
 
 import com.hdw.bookmarker.core.data.repository.BookmarkRepository
 import com.hdw.bookmarker.core.data.repository.BrowserRepository
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
+import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,4 +27,25 @@ object DomainModule {
     @Singleton
     fun provideGetBookmarksUseCase(bookmarkRepository: BookmarkRepository): GetBookmarksUseCase =
         GetBookmarksUseCase(bookmarkRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetBookmarkRawFileHashUseCase(bookmarkRepository: BookmarkRepository): GetBookmarkRawFileHashUseCase =
+        GetBookmarkRawFileHashUseCase(bookmarkRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetBookmarkSnapshotRawFileHashUseCase(
+        bookmarkRepository: BookmarkRepository,
+    ): GetBookmarkSnapshotRawFileHashUseCase = GetBookmarkSnapshotRawFileHashUseCase(bookmarkRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetBookmarkSnapshotsUseCase(bookmarkRepository: BookmarkRepository): GetBookmarkSnapshotsUseCase =
+        GetBookmarkSnapshotsUseCase(bookmarkRepository)
+
+    @Provides
+    @Singleton
+    fun provideSaveBookmarkSnapshotUseCase(bookmarkRepository: BookmarkRepository): SaveBookmarkSnapshotUseCase =
+        SaveBookmarkSnapshotUseCase(bookmarkRepository)
 }

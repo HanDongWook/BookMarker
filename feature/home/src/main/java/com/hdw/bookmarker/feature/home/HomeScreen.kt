@@ -14,11 +14,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -70,6 +72,7 @@ fun HomeScreen(
     val context = LocalContext.current
     val resources = LocalResources.current
     var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
+    var showOverwriteConfirmDialog by rememberSaveable { mutableStateOf(false) }
 
     val htmlPickerLauncher = rememberLauncherForActivityResult(OpenDocument()) { uri ->
         if (uri != null) {
@@ -92,6 +95,14 @@ fun HomeScreen(
                     resources.getString(R.string.error_with_detail, message, sideEffect.detail)
                 }
                 context.showShortToast(toastText)
+            }
+
+            is MainSideEffect.ShowMessage -> {
+                context.showShortToast(resources.getString(sideEffect.messageResId))
+            }
+
+            MainSideEffect.ShowOverwriteConfirmDialog -> {
+                showOverwriteConfirmDialog = true
             }
 
             is MainSideEffect.OpenFilePicker -> {
@@ -129,8 +140,49 @@ fun HomeScreen(
             drawerState.close()
         }
     }
+
     BackHandler(enabled = showImportGuideDialog) {
         showImportGuideDialog = false
+    }
+
+    BackHandler(enabled = showOverwriteConfirmDialog) {
+        showOverwriteConfirmDialog = false
+        viewModel.cancelOverwriteImport()
+    }
+
+    if (showOverwriteConfirmDialog) {
+        AlertDialog(
+            onDismissRequest = {
+                showOverwriteConfirmDialog = false
+                viewModel.cancelOverwriteImport()
+            },
+            title = {
+                Text(text = stringResource(R.string.import_overwrite_dialog_title))
+            },
+            text = {
+                Text(text = stringResource(R.string.import_overwrite_dialog_message))
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showOverwriteConfirmDialog = false
+                        viewModel.confirmOverwriteImport()
+                    },
+                ) {
+                    Text(text = stringResource(R.string.import_overwrite_dialog_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showOverwriteConfirmDialog = false
+                        viewModel.cancelOverwriteImport()
+                    },
+                ) {
+                    Text(text = stringResource(R.string.import_overwrite_dialog_cancel))
+                }
+            },
+        )
     }
 
     SharedTransitionLayout {

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option java_package = "com.hdw.bookmarker.core.datastore.proto";
+option java_multiple_files = true;
+
+message BookmarkSnapshotsProto {
+  int32 schema_version = 1;
+  repeated BrowserBookmarkSnapshotProto snapshots = 2;
+}
+
+message BrowserBookmarkSnapshotProto {
+  string browser_package = 1;
+  int64 imported_at_epoch_ms = 2;
+  string source_hash = 3;
+  BookmarkDocumentProto document = 4;
+}
+
+message BookmarkDocumentProto {
+  string title = 1;
+  map<string, string> metas = 2;
+  repeated BookmarkNodeProto root_items = 3;
+}
+
+message BookmarkNodeProto {
+  oneof node {
+    BookmarkFolderProto folder = 1;
+    BookmarkLinkProto bookmark = 2;
+  }
+}
+
+message BookmarkFolderProto {
+  string title = 1;
+  string add_date = 2;
+  string last_modified = 3;
+  repeated BookmarkNodeProto children = 4;
+}
+
+message BookmarkLinkProto {
+  string title = 1;
+  string url = 2;
+  string add_date = 3;
+  string last_modified = 4;
+  string icon_uri = 5;
+}

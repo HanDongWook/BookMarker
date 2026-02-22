@@ -25,7 +25,8 @@ ktlint = "1.8.0"
 spotless = "8.2.1"
 detekt = "1.23.8"
 dependencyAnalysis = "3.5.1"
-kotlinSerialization = "1.7.3"
+kotlinSerialization = "1.10.0"
+kotlinxSerializationProtobuf = "1.10.0"
 kotest = "6.1.3"
 kotlinxCoroutines = "1.10.2"
 coil = "2.7.0"
@@ -41,6 +42,7 @@ androidx-startup = { group = "androidx.startup", name = "startup-runtime", versi
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDatastore" }
+androidx-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDatastore" }
 
 # androidx.compose
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -64,7 +66,8 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 
 #kotlin
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "kotlinSerialization" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
+kotlinx-serialization-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version.ref = "kotlinxSerializationProtobuf" }
 
 #image
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }

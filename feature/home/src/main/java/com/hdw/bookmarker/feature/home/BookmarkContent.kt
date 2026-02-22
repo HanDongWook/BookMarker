@@ -117,12 +117,7 @@ fun BookmarkContent(
 }
 
 @Composable
-private fun BookmarkFolderRow(
-    folder: BookmarkItem.Folder,
-    depth: Int,
-    isExpanded: Boolean,
-    onToggle: () -> Unit,
-) {
+private fun BookmarkFolderRow(folder: BookmarkItem.Folder, depth: Int, isExpanded: Boolean, onToggle: () -> Unit) {
     val directChildCount = folder.children.size
     Row(
         modifier = Modifier

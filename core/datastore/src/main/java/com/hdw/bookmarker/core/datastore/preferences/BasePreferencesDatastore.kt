@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.core.datastore.base
+package com.hdw.bookmarker.core.datastore.preferences
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
