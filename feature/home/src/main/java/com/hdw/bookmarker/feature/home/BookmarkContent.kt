@@ -82,7 +82,9 @@ fun BookmarkContent(
     }
 
     LazyColumn(
-        modifier = modifier.fillMaxSize().padding(start = 2.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(start = 2.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         items(items = visibleNodes, key = { it.key }) { node ->
@@ -115,7 +117,13 @@ fun BookmarkContent(
 }
 
 @Composable
-private fun BookmarkFolderRow(folder: BookmarkItem.Folder, depth: Int, isExpanded: Boolean, onToggle: () -> Unit) {
+private fun BookmarkFolderRow(
+    folder: BookmarkItem.Folder,
+    depth: Int,
+    isExpanded: Boolean,
+    onToggle: () -> Unit,
+) {
+    val directChildCount = folder.children.size
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -129,7 +137,7 @@ private fun BookmarkFolderRow(folder: BookmarkItem.Folder, depth: Int, isExpande
             tint = MaterialTheme.colorScheme.primary,
         )
         Text(
-            text = folder.title,
+            text = "${folder.title} ($directChildCount)",
             style = MaterialTheme.typography.bodyLarge,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
