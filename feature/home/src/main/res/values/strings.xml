@@ -17,4 +17,7 @@
     <string name="home_error_unknown">An unknown error occurred.</string>
     <string name="home_no_bookmarks_imported">No bookmarks imported yet.</string>
     <string name="home_import_bookmarks">Import bookmarks</string>
+    <string name="home_import_guide_title">Import Chrome bookmarks</string>
+    <string name="home_import_guide_body">1. In Chrome, export bookmarks as an HTML file.\n2. Save/share the HTML file to this device.\n3. Tap “Select file” and choose the exported HTML file.</string>
+    <string name="home_import_guide_select_file">Select file</string>
 </resources>

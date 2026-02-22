@@ -14,7 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -68,28 +71,26 @@ fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit) {
     }
 
     val scope = rememberCoroutineScope()
+    var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
+    var selectedBrowserPackage by rememberSaveable { mutableStateOf<String?>(null) }
 
     val pagerState = rememberPagerState(
-        initialPage = state.installedBrowsers
-            .indexOfFirst { it.packageName == state.selectedBrowserPackage }
-            .takeIf { it >= 0 } ?: 0,
+        initialPage = 0,
         pageCount = { state.installedBrowsers.size },
     )
-
-    LaunchedEffect(state.selectedBrowserPackage, state.installedBrowsers) {
-        val selectedPackage = state.selectedBrowserPackage ?: return@LaunchedEffect
-        val targetPage = state.installedBrowsers.indexOfFirst { it.packageName == selectedPackage }
-        if (targetPage >= 0 && targetPage != pagerState.currentPage) {
-            pagerState.animateScrollToPage(targetPage)
-        }
-    }
+    val selectedBrowserIcon = state.installedBrowsers.getOrNull(pagerState.currentPage)?.icon
+    val chromeIcon = state.installedBrowsers.firstOrNull {
+        it.packageName.equals("com.android.chrome", ignoreCase = true) ||
+            it.packageName.contains("chrome", ignoreCase = true) ||
+            it.appName.contains("chrome", ignoreCase = true)
+    }?.icon ?: selectedBrowserIcon
 
     LaunchedEffect(pagerState, state.installedBrowsers) {
         if (state.installedBrowsers.isEmpty()) return@LaunchedEffect
         snapshotFlow { pagerState.settledPage }
             .distinctUntilChanged()
             .collect { page ->
-                state.installedBrowsers.getOrNull(page)?.packageName?.let(viewModel::onBrowserSelected)
+                selectedBrowserPackage = state.installedBrowsers.getOrNull(page)?.packageName
             }
     }
 
@@ -100,10 +101,9 @@ fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit) {
         Column(modifier = Modifier.padding(innerPadding)) {
             ConnectedBrowserBar(
                 installedBrowsers = state.installedBrowsers,
-                connectedBrowserPackages = state.connectedBrowserPackages,
-                selectedBrowserPackage = state.selectedBrowserPackage,
+                connectedBrowserPackages = emptySet(),
+                selectedBrowserPackage = selectedBrowserPackage,
                 onBrowserClick = { packageName ->
-                    viewModel.onBrowserSelected(packageName)
                     val targetPage = state.installedBrowsers
                         .indexOfFirst { it.packageName == packageName }
                     if (targetPage >= 0 && targetPage != pagerState.currentPage) {
@@ -122,16 +122,26 @@ fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit) {
                     modifier = Modifier.weight(1f),
                 ) { page ->
                     val browser = state.installedBrowsers[page]
-                    val browserPackage = browser.packageName
                     BookmarkContent(
                         modifier = Modifier.fillMaxSize(),
-                        bookmarkDocument = state.bookmarkDocuments[browserPackage],
+                        bookmarkDocument = null,
                         selectedBrowserIcon = browser.icon,
-                        onImportClick = viewModel::onImportClick,
+                        onImportClick = { showImportGuideDialog = true },
                     )
                 }
             }
         }
+    }
+
+    if (showImportGuideDialog) {
+        BookmarkImportGuideDialog(
+            icon = chromeIcon,
+            onDismiss = { showImportGuideDialog = false },
+            onSelectFile = {
+                showImportGuideDialog = false
+                viewModel.openFilePicker()
+            },
+        )
     }
 }
 

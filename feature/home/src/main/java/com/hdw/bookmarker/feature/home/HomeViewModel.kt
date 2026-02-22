@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
-import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
+import com.hdw.bookmarker.core.model.bookmark.Bookmark
 import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
 import com.hdw.bookmarker.core.model.browser.Browser
@@ -18,9 +18,7 @@ import javax.inject.Inject
 
 data class MainState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
-    val connectedBrowserPackages: Set<String> = emptySet(),
-    val bookmarkDocuments: Map<String, BookmarkDocument> = emptyMap(),
-    val selectedBrowserPackage: String? = null,
+    val bookmarks: List<Bookmark> = emptyList(),
     val isLoading: Boolean = false,
 )
 
@@ -38,20 +36,13 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel(),
     ContainerHost<MainState, MainSideEffect> {
 
-    private var pendingSyncBrowserPackage: String? = null
-
     override val container = container<MainState, MainSideEffect>(MainState()) {
         loadInstalledBrowsers()
     }
 
     private fun loadInstalledBrowsers() = intent {
         val browsers = getInstalledBrowsersUseCase()
-        reduce {
-            state.copy(
-                installedBrowsers = browsers,
-                selectedBrowserPackage = state.selectedBrowserPackage ?: browsers.firstOrNull()?.packageName,
-            )
-        }
+        reduce { state.copy(installedBrowsers = browsers) }
     }
 
     fun openFilePicker() = intent {
@@ -61,34 +52,15 @@ class HomeViewModel @Inject constructor(
 
     fun onSyncClick(browser: BrowserInfo) = intent {
         Timber.e("Syncing browser: ${browser.appName}")
-        pendingSyncBrowserPackage = browser.packageName
-        reduce { state.copy(selectedBrowserPackage = browser.packageName) }
-        openFilePicker()
-    }
-
-    fun onBrowserSelected(packageName: String) = intent {
-        reduce { state.copy(selectedBrowserPackage = packageName) }
-    }
-
-    fun onImportClick() = intent {
-        pendingSyncBrowserPackage = state.selectedBrowserPackage
         openFilePicker()
     }
 
     fun onHtmlFileSelected(uri: Uri) = intent {
         Timber.e("Selected html file uri: $uri")
-        val targetBrowserPackage = pendingSyncBrowserPackage ?: state.selectedBrowserPackage
         when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = uri)) {
             is BookmarkImportResult.Success -> {
-                if (targetBrowserPackage != null) {
-                    reduce {
-                        state.copy(
-                            connectedBrowserPackages = state.connectedBrowserPackages + targetBrowserPackage,
-                            bookmarkDocuments = state.bookmarkDocuments + (targetBrowserPackage to result.document),
-                            selectedBrowserPackage = targetBrowserPackage,
-                        )
-                    }
-                }
+                val parsedCount = result.document.rootItems.size
+                Timber.d("Bookmark html imported successfully. rootItems=%d", parsedCount)
             }
 
             is BookmarkImportResult.Failure -> {
@@ -101,7 +73,6 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
-        pendingSyncBrowserPackage = null
     }
 
     @StringRes
