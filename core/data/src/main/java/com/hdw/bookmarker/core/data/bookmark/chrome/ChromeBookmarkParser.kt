@@ -3,7 +3,6 @@ package com.hdw.bookmarker.core.data.bookmark.chrome
 import com.hdw.bookmarker.core.data.bookmark.BookmarkParser
 import com.hdw.bookmarker.core.data.bookmark.util.Attribute
 import com.hdw.bookmarker.core.data.bookmark.util.Tag
-import com.hdw.bookmarker.core.model.bookmark.Bookmark
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import org.jsoup.Jsoup

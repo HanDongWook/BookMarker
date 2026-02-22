@@ -36,6 +36,24 @@ import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
+import com.hdw.bookmarker.feature.home.model.VisibleBookmarkNode
+
+private val ExpandedFoldersSaver = Saver<SnapshotStateMap<String, Boolean>, ArrayList<String>>(
+    save = { state ->
+        ArrayList<String>(state.size).apply {
+            state.forEach { (key, isExpanded) ->
+                if (isExpanded) add(key)
+            }
+        }
+    },
+    restore = { saved ->
+        mutableStateMapOf<String, Boolean>().apply {
+            saved.forEach { key ->
+                this[key] = true
+            }
+        }
+    },
+)
 
 @Composable
 fun BookmarkContent(
@@ -199,22 +217,3 @@ private fun flattenBookmarkTree(
     }
     return flattened
 }
-
-private data class VisibleBookmarkNode(val key: String, val depth: Int, val item: BookmarkItem)
-
-private val ExpandedFoldersSaver = Saver<SnapshotStateMap<String, Boolean>, ArrayList<String>>(
-    save = { state ->
-        ArrayList<String>(state.size).apply {
-            state.forEach { (key, isExpanded) ->
-                if (isExpanded) add(key)
-            }
-        }
-    },
-    restore = { saved ->
-        mutableStateMapOf<String, Boolean>().apply {
-            saved.forEach { key ->
-                this[key] = true
-            }
-        }
-    },
-)
