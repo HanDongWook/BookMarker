@@ -1,6 +1,7 @@
 package com.hdw.bookmarker.feature.home.appbar
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -13,9 +14,20 @@ import com.hdw.bookmarker.feature.home.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeTopAppBar(onSettingsClick: () -> Unit) {
+fun HomeTopAppBar(
+    onMenuClick: () -> Unit,
+    onSettingsClick: () -> Unit,
+) {
     TopAppBar(
         title = { Text(stringResource(R.string.title)) },
+        navigationIcon = {
+            IconButton(onClick = onMenuClick) {
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = stringResource(R.string.menu_description),
+                )
+            }
+        },
         actions = {
             IconButton(onClick = onSettingsClick) {
                 Icon(

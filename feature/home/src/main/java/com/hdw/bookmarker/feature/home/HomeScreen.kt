@@ -1,15 +1,22 @@
 package com.hdw.bookmarker.feature.home
 
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -20,19 +27,33 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.hdw.bookmarker.core.model.MimeTypes
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.appbar.HomeTopAppBar
 import com.hdw.bookmarker.feature.home.dialog.BookmarkImportGuideDialog
+import com.hdw.bookmarker.feature.home.drawer.HomeDrawerContent
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
+
+@Composable
+fun HomeRoute(onSettingsClick: () -> Unit, onOpenDesktopGuide: () -> Boolean, onOpenBookmark: (String) -> Boolean) {
+    val viewModel: HomeViewModel = hiltViewModel()
+    HomeScreen(
+        viewModel = viewModel,
+        onSettingsClick = onSettingsClick,
+        onOpenDesktopGuide = onOpenDesktopGuide,
+        onOpenBookmark = onOpenBookmark,
+    )
+}
 
 @Composable
 fun HomeScreen(
@@ -74,6 +95,9 @@ fun HomeScreen(
 
     val scope = rememberCoroutineScope()
     var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val configuration = LocalConfiguration.current
+    val drawerWidth = (configuration.screenWidthDp * 0.7).dp
 
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -95,45 +119,77 @@ fun HomeScreen(
             }
     }
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = { HomeTopAppBar(onSettingsClick = onSettingsClick) },
-    ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)) {
-            ConnectedBrowserBar(
-                installedBrowsers = state.installedBrowsers,
-                connectedBrowserPackages = state.connectedBrowserPackages,
-                selectedBrowserPackage = state.selectedBrowserPackage,
-                onBrowserClick = { packageName ->
-                    val targetPage = state.installedBrowsers
-                        .indexOfFirst { it.packageName == packageName }
-                    if (targetPage >= 0 && targetPage != pagerState.currentPage) {
-                        scope.launch {
-                            pagerState.animateScrollToPage(targetPage)
-                        }
-                    }
-                },
-            )
+    BackHandler(enabled = drawerState.isOpen) {
+        scope.launch {
+            drawerState.close()
+        }
+    }
 
-            if (state.installedBrowsers.isEmpty()) {
-                NoConnectedBrowsers(modifier = Modifier.weight(1f))
-            } else {
-                HorizontalPager(
-                    state = pagerState,
-                    modifier = Modifier.weight(1f),
-                ) { page ->
-                    val browser = state.installedBrowsers[page]
-                    BookmarkContent(
-                        modifier = Modifier.fillMaxSize(),
-                        bookmarkDocument = state.bookmarkDocuments[browser.packageName],
-                        selectedBrowserIcon = browser.icon,
-                        onImportClick = { showImportGuideDialog = true },
-                        onBookmarkClick = { url ->
-                            if (!onOpenBookmark(url)) {
-                                context.showShortToast(resources.getString(R.string.open_bookmark_failed))
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            ModalDrawerSheet(
+                modifier = Modifier
+                    .width(drawerWidth)
+                    .fillMaxHeight()
+            ) {
+                HomeDrawerContent(
+                    installedBrowsers = state.installedBrowsers,
+                    connectedBrowserPackages = state.connectedBrowserPackages,
+                    onSyncClick = {
+                        showImportGuideDialog = true
+                    },
+                )
+            }
+        },
+    ) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = {
+                HomeTopAppBar(
+                    onMenuClick = {
+                        scope.launch { drawerState.open() }
+                    },
+                    onSettingsClick = onSettingsClick,
+                )
+            },
+        ) { innerPadding ->
+            Column(modifier = Modifier.padding(innerPadding)) {
+                ConnectedBrowserBar(
+                    installedBrowsers = state.installedBrowsers,
+                    connectedBrowserPackages = state.connectedBrowserPackages,
+                    selectedBrowserPackage = state.selectedBrowserPackage,
+                    onBrowserClick = { packageName ->
+                        val targetPage = state.installedBrowsers
+                            .indexOfFirst { it.packageName == packageName }
+                        if (targetPage >= 0 && targetPage != pagerState.currentPage) {
+                            scope.launch {
+                                pagerState.animateScrollToPage(targetPage)
                             }
-                        },
-                    )
+                        }
+                    },
+                )
+
+                if (state.installedBrowsers.isEmpty()) {
+                    NoConnectedBrowsers(modifier = Modifier.weight(1f))
+                } else {
+                    HorizontalPager(
+                        state = pagerState,
+                        modifier = Modifier.weight(1f),
+                    ) { page ->
+                        val browser = state.installedBrowsers[page]
+                        BookmarkContent(
+                            modifier = Modifier.fillMaxSize(),
+                            bookmarkDocument = state.bookmarkDocuments[browser.packageName],
+                            selectedBrowserIcon = browser.icon,
+                            onImportClick = { showImportGuideDialog = true },
+                            onBookmarkClick = { url ->
+                                if (!onOpenBookmark(url)) {
+                                    context.showShortToast(resources.getString(R.string.open_bookmark_failed))
+                                }
+                            },
+                        )
+                    }
                 }
             }
         }
