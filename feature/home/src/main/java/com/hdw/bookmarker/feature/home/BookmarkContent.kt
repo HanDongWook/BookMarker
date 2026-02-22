@@ -43,6 +43,7 @@ fun BookmarkContent(
     selectedBrowserIcon: Drawable?,
     onImportClick: () -> Unit,
     onBookmarkClick: (String) -> Unit,
+    importIconModifier: Modifier = Modifier,
     modifier: Modifier = Modifier,
 ) {
     if (bookmarkDocument == null || bookmarkDocument.rootItems.isEmpty()) {
@@ -58,7 +59,7 @@ fun BookmarkContent(
                     Image(
                         painter = rememberDrawablePainter(drawable = selectedBrowserIcon),
                         contentDescription = null,
-                        modifier = Modifier.size(48.dp),
+                        modifier = importIconModifier.size(48.dp),
                     )
                 }
                 Text(text = stringResource(R.string.no_bookmarks_imported))
