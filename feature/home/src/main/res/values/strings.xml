@@ -5,7 +5,6 @@
     <string name="sync">Sync</string>
     <string name="installed_browser">Installed browsers</string>
     <string name="no_browsers_connected">No browsers connected.\nTry syncing your browsers.</string>
-    <string name="syncing">Syncing %1$s...</string>
     <string name="error_with_detail">%1$s (%2$s)</string>
     <string name="error_invalid_uri">The file path is invalid.</string>
     <string name="error_file_not_found">Bookmark file not found.</string>

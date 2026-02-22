@@ -23,7 +23,7 @@ import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
 
 @Composable
-fun ConnectedBrowserBar(
+internal fun ConnectedBrowserBar(
     installedBrowsers: List<BrowserInfo>,
     connectedBrowserPackages: Set<String>,
     selectedBrowserPackage: String?,

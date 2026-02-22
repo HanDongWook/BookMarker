@@ -27,11 +27,9 @@ data class MainState(
     val connectedBrowserPackages: Set<String> = emptySet(),
     val bookmarkDocuments: Map<String, BookmarkDocument> = emptyMap(),
     val selectedBrowserPackage: String? = null,
-    val isLoading: Boolean = false,
 )
 
 sealed interface MainSideEffect {
-    data class ShowSyncStarted(val browserName: String) : MainSideEffect
     data class ShowMessage(@param:StringRes val messageResId: Int) : MainSideEffect
     data class ShowError(@param:StringRes val messageResId: Int, val detail: String? = null) : MainSideEffect
     object ShowOverwriteConfirmDialog : MainSideEffect

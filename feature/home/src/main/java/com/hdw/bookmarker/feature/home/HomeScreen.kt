@@ -83,10 +83,6 @@ fun HomeScreen(
 
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
-            is MainSideEffect.ShowSyncStarted -> {
-                context.showShortToast(resources.getString(R.string.syncing, sideEffect.browserName))
-            }
-
             is MainSideEffect.ShowError -> {
                 val message = resources.getString(sideEffect.messageResId)
                 val toastText = if (sideEffect.detail.isNullOrBlank()) {

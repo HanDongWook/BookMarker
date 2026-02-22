@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class ContentFileManager @Inject constructor(@param:ApplicationContext private val context: Context) {
 
-    fun readUtf8Text(uri: Uri): ContentFileResult<String> = when (val bytesResult = readBytes(uri)) {
+    internal fun readUtf8Text(uri: Uri): ContentFileResult<String> = when (val bytesResult = readBytes(uri)) {
         is ContentFileResult.Success -> {
             val text = bytesResult.data.toString(Charsets.UTF_8)
             if (text.isBlank()) {
@@ -28,7 +28,7 @@ class ContentFileManager @Inject constructor(@param:ApplicationContext private v
         is ContentFileResult.Failure -> bytesResult
     }
 
-    fun getRawFileHash(uri: Uri): ContentFileResult<String> = when (val bytesResult = readBytes(uri)) {
+    internal fun getRawFileHash(uri: Uri): ContentFileResult<String> = when (val bytesResult = readBytes(uri)) {
         is ContentFileResult.Success -> {
             val digest = MessageDigest.getInstance("SHA-256").digest(bytesResult.data)
             val hash = digest.joinToString(separator = "") { byte -> "%02x".format(byte) }
