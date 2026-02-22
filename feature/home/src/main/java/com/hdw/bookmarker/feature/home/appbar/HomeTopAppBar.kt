@@ -14,10 +14,7 @@ import com.hdw.bookmarker.feature.home.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeTopAppBar(
-    onMenuClick: () -> Unit,
-    onSettingsClick: () -> Unit,
-) {
+fun HomeTopAppBar(onMenuClick: () -> Unit, onSettingsClick: () -> Unit) {
     TopAppBar(
         title = { Text(stringResource(R.string.title)) },
         navigationIcon = {

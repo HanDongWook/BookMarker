@@ -104,11 +104,9 @@ fun HomeScreen(
         pageCount = { state.installedBrowsers.size },
     )
     val selectedBrowserIcon = state.installedBrowsers.getOrNull(pagerState.currentPage)?.icon
-    val chromeIcon = state.installedBrowsers.firstOrNull {
-        it.packageName.equals("com.android.chrome", ignoreCase = true) ||
-            it.packageName.contains("chrome", ignoreCase = true) ||
-            it.appName.contains("chrome", ignoreCase = true)
-    }?.icon ?: selectedBrowserIcon
+    val currentSelectedBrowserIcon = state.installedBrowsers
+        .firstOrNull { it.packageName == state.selectedBrowserPackage }
+        ?.icon ?: selectedBrowserIcon
 
     LaunchedEffect(pagerState, state.installedBrowsers) {
         if (state.installedBrowsers.isEmpty()) return@LaunchedEffect
@@ -131,7 +129,7 @@ fun HomeScreen(
             ModalDrawerSheet(
                 modifier = Modifier
                     .width(drawerWidth)
-                    .fillMaxHeight()
+                    .fillMaxHeight(),
             ) {
                 HomeDrawerContent(
                     installedBrowsers = state.installedBrowsers,
@@ -197,7 +195,7 @@ fun HomeScreen(
 
     if (showImportGuideDialog) {
         BookmarkImportGuideDialog(
-            icon = chromeIcon,
+            icon = currentSelectedBrowserIcon,
             onDismiss = { showImportGuideDialog = false },
             onOpenDesktopGuide = {
                 if (!onOpenDesktopGuide()) {

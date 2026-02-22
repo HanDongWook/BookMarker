@@ -33,7 +33,7 @@ fun HomeDrawerContent(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(16.dp),
     ) {
         Text(
             text = stringResource(R.string.installed_browser),
@@ -52,11 +52,7 @@ fun HomeDrawerContent(
 }
 
 @Composable
-private fun BrowserItem(
-    browser: BrowserInfo,
-    isConnected: Boolean,
-    onSyncClick: () -> Unit,
-) {
+private fun BrowserItem(browser: BrowserInfo, isConnected: Boolean, onSyncClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
