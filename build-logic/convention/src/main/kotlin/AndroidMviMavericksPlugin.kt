@@ -9,6 +9,7 @@ class AndroidMviMavericksPlugin : Plugin<Project> {
             dependencies {
                 "implementation"(libs.findLibrary("mavericks.core").get())
                 "implementation"(libs.findLibrary("mavericks.compose").get())
+                "implementation"(libs.findLibrary("mavericks.hilt").get())
             }
         }
     }

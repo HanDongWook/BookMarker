@@ -78,6 +78,7 @@ orbit-test = { group = "org.orbit-mvi", name = "orbit-test", version.ref = "orbi
 # mavericks
 mavericks-core = { group = "com.airbnb.android", name = "mavericks", version.ref = "mavericks" }
 mavericks-compose = { group = "com.airbnb.android", name = "mavericks-compose", version.ref = "mavericks" }
+mavericks-hilt = { group = "com.airbnb.android", name = "mavericks-hilt", version.ref = "mavericks" }
 
 # test
 junit = { group = "junit", name = "junit", version.ref = "junit" }
