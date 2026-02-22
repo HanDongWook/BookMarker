@@ -36,10 +36,7 @@ import com.airbnb.mvrx.compose.mavericksViewModel
 import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.getAppVersionName
-import com.hdw.bookmarker.core.ui.util.getDefaultBrowserPackageFlow
 import com.hdw.bookmarker.core.ui.util.getInstalledBrowsers
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 
 @Composable
 fun SettingsRoute(onBackClick: () -> Unit, onDefaultBrowserClick: () -> Unit) {
@@ -48,16 +45,10 @@ fun SettingsRoute(onBackClick: () -> Unit, onDefaultBrowserClick: () -> Unit) {
     val context = LocalContext.current
 
     LaunchedEffect(context) {
-        val installedBrowsers = context.getInstalledBrowsers()
-        val persistedSelectedBrowserPackage = context.getDefaultBrowserPackageFlow().first()
         viewModel.initialize(
             appVersion = context.getAppVersionName(),
-            installedBrowsers = installedBrowsers,
-            persistedSelectedBrowserPackage = persistedSelectedBrowserPackage,
+            installedBrowsers = context.getInstalledBrowsers(),
         )
-        context.getDefaultBrowserPackageFlow().collectLatest { packageName ->
-            viewModel.syncPersistedSelectedBrowser(packageName)
-        }
     }
 
     SettingsScreen(

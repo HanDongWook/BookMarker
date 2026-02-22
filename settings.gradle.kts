@@ -28,6 +28,7 @@ include(":app")
 
 include(":core:model")
 include(":core:data")
+include(":core:datastore")
 include(":core:domain")
 include(":core:designsystem")
 include(":core:navigation")

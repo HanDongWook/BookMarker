@@ -4,6 +4,8 @@ import com.hdw.bookmarker.core.data.repository.BookmarkRepository
 import com.hdw.bookmarker.core.data.repository.BookmarkRepositoryImpl
 import com.hdw.bookmarker.core.data.repository.BrowserRepository
 import com.hdw.bookmarker.core.data.repository.BrowserRepositoryImpl
+import com.hdw.bookmarker.core.data.repository.SettingsRepository
+import com.hdw.bookmarker.core.data.repository.SettingsRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,4 +23,8 @@ abstract class DataModule {
     @Binds
     @Singleton
     abstract fun bindBookmarkRepository(bookmarkRepository: BookmarkRepositoryImpl): BookmarkRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSettingsRepository(settingsRepository: SettingsRepositoryImpl): SettingsRepository
 }

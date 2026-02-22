@@ -25,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -39,28 +38,20 @@ import com.airbnb.mvrx.compose.mavericksViewModel
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.InstalledBrowserInfo
 import com.hdw.bookmarker.core.ui.util.getAppVersionName
-import com.hdw.bookmarker.core.ui.util.getDefaultBrowserPackageFlow
 import com.hdw.bookmarker.core.ui.util.getInstalledBrowsers
-import com.hdw.bookmarker.core.ui.util.setDefaultBrowserPackage
 import com.hdw.bookmarker.feature.settingsetting.SettingsViewModel
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 
 @Composable
 fun DefaultBrowserRoute(onBackClick: () -> Unit) {
     val viewModel: SettingsViewModel = mavericksViewModel()
     val state by viewModel.collectAsState()
     val context = LocalContext.current
-    val scope = rememberCoroutineScope()
 
     LaunchedEffect(context) {
-        val persistedSelectedBrowserPackage = context.getDefaultBrowserPackageFlow().first()
         viewModel.initialize(
             appVersion = context.getAppVersionName(),
             installedBrowsers = context.getInstalledBrowsers(),
-            persistedSelectedBrowserPackage = persistedSelectedBrowserPackage,
         )
-        viewModel.syncPersistedSelectedBrowser(persistedSelectedBrowserPackage)
     }
 
     DefaultBrowserScreen(
@@ -69,9 +60,6 @@ fun DefaultBrowserRoute(onBackClick: () -> Unit) {
         onBackClick = onBackClick,
         onBrowserSelect = { packageName ->
             viewModel.selectDefaultBrowser(packageName)
-            scope.launch {
-                context.setDefaultBrowserPackage(packageName)
-            }
         },
     )
 }
