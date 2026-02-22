@@ -60,9 +60,9 @@ fun BookmarkContent(
                         modifier = Modifier.size(48.dp),
                     )
                 }
-                Text(text = stringResource(R.string.home_no_bookmarks_imported))
+                Text(text = stringResource(R.string.no_bookmarks_imported))
                 Button(onClick = onImportClick) {
-                    Text(text = stringResource(R.string.home_import_bookmarks))
+                    Text(text = stringResource(R.string.import_bookmarks))
                 }
             }
         }

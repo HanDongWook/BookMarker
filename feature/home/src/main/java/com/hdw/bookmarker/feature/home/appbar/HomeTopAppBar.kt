@@ -15,12 +15,12 @@ import com.hdw.bookmarker.feature.home.R
 @Composable
 fun HomeTopAppBar(onSettingsClick: () -> Unit) {
     TopAppBar(
-        title = { Text(stringResource(R.string.home_title)) },
+        title = { Text(stringResource(R.string.title)) },
         actions = {
             IconButton(onClick = onSettingsClick) {
                 Icon(
                     imageVector = Icons.Default.Settings,
-                    contentDescription = stringResource(R.string.home_menu_settings),
+                    contentDescription = stringResource(R.string.menu_settings),
                 )
             }
         },

@@ -35,12 +35,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
-fun HomeScreen(
-    viewModel: HomeViewModel,
-    onSettingsClick: () -> Unit,
-    onOpenDesktopGuide: () -> Boolean,
-    onOpenDownloads: () -> Boolean,
-) {
+fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit, onOpenDesktopGuide: () -> Boolean) {
     val state by viewModel.collectAsState()
     val context = LocalContext.current
     val resources = LocalResources.current
@@ -53,7 +48,7 @@ fun HomeScreen(
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
             is MainSideEffect.ShowSyncStarted -> {
-                context.showShortToast(resources.getString(R.string.home_syncing, sideEffect.browserName))
+                context.showShortToast(resources.getString(R.string.syncing, sideEffect.browserName))
             }
 
             is MainSideEffect.ShowError -> {
@@ -61,7 +56,7 @@ fun HomeScreen(
                 val toastText = if (sideEffect.detail.isNullOrBlank()) {
                     message
                 } else {
-                    resources.getString(R.string.home_error_with_detail, message, sideEffect.detail)
+                    resources.getString(R.string.error_with_detail, message, sideEffect.detail)
                 }
                 context.showShortToast(toastText)
             }
@@ -141,12 +136,7 @@ fun HomeScreen(
             onDismiss = { showImportGuideDialog = false },
             onOpenDesktopGuide = {
                 if (!onOpenDesktopGuide()) {
-                    context.showShortToast(resources.getString(R.string.home_import_guide_open_guide_failed))
-                }
-            },
-            onOpenDownloads = {
-                if (!onOpenDownloads()) {
-                    context.showShortToast(resources.getString(R.string.home_import_guide_open_downloads_failed))
+                    context.showShortToast(resources.getString(R.string.import_guide_open_guide_failed))
                 }
             },
             onSelectFile = {
@@ -166,7 +156,7 @@ private fun NoConnectedBrowsers(modifier: Modifier) {
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = stringResource(R.string.home_no_browsers_connected),
+            text = stringResource(R.string.no_browsers_connected),
             textAlign = TextAlign.Center,
         )
     }

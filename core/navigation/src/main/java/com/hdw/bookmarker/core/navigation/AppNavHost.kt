@@ -26,9 +26,6 @@ fun AppNavHost(navController: NavHostController) {
                 onOpenDesktopGuide = {
                     ExternalAppNavigator.openDesktopChromeBookmarkGuide(context)
                 },
-                onOpenDownloads = {
-                    ExternalAppNavigator.openDownloads(context)
-                },
             )
         }
         slideComposable<Route.Settings> {

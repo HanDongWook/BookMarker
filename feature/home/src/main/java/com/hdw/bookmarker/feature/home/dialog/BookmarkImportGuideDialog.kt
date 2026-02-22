@@ -33,7 +33,6 @@ fun BookmarkImportGuideDialog(
     icon: Drawable?,
     onDismiss: () -> Unit,
     onOpenDesktopGuide: () -> Unit,
-    onOpenDownloads: () -> Unit,
     onSelectFile: () -> Unit,
 ) {
     Dialog(
@@ -64,34 +63,34 @@ fun BookmarkImportGuideDialog(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = stringResource(R.string.home_import_guide_title),
+                    text = stringResource(R.string.import_guide_title),
                     style = MaterialTheme.typography.headlineSmall,
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 GuideSection(
-                    title = stringResource(R.string.home_import_guide_step1_title),
-                    description = stringResource(R.string.home_import_guide_step1_body),
-                    buttonText = stringResource(R.string.home_import_guide_step1_button),
+                    title = stringResource(R.string.import_guide_step1_title),
+                    descriptions = arrayOf(
+                        stringResource(R.string.import_guide_step1_body_notice),
+                        stringResource(R.string.import_guide_step1_body_desktop),
+                    ),
+                    buttonText = stringResource(R.string.import_guide_step1_button),
                     onClick = onOpenDesktopGuide,
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 GuideSection(
-                    title = stringResource(R.string.home_import_guide_step2_title),
-                    description = stringResource(R.string.home_import_guide_step2_body),
-                    buttonText = stringResource(R.string.home_import_guide_step2_button),
-                    onClick = onOpenDownloads,
+                    title = stringResource(R.string.import_guide_step2_title),
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 GuideSection(
-                    title = stringResource(R.string.home_import_guide_step3_title),
-                    description = stringResource(R.string.home_import_guide_step3_body),
-                    buttonText = stringResource(R.string.home_import_guide_step3_button),
+                    title = stringResource(R.string.import_guide_step3_title),
+                    descriptions = arrayOf(stringResource(R.string.import_guide_step3_body)),
+                    buttonText = stringResource(R.string.import_guide_step3_button),
                     onClick = onSelectFile,
                 )
 
@@ -102,7 +101,12 @@ fun BookmarkImportGuideDialog(
 }
 
 @Composable
-private fun GuideSection(title: String, description: String, buttonText: String, onClick: () -> Unit) {
+private fun GuideSection(
+    title: String,
+    vararg descriptions: String,
+    buttonText: String? = null,
+    onClick: (() -> Unit)? = null,
+) {
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -112,12 +116,16 @@ private fun GuideSection(title: String, description: String, buttonText: String,
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
             )
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            Button(onClick = onClick) {
-                Text(text = buttonText)
+            descriptions.forEach { description ->
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+            if (buttonText != null && onClick != null) {
+                Button(onClick = onClick) {
+                    Text(text = buttonText)
+                }
             }
         }
     }

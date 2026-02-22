@@ -77,13 +77,13 @@ class HomeViewModel @Inject constructor(
 
     @StringRes
     private fun BookmarkImportError.toUiMessageResId(): Int = when (this) {
-        BookmarkImportError.INVALID_URI -> R.string.home_error_invalid_uri
-        BookmarkImportError.FILE_NOT_FOUND -> R.string.home_error_file_not_found
-        BookmarkImportError.PERMISSION_DENIED -> R.string.home_error_permission_denied
-        BookmarkImportError.IO_ERROR -> R.string.home_error_io
-        BookmarkImportError.EMPTY_CONTENT -> R.string.home_error_empty_content
-        BookmarkImportError.PARSE_ERROR -> R.string.home_error_parse
-        BookmarkImportError.UNSUPPORTED_BROWSER -> R.string.home_error_unsupported_browser
-        BookmarkImportError.UNKNOWN -> R.string.home_error_unknown
+        BookmarkImportError.INVALID_URI -> R.string.error_invalid_uri
+        BookmarkImportError.FILE_NOT_FOUND -> R.string.error_file_not_found
+        BookmarkImportError.PERMISSION_DENIED -> R.string.error_permission_denied
+        BookmarkImportError.IO_ERROR -> R.string.error_io
+        BookmarkImportError.EMPTY_CONTENT -> R.string.error_empty_content
+        BookmarkImportError.PARSE_ERROR -> R.string.error_parse
+        BookmarkImportError.UNSUPPORTED_BROWSER -> R.string.error_unsupported_browser
+        BookmarkImportError.UNKNOWN -> R.string.error_unknown
     }
 }
