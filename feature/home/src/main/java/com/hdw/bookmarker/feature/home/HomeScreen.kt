@@ -69,7 +69,6 @@ fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit, onOpenDesk
 
     val scope = rememberCoroutineScope()
     var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
-    var selectedBrowserPackage by rememberSaveable { mutableStateOf<String?>(null) }
 
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -87,7 +86,7 @@ fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit, onOpenDesk
         snapshotFlow { pagerState.settledPage }
             .distinctUntilChanged()
             .collect { page ->
-                selectedBrowserPackage = state.installedBrowsers.getOrNull(page)?.packageName
+                state.installedBrowsers.getOrNull(page)?.packageName?.let(viewModel::onBrowserSelected)
             }
     }
 
@@ -98,8 +97,8 @@ fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit, onOpenDesk
         Column(modifier = Modifier.padding(innerPadding)) {
             ConnectedBrowserBar(
                 installedBrowsers = state.installedBrowsers,
-                connectedBrowserPackages = emptySet(),
-                selectedBrowserPackage = selectedBrowserPackage,
+                connectedBrowserPackages = state.connectedBrowserPackages,
+                selectedBrowserPackage = state.selectedBrowserPackage,
                 onBrowserClick = { packageName ->
                     val targetPage = state.installedBrowsers
                         .indexOfFirst { it.packageName == packageName }
@@ -121,7 +120,7 @@ fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit, onOpenDesk
                     val browser = state.installedBrowsers[page]
                     BookmarkContent(
                         modifier = Modifier.fillMaxSize(),
-                        bookmarkDocument = null,
+                        bookmarkDocument = state.bookmarkDocuments[browser.packageName],
                         selectedBrowserIcon = browser.icon,
                         onImportClick = { showImportGuideDialog = true },
                     )
@@ -140,7 +139,14 @@ fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit, onOpenDesk
                 }
             },
             onSelectFile = {
+                val selectedPackage = state.selectedBrowserPackage
+                    ?: state.installedBrowsers.getOrNull(pagerState.currentPage)?.packageName
+                if (selectedPackage == null) {
+                    context.showShortToast(resources.getString(R.string.no_browsers_connected))
+                    return@BookmarkImportGuideDialog
+                }
                 showImportGuideDialog = false
+                viewModel.onBrowserSelected(selectedPackage)
                 viewModel.openFilePicker()
             },
         )

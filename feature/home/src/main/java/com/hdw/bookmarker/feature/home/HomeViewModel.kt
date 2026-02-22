@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
-import com.hdw.bookmarker.core.model.bookmark.Bookmark
+import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
 import com.hdw.bookmarker.core.model.browser.Browser
@@ -18,7 +18,9 @@ import javax.inject.Inject
 
 data class MainState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
-    val bookmarks: List<Bookmark> = emptyList(),
+    val connectedBrowserPackages: Set<String> = emptySet(),
+    val bookmarkDocuments: Map<String, BookmarkDocument> = emptyMap(),
+    val selectedBrowserPackage: String? = null,
     val isLoading: Boolean = false,
 )
 
@@ -46,21 +48,27 @@ class HomeViewModel @Inject constructor(
     }
 
     fun openFilePicker() = intent {
-        Timber.e("Opening file picker")
         postSideEffect(MainSideEffect.OpenFilePicker)
     }
 
-    fun onSyncClick(browser: BrowserInfo) = intent {
-        Timber.e("Syncing browser: ${browser.appName}")
-        openFilePicker()
+    fun onBrowserSelected(packageName: String) = intent {
+        if (state.selectedBrowserPackage == packageName) return@intent
+        reduce { state.copy(selectedBrowserPackage = packageName) }
     }
 
     fun onHtmlFileSelected(uri: Uri) = intent {
         Timber.e("Selected html file uri: $uri")
+        val targetBrowserPackage = state.selectedBrowserPackage ?: return@intent
         when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = uri)) {
             is BookmarkImportResult.Success -> {
-                val parsedCount = result.document.rootItems.size
-                Timber.d("Bookmark html imported successfully. rootItems=%d", parsedCount)
+                Timber.e("Bookmark html imported successfully.")
+                reduce {
+                    state.copy(
+                        connectedBrowserPackages = state.connectedBrowserPackages + targetBrowserPackage,
+                        bookmarkDocuments = state.bookmarkDocuments + (targetBrowserPackage to result.document),
+                        selectedBrowserPackage = targetBrowserPackage,
+                    )
+                }
             }
 
             is BookmarkImportResult.Failure -> {
