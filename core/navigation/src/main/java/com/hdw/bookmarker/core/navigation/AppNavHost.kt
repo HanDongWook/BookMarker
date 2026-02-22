@@ -7,7 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.hdw.bookmarker.feature.home.HomeScreen
 import com.hdw.bookmarker.feature.home.HomeViewModel
-import com.hdw.bookmarker.feature.settingsetting.SettingsScreen
+import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
@@ -32,7 +32,7 @@ fun AppNavHost(navController: NavHostController) {
             )
         }
         slideComposable<Route.Settings> {
-            SettingsScreen(
+            SettingsRoute(
                 onBackClick = {
                     navController.popBackStack()
                 },

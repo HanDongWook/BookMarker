@@ -43,6 +43,7 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.core.ui)
 
+    implementation(libs.androidx.startup)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -54,10 +55,12 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.navigation.compose)
+
     implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.mavericks.core)
+
     implementation(libs.timber)
-    implementation(libs.androidx.startup)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
