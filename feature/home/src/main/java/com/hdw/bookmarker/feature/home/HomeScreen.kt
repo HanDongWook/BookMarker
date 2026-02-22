@@ -55,11 +55,11 @@ fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit) {
             }
 
             is MainSideEffect.ShowError -> {
-                val message = context.getString(sideEffect.messageResId)
+                val message = resources.getString(sideEffect.messageResId)
                 val toastText = if (sideEffect.detail.isNullOrBlank()) {
                     message
                 } else {
-                    context.getString(R.string.home_error_with_detail, message, sideEffect.detail)
+                    resources.getString(R.string.home_error_with_detail, message, sideEffect.detail)
                 }
                 Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
             }
