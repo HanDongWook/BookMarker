@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import com.hdw.bookmarker.feature.home.HomeScreen
 import com.hdw.bookmarker.feature.home.HomeViewModel
 import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
+import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRoute
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
@@ -33,6 +34,16 @@ fun AppNavHost(navController: NavHostController) {
         }
         slideComposable<Route.Settings> {
             SettingsRoute(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onDefaultBrowserClick = {
+                    navController.navigate(Route.SettingsDefaultBrowser)
+                },
+            )
+        }
+        slideComposable<Route.SettingsDefaultBrowser> {
+            DefaultBrowserRoute(
                 onBackClick = {
                     navController.popBackStack()
                 },

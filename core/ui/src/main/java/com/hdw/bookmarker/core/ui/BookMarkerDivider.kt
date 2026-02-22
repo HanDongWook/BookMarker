@@ -10,10 +10,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BookMarkerDivider(
-    modifier: Modifier = Modifier,
-    horizontalPadding: Dp = 20.dp,
-) {
+fun BookMarkerDivider(modifier: Modifier = Modifier, horizontalPadding: Dp = 20.dp) {
     HorizontalDivider(
         modifier = modifier
             .fillMaxWidth()

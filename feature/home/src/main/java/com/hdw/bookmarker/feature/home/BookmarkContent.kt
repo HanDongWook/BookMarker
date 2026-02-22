@@ -144,11 +144,7 @@ private fun BookmarkFolderRow(folder: BookmarkItem.Folder, depth: Int, isExpande
 }
 
 @Composable
-private fun BookmarkLeafRow(
-    bookmark: BookmarkItem.Bookmark,
-    depth: Int,
-    onClick: () -> Unit,
-) {
+private fun BookmarkLeafRow(bookmark: BookmarkItem.Bookmark, depth: Int, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
