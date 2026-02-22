@@ -63,5 +63,9 @@ gradlePlugin {
             id = libs.plugins.bookmarker.android.mvi.orbit.get().pluginId
             implementationClass = "AndroidMviOrbitPlugin"
         }
+        register("androidMviMavericks") {
+            id = libs.plugins.bookmarker.android.mvi.mavericks.get().pluginId
+            implementationClass = "AndroidMviMavericksPlugin"
+        }
     }
 }

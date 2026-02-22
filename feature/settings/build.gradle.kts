@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.bookmarker.android.feature)
     alias(libs.plugins.bookmarker.android.library.compose)
+    alias(libs.plugins.bookmarker.android.mvi.mavericks)
 }
 
 android {
