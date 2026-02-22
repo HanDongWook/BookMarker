@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home
+package com.hdw.bookmarker.feature.home.dialog
 
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import com.hdw.bookmarker.feature.home.R
 
 @Composable
 fun BookmarkImportGuideDialog(
