@@ -1,11 +1,11 @@
 package com.hdw.bookmarker.base
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.core.ui.util.showShortToast
 
 abstract class BaseActivity : ComponentActivity() {
 
@@ -28,11 +28,7 @@ abstract class BaseActivity : ComponentActivity() {
                         finish()
                     } else {
                         backPressedTime = currentTime
-                        Toast.makeText(
-                            this@BaseActivity,
-                            R.string.press_back_to_exit,
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                        this@BaseActivity.showShortToast(R.string.press_back_to_exit)
                     }
                 }
             },

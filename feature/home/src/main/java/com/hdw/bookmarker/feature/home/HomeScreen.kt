@@ -1,6 +1,5 @@
 package com.hdw.bookmarker.feature.home
 
-import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
 import androidx.compose.foundation.layout.Box
@@ -27,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.MimeTypes
+import com.hdw.bookmarker.core.ui.util.showShortToast
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
@@ -51,12 +51,7 @@ fun HomeScreen(
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
             is MainSideEffect.ShowSyncStarted -> {
-                Toast
-                    .makeText(
-                        context,
-                        resources.getString(R.string.home_syncing, sideEffect.browserName),
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                context.showShortToast(resources.getString(R.string.home_syncing, sideEffect.browserName))
             }
 
             is MainSideEffect.ShowError -> {
@@ -66,7 +61,7 @@ fun HomeScreen(
                 } else {
                     resources.getString(R.string.home_error_with_detail, message, sideEffect.detail)
                 }
-                Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
+                context.showShortToast(toastText)
             }
 
             is MainSideEffect.OpenFilePicker -> {
@@ -144,20 +139,12 @@ fun HomeScreen(
             onDismiss = { showImportGuideDialog = false },
             onOpenDesktopGuide = {
                 if (!onOpenDesktopGuide()) {
-                    Toast.makeText(
-                        context,
-                        resources.getString(R.string.home_import_guide_open_guide_failed),
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                    context.showShortToast(resources.getString(R.string.home_import_guide_open_guide_failed))
                 }
             },
             onOpenDownloads = {
                 if (!onOpenDownloads()) {
-                    Toast.makeText(
-                        context,
-                        resources.getString(R.string.home_import_guide_open_downloads_failed),
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                    context.showShortToast(resources.getString(R.string.home_import_guide_open_downloads_failed))
                 }
             },
             onSelectFile = {
