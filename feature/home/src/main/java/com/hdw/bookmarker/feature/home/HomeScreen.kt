@@ -33,7 +33,12 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit) {
+fun HomeScreen(
+    viewModel: HomeViewModel,
+    onSettingsClick: () -> Unit,
+    onOpenDesktopGuide: () -> Boolean,
+    onOpenDownloads: () -> Boolean,
+) {
     val state by viewModel.collectAsState()
     val context = LocalContext.current
     val resources = LocalResources.current
@@ -137,6 +142,24 @@ fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit) {
         BookmarkImportGuideDialog(
             icon = chromeIcon,
             onDismiss = { showImportGuideDialog = false },
+            onOpenDesktopGuide = {
+                if (!onOpenDesktopGuide()) {
+                    Toast.makeText(
+                        context,
+                        resources.getString(R.string.home_import_guide_open_guide_failed),
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+            },
+            onOpenDownloads = {
+                if (!onOpenDownloads()) {
+                    Toast.makeText(
+                        context,
+                        resources.getString(R.string.home_import_guide_open_downloads_failed),
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
+            },
             onSelectFile = {
                 showImportGuideDialog = false
                 viewModel.openFilePicker()

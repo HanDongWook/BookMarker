@@ -1,6 +1,7 @@
 package com.hdw.bookmarker.core.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -10,6 +11,7 @@ import com.hdw.bookmarker.feature.settingsetting.SettingsScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
+    val context = LocalContext.current
     NavHost(
         navController = navController,
         startDestination = Route.Home,
@@ -20,6 +22,12 @@ fun AppNavHost(navController: NavHostController) {
                 viewModel = viewModel,
                 onSettingsClick = {
                     navController.navigate(Route.Settings)
+                },
+                onOpenDesktopGuide = {
+                    ExternalAppNavigator.openDesktopChromeBookmarkGuide(context)
+                },
+                onOpenDownloads = {
+                    ExternalAppNavigator.openDownloads(context)
                 },
             )
         }

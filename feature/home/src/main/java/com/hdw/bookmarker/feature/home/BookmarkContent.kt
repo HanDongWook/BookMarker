@@ -17,7 +17,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.Folder
-import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -30,15 +29,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
-import coil.compose.AsyncImage
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.ui.BookmarkSiteImage
 
 @Composable
 fun BookmarkContent(
@@ -156,6 +153,7 @@ private fun BookmarkLeafRow(bookmark: BookmarkItem.Bookmark, depth: Int) {
             iconUri = bookmark.iconUri,
             url = bookmark.url,
             title = bookmark.title,
+            modifier = Modifier.size(20.dp),
         )
         Text(
             text = bookmark.title,
@@ -165,24 +163,6 @@ private fun BookmarkLeafRow(bookmark: BookmarkItem.Bookmark, depth: Int) {
             modifier = Modifier.padding(start = 10.dp),
         )
     }
-}
-
-@Composable
-private fun BookmarkSiteImage(iconUri: String?, url: String, title: String) {
-    val candidateUrl = remember(iconUri, url) {
-        iconUri
-            ?.takeIf { it.startsWith("http://") || it.startsWith("https://") }
-            ?: buildFaviconUrl(url)
-    }
-
-    AsyncImage(
-        model = candidateUrl,
-        contentDescription = null,
-        modifier = Modifier.size(20.dp),
-        error = rememberVectorPainter(image = Icons.Default.Language),
-        fallback = rememberVectorPainter(image = Icons.Default.Language),
-        placeholder = rememberVectorPainter(image = Icons.Default.Language),
-    )
 }
 
 private fun flattenBookmarkTree(
@@ -211,12 +191,6 @@ private fun flattenBookmarkTree(
         }
     }
     return flattened
-}
-
-private fun buildFaviconUrl(url: String): String? {
-    val host = runCatching { url.toUri().host }.getOrNull() ?: return null
-    if (host.isBlank()) return null
-    return "https://www.google.com/s2/favicons?sz=64&domain=$host"
 }
 
 private data class VisibleBookmarkNode(val key: String, val depth: Int, val item: BookmarkItem)

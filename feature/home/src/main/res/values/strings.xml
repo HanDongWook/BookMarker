@@ -18,6 +18,15 @@
     <string name="home_no_bookmarks_imported">No bookmarks imported yet.</string>
     <string name="home_import_bookmarks">Import bookmarks</string>
     <string name="home_import_guide_title">Import Chrome bookmarks</string>
-    <string name="home_import_guide_body">1. In Chrome, export bookmarks as an HTML file.\n2. Save/share the HTML file to this device.\n3. Tap “Select file” and choose the exported HTML file.</string>
-    <string name="home_import_guide_select_file">Select file</string>
+    <string name="home_import_guide_step1_title">1. Export on desktop Chrome</string>
+    <string name="home_import_guide_step1_body">On mobile Chrome, bookmark export is not available. On your computer Chrome, open menu (⋮) \u003e Bookmarks and lists \u003e Bookmark manager, then menu (⋮) \u003e Export bookmarks.</string>
+    <string name="home_import_guide_step1_button">Open desktop guide</string>
+    <string name="home_import_guide_step2_title">2. Move the HTML file to phone</string>
+    <string name="home_import_guide_step2_body">After export, transfer the HTML file to this device. The file is usually in Download (for example: /storage/emulated/0/Download) with a name like bookmarks_YYYY_MM_DD.html.</string>
+    <string name="home_import_guide_step2_button">Open Downloads</string>
+    <string name="home_import_guide_step3_title">3. Import HTML file</string>
+    <string name="home_import_guide_step3_body">Tap the button below and choose the exported HTML file to import bookmarks into the app.</string>
+    <string name="home_import_guide_step3_button">Select HTML file</string>
+    <string name="home_import_guide_open_guide_failed">Could not open guide page.</string>
+    <string name="home_import_guide_open_downloads_failed">Could not open Downloads.</string>
 </resources>

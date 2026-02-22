@@ -9,6 +9,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.common)
+
     implementation(projects.feature.home)
     implementation(projects.feature.settings)
 
