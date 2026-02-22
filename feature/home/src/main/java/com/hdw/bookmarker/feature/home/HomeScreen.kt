@@ -35,7 +35,12 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit, onOpenDesktopGuide: () -> Boolean) {
+fun HomeScreen(
+    viewModel: HomeViewModel,
+    onSettingsClick: () -> Unit,
+    onOpenDesktopGuide: () -> Boolean,
+    onOpenBookmark: (String) -> Boolean,
+) {
     val state by viewModel.collectAsState()
     val context = LocalContext.current
     val resources = LocalResources.current
@@ -123,6 +128,11 @@ fun HomeScreen(viewModel: HomeViewModel, onSettingsClick: () -> Unit, onOpenDesk
                         bookmarkDocument = state.bookmarkDocuments[browser.packageName],
                         selectedBrowserIcon = browser.icon,
                         onImportClick = { showImportGuideDialog = true },
+                        onBookmarkClick = { url ->
+                            if (!onOpenBookmark(url)) {
+                                context.showShortToast(resources.getString(R.string.open_bookmark_failed))
+                            }
+                        },
                     )
                 }
             }

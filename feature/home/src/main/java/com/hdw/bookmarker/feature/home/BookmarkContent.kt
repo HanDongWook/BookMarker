@@ -42,6 +42,7 @@ fun BookmarkContent(
     bookmarkDocument: BookmarkDocument?,
     selectedBrowserIcon: Drawable?,
     onImportClick: () -> Unit,
+    onBookmarkClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (bookmarkDocument == null || bookmarkDocument.rootItems.isEmpty()) {
@@ -104,6 +105,7 @@ fun BookmarkContent(
                     BookmarkLeafRow(
                         bookmark = item,
                         depth = node.depth,
+                        onClick = { onBookmarkClick(item.url) },
                     )
                 }
             }
@@ -142,10 +144,15 @@ private fun BookmarkFolderRow(folder: BookmarkItem.Folder, depth: Int, isExpande
 }
 
 @Composable
-private fun BookmarkLeafRow(bookmark: BookmarkItem.Bookmark, depth: Int) {
+private fun BookmarkLeafRow(
+    bookmark: BookmarkItem.Bookmark,
+    depth: Int,
+    onClick: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable(onClick = onClick)
             .padding(start = (depth * 16).dp + 8.dp, end = 12.dp, top = 6.dp, bottom = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

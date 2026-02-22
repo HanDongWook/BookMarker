@@ -29,4 +29,5 @@
     <string name="import_guide_step3_button">Select HTML file</string>
     <string name="import_guide_open_guide_failed">Could not open guide page.</string>
     <string name="import_guide_open_downloads_failed">Could not open Downloads.</string>
+    <string name="open_bookmark_failed">Could not open bookmark link.</string>
 </resources>

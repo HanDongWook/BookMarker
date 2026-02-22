@@ -29,4 +29,5 @@
     <string name="import_guide_step3_button">HTML 파일 선택</string>
     <string name="import_guide_open_guide_failed">가이드 페이지를 열 수 없어요.</string>
     <string name="import_guide_open_downloads_failed">다운로드를 열 수 없어요.</string>
+    <string name="open_bookmark_failed">북마크 링크를 열 수 없어요.</string>
 </resources>
