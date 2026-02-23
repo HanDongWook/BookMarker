@@ -42,6 +42,7 @@ import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.appbar.HomeTopAppBar
 import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkContent
+import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.drawer.HomeDrawerContent
 import com.hdw.bookmarker.feature.home.guide.BookmarkImportGuideScreen
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -86,6 +87,7 @@ fun HomeScreen(
     var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
     var showOverwriteConfirmDialog by rememberSaveable { mutableStateOf(false) }
     var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
+    var bookmarkDisplayType by rememberSaveable { mutableStateOf(BookmarkDisplayType.LIST) }
     var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
     var pendingDeleteBrowserPackage by rememberSaveable { mutableStateOf<String?>(null) }
 
@@ -271,7 +273,14 @@ fun HomeScreen(
                 topBar = {
                     HomeTopAppBar(
                         isEditMode = isBrowserEditMode,
+                        bookmarkDisplayType = bookmarkDisplayType,
                         defaultBrowserIcon = defaultBrowserIcon,
+                        onBookmarkDisplayTypeClick = {
+                            bookmarkDisplayType = when (bookmarkDisplayType) {
+                                BookmarkDisplayType.LIST -> BookmarkDisplayType.ICON
+                                BookmarkDisplayType.ICON -> BookmarkDisplayType.LIST
+                            }
+                        },
                         onDefaultBrowserIconClick = {
                             if (state.installedBrowsers.isNotEmpty()) {
                                 showDefaultBrowserDialog = true
@@ -328,6 +337,7 @@ fun HomeScreen(
                             BookmarkContent(
                                 modifier = Modifier.fillMaxSize(),
                                 bookmarkDocument = state.bookmarkDocuments.getValue(browser.packageName),
+                                displayType = bookmarkDisplayType,
                                 onBookmarkClick = { url ->
                                     if (!onOpenBookmark(url)) {
                                         context.showShortToast(

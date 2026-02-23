@@ -18,6 +18,9 @@
     <string name="error_unknown">An unknown error occurred.</string>
     <string name="no_bookmarks_imported">No bookmarks imported yet.</string>
     <string name="empty_bookmarks">북마크가 비어있습니다.</string>
+    <string name="bookmark_icon_back">Back to previous folder</string>
+    <string name="bookmark_mode_list">Bookmark list view</string>
+    <string name="bookmark_mode_icon">Bookmark icon view</string>
     <string name="import_bookmarks">Import bookmarks</string>
     <string name="browser_generic_name">browser</string>
     <string name="import_guide_title">Import Chrome bookmarks</string>
