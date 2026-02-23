@@ -308,6 +308,7 @@ fun HomeScreen(
     } else {
         BookmarkImportGuideScreen(
             icon = currentSelectedBrowser?.icon,
+            browserPackageName = currentSelectedBrowser?.packageName,
             browserName = currentSelectedBrowser?.appName,
             onDismiss = { showImportGuideDialog = false },
             onOpenDesktopGuide = {

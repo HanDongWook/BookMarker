@@ -23,21 +23,33 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
+import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.feature.home.R
 
 @Composable
 fun BookmarkImportGuideScreen(
     icon: Drawable?,
+    browserPackageName: String?,
     browserName: String?,
     onDismiss: () -> Unit,
     onOpenDesktopGuide: () -> Unit,
     onSelectFile: () -> Unit,
     iconModifier: Modifier = Modifier,
 ) {
+    val browser = remember(browserPackageName, browserName) {
+        Browser.fromPackageAndName(
+            packageName = browserPackageName,
+            appName = browserName,
+        )
+    }
+    val resolvedBrowserName = browserName ?: stringResource(R.string.browser_generic_name)
+    val step1Guide = browser.toStep1GuideContent(resolvedBrowserName = resolvedBrowserName)
+
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -49,26 +61,7 @@ fun BookmarkImportGuideScreen(
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            Row(modifier = Modifier.fillMaxWidth()) {
-                if (icon != null) {
-                    Image(
-                        painter = rememberDrawablePainter(drawable = icon),
-                        contentDescription = null,
-                        modifier = iconModifier.size(56.dp),
-                    )
-                }
-                if (!browserName.isNullOrBlank()) {
-                    Text(
-                        text = browserName,
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.padding(start = 12.dp, top = 12.dp),
-                    )
-                }
-                Spacer(modifier = Modifier.weight(1f))
-                TextButton(onClick = onDismiss) {
-                    Text(text = stringResource(android.R.string.cancel))
-                }
-            }
+            GuideTitle(icon = icon, iconModifier = iconModifier, browserName = browserName, onDismiss = onDismiss)
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -84,13 +77,14 @@ fun BookmarkImportGuideScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             GuideSection(
-                title = stringResource(R.string.import_guide_step1_title),
-                descriptions = arrayOf(
-                    stringResource(R.string.import_guide_step1_body_notice),
-                    stringResource(R.string.import_guide_step1_body_desktop),
-                ),
-                buttonText = stringResource(R.string.import_guide_step1_button),
-                onClick = onOpenDesktopGuide,
+                title = step1Guide.step1Title,
+                descriptions = step1Guide.step1Descriptions,
+                buttonText = if (step1Guide.showDesktopGuideButton) {
+                    stringResource(R.string.import_guide_step1_button)
+                } else {
+                    null
+                },
+                onClick = if (step1Guide.showDesktopGuideButton) onOpenDesktopGuide else null,
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -109,6 +103,35 @@ fun BookmarkImportGuideScreen(
             )
 
             Spacer(modifier = Modifier.height(20.dp))
+        }
+    }
+}
+
+@Composable
+private fun GuideTitle(
+    icon: Drawable?,
+    iconModifier: Modifier = Modifier,
+    browserName: String? = null,
+    onDismiss: () -> Unit,
+) {
+    Row(modifier = Modifier.fillMaxWidth()) {
+        if (icon != null) {
+            Image(
+                painter = rememberDrawablePainter(drawable = icon),
+                contentDescription = null,
+                modifier = iconModifier.size(56.dp),
+            )
+        }
+        if (!browserName.isNullOrBlank()) {
+            Text(
+                text = browserName,
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(start = 12.dp, top = 12.dp),
+            )
+        }
+        Spacer(modifier = Modifier.weight(1f))
+        TextButton(onClick = onDismiss) {
+            Text(text = stringResource(android.R.string.cancel))
         }
     }
 }
