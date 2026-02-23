@@ -28,7 +28,7 @@ import com.hdw.bookmarker.feature.home.R
 fun HomeDrawerContent(
     installedBrowsers: List<BrowserInfo>,
     connectedBrowserPackages: Set<String>,
-    onSyncClick: () -> Unit,
+    onSyncClick: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -45,7 +45,7 @@ fun HomeDrawerContent(
             BrowserItem(
                 browser = browser,
                 isConnected = connectedBrowserPackages.contains(browser.packageName),
-                onSyncClick = onSyncClick,
+                onSyncClick = { onSyncClick(browser.packageName) },
             )
         }
     }

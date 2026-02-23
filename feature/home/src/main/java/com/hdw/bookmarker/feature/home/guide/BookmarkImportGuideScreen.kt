@@ -32,6 +32,7 @@ import com.hdw.bookmarker.feature.home.R
 @Composable
 fun BookmarkImportGuideScreen(
     icon: Drawable?,
+    browserName: String?,
     onDismiss: () -> Unit,
     onOpenDesktopGuide: () -> Unit,
     onSelectFile: () -> Unit,
@@ -56,6 +57,13 @@ fun BookmarkImportGuideScreen(
                         modifier = iconModifier.size(56.dp),
                     )
                 }
+                if (!browserName.isNullOrBlank()) {
+                    Text(
+                        text = browserName,
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.padding(start = 12.dp, top = 12.dp),
+                    )
+                }
                 Spacer(modifier = Modifier.weight(1f))
                 TextButton(onClick = onDismiss) {
                     Text(text = stringResource(android.R.string.cancel))
@@ -65,7 +73,11 @@ fun BookmarkImportGuideScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = stringResource(R.string.import_guide_title),
+                text = if (browserName.isNullOrBlank()) {
+                    stringResource(R.string.import_guide_title)
+                } else {
+                    stringResource(R.string.import_guide_title_for_browser, browserName)
+                },
                 style = MaterialTheme.typography.headlineSmall,
             )
 

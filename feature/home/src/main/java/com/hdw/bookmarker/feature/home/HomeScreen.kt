@@ -116,9 +116,10 @@ fun HomeScreen(
         initialPage = 0,
         pageCount = { connectedBrowsers.size },
     )
-    val currentSelectedBrowserIcon = connectedBrowsers
+    val currentSelectedBrowser = state.installedBrowsers
         .firstOrNull { it.packageName == state.selectedBrowserPackage }
-        ?.icon ?: connectedBrowsers.getOrNull(pagerState.currentPage)?.icon
+        ?: connectedBrowsers.getOrNull(pagerState.currentPage)
+        ?: state.installedBrowsers.firstOrNull()
 
     LaunchedEffect(pagerState, connectedBrowsers) {
         if (connectedBrowsers.isEmpty()) return@LaunchedEffect
@@ -191,7 +192,8 @@ fun HomeScreen(
                     HomeDrawerContent(
                         installedBrowsers = state.installedBrowsers,
                         connectedBrowserPackages = state.connectedBrowserPackages,
-                        onSyncClick = {
+                        onSyncClick = { packageName ->
+                            viewModel.onBrowserSelected(packageName)
                             showImportGuideDialog = true
                             scope.launch { drawerState.close() }
                         },
@@ -259,7 +261,8 @@ fun HomeScreen(
         }
     } else {
         BookmarkImportGuideScreen(
-            icon = currentSelectedBrowserIcon,
+            icon = currentSelectedBrowser?.icon,
+            browserName = currentSelectedBrowser?.appName,
             onDismiss = { showImportGuideDialog = false },
             onOpenDesktopGuide = {
                 if (!onOpenDesktopGuide()) {

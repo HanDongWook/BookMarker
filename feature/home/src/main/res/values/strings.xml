@@ -18,6 +18,7 @@
     <string name="empty_bookmarks">북마크가 비어있습니다.</string>
     <string name="import_bookmarks">Import bookmarks</string>
     <string name="import_guide_title">Import Chrome bookmarks</string>
+    <string name="import_guide_title_for_browser">Import %1$s bookmarks</string>
     <string name="import_guide_step1_title">1. Export on desktop Chrome</string>
     <string name="import_guide_step1_body_notice">On mobile Chrome, bookmark export is not available.</string>
     <string name="import_guide_step1_body_desktop">On your computer Chrome, open menu (⋮) \u003e Bookmarks and lists \u003e Bookmark manager, then menu (⋮) \u003e Export bookmarks.</string>
