@@ -29,7 +29,10 @@ internal fun ConnectedBrowserBar(
     selectedBrowserPackage: String?,
     onBrowserClick: (String) -> Unit,
 ) {
-    if (installedBrowsers.isEmpty()) return
+    val connectedBrowsers = installedBrowsers.filter { browser ->
+        connectedBrowserPackages.contains(browser.packageName)
+    }
+    if (connectedBrowsers.isEmpty()) return
 
     LazyRow(
         modifier = Modifier
@@ -42,8 +45,7 @@ internal fun ConnectedBrowserBar(
         ),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(installedBrowsers, key = { it.packageName }) { browser ->
-            val isConnected = connectedBrowserPackages.contains(browser.packageName)
+        items(connectedBrowsers, key = { it.packageName }) { browser ->
             val isSelected = selectedBrowserPackage == browser.packageName
             Surface(
                 color = if (isSelected) {
@@ -63,7 +65,7 @@ internal fun ConnectedBrowserBar(
                         contentDescription = null,
                         modifier = Modifier
                             .size(36.dp)
-                            .alpha(if (isConnected) 1f else 0.5f),
+                            .alpha(1f),
                     )
                 }
             }
