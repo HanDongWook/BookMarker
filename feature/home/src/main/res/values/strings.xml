@@ -5,6 +5,7 @@
     <string name="edit_mode_done">Done</string>
     <string name="sync">Sync</string>
     <string name="installed_browser">Installed browsers</string>
+    <string name="select_default_browser_title">Select default browser</string>
     <string name="no_browsers_connected">가져온 북마크가 없습니다.\n북마크를 동기화 해보세요.</string>
     <string name="error_with_detail">%1$s (%2$s)</string>
     <string name="error_invalid_uri">The file path is invalid.</string>

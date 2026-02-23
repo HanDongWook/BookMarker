@@ -5,6 +5,7 @@
     <string name="edit_mode_done">완료</string>
     <string name="sync">동기화</string>
     <string name="installed_browser">설치된 브라우저</string>
+    <string name="select_default_browser_title">기본 브라우저 선택</string>
     <string name="no_browsers_connected">가져온 북마크가 없습니다.\n북마크를 동기화 해보세요.</string>
     <string name="error_with_detail">%1$s (%2$s)</string>
     <string name="error_invalid_uri">파일 경로가 잘못되었어요.</string>

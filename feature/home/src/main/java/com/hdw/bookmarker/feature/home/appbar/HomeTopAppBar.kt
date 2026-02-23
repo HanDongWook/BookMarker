@@ -24,6 +24,7 @@ import com.hdw.bookmarker.feature.home.R
 fun HomeTopAppBar(
     isEditMode: Boolean,
     defaultBrowserIcon: Drawable?,
+    onDefaultBrowserIconClick: () -> Unit,
     onMenuClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onEditModeDoneClick: () -> Unit,
@@ -45,11 +46,13 @@ fun HomeTopAppBar(
                 }
             } else {
                 if (defaultBrowserIcon != null) {
-                    Image(
-                        painter = rememberDrawablePainter(drawable = defaultBrowserIcon),
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp),
-                    )
+                    IconButton(onClick = onDefaultBrowserIconClick) {
+                        Image(
+                            painter = rememberDrawablePainter(drawable = defaultBrowserIcon),
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp),
+                        )
+                    }
                 }
                 IconButton(onClick = onSettingsClick) {
                     Icon(

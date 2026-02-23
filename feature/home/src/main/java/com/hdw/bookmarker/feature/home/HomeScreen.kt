@@ -51,6 +51,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Composable
 fun HomeRoute(
     defaultBrowserPackage: String?,
+    onDefaultBrowserSelected: (String) -> Unit,
     onSettingsClick: () -> Unit,
     onOpenDesktopGuide: (Browser, String?) -> Boolean,
     onOpenBookmark: (String) -> Boolean,
@@ -59,6 +60,7 @@ fun HomeRoute(
     HomeScreen(
         viewModel = viewModel,
         defaultBrowserPackage = defaultBrowserPackage,
+        onDefaultBrowserSelected = onDefaultBrowserSelected,
         onSettingsClick = onSettingsClick,
         onOpenDesktopGuide = onOpenDesktopGuide,
         onOpenBookmark = onOpenBookmark,
@@ -69,6 +71,7 @@ fun HomeRoute(
 fun HomeScreen(
     viewModel: HomeViewModel,
     defaultBrowserPackage: String?,
+    onDefaultBrowserSelected: (String) -> Unit,
     onSettingsClick: () -> Unit,
     onOpenDesktopGuide: (Browser, String?) -> Boolean,
     onOpenBookmark: (String) -> Boolean,
@@ -82,6 +85,7 @@ fun HomeScreen(
     var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
     var showOverwriteConfirmDialog by rememberSaveable { mutableStateOf(false) }
     var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
+    var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
     var pendingDeleteBrowserPackage by rememberSaveable { mutableStateOf<String?>(null) }
 
     val htmlPickerLauncher = rememberLauncherForActivityResult(OpenDocument()) { uri ->
@@ -202,6 +206,20 @@ fun HomeScreen(
         )
     }
 
+    if (showDefaultBrowserDialog) {
+        DefaultBrowserPickerDialog(
+            installedBrowsers = state.installedBrowsers,
+            selectedPackage = defaultBrowserPackage,
+            onSelect = { packageName ->
+                onDefaultBrowserSelected(packageName)
+                showDefaultBrowserDialog = false
+            },
+            onDismiss = {
+                showDefaultBrowserDialog = false
+            },
+        )
+    }
+
     if (pendingDeleteBrowserPackage != null) {
         AlertDialog(
             onDismissRequest = { pendingDeleteBrowserPackage = null },
@@ -253,6 +271,11 @@ fun HomeScreen(
                     HomeTopAppBar(
                         isEditMode = isBrowserEditMode,
                         defaultBrowserIcon = defaultBrowserIcon,
+                        onDefaultBrowserIconClick = {
+                            if (state.installedBrowsers.isNotEmpty()) {
+                                showDefaultBrowserDialog = true
+                            }
+                        },
                         onMenuClick = {
                             scope.launch { drawerState.open() }
                         },

@@ -10,7 +10,11 @@ import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
 import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRoute
 
 @Composable
-fun AppNavHost(navController: NavHostController, defaultBrowserPackage: String?) {
+fun AppNavHost(
+    navController: NavHostController,
+    defaultBrowserPackage: String?,
+    onDefaultBrowserSelected: (String) -> Unit,
+) {
     val context = LocalContext.current
     NavHost(
         navController = navController,
@@ -19,6 +23,7 @@ fun AppNavHost(navController: NavHostController, defaultBrowserPackage: String?)
         slideComposable<Route.Home> {
             HomeRoute(
                 defaultBrowserPackage = defaultBrowserPackage,
+                onDefaultBrowserSelected = onDefaultBrowserSelected,
                 onSettingsClick = {
                     navController.navigate(Route.Settings)
                 },
