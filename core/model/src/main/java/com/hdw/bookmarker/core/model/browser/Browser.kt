@@ -30,9 +30,9 @@ enum class Browser {
 
                 normalizedPackage.contains("emmx") || normalizedName.contains("edge") -> EDGE
 
-                normalizedPackage.contains("whale") || normalizedPackage.contains("naver") ||
-                    normalizedName.contains("whale") || normalizedName.contains("웨일") ||
-                    normalizedName.contains("naver") -> NAVER_WHALE
+                normalizedPackage.contains("whale") ||
+                    normalizedName.contains("whale") ||
+                    normalizedName.contains("웨일") -> NAVER_WHALE
 
                 normalizedPackage.contains("sbrowser") ||
                     normalizedName.contains("samsung internet") ||
@@ -65,5 +65,10 @@ enum class Browser {
                 else -> UNKNOWN
             }
         }
+    }
+
+    fun hasBookmarkGuideLink(): Boolean = when (this) {
+        KIWI, UNKNOWN -> false
+        else -> true
     }
 }

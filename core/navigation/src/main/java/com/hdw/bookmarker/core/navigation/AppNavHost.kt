@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.feature.home.HomeRoute
 import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
 import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRoute
@@ -20,8 +21,12 @@ fun AppNavHost(navController: NavHostController, defaultBrowserPackage: String?)
                 onSettingsClick = {
                     navController.navigate(Route.Settings)
                 },
-                onOpenDesktopGuide = {
-                    ExternalAppNavigator.openDesktopChromeBookmarkGuide(context)
+                onOpenDesktopGuide = { browser, selectedBrowserPackage ->
+                    ExternalAppNavigator.openBrowserBookmarkGuide(
+                        context = context,
+                        browser = browser,
+                        preferredBrowserPackage = selectedBrowserPackage,
+                    )
                 },
                 onOpenBookmark = { url ->
                     ExternalAppNavigator.openBookmarkUrl(

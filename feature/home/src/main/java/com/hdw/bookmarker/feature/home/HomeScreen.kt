@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.hdw.bookmarker.core.model.MimeTypes
+import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.appbar.HomeTopAppBar
 import com.hdw.bookmarker.feature.home.drawer.HomeDrawerContent
@@ -48,7 +49,11 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
-fun HomeRoute(onSettingsClick: () -> Unit, onOpenDesktopGuide: () -> Boolean, onOpenBookmark: (String) -> Boolean) {
+fun HomeRoute(
+    onSettingsClick: () -> Unit,
+    onOpenDesktopGuide: (Browser, String?) -> Boolean,
+    onOpenBookmark: (String) -> Boolean,
+) {
     val viewModel: HomeViewModel = hiltViewModel()
     HomeScreen(
         viewModel = viewModel,
@@ -62,7 +67,7 @@ fun HomeRoute(onSettingsClick: () -> Unit, onOpenDesktopGuide: () -> Boolean, on
 fun HomeScreen(
     viewModel: HomeViewModel,
     onSettingsClick: () -> Unit,
-    onOpenDesktopGuide: () -> Boolean,
+    onOpenDesktopGuide: (Browser, String?) -> Boolean,
     onOpenBookmark: (String) -> Boolean,
 ) {
     val state by viewModel.collectAsState()
@@ -312,7 +317,11 @@ fun HomeScreen(
             browserName = currentSelectedBrowser?.appName,
             onDismiss = { showImportGuideDialog = false },
             onOpenDesktopGuide = {
-                if (!onOpenDesktopGuide()) {
+                val selectedBrowserType = Browser.fromPackageAndName(
+                    packageName = currentSelectedBrowser?.packageName,
+                    appName = currentSelectedBrowser?.appName,
+                )
+                if (!onOpenDesktopGuide(selectedBrowserType, currentSelectedBrowser?.packageName)) {
                     context.showShortToast(resources.getString(R.string.import_guide_open_guide_failed))
                 }
             },

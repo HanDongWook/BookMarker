@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import timber.log.Timber
 import javax.inject.Inject
+import java.util.Locale
 
 class BrowserRepositoryImpl @Inject constructor(private val application: Application) : BrowserRepository {
 
@@ -26,6 +27,9 @@ class BrowserRepositoryImpl @Inject constructor(private val application: Applica
                 val packageName = resolveInfo.activityInfo.packageName
                 val appInfo = packageManager.getApplicationInfo(packageName, 0)
                 val appName = packageManager.getApplicationLabel(appInfo).toString()
+                if (isExcludedNaverApp(packageName = packageName, appName = appName)) {
+                    return@mapNotNull null
+                }
                 val icon = packageManager.getApplicationIcon(packageName)
 
                 BrowserInfo(
@@ -41,5 +45,13 @@ class BrowserRepositoryImpl @Inject constructor(private val application: Applica
 
         Timber.e("Found ${browsers.size} browsers: ${browsers.map { it.appName }}")
         return browsers
+    }
+
+    private fun isExcludedNaverApp(packageName: String, appName: String): Boolean {
+        val normalizedPackage = packageName.lowercase(Locale.ROOT)
+        val normalizedName = appName.lowercase(Locale.ROOT)
+        val isNaver = normalizedPackage.contains("naver") || normalizedName.contains("naver") || normalizedName.contains("네이버")
+        val isWhale = normalizedPackage.contains("whale") || normalizedName.contains("whale") || normalizedName.contains("웨일")
+        return isNaver && !isWhale
     }
 }
