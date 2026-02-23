@@ -50,8 +50,8 @@ internal fun ConnectedBrowserBar(
     if (connectedBrowsers.isEmpty()) return
 
     val shakeRotation = rememberInfiniteTransition(label = "connected_browser_shake").animateFloat(
-        initialValue = -3f,
-        targetValue = 3f,
+        initialValue = -7f,
+        targetValue = 7f,
         animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = 120),
             repeatMode = RepeatMode.Reverse,
