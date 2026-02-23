@@ -116,6 +116,11 @@ fun HomeScreen(
         initialPage = 0,
         pageCount = { connectedBrowsers.size },
     )
+    val selectedConnectedBrowserPackage = state.selectedBrowserPackage
+        ?.takeIf { selected -> connectedBrowsers.any { it.packageName == selected } }
+        ?: connectedBrowsers.getOrNull(pagerState.currentPage)?.packageName
+        ?: connectedBrowsers.firstOrNull()?.packageName
+
     val currentSelectedBrowser = state.installedBrowsers
         .firstOrNull { it.packageName == state.selectedBrowserPackage }
         ?: connectedBrowsers.getOrNull(pagerState.currentPage)
@@ -217,7 +222,7 @@ fun HomeScreen(
                         ConnectedBrowserBar(
                             installedBrowsers = state.installedBrowsers,
                             connectedBrowserPackages = state.connectedBrowserPackages,
-                            selectedBrowserPackage = state.selectedBrowserPackage,
+                            selectedBrowserPackage = selectedConnectedBrowserPackage,
                             onBrowserClick = { packageName ->
                                 val targetPage = connectedBrowsers
                                     .indexOfFirst { it.packageName == packageName }
