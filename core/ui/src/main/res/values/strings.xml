@@ -10,5 +10,5 @@
     <string name="press_back_to_exit">Press \'back\' button one more time to close app</string>
     <string name="sync">Sync</string>
     <string name="app_version_label">App Version</string>
-    <string name="no_browsers_connected">No browsers connected.\nTry syncing your browsers.</string>
+    <string name="no_browsers_connected">가져온 북마크가 없습니다.\n북마크를 동기화 해보세요.</string>
 </resources>

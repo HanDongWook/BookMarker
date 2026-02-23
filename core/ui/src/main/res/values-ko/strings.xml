@@ -8,5 +8,5 @@
     <string name="press_back_to_exit">앱을 종료하려면 \'뒤로\' 버튼을 한 번 더 누르세요</string>
     <string name="sync">동기화</string>
     <string name="app_version_label">앱 버전</string>
-    <string name="no_browsers_connected">연결된 브라우저가 없습니다.\n북마크를 연동해 보세요.</string>
+    <string name="no_browsers_connected">가져온 북마크가 없습니다.\n북마크를 동기화 해보세요.</string>
 </resources>

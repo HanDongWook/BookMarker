@@ -3,10 +3,7 @@ package com.hdw.bookmarker.feature.home
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
@@ -60,7 +58,6 @@ fun HomeRoute(onSettingsClick: () -> Unit, onOpenDesktopGuide: () -> Boolean, on
     )
 }
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
@@ -69,6 +66,9 @@ fun HomeScreen(
     onOpenBookmark: (String) -> Boolean,
 ) {
     val state by viewModel.collectAsState()
+    val connectedBrowsers = state.installedBrowsers.filter { browser ->
+        state.connectedBrowserPackages.contains(browser.packageName)
+    }
     val context = LocalContext.current
     val resources = LocalResources.current
     var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
@@ -114,20 +114,18 @@ fun HomeScreen(
 
     val pagerState = rememberPagerState(
         initialPage = 0,
-        pageCount = { state.installedBrowsers.size },
+        pageCount = { connectedBrowsers.size },
     )
-    val selectedBrowserIcon = state.installedBrowsers.getOrNull(pagerState.currentPage)?.icon
-    val currentSelectedBrowserIcon = state.installedBrowsers
+    val currentSelectedBrowserIcon = connectedBrowsers
         .firstOrNull { it.packageName == state.selectedBrowserPackage }
-        ?.icon ?: selectedBrowserIcon
-    val importIconSharedKey = "import_guide_icon_${state.selectedBrowserPackage ?: "unknown"}"
+        ?.icon ?: connectedBrowsers.getOrNull(pagerState.currentPage)?.icon
 
-    LaunchedEffect(pagerState, state.installedBrowsers) {
-        if (state.installedBrowsers.isEmpty()) return@LaunchedEffect
+    LaunchedEffect(pagerState, connectedBrowsers) {
+        if (connectedBrowsers.isEmpty()) return@LaunchedEffect
         snapshotFlow { pagerState.settledPage }
             .distinctUntilChanged()
             .collect { page ->
-                state.installedBrowsers.getOrNull(page)?.packageName?.let(viewModel::onBrowserSelected)
+                connectedBrowsers.getOrNull(page)?.packageName?.let(viewModel::onBrowserSelected)
             }
     }
 
@@ -181,128 +179,125 @@ fun HomeScreen(
         )
     }
 
-    SharedTransitionLayout {
-        AnimatedContent(
-            targetState = showImportGuideDialog,
-            label = "bookmarkImportGuideTransition",
-        ) { isGuideVisible ->
-            if (!isGuideVisible) {
-                ModalNavigationDrawer(
-                    drawerState = drawerState,
-                    drawerContent = {
-                        ModalDrawerSheet(
-                            modifier = Modifier
-                                .width(drawerWidth)
-                                .fillMaxHeight(),
-                        ) {
-                            HomeDrawerContent(
-                                installedBrowsers = state.installedBrowsers,
-                                connectedBrowserPackages = state.connectedBrowserPackages,
-                                onSyncClick = {
-                                    showImportGuideDialog = true
-                                    scope.launch { drawerState.close() }
-                                },
-                            )
-                        }
-                    },
+    if (!showImportGuideDialog) {
+        ModalNavigationDrawer(
+            drawerState = drawerState,
+            drawerContent = {
+                ModalDrawerSheet(
+                    modifier = Modifier
+                        .width(drawerWidth)
+                        .fillMaxHeight(),
                 ) {
-                    Scaffold(
-                        modifier = Modifier.fillMaxSize(),
-                        topBar = {
-                            HomeTopAppBar(
-                                onMenuClick = {
-                                    scope.launch { drawerState.open() }
-                                },
-                                onSettingsClick = onSettingsClick,
-                            )
+                    HomeDrawerContent(
+                        installedBrowsers = state.installedBrowsers,
+                        connectedBrowserPackages = state.connectedBrowserPackages,
+                        onSyncClick = {
+                            showImportGuideDialog = true
+                            scope.launch { drawerState.close() }
                         },
-                    ) { innerPadding ->
-                        Column(modifier = Modifier.padding(innerPadding)) {
-                            ConnectedBrowserBar(
-                                installedBrowsers = state.installedBrowsers,
-                                connectedBrowserPackages = state.connectedBrowserPackages,
-                                selectedBrowserPackage = state.selectedBrowserPackage,
-                                onBrowserClick = { packageName ->
-                                    val targetPage = state.installedBrowsers
-                                        .indexOfFirst { it.packageName == packageName }
-                                    if (targetPage >= 0 && targetPage != pagerState.currentPage) {
-                                        scope.launch {
-                                            pagerState.animateScrollToPage(targetPage)
-                                        }
+                    )
+                }
+            },
+        ) {
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                topBar = {
+                    HomeTopAppBar(
+                        onMenuClick = {
+                            scope.launch { drawerState.open() }
+                        },
+                        onSettingsClick = onSettingsClick,
+                    )
+                },
+            ) { innerPadding ->
+                Column(modifier = Modifier.padding(innerPadding)) {
+                    if (state.connectedBrowserPackages.isNotEmpty()) {
+                        ConnectedBrowserBar(
+                            installedBrowsers = state.installedBrowsers,
+                            connectedBrowserPackages = state.connectedBrowserPackages,
+                            selectedBrowserPackage = state.selectedBrowserPackage,
+                            onBrowserClick = { packageName ->
+                                val targetPage = connectedBrowsers
+                                    .indexOfFirst { it.packageName == packageName }
+                                if (targetPage >= 0 && targetPage != pagerState.currentPage) {
+                                    scope.launch {
+                                        pagerState.animateScrollToPage(targetPage)
+                                    }
+                                }
+                            },
+                        )
+                    }
+
+                    if (connectedBrowsers.isEmpty()) {
+                        NoConnectedBrowsers(
+                            modifier = Modifier.weight(1f),
+                            onImportClick = {
+                                scope.launch { drawerState.open() }
+                            },
+                        )
+                    } else {
+                        HorizontalPager(
+                            state = pagerState,
+                            modifier = Modifier.weight(1f),
+                        ) { page ->
+                            val browser = connectedBrowsers[page]
+                            BookmarkContent(
+                                modifier = Modifier.fillMaxSize(),
+                                bookmarkDocument = state.bookmarkDocuments.getValue(browser.packageName),
+                                onBookmarkClick = { url ->
+                                    if (!onOpenBookmark(url)) {
+                                        context.showShortToast(
+                                            resources.getString(R.string.open_bookmark_failed),
+                                        )
                                     }
                                 },
                             )
-
-                            if (state.installedBrowsers.isEmpty()) {
-                                NoConnectedBrowsers(modifier = Modifier.weight(1f))
-                            } else {
-                                HorizontalPager(
-                                    state = pagerState,
-                                    modifier = Modifier.weight(1f),
-                                ) { page ->
-                                    val browser = state.installedBrowsers[page]
-                                    BookmarkContent(
-                                        modifier = Modifier.fillMaxSize(),
-                                        bookmarkDocument = state.bookmarkDocuments[browser.packageName],
-                                        selectedBrowserIcon = browser.icon,
-                                        onImportClick = { showImportGuideDialog = true },
-                                        onBookmarkClick = { url ->
-                                            if (!onOpenBookmark(url)) {
-                                                context.showShortToast(
-                                                    resources.getString(R.string.open_bookmark_failed),
-                                                )
-                                            }
-                                        },
-                                        importIconModifier = Modifier.sharedElement(
-                                            sharedContentState = rememberSharedContentState(key = importIconSharedKey),
-                                            animatedVisibilityScope = this@AnimatedContent,
-                                        ),
-                                    )
-                                }
-                            }
                         }
                     }
                 }
-            } else {
-                BookmarkImportGuideScreen(
-                    icon = currentSelectedBrowserIcon,
-                    iconModifier = Modifier.sharedElement(
-                        sharedContentState = rememberSharedContentState(key = importIconSharedKey),
-                        animatedVisibilityScope = this@AnimatedContent,
-                    ),
-                    onDismiss = { showImportGuideDialog = false },
-                    onOpenDesktopGuide = {
-                        if (!onOpenDesktopGuide()) {
-                            context.showShortToast(resources.getString(R.string.import_guide_open_guide_failed))
-                        }
-                    },
-                    onSelectFile = {
-                        val selectedPackage = state.selectedBrowserPackage
-                            ?: state.installedBrowsers.getOrNull(pagerState.currentPage)?.packageName
-                        if (selectedPackage == null) {
-                            context.showShortToast(resources.getString(R.string.no_browsers_connected))
-                            return@BookmarkImportGuideScreen
-                        }
-                        viewModel.onBrowserSelected(selectedPackage)
-                        viewModel.openFilePicker()
-                    },
-                )
             }
         }
+    } else {
+        BookmarkImportGuideScreen(
+            icon = currentSelectedBrowserIcon,
+            onDismiss = { showImportGuideDialog = false },
+            onOpenDesktopGuide = {
+                if (!onOpenDesktopGuide()) {
+                    context.showShortToast(resources.getString(R.string.import_guide_open_guide_failed))
+                }
+            },
+            onSelectFile = {
+                val selectedPackage = state.selectedBrowserPackage
+                    ?: connectedBrowsers.getOrNull(pagerState.currentPage)?.packageName
+                if (selectedPackage == null) {
+                    context.showShortToast(resources.getString(R.string.no_browsers_connected))
+                    return@BookmarkImportGuideScreen
+                }
+                viewModel.onBrowserSelected(selectedPackage)
+                viewModel.openFilePicker()
+            },
+        )
     }
 }
 
 @Composable
-private fun NoConnectedBrowsers(modifier: Modifier) {
-    Box(
+private fun NoConnectedBrowsers(modifier: Modifier, onImportClick: () -> Unit) {
+    Column(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 32.dp),
-        contentAlignment = Alignment.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
         Text(
             text = stringResource(R.string.no_browsers_connected),
             textAlign = TextAlign.Center,
         )
+        Button(
+            onClick = onImportClick,
+            modifier = Modifier.padding(top = 12.dp),
+        ) {
+            Text(text = stringResource(R.string.import_bookmarks))
+        }
     }
 }
