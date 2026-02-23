@@ -2,6 +2,7 @@ package com.hdw.bookmarker.core.domain.di
 
 import com.hdw.bookmarker.core.data.repository.BookmarkRepository
 import com.hdw.bookmarker.core.data.repository.BrowserRepository
+import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
@@ -48,4 +49,9 @@ object DomainModule {
     @Singleton
     fun provideSaveBookmarkSnapshotUseCase(bookmarkRepository: BookmarkRepository): SaveBookmarkSnapshotUseCase =
         SaveBookmarkSnapshotUseCase(bookmarkRepository)
+
+    @Provides
+    @Singleton
+    fun provideClearBookmarkSnapshotUseCase(bookmarkRepository: BookmarkRepository): ClearBookmarkSnapshotUseCase =
+        ClearBookmarkSnapshotUseCase(bookmarkRepository)
 }

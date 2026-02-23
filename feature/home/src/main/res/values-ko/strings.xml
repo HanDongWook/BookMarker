@@ -2,6 +2,7 @@
     <string name="title">BookMarker</string>
     <string name="menu_description">메뉴</string>
     <string name="menu_settings">설정</string>
+    <string name="edit_mode_done">완료</string>
     <string name="sync">동기화</string>
     <string name="installed_browser">설치된 브라우저</string>
     <string name="no_browsers_connected">가져온 북마크가 없습니다.\n북마크를 동기화 해보세요.</string>
@@ -36,4 +37,8 @@
     <string name="import_overwrite_dialog_message">다른 북마크 파일이 감지되었습니다. 계속하면 기존에 가져온 북마크 내용은 사라지고 새 파일 내용으로 교체됩니다.</string>
     <string name="import_overwrite_dialog_confirm">덮어쓰기</string>
     <string name="import_overwrite_dialog_cancel">취소</string>
+    <string name="delete_bookmark_dialog_title">북마크 삭제</string>
+    <string name="delete_bookmark_dialog_message">북마크를 삭제하시겠습니까?</string>
+    <string name="delete_bookmark_dialog_confirm">삭제</string>
+    <string name="delete_bookmark_dialog_cancel">취소</string>
 </resources>

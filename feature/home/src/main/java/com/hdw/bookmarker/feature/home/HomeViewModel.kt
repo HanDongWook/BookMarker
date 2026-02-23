@@ -3,6 +3,7 @@ package com.hdw.bookmarker.feature.home
 import android.net.Uri
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
+import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
@@ -45,6 +46,7 @@ class HomeViewModel @Inject constructor(
     private val getBookmarkSnapshotRawFileHashUseCase: GetBookmarkSnapshotRawFileHashUseCase,
     private val getBookmarkSnapshotsUseCase: GetBookmarkSnapshotsUseCase,
     private val saveBookmarkSnapshotUseCase: SaveBookmarkSnapshotUseCase,
+    private val clearBookmarkSnapshotUseCase: ClearBookmarkSnapshotUseCase,
 ) : ViewModel(),
     ContainerHost<MainState, MainSideEffect> {
     private data class PendingOverwriteImport(val uri: Uri, val browserPackage: String, val rawFileHash: String)
@@ -191,6 +193,24 @@ class HomeViewModel @Inject constructor(
 
     fun cancelOverwriteImport() = intent {
         pendingOverwriteImport = null
+    }
+
+    fun deleteBookmarkSnapshot(browserPackage: String) = intent {
+        clearBookmarkSnapshotUseCase(browserPackage)
+        val updatedConnectedPackages = state.connectedBrowserPackages - browserPackage
+        val updatedDocuments = state.bookmarkDocuments - browserPackage
+        reduce {
+            state.copy(
+                connectedBrowserPackages = updatedConnectedPackages,
+                bookmarkDocuments = updatedDocuments,
+                selectedBrowserPackage = state.selectedBrowserPackage
+                    ?.takeIf { selected -> selected != browserPackage }
+                    ?: state.installedBrowsers.firstOrNull {
+                        updatedConnectedPackages.contains(it.packageName)
+                    }?.packageName
+                    ?: state.installedBrowsers.firstOrNull()?.packageName,
+            )
+        }
     }
 
     @StringRes

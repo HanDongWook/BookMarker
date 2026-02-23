@@ -73,6 +73,8 @@ fun HomeScreen(
     val resources = LocalResources.current
     var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
     var showOverwriteConfirmDialog by rememberSaveable { mutableStateOf(false) }
+    var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
+    var pendingDeleteBrowserPackage by rememberSaveable { mutableStateOf<String?>(null) }
 
     val htmlPickerLauncher = rememberLauncherForActivityResult(OpenDocument()) { uri ->
         if (uri != null) {
@@ -145,6 +147,10 @@ fun HomeScreen(
         showImportGuideDialog = false
     }
 
+    BackHandler(enabled = isBrowserEditMode) {
+        isBrowserEditMode = false
+    }
+
     BackHandler(enabled = showOverwriteConfirmDialog) {
         showOverwriteConfirmDialog = false
         viewModel.cancelOverwriteImport()
@@ -185,6 +191,30 @@ fun HomeScreen(
         )
     }
 
+    if (pendingDeleteBrowserPackage != null) {
+        AlertDialog(
+            onDismissRequest = { pendingDeleteBrowserPackage = null },
+            title = { Text(text = stringResource(R.string.delete_bookmark_dialog_title)) },
+            text = { Text(text = stringResource(R.string.delete_bookmark_dialog_message)) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.deleteBookmarkSnapshot(pendingDeleteBrowserPackage ?: return@TextButton)
+                        pendingDeleteBrowserPackage = null
+                        isBrowserEditMode = false
+                    },
+                ) {
+                    Text(text = stringResource(R.string.delete_bookmark_dialog_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { pendingDeleteBrowserPackage = null }) {
+                    Text(text = stringResource(R.string.delete_bookmark_dialog_cancel))
+                }
+            },
+        )
+    }
+
     if (!showImportGuideDialog) {
         ModalNavigationDrawer(
             drawerState = drawerState,
@@ -210,10 +240,14 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxSize(),
                 topBar = {
                     HomeTopAppBar(
+                        isEditMode = isBrowserEditMode,
                         onMenuClick = {
                             scope.launch { drawerState.open() }
                         },
                         onSettingsClick = onSettingsClick,
+                        onEditModeDoneClick = {
+                            isBrowserEditMode = false
+                        },
                     )
                 },
             ) { innerPadding ->
@@ -223,6 +257,7 @@ fun HomeScreen(
                             installedBrowsers = state.installedBrowsers,
                             connectedBrowserPackages = state.connectedBrowserPackages,
                             selectedBrowserPackage = selectedConnectedBrowserPackage,
+                            isEditMode = isBrowserEditMode,
                             onBrowserClick = { packageName ->
                                 val targetPage = connectedBrowsers
                                     .indexOfFirst { it.packageName == packageName }
@@ -231,6 +266,12 @@ fun HomeScreen(
                                         pagerState.animateScrollToPage(targetPage)
                                     }
                                 }
+                            },
+                            onEnterEditMode = {
+                                isBrowserEditMode = true
+                            },
+                            onDeleteRequest = { packageName ->
+                                pendingDeleteBrowserPackage = packageName
                             },
                         )
                     }
