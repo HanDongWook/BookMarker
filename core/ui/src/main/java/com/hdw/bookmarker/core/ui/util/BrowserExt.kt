@@ -3,15 +3,14 @@ package com.hdw.bookmarker.core.ui.util
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.core.net.toUri
-import com.hdw.bookmarker.core.common.uri.AppUri
 
 data class InstalledBrowserInfo(val packageName: String, val appName: String)
 
 fun Context.getInstalledBrowsers(): List<InstalledBrowserInfo> {
-    val browserIntent = Intent(Intent.ACTION_VIEW, AppUri.BROWSER_DISCOVERY_URL.toUri()).apply {
-        addCategory(Intent.CATEGORY_BROWSABLE)
-    }
+    val browserIntent = Intent.makeMainSelectorActivity(
+        Intent.ACTION_MAIN,
+        Intent.CATEGORY_APP_BROWSER,
+    )
 
     return packageManager.queryIntentActivities(browserIntent, PackageManager.MATCH_ALL)
         .mapNotNull { resolveInfo ->

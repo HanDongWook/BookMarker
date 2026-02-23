@@ -3,8 +3,6 @@ package com.hdw.bookmarker.core.data.repository
 import android.app.Application
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.core.net.toUri
-import com.hdw.bookmarker.core.common.uri.AppUri
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import timber.log.Timber
 import javax.inject.Inject
@@ -14,9 +12,10 @@ class BrowserRepositoryImpl @Inject constructor(private val application: Applica
     override fun getInstalledBrowsers(): List<BrowserInfo> {
         val packageManager = application.packageManager
 
-        val browserIntent = Intent(Intent.ACTION_VIEW, AppUri.BROWSER_DISCOVERY_URL.toUri()).apply {
-            addCategory(Intent.CATEGORY_BROWSABLE)
-        }
+        val browserIntent = Intent.makeMainSelectorActivity(
+            Intent.ACTION_MAIN,
+            Intent.CATEGORY_APP_BROWSER,
+        )
         val resolveInfoList = packageManager.queryIntentActivities(
             browserIntent,
             PackageManager.MATCH_ALL,
