@@ -9,7 +9,7 @@ import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
 import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRoute
 
 @Composable
-fun AppNavHost(navController: NavHostController) {
+fun AppNavHost(navController: NavHostController, defaultBrowserPackage: String?) {
     val context = LocalContext.current
     NavHost(
         navController = navController,
@@ -24,7 +24,11 @@ fun AppNavHost(navController: NavHostController) {
                     ExternalAppNavigator.openDesktopChromeBookmarkGuide(context)
                 },
                 onOpenBookmark = { url ->
-                    ExternalAppNavigator.openBookmarkUrl(context, url)
+                    ExternalAppNavigator.openBookmarkUrl(
+                        context = context,
+                        url = url,
+                        preferredBrowserPackage = defaultBrowserPackage,
+                    )
                 },
             )
         }

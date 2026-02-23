@@ -7,14 +7,27 @@ import androidx.core.net.toUri
 import com.hdw.bookmarker.core.common.uri.AppUri
 
 object ExternalAppNavigator {
-    fun openBookmarkUrl(context: Context, url: String): Boolean = runCatching {
-        context.startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                url.toUri(),
-            ),
-        )
-    }.isSuccess
+    fun openBookmarkUrl(context: Context, url: String, preferredBrowserPackage: String?): Boolean {
+        val uri = url.toUri()
+        if (!preferredBrowserPackage.isNullOrBlank()) {
+            val preferredResult = runCatching {
+                context.startActivity(
+                    Intent(Intent.ACTION_VIEW, uri).apply {
+                        `package` = preferredBrowserPackage
+                    },
+                )
+            }
+            if (preferredResult.isSuccess) return true
+        }
+        return runCatching {
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    uri,
+                ),
+            )
+        }.isSuccess
+    }
 
     fun openDesktopChromeBookmarkGuide(context: Context): Boolean = runCatching {
         context.startActivity(
