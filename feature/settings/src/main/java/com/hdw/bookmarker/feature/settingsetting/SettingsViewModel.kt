@@ -4,7 +4,8 @@ import com.airbnb.mvrx.MavericksViewModel
 import com.airbnb.mvrx.MavericksViewModelFactory
 import com.airbnb.mvrx.hilt.AssistedViewModelFactory
 import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
-import com.hdw.bookmarker.core.data.repository.SettingsRepository
+import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.ui.util.InstalledBrowserInfo
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
 
 class SettingsViewModel @AssistedInject constructor(
     @Assisted initialState: SettingsState,
-    private val settingsRepository: SettingsRepository,
+    private val getDefaultBrowserPackageUseCase: GetDefaultBrowserPackageUseCase,
+    private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
 ) : MavericksViewModel<SettingsState>(initialState) {
     private var observingDefaultBrowser = false
 
@@ -36,7 +38,7 @@ class SettingsViewModel @AssistedInject constructor(
     fun selectDefaultBrowser(packageName: String) {
         setState { copy(selectedBrowserPackage = packageName) }
         viewModelScope.launch {
-            settingsRepository.setDefaultBrowserPackage(packageName)
+            setDefaultBrowserPackageUseCase(packageName)
         }
     }
 
@@ -44,7 +46,7 @@ class SettingsViewModel @AssistedInject constructor(
         if (observingDefaultBrowser) return
         observingDefaultBrowser = true
         viewModelScope.launch {
-            settingsRepository.getDefaultBrowserPackageFlow().collectLatest { persistedSelectedBrowserPackage ->
+            getDefaultBrowserPackageUseCase().collectLatest { persistedSelectedBrowserPackage ->
                 withState { current ->
                     val nextSelection = persistedSelectedBrowserPackage
                         ?.takeIf { persisted ->

@@ -4,12 +4,16 @@ import android.net.Uri
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
@@ -17,6 +21,7 @@ import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.core.model.file.error.ContentFileError
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
+import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkDisplayType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
@@ -28,6 +33,8 @@ data class MainState(
     val connectedBrowserPackages: Set<String> = emptySet(),
     val bookmarkDocuments: Map<String, BookmarkDocument> = emptyMap(),
     val selectedBrowserPackage: String? = null,
+    val defaultBrowserPackage: String? = null,
+    val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
 )
 
 sealed interface MainSideEffect {
@@ -47,15 +54,23 @@ class HomeViewModel @Inject constructor(
     private val getBookmarkSnapshotsUseCase: GetBookmarkSnapshotsUseCase,
     private val saveBookmarkSnapshotUseCase: SaveBookmarkSnapshotUseCase,
     private val clearBookmarkSnapshotUseCase: ClearBookmarkSnapshotUseCase,
+    private val getDefaultBrowserPackageUseCase: GetDefaultBrowserPackageUseCase,
+    private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
+    private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
+    private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
 ) : ViewModel(),
     ContainerHost<MainState, MainSideEffect> {
     private data class PendingOverwriteImport(val uri: Uri, val browserPackage: String, val rawFileHash: String)
 
     private var isObservingSnapshots = false
+    private var isObservingDefaultBrowser = false
+    private var isObservingBookmarkDisplayType = false
     private var pendingOverwriteImport: PendingOverwriteImport? = null
 
     override val container = container<MainState, MainSideEffect>(MainState()) {
         observeBookmarkSnapshots()
+        observeDefaultBrowserPackage()
+        observeBookmarkDisplayType()
         loadInstalledBrowsers()
     }
 
@@ -98,6 +113,18 @@ class HomeViewModel @Inject constructor(
     fun onBrowserSelected(packageName: String) = intent {
         if (state.selectedBrowserPackage == packageName) return@intent
         reduce { state.copy(selectedBrowserPackage = packageName) }
+    }
+
+    fun onDefaultBrowserSelected(packageName: String) = intent {
+        setDefaultBrowserPackageUseCase(packageName)
+    }
+
+    fun onBookmarkDisplayTypeToggle() = intent {
+        val nextType = when (state.bookmarkDisplayType) {
+            BookmarkDisplayType.LIST -> BookmarkDisplayType.ICON
+            BookmarkDisplayType.ICON -> BookmarkDisplayType.LIST
+        }
+        setBookmarkDisplayTypeUseCase(nextType.name)
     }
 
     fun onHtmlFileSelected(uri: Uri) = intent {
@@ -213,6 +240,30 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun observeDefaultBrowserPackage() = intent {
+        if (isObservingDefaultBrowser) return@intent
+        isObservingDefaultBrowser = true
+        getDefaultBrowserPackageUseCase().collect { packageName ->
+            reduce {
+                state.copy(
+                    defaultBrowserPackage = packageName,
+                )
+            }
+        }
+    }
+
+    private fun observeBookmarkDisplayType() = intent {
+        if (isObservingBookmarkDisplayType) return@intent
+        isObservingBookmarkDisplayType = true
+        getBookmarkDisplayTypeUseCase().collect { displayType ->
+            reduce {
+                state.copy(
+                    bookmarkDisplayType = displayType.toBookmarkDisplayType(),
+                )
+            }
+        }
+    }
+
     @StringRes
     private fun BookmarkImportError.toUiMessageResId(): Int = when (this) {
         BookmarkImportError.INVALID_URI -> R.string.error_invalid_uri
@@ -233,5 +284,11 @@ class HomeViewModel @Inject constructor(
         ContentFileError.IO_ERROR -> R.string.error_io
         ContentFileError.EMPTY_CONTENT -> R.string.error_empty_content
         ContentFileError.UNKNOWN -> R.string.error_unknown
+    }
+
+    private fun String?.toBookmarkDisplayType(): BookmarkDisplayType = when (this) {
+        BookmarkDisplayType.ICON.name -> BookmarkDisplayType.ICON
+        BookmarkDisplayType.LIST.name -> BookmarkDisplayType.LIST
+        else -> BookmarkDisplayType.LIST
     }
 }

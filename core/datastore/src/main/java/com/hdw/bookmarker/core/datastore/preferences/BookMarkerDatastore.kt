@@ -21,6 +21,7 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
 
     object Keys {
         val defaultBrowserPackage = stringPreferencesKey("default_browser_package")
+        val bookmarkDisplayType = stringPreferencesKey("bookmark_display_type")
     }
 
     suspend fun saveDefaultBrowserPackage(value: String) {
@@ -29,5 +30,13 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
 
     fun getDefaultBrowserPackage(): Flow<String?> = safeData.map { preferences ->
         preferences[Keys.defaultBrowserPackage]
+    }
+
+    suspend fun saveBookmarkDisplayType(value: String) {
+        saveString(Keys.bookmarkDisplayType, value)
+    }
+
+    fun getBookmarkDisplayType(): Flow<String?> = safeData.map { preferences ->
+        preferences[Keys.bookmarkDisplayType]
     }
 }

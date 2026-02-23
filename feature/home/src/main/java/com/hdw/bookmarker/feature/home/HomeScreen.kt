@@ -42,7 +42,7 @@ import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.appbar.HomeTopAppBar
 import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkContent
-import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkDisplayType
+import com.hdw.bookmarker.feature.home.dialog.DefaultBrowserPickerDialog
 import com.hdw.bookmarker.feature.home.drawer.HomeDrawerContent
 import com.hdw.bookmarker.feature.home.guide.BookmarkImportGuideScreen
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -52,17 +52,13 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 fun HomeRoute(
-    defaultBrowserPackage: String?,
-    onDefaultBrowserSelected: (String) -> Unit,
     onSettingsClick: () -> Unit,
     onOpenDesktopGuide: (Browser, String?) -> Boolean,
-    onOpenBookmark: (String) -> Boolean,
+    onOpenBookmark: (String, String?) -> Boolean,
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     HomeScreen(
         viewModel = viewModel,
-        defaultBrowserPackage = defaultBrowserPackage,
-        onDefaultBrowserSelected = onDefaultBrowserSelected,
         onSettingsClick = onSettingsClick,
         onOpenDesktopGuide = onOpenDesktopGuide,
         onOpenBookmark = onOpenBookmark,
@@ -72,11 +68,9 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
-    defaultBrowserPackage: String?,
-    onDefaultBrowserSelected: (String) -> Unit,
     onSettingsClick: () -> Unit,
     onOpenDesktopGuide: (Browser, String?) -> Boolean,
-    onOpenBookmark: (String) -> Boolean,
+    onOpenBookmark: (String, String?) -> Boolean,
 ) {
     val state by viewModel.collectAsState()
     val connectedBrowsers = state.installedBrowsers.filter { browser ->
@@ -87,7 +81,6 @@ fun HomeScreen(
     var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
     var showOverwriteConfirmDialog by rememberSaveable { mutableStateOf(false) }
     var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
-    var bookmarkDisplayType by rememberSaveable { mutableStateOf(BookmarkDisplayType.LIST) }
     var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
     var pendingDeleteBrowserPackage by rememberSaveable { mutableStateOf<String?>(null) }
 
@@ -143,7 +136,7 @@ fun HomeScreen(
         ?: connectedBrowsers.getOrNull(pagerState.currentPage)
         ?: state.installedBrowsers.firstOrNull()
     val defaultBrowserIcon = state.installedBrowsers
-        .firstOrNull { it.packageName == defaultBrowserPackage }
+        .firstOrNull { it.packageName == state.defaultBrowserPackage }
         ?.icon
 
     LaunchedEffect(pagerState, connectedBrowsers) {
@@ -212,9 +205,9 @@ fun HomeScreen(
     if (showDefaultBrowserDialog) {
         DefaultBrowserPickerDialog(
             installedBrowsers = state.installedBrowsers,
-            selectedPackage = defaultBrowserPackage,
+            selectedPackage = state.defaultBrowserPackage,
             onSelect = { packageName ->
-                onDefaultBrowserSelected(packageName)
+                viewModel.onDefaultBrowserSelected(packageName)
                 showDefaultBrowserDialog = false
             },
             onDismiss = {
@@ -273,13 +266,10 @@ fun HomeScreen(
                 topBar = {
                     HomeTopAppBar(
                         isEditMode = isBrowserEditMode,
-                        bookmarkDisplayType = bookmarkDisplayType,
+                        bookmarkDisplayType = state.bookmarkDisplayType,
                         defaultBrowserIcon = defaultBrowserIcon,
                         onBookmarkDisplayTypeClick = {
-                            bookmarkDisplayType = when (bookmarkDisplayType) {
-                                BookmarkDisplayType.LIST -> BookmarkDisplayType.ICON
-                                BookmarkDisplayType.ICON -> BookmarkDisplayType.LIST
-                            }
+                            viewModel.onBookmarkDisplayTypeToggle()
                         },
                         onDefaultBrowserIconClick = {
                             if (state.installedBrowsers.isNotEmpty()) {
@@ -337,9 +327,9 @@ fun HomeScreen(
                             BookmarkContent(
                                 modifier = Modifier.fillMaxSize(),
                                 bookmarkDocument = state.bookmarkDocuments.getValue(browser.packageName),
-                                displayType = bookmarkDisplayType,
+                                displayType = state.bookmarkDisplayType,
                                 onBookmarkClick = { url ->
-                                    if (!onOpenBookmark(url)) {
+                                    if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
                                         context.showShortToast(
                                             resources.getString(R.string.open_bookmark_failed),
                                         )

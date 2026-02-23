@@ -2,13 +2,18 @@ package com.hdw.bookmarker.core.domain.di
 
 import com.hdw.bookmarker.core.data.repository.BookmarkRepository
 import com.hdw.bookmarker.core.data.repository.BrowserRepository
+import com.hdw.bookmarker.core.data.repository.SettingsRepository
 import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -54,4 +59,28 @@ object DomainModule {
     @Singleton
     fun provideClearBookmarkSnapshotUseCase(bookmarkRepository: BookmarkRepository): ClearBookmarkSnapshotUseCase =
         ClearBookmarkSnapshotUseCase(bookmarkRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetDefaultBrowserPackageUseCase(
+        settingsRepository: SettingsRepository,
+    ): GetDefaultBrowserPackageUseCase = GetDefaultBrowserPackageUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetDefaultBrowserPackageUseCase(
+        settingsRepository: SettingsRepository,
+    ): SetDefaultBrowserPackageUseCase = SetDefaultBrowserPackageUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetBookmarkDisplayTypeUseCase(
+        settingsRepository: SettingsRepository,
+    ): GetBookmarkDisplayTypeUseCase = GetBookmarkDisplayTypeUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetBookmarkDisplayTypeUseCase(
+        settingsRepository: SettingsRepository,
+    ): SetBookmarkDisplayTypeUseCase = SetBookmarkDisplayTypeUseCase(settingsRepository)
 }
