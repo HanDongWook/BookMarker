@@ -18,6 +18,7 @@ fun AppNavHost(navController: NavHostController, defaultBrowserPackage: String?)
     ) {
         slideComposable<Route.Home> {
             HomeRoute(
+                defaultBrowserPackage = defaultBrowserPackage,
                 onSettingsClick = {
                     navController.navigate(Route.Settings)
                 },

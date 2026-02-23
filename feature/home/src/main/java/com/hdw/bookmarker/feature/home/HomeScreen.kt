@@ -50,6 +50,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 fun HomeRoute(
+    defaultBrowserPackage: String?,
     onSettingsClick: () -> Unit,
     onOpenDesktopGuide: (Browser, String?) -> Boolean,
     onOpenBookmark: (String) -> Boolean,
@@ -57,6 +58,7 @@ fun HomeRoute(
     val viewModel: HomeViewModel = hiltViewModel()
     HomeScreen(
         viewModel = viewModel,
+        defaultBrowserPackage = defaultBrowserPackage,
         onSettingsClick = onSettingsClick,
         onOpenDesktopGuide = onOpenDesktopGuide,
         onOpenBookmark = onOpenBookmark,
@@ -66,6 +68,7 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
+    defaultBrowserPackage: String?,
     onSettingsClick: () -> Unit,
     onOpenDesktopGuide: (Browser, String?) -> Boolean,
     onOpenBookmark: (String) -> Boolean,
@@ -132,6 +135,9 @@ fun HomeScreen(
         .firstOrNull { it.packageName == state.selectedBrowserPackage }
         ?: connectedBrowsers.getOrNull(pagerState.currentPage)
         ?: state.installedBrowsers.firstOrNull()
+    val defaultBrowserIcon = state.installedBrowsers
+        .firstOrNull { it.packageName == defaultBrowserPackage }
+        ?.icon
 
     LaunchedEffect(pagerState, connectedBrowsers) {
         if (connectedBrowsers.isEmpty()) return@LaunchedEffect
@@ -246,6 +252,7 @@ fun HomeScreen(
                 topBar = {
                     HomeTopAppBar(
                         isEditMode = isBrowserEditMode,
+                        defaultBrowserIcon = defaultBrowserIcon,
                         onMenuClick = {
                             scope.launch { drawerState.open() }
                         },
