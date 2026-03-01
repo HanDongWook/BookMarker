@@ -7,22 +7,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -45,8 +40,13 @@ import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.appbar.HomeTopAppBar
 import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkContent
+import com.hdw.bookmarker.feature.home.dialog.AddBookmarkDialog
+import com.hdw.bookmarker.feature.home.dialog.AddFolderDialog
+import com.hdw.bookmarker.feature.home.dialog.AddItemTypeDialog
 import com.hdw.bookmarker.feature.home.dialog.BookmarkColorPickerDialog
 import com.hdw.bookmarker.feature.home.dialog.DefaultBrowserPickerDialog
+import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkSnapshotDialog
+import com.hdw.bookmarker.feature.home.dialog.ImportOptionDialog
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
@@ -212,171 +212,68 @@ fun HomeScreen(
     }
 
     if (showImportOptionDialog) {
-        AlertDialog(
-            onDismissRequest = { showImportOptionDialog = false },
-            text = {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    Button(
-                        onClick = {
-                            showImportOptionDialog = false
-                            onOpenBookmarkImportGuide()
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text(text = stringResource(R.string.import_option_dialog_open_guide))
-                    }
-
-                    OutlinedButton(
-                        onClick = {
-                            showImportOptionDialog = false
-                            onOpenFilePicker()
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text(text = stringResource(R.string.import_option_dialog_pick_file))
-                    }
-                }
+        ImportOptionDialog(
+            onDismiss = { showImportOptionDialog = false },
+            onOpenGuide = {
+                showImportOptionDialog = false
+                onOpenBookmarkImportGuide()
             },
-            confirmButton = {},
-            dismissButton = {},
+            onPickFile = {
+                showImportOptionDialog = false
+                onOpenFilePicker()
+            },
         )
     }
 
     if (pendingDeleteSnapshotId != null) {
-        AlertDialog(
-            onDismissRequest = { pendingDeleteSnapshotId = null },
-            title = { Text(text = stringResource(R.string.delete_bookmark_dialog_title)) },
-            text = { Text(text = stringResource(R.string.delete_bookmark_dialog_message)) },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onDeleteBookmarkSnapshot(pendingDeleteSnapshotId ?: return@TextButton)
-                        pendingDeleteSnapshotId = null
-                    },
-                ) {
-                    Text(text = stringResource(R.string.delete_bookmark_dialog_confirm))
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { pendingDeleteSnapshotId = null }) {
-                    Text(text = stringResource(R.string.delete_bookmark_dialog_cancel))
-                }
+        DeleteBookmarkSnapshotDialog(
+            onDismiss = { pendingDeleteSnapshotId = null },
+            onConfirmDelete = {
+                onDeleteBookmarkSnapshot(pendingDeleteSnapshotId ?: return@DeleteBookmarkSnapshotDialog)
+                pendingDeleteSnapshotId = null
             },
         )
     }
 
     if (showAddItemTypeDialog) {
-        AlertDialog(
-            onDismissRequest = { showAddItemTypeDialog = false },
-            text = {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    Button(
-                        onClick = {
-                            showAddItemTypeDialog = false
-                            pendingFolderTitle = ""
-                            showAddFolderDialog = true
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text(text = stringResource(R.string.add_folder))
-                    }
-
-                    OutlinedButton(
-                        onClick = {
-                            showAddItemTypeDialog = false
-                            pendingBookmarkTitle = ""
-                            pendingBookmarkUrl = ""
-                            showAddBookmarkDialog = true
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text(text = stringResource(R.string.add_bookmark))
-                    }
-                }
+        AddItemTypeDialog(
+            onDismiss = { showAddItemTypeDialog = false },
+            onAddFolderClick = {
+                showAddItemTypeDialog = false
+                pendingFolderTitle = ""
+                showAddFolderDialog = true
             },
-            confirmButton = {},
-            dismissButton = {},
+            onAddBookmarkClick = {
+                showAddItemTypeDialog = false
+                pendingBookmarkTitle = ""
+                pendingBookmarkUrl = ""
+                showAddBookmarkDialog = true
+            },
         )
     }
 
     if (showAddFolderDialog) {
-        AlertDialog(
-            onDismissRequest = { showAddFolderDialog = false },
-            title = { Text(text = stringResource(R.string.add_folder)) },
-            text = {
-                OutlinedTextField(
-                    value = pendingFolderTitle,
-                    onValueChange = { pendingFolderTitle = it },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                    label = { Text(text = stringResource(R.string.folder_name)) },
-                )
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onAddFolder(pendingFolderTitle)
-                        showAddFolderDialog = false
-                    },
-                    enabled = pendingFolderTitle.isNotBlank(),
-                ) {
-                    Text(text = stringResource(R.string.add))
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showAddFolderDialog = false }) {
-                    Text(text = stringResource(android.R.string.cancel))
-                }
+        AddFolderDialog(
+            folderTitle = pendingFolderTitle,
+            onFolderTitleChange = { pendingFolderTitle = it },
+            onDismiss = { showAddFolderDialog = false },
+            onConfirm = {
+                onAddFolder(pendingFolderTitle)
+                showAddFolderDialog = false
             },
         )
     }
 
     if (showAddBookmarkDialog) {
-        AlertDialog(
-            onDismissRequest = { showAddBookmarkDialog = false },
-            title = { Text(text = stringResource(R.string.add_bookmark)) },
-            text = {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    OutlinedTextField(
-                        value = pendingBookmarkTitle,
-                        onValueChange = { pendingBookmarkTitle = it },
-                        singleLine = true,
-                        modifier = Modifier.fillMaxWidth(),
-                        label = { Text(text = stringResource(R.string.bookmark_name)) },
-                    )
-                    OutlinedTextField(
-                        value = pendingBookmarkUrl,
-                        onValueChange = { pendingBookmarkUrl = it },
-                        singleLine = true,
-                        modifier = Modifier.fillMaxWidth(),
-                        label = { Text(text = stringResource(R.string.bookmark_url)) },
-                    )
-                }
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onAddBookmark(pendingBookmarkTitle, pendingBookmarkUrl)
-                        showAddBookmarkDialog = false
-                    },
-                    enabled = pendingBookmarkTitle.isNotBlank() && pendingBookmarkUrl.isNotBlank(),
-                ) {
-                    Text(text = stringResource(R.string.add))
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showAddBookmarkDialog = false }) {
-                    Text(text = stringResource(android.R.string.cancel))
-                }
+        AddBookmarkDialog(
+            bookmarkTitle = pendingBookmarkTitle,
+            bookmarkUrl = pendingBookmarkUrl,
+            onBookmarkTitleChange = { pendingBookmarkTitle = it },
+            onBookmarkUrlChange = { pendingBookmarkUrl = it },
+            onDismiss = { showAddBookmarkDialog = false },
+            onConfirm = {
+                onAddBookmark(pendingBookmarkTitle, pendingBookmarkUrl)
+                showAddBookmarkDialog = false
             },
         )
     }

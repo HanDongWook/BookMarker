@@ -259,10 +259,7 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
     }
 
-    private suspend fun saveAddedItem(
-        currentState: HomeState,
-        item: BookmarkItem,
-    ): String {
+    private suspend fun saveAddedItem(currentState: HomeState, item: BookmarkItem): String {
         val currentSnapshotId = currentState.selectedBookmarkId
         val currentDocument = currentSnapshotId
             ?.let { currentState.bookmarkDocuments[it] }
