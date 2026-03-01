@@ -2,6 +2,7 @@
     <string name="title">BookMarker</string>
     <string name="menu_description">메뉴</string>
     <string name="menu_settings">설정</string>
+    <string name="edit_mode_editing">편집</string>
     <string name="edit_mode_done">완료</string>
     <string name="sync">동기화</string>
     <string name="installed_browser">설치된 브라우저</string>
