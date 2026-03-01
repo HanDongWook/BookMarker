@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
+import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
@@ -16,6 +17,7 @@ import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 fun BookmarkContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
+    onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
     displayType: BookmarkDisplayType,
     folderIconShape: BookmarkFolderIconShape,
     folderIconColor: BookmarkFolderIconColor,
@@ -31,6 +33,7 @@ fun BookmarkContent(
             BookmarkListContent(
                 bookmarkDocument = bookmarkDocument,
                 onBookmarkClick = onBookmarkClick,
+                onItemLongClick = onItemLongClick,
                 folderIconShape = folderIconShape,
                 folderIconColor = folderIconColor,
                 modifier = modifier,
@@ -41,6 +44,7 @@ fun BookmarkContent(
             BookmarkIconContent(
                 bookmarkDocument = bookmarkDocument,
                 onBookmarkClick = onBookmarkClick,
+                onItemLongClick = onItemLongClick,
                 folderIconShape = folderIconShape,
                 folderIconColor = folderIconColor,
                 modifier = modifier,

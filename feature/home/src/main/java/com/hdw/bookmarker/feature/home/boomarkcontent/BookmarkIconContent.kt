@@ -1,7 +1,7 @@
 package com.hdw.bookmarker.feature.home.boomarkcontent
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -39,16 +39,19 @@ import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 internal fun BookmarkIconContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
+    onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
     folderIconShape: BookmarkFolderIconShape,
     folderIconColor: BookmarkFolderIconColor,
     modifier: Modifier = Modifier,
 ) {
     val folderDepthStack = remember(bookmarkDocument) { mutableStateListOf<BookmarkItem.Folder>() }
+    val folderPathStack = remember(bookmarkDocument) { mutableStateListOf<Int>() }
     val currentFolder = folderDepthStack.lastOrNull()
     val currentItems = currentFolder?.children ?: bookmarkDocument.rootItems
 
     BackHandler(enabled = folderDepthStack.isNotEmpty()) {
         folderDepthStack.removeAt(folderDepthStack.lastIndex)
+        folderPathStack.removeAt(folderPathStack.lastIndex)
     }
 
     Column(
@@ -64,6 +67,7 @@ internal fun BookmarkIconContent(
                 IconButton(
                     onClick = {
                         folderDepthStack.removeAt(folderDepthStack.lastIndex)
+                        folderPathStack.removeAt(folderPathStack.lastIndex)
                     },
                 ) {
                     Icon(
@@ -96,14 +100,20 @@ internal fun BookmarkIconContent(
                         is BookmarkItem.Folder -> "folder-${folderDepthStack.size}-$index-${item.title}"
                     }
                 },
-            ) { _, item ->
+            ) { index, item ->
                 when (item) {
                     is BookmarkItem.Folder -> {
                         BookmarkFolderIconItem(
                             folder = item,
                             folderIconShape = folderIconShape,
                             folderIconColor = folderIconColor,
-                            onClick = { folderDepthStack.add(item) },
+                            onClick = {
+                                folderDepthStack.add(item)
+                                folderPathStack.add(index)
+                            },
+                            onLongClick = {
+                                onItemLongClick(item, folderPathStack.toList() + index)
+                            },
                         )
                     }
 
@@ -111,6 +121,9 @@ internal fun BookmarkIconContent(
                         BookmarkLeafIconItem(
                             bookmark = item,
                             onClick = { onBookmarkClick(item.url) },
+                            onLongClick = {
+                                onItemLongClick(item, folderPathStack.toList() + index)
+                            },
                         )
                     }
                 }
@@ -125,11 +138,15 @@ private fun BookmarkFolderIconItem(
     folderIconShape: BookmarkFolderIconShape,
     folderIconColor: BookmarkFolderIconColor,
     onClick: () -> Unit,
+    onLongClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick)
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = onLongClick,
+            )
             .padding(horizontal = 8.dp, vertical = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -156,11 +173,14 @@ private fun BookmarkFolderIconItem(
 }
 
 @Composable
-private fun BookmarkLeafIconItem(bookmark: BookmarkItem.Bookmark, onClick: () -> Unit) {
+private fun BookmarkLeafIconItem(bookmark: BookmarkItem.Bookmark, onClick: () -> Unit, onLongClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick)
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = onLongClick,
+            )
             .padding(horizontal = 8.dp, vertical = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

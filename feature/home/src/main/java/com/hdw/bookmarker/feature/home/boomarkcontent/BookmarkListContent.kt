@@ -1,6 +1,6 @@
 package com.hdw.bookmarker.feature.home.boomarkcontent
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -53,6 +53,7 @@ private val ExpandedFoldersSaver = Saver<SnapshotStateMap<String, Boolean>, Arra
 internal fun BookmarkListContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
+    onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
     folderIconShape: BookmarkFolderIconShape,
     folderIconColor: BookmarkFolderIconColor,
     modifier: Modifier = Modifier,
@@ -82,6 +83,7 @@ internal fun BookmarkListContent(
                         isExpanded = expandedFolders[node.key] == true,
                         folderIconShape = folderIconShape,
                         folderIconColor = folderIconColor,
+                        onLongClick = { onItemLongClick(item, node.path) },
                         onToggle = {
                             if (expandedFolders[node.key] == true) {
                                 expandedFolders.remove(node.key)
@@ -97,6 +99,7 @@ internal fun BookmarkListContent(
                         bookmark = item,
                         depth = node.depth,
                         onClick = { onBookmarkClick(item.url) },
+                        onLongClick = { onItemLongClick(item, node.path) },
                     )
                 }
             }
@@ -111,13 +114,17 @@ private fun BookmarkFolderRow(
     isExpanded: Boolean,
     folderIconShape: BookmarkFolderIconShape,
     folderIconColor: BookmarkFolderIconColor,
+    onLongClick: () -> Unit,
     onToggle: () -> Unit,
 ) {
     val directChildCount = folder.children.size
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onToggle)
+            .combinedClickable(
+                onClick = onToggle,
+                onLongClick = onLongClick,
+            )
             .padding(start = (depth * 16).dp, end = 12.dp, top = 8.dp, bottom = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -143,11 +150,19 @@ private fun BookmarkFolderRow(
 }
 
 @Composable
-private fun BookmarkLeafRow(bookmark: BookmarkItem.Bookmark, depth: Int, onClick: () -> Unit) {
+private fun BookmarkLeafRow(
+    bookmark: BookmarkItem.Bookmark,
+    depth: Int,
+    onClick: () -> Unit,
+    onLongClick: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick)
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = onLongClick,
+            )
             .padding(start = (depth * 16).dp + 8.dp, end = 12.dp, top = 6.dp, bottom = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -171,16 +186,18 @@ private fun flattenBookmarkTree(
     items: List<BookmarkItem>,
     expandedFolders: Map<String, Boolean>,
     depth: Int = 0,
-    parentKey: String = "root",
+    pathPrefix: List<Int> = emptyList(),
 ): List<VisibleBookmarkNode> {
     val flattened = mutableListOf<VisibleBookmarkNode>()
     items.forEachIndexed { index, item ->
-        val nodeKey = "$parentKey/$index"
+        val nodePath = pathPrefix + index
+        val nodeKey = nodePath.joinToString(separator = "/")
         flattened.add(
             VisibleBookmarkNode(
                 key = nodeKey,
                 depth = depth,
                 item = item,
+                path = nodePath,
             ),
         )
         if (item is BookmarkItem.Folder && expandedFolders[nodeKey] == true) {
@@ -188,7 +205,7 @@ private fun flattenBookmarkTree(
                 items = item.children,
                 expandedFolders = expandedFolders,
                 depth = depth + 1,
-                parentKey = nodeKey,
+                pathPrefix = nodePath,
             )
         }
     }
