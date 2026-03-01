@@ -1,0 +1,61 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:scaleX="0.74"
+        android:scaleY="0.74">
+        <path
+            android:fillColor="#FFF7C948"
+            android:pathData="M33,20h42c5,0 9,4 9,9v58.5c0,1.5 -1.6,2.5 -3,1.8L54,77.5 27,89.3c-1.4,0.7 -3,-0.3 -3,-1.8V29c0,-5 4,-9 9,-9z" />
+        <path
+            android:fillColor="#FFEAA92D"
+            android:pathData="M33,20h42c5,0 9,4 9,9v11H24V29c0,-5 4,-9 9,-9z" />
+        <path
+            android:fillColor="#FF2D4E6F"
+            android:pathData="M54,44a8,8 0 1,0 0,16a8,8 0 1,0 0,-16z" />
+        <path
+            android:fillColor="#FFFAF7F2"
+            android:pathData="M79,22l2.3,5.7 5.7,2.3 -5.7,2.3 -2.3,5.7 -2.3,-5.7 -5.7,-2.3 5.7,-2.3z" />
+    </group>
+
+    <!-- Debug build badge (bottom-right, moved further inward for mask safety) -->
+    <group
+        android:translateX="28"
+        android:translateY="-16">
+        <path
+            android:fillColor="#FFD32F2F"
+            android:pathData="M12,78h30a4,4 0 0 1 4,4v10a4,4 0 0 1 -4,4h-30a4,4 0 0 1 -4,-4v-10a4,4 0 0 1 4,-4z" />
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M12,82h1.5v10H12z
+                M12,82h4v1.5h-4z
+                M12,90.5h4v1.5h-4z
+                M15,83.5h1v7h-1z
+
+                M18,82h1.5v10H18z
+                M18,82h4v1.5h-4z
+                M18,86.7h3.2v1.5H18z
+                M18,90.5h4v1.5h-4z
+
+                M24,82h1.5v10H24z
+                M24,82h4v1.5h-4z
+                M24,86.2h4v1.5h-4z
+                M24,90.5h4v1.5h-4z
+                M27,83.5h1v2.7h-1z
+                M27,87.7h1v2.8h-1z
+
+                M30,82h1.5v8.5H30z
+                M33.5,82H35v8.5h-1.5z
+                M30,90.5h5v1.5h-5z
+
+                M37,82h1.5v10H37z
+                M37,82h4.5v1.5H37z
+                M37,90.5h4.5v1.5H37z
+                M40,87h1.5v3.5H40z
+                M39,87h2.5v1.5H39z" />
+    </group>
+</vector>
