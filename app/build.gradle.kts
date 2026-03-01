@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.bookmarker.android.application)
     alias(libs.plugins.bookmarker.android.application.compose)
@@ -5,13 +7,24 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
+val versionProperties =
+    Properties().apply {
+        val versionFile = rootProject.file("version.properties")
+        if (versionFile.exists()) {
+            versionFile.inputStream().use(::load)
+        }
+    }
+
+val appVersionCode = versionProperties.getProperty("VERSION_CODE")?.toIntOrNull() ?: 1
+val appVersionName = versionProperties.getProperty("VERSION_NAME") ?: "1.0.0"
+
 android {
     namespace = "com.hdw.bookmarker"
 
     defaultConfig {
         applicationId = "com.hdw.bookmarker"
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = appVersionCode
+        versionName = appVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

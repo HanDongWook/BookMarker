@@ -28,7 +28,7 @@ import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
-import com.hdw.bookmarker.core.ui.util.getAppVersionName
+import com.hdw.bookmarker.core.ui.util.getAppVersionDisplay
 import com.hdw.bookmarker.feature.settingsetting.appversion.AppVersionRow
 import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRow
 import com.hdw.bookmarker.feature.settingsetting.folderstyle.FolderStyleRow
@@ -43,7 +43,7 @@ fun SettingsRoute(onBackClick: () -> Unit) {
 
     LaunchedEffect(context) {
         viewModel.initialize(
-            appVersion = context.getAppVersionName(),
+            appVersion = context.getAppVersionDisplay(),
         )
     }
 
