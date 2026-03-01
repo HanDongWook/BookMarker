@@ -79,7 +79,6 @@ fun HomeScreen(
     val context = LocalContext.current
     val resources = LocalResources.current
     var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
-    var showOverwriteConfirmDialog by rememberSaveable { mutableStateOf(false) }
     var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
     var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
     var showColorPickerDialog by rememberSaveable { mutableStateOf(false) }
@@ -109,11 +108,7 @@ fun HomeScreen(
                 context.showShortToast(resources.getString(sideEffect.messageResId))
             }
 
-            MainSideEffect.ShowOverwriteConfirmDialog -> {
-                showOverwriteConfirmDialog = true
-            }
-
-            is MainSideEffect.OpenFilePicker -> {
+is MainSideEffect.OpenFilePicker -> {
                 htmlPickerLauncher.launch(arrayOf(MimeTypes.HTML))
             }
         }
@@ -163,12 +158,7 @@ fun HomeScreen(
         isBrowserEditMode = false
     }
 
-    BackHandler(enabled = showOverwriteConfirmDialog) {
-        showOverwriteConfirmDialog = false
-        viewModel.cancelOverwriteImport()
-    }
-
-    BackHandler(enabled = showColorPickerDialog) {
+BackHandler(enabled = showColorPickerDialog) {
         showColorPickerDialog = false
     }
 
@@ -185,42 +175,7 @@ fun HomeScreen(
         )
     }
 
-    if (showOverwriteConfirmDialog) {
-        AlertDialog(
-            onDismissRequest = {
-                showOverwriteConfirmDialog = false
-                viewModel.cancelOverwriteImport()
-            },
-            title = {
-                Text(text = stringResource(R.string.import_overwrite_dialog_title))
-            },
-            text = {
-                Text(text = stringResource(R.string.import_overwrite_dialog_message))
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        showOverwriteConfirmDialog = false
-                        viewModel.confirmOverwriteImport()
-                    },
-                ) {
-                    Text(text = stringResource(R.string.import_overwrite_dialog_confirm))
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        showOverwriteConfirmDialog = false
-                        viewModel.cancelOverwriteImport()
-                    },
-                ) {
-                    Text(text = stringResource(R.string.import_overwrite_dialog_cancel))
-                }
-            },
-        )
-    }
-
-    if (showDefaultBrowserDialog) {
+if (showDefaultBrowserDialog) {
         DefaultBrowserPickerDialog(
             installedBrowsers = state.installedBrowsers,
             selectedPackage = state.defaultBrowserPackage,

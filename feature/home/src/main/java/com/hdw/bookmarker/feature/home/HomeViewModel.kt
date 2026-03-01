@@ -7,7 +7,6 @@ import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkColorsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
@@ -44,8 +43,6 @@ data class MainState(
 sealed interface MainSideEffect {
     data class ShowMessage(@param:StringRes val messageResId: Int) : MainSideEffect
     data class ShowError(@param:StringRes val messageResId: Int, val detail: String? = null) : MainSideEffect
-    object ShowOverwriteConfirmDialog : MainSideEffect
-
     object OpenFilePicker : MainSideEffect
 }
 
@@ -54,7 +51,6 @@ class HomeViewModel @Inject constructor(
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
     private val getBookmarksUseCase: GetBookmarksUseCase,
     private val getBookmarkRawFileHashUseCase: GetBookmarkRawFileHashUseCase,
-    private val getBookmarkSnapshotRawFileHashUseCase: GetBookmarkSnapshotRawFileHashUseCase,
     private val getBookmarkSnapshotsUseCase: GetBookmarkSnapshotsUseCase,
     private val getOrderedSnapshotIdsUseCase: GetOrderedSnapshotIdsUseCase,
     private val getBookmarkColorsUseCase: GetBookmarkColorsUseCase,
@@ -67,14 +63,11 @@ class HomeViewModel @Inject constructor(
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
 ) : ViewModel(),
     ContainerHost<MainState, MainSideEffect> {
-    private data class PendingOverwriteImport(val uri: Uri, val snapshotId: String, val rawFileHash: String)
-
     private var isObservingSnapshots = false
     private var isObservingOrderedIds = false
     private var isObservingColors = false
     private var isObservingDefaultBrowser = false
     private var isObservingBookmarkDisplayType = false
-    private var pendingOverwriteImport: PendingOverwriteImport? = null
 
     override val container = container<MainState, MainSideEffect>(MainState()) {
         observeBookmarkSnapshots()
@@ -154,7 +147,6 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onHtmlFileSelected(uri: Uri) = intent {
-        val targetSnapshotId = state.selectedBookmarkId
         val rawFileHash = when (val hashResult = getBookmarkRawFileHashUseCase(uri)) {
             is ContentFileResult.Success -> hashResult.data
 
@@ -169,26 +161,10 @@ class HomeViewModel @Inject constructor(
             }
         }
 
-        val existingRawFileHash = targetSnapshotId?.let { getBookmarkSnapshotRawFileHashUseCase(it) }
-        if (existingRawFileHash == rawFileHash) {
-            postSideEffect(MainSideEffect.ShowMessage(R.string.import_skipped_same_file))
-            return@intent
-        }
-
-        if (!existingRawFileHash.isNullOrBlank() && targetSnapshotId != null) {
-            pendingOverwriteImport = PendingOverwriteImport(
-                uri = uri,
-                snapshotId = targetSnapshotId,
-                rawFileHash = rawFileHash,
-            )
-            postSideEffect(MainSideEffect.ShowOverwriteConfirmDialog)
-            return@intent
-        }
-
         when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = uri)) {
             is BookmarkImportResult.Success -> {
                 val savedId = saveBookmarkSnapshotUseCase(
-                    snapshotId = targetSnapshotId,
+                    snapshotId = null,
                     document = result.document,
                     sourceHash = rawFileHash,
                 )
@@ -205,35 +181,6 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
-    }
-
-    fun confirmOverwriteImport() = intent {
-        val pending = pendingOverwriteImport ?: return@intent
-        pendingOverwriteImport = null
-        when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = pending.uri)) {
-            is BookmarkImportResult.Success -> {
-                saveBookmarkSnapshotUseCase(
-                    snapshotId = pending.snapshotId,
-                    document = result.document,
-                    sourceHash = pending.rawFileHash,
-                )
-                reduce { state.copy(selectedBookmarkId = pending.snapshotId) }
-            }
-
-            is BookmarkImportResult.Failure -> {
-                Timber.e("Bookmark html import failed. error=%s, message=%s", result.error, result.message)
-                postSideEffect(
-                    MainSideEffect.ShowError(
-                        messageResId = result.error.toUiMessageResId(),
-                        detail = result.message,
-                    ),
-                )
-            }
-        }
-    }
-
-    fun cancelOverwriteImport() = intent {
-        pendingOverwriteImport = null
     }
 
     fun onBookmarkColorSelected(snapshotId: String, bookmarkColor: Long) = intent {
