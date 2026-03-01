@@ -51,31 +51,9 @@ fun HomeRoute(
     onOpenBookmarkImportGuide: () -> Unit,
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
-    HomeScreen(
-        viewModel = viewModel,
-        onSettingsClick = onSettingsClick,
-        onOpenBookmark = onOpenBookmark,
-        onOpenBookmarkImportGuide = onOpenBookmarkImportGuide,
-    )
-}
-
-@Composable
-fun HomeScreen(
-    viewModel: HomeViewModel,
-    onSettingsClick: () -> Unit,
-    onOpenBookmark: (String, String?) -> Boolean,
-    onOpenBookmarkImportGuide: () -> Unit,
-) {
     val state by viewModel.collectAsState()
-    val orderedSnapshotIds = state.orderedSnapshotIds
     val context = LocalContext.current
     val resources = LocalResources.current
-    var showImportOptionDialog by rememberSaveable { mutableStateOf(false) }
-    var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
-    var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
-    var showColorPickerDialog by rememberSaveable { mutableStateOf(false) }
-    var pendingDeleteSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
-
     val htmlPickerLauncher = rememberLauncherForActivityResult(OpenDocument()) { uri ->
         if (uri != null) {
             viewModel.onHtmlFileSelected(uri)
@@ -84,7 +62,7 @@ fun HomeScreen(
 
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
-            is MainSideEffect.ShowError -> {
+            is HomeSideEffect.ShowError -> {
                 val message = resources.getString(sideEffect.messageResId)
                 val toastText = if (sideEffect.detail.isNullOrBlank()) {
                     message
@@ -94,15 +72,51 @@ fun HomeScreen(
                 context.showShortToast(toastText)
             }
 
-            is MainSideEffect.ShowMessage -> {
+            is HomeSideEffect.ShowMessage -> {
                 context.showShortToast(resources.getString(sideEffect.messageResId))
             }
 
-            is MainSideEffect.OpenFilePicker -> {
+            is HomeSideEffect.OpenFilePicker -> {
                 htmlPickerLauncher.launch(arrayOf(MimeTypes.HTML))
             }
         }
     }
+
+    HomeScreen(
+        state = state,
+        onSettingsClick = onSettingsClick,
+        onOpenBookmark = onOpenBookmark,
+        onOpenBookmarkImportGuide = onOpenBookmarkImportGuide,
+        onSnapshotSelected = viewModel::onSnapshotSelected,
+        onBookmarkColorSelected = viewModel::onBookmarkColorSelected,
+        onDefaultBrowserSelected = viewModel::onDefaultBrowserSelected,
+        onOpenFilePicker = viewModel::openFilePicker,
+        onDeleteBookmarkSnapshot = viewModel::deleteBookmarkSnapshot,
+        onBookmarkDisplayTypeToggle = viewModel::onBookmarkDisplayTypeToggle,
+    )
+}
+
+@Composable
+fun HomeScreen(
+    state: HomeState,
+    onSettingsClick: () -> Unit,
+    onOpenBookmark: (String, String?) -> Boolean,
+    onOpenBookmarkImportGuide: () -> Unit,
+    onSnapshotSelected: (String) -> Unit,
+    onBookmarkColorSelected: (String, Long) -> Unit,
+    onDefaultBrowserSelected: (String) -> Unit,
+    onOpenFilePicker: () -> Unit,
+    onDeleteBookmarkSnapshot: (String) -> Unit,
+    onBookmarkDisplayTypeToggle: () -> Unit,
+) {
+    val orderedSnapshotIds = state.orderedSnapshotIds
+    val context = LocalContext.current
+    val resources = LocalResources.current
+    var showImportOptionDialog by rememberSaveable { mutableStateOf(false) }
+    var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
+    var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
+    var showColorPickerDialog by rememberSaveable { mutableStateOf(false) }
+    var pendingDeleteSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
 
     val scope = rememberCoroutineScope()
 
@@ -124,7 +138,7 @@ fun HomeScreen(
         snapshotFlow { pagerState.settledPage }
             .distinctUntilChanged()
             .collect { page ->
-                orderedSnapshotIds.getOrNull(page)?.let(viewModel::onSnapshotSelected)
+                orderedSnapshotIds.getOrNull(page)?.let(onSnapshotSelected)
             }
     }
 
@@ -146,7 +160,7 @@ fun HomeScreen(
             currentColor = state.bookmarkColors[selectedBookmarkId]
                 ?: BookmarkColorGenerator.generateColorForId(selectedBookmarkId),
             onColorSelect = { color ->
-                viewModel.onBookmarkColorSelected(selectedBookmarkId, color)
+                onBookmarkColorSelected(selectedBookmarkId, color)
                 showColorPickerDialog = false
             },
             onDismiss = { showColorPickerDialog = false },
@@ -158,7 +172,7 @@ fun HomeScreen(
             installedBrowsers = state.installedBrowsers,
             selectedPackage = state.defaultBrowserPackage,
             onSelect = { packageName ->
-                viewModel.onDefaultBrowserSelected(packageName)
+                onDefaultBrowserSelected(packageName)
                 showDefaultBrowserDialog = false
             },
             onDismiss = {
@@ -188,7 +202,7 @@ fun HomeScreen(
                     OutlinedButton(
                         onClick = {
                             showImportOptionDialog = false
-                            viewModel.openFilePicker()
+                            onOpenFilePicker()
                         },
                         modifier = Modifier.fillMaxWidth(),
                     ) {
@@ -209,7 +223,7 @@ fun HomeScreen(
             confirmButton = {
                 TextButton(
                     onClick = {
-                        viewModel.deleteBookmarkSnapshot(pendingDeleteSnapshotId ?: return@TextButton)
+                        onDeleteBookmarkSnapshot(pendingDeleteSnapshotId ?: return@TextButton)
                         pendingDeleteSnapshotId = null
                     },
                 ) {
@@ -232,7 +246,7 @@ fun HomeScreen(
                 bookmarkDisplayType = state.bookmarkDisplayType,
                 defaultBrowserIcon = defaultBrowserIcon,
                 onBookmarkDisplayTypeClick = {
-                    viewModel.onBookmarkDisplayTypeToggle()
+                    onBookmarkDisplayTypeToggle()
                 },
                 onDefaultBrowserIconClick = {
                     if (state.installedBrowsers.isNotEmpty()) {

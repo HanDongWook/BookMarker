@@ -30,7 +30,7 @@ import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 import javax.inject.Inject
 
-data class MainState(
+data class HomeState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
     val orderedSnapshotIds: List<String> = emptyList(),
     val bookmarkDocuments: Map<String, BookmarkDocument> = emptyMap(),
@@ -40,10 +40,10 @@ data class MainState(
     val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
 )
 
-sealed interface MainSideEffect {
-    data class ShowMessage(@param:StringRes val messageResId: Int) : MainSideEffect
-    data class ShowError(@param:StringRes val messageResId: Int, val detail: String? = null) : MainSideEffect
-    object OpenFilePicker : MainSideEffect
+sealed interface HomeSideEffect {
+    data class ShowMessage(@param:StringRes val messageResId: Int) : HomeSideEffect
+    data class ShowError(@param:StringRes val messageResId: Int, val detail: String? = null) : HomeSideEffect
+    object OpenFilePicker : HomeSideEffect
 }
 
 @HiltViewModel
@@ -62,14 +62,14 @@ class HomeViewModel @Inject constructor(
     private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
 ) : ViewModel(),
-    ContainerHost<MainState, MainSideEffect> {
+    ContainerHost<HomeState, HomeSideEffect> {
     private var isObservingSnapshots = false
     private var isObservingOrderedIds = false
     private var isObservingColors = false
     private var isObservingDefaultBrowser = false
     private var isObservingBookmarkDisplayType = false
 
-    override val container = container<MainState, MainSideEffect>(MainState()) {
+    override val container = container<HomeState, HomeSideEffect>(HomeState()) {
         observeBookmarkSnapshots()
         observeOrderedSnapshotIds()
         observeBookmarkColors()
@@ -126,7 +126,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun openFilePicker() = intent {
-        postSideEffect(MainSideEffect.OpenFilePicker)
+        postSideEffect(HomeSideEffect.OpenFilePicker)
     }
 
     fun onSnapshotSelected(snapshotId: String) = intent {
@@ -152,7 +152,7 @@ class HomeViewModel @Inject constructor(
 
             is ContentFileResult.Failure -> {
                 postSideEffect(
-                    MainSideEffect.ShowError(
+                    HomeSideEffect.ShowError(
                         messageResId = hashResult.error.toUiMessageResId(),
                         detail = hashResult.message,
                     ),
@@ -174,7 +174,7 @@ class HomeViewModel @Inject constructor(
             is BookmarkImportResult.Failure -> {
                 Timber.e("Bookmark html import failed. error=%s, message=%s", result.error, result.message)
                 postSideEffect(
-                    MainSideEffect.ShowError(
+                    HomeSideEffect.ShowError(
                         messageResId = result.error.toUiMessageResId(),
                         detail = result.message,
                     ),
