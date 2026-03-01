@@ -25,6 +25,8 @@ local.properties
 
 .cxx
 
-# Local version / generated license metadata
+# Local
 /version.properties
 /app/src/main/res/raw/aboutlibraries.json
+/app/src/debug/google-services.json
+/app/src/release/google-services.json

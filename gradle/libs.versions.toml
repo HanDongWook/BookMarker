@@ -31,6 +31,10 @@ kotest = "6.1.4"
 kotlinxCoroutines = "1.10.2"
 coil = "2.7.0"
 aboutLibraries = "13.2.1"
+firebaseBom = "34.10.0"
+googleServices = "4.4.4"
+firebaseCrashlyticsPlugin = "3.0.6"
+leakcanary = "2.14"
 
 [libraries]
 # androidx
@@ -93,6 +97,11 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
 aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-perf = { module = "com.google.firebase:firebase-perf" }
+leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 
 # Dependencies of the included build-logic
 android-gradleApiPlugin = { group = "com.android.tools.build", name = "gradle-api", version.ref = "agp" }
@@ -113,6 +122,8 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 
 # Plugins defined by bookmarker
 bookmarker-android-application = { id = "bookmarker.android.application" }
