@@ -14,18 +14,24 @@ interface BookmarkRepository {
 
     fun getBookmarkSnapshotsFlow(): Flow<Map<String, BookmarkDocument>>
 
+    fun getOrderedSnapshotIdsFlow(): Flow<List<String>>
+
+    /**
+     * @param snapshotId null이면 새 스냅샷 생성, 아니면 해당 ID 덮어쓰기
+     * @return 저장에 사용된 snapshotId
+     */
     suspend fun saveBookmarkSnapshot(
-        browserPackage: String,
+        snapshotId: String?,
         document: BookmarkDocument,
         sourceHash: String = "",
         bookmarkColor: Long,
-    )
+    ): String
 
-    suspend fun clearBookmarkSnapshot(browserPackage: String)
+    suspend fun clearBookmarkSnapshot(snapshotId: String)
 
-    suspend fun getBookmarkSnapshotRawFileHash(browserPackage: String): String?
+    suspend fun getBookmarkSnapshotRawFileHash(snapshotId: String): String?
 
-    suspend fun getBookmarkColor(browserPackage: String): Long?
+    suspend fun getBookmarkColor(snapshotId: String): Long?
 
-    suspend fun setBookmarkColor(browserPackage: String, bookmarkColor: Long)
+    suspend fun setBookmarkColor(snapshotId: String, bookmarkColor: Long)
 }

@@ -38,33 +38,34 @@ class BookmarkRepositoryImpl @Inject constructor(
     override fun getBookmarkSnapshotsFlow(): Flow<Map<String, BookmarkDocument>> =
         bookmarkSnapshotDatastore.getSnapshotsFlow()
 
+    override fun getOrderedSnapshotIdsFlow(): Flow<List<String>> =
+        bookmarkSnapshotDatastore.getOrderedSnapshotIdsFlow()
+
     override suspend fun saveBookmarkSnapshot(
-        browserPackage: String,
+        snapshotId: String?,
         document: BookmarkDocument,
         sourceHash: String,
         bookmarkColor: Long,
-    ) {
-        bookmarkSnapshotDatastore.saveSnapshot(
-            browserPackage = browserPackage,
-            document = document,
-            sourceHash = sourceHash,
-            bookmarkColor = bookmarkColor,
-        )
+    ): String = bookmarkSnapshotDatastore.saveSnapshot(
+        snapshotId = snapshotId,
+        document = document,
+        sourceHash = sourceHash,
+        bookmarkColor = bookmarkColor,
+    )
+
+    override suspend fun clearBookmarkSnapshot(snapshotId: String) {
+        bookmarkSnapshotDatastore.clearSnapshot(snapshotId)
     }
 
-    override suspend fun clearBookmarkSnapshot(browserPackage: String) {
-        bookmarkSnapshotDatastore.clearSnapshot(browserPackage)
-    }
+    override suspend fun getBookmarkSnapshotRawFileHash(snapshotId: String): String? =
+        bookmarkSnapshotDatastore.getRawFileHash(snapshotId)
 
-    override suspend fun getBookmarkSnapshotRawFileHash(browserPackage: String): String? =
-        bookmarkSnapshotDatastore.getRawFileHash(browserPackage)
+    override suspend fun getBookmarkColor(snapshotId: String): Long? =
+        bookmarkSnapshotDatastore.getBookmarkColorsFlow().first()[snapshotId]
 
-    override suspend fun getBookmarkColor(browserPackage: String): Long? =
-        bookmarkSnapshotDatastore.getBookmarkColorsFlow().first()[browserPackage]
-
-    override suspend fun setBookmarkColor(browserPackage: String, bookmarkColor: Long) {
+    override suspend fun setBookmarkColor(snapshotId: String, bookmarkColor: Long) {
         bookmarkSnapshotDatastore.updateBookmarkColor(
-            browserPackage = browserPackage,
+            snapshotId = snapshotId,
             bookmarkColor = bookmarkColor,
         )
     }

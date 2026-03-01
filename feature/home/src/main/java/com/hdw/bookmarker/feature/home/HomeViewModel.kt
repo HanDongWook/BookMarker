@@ -2,7 +2,6 @@ package com.hdw.bookmarker.feature.home
 
 import android.net.Uri
 import androidx.annotation.StringRes
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkColorsUseCase
@@ -13,6 +12,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
@@ -33,10 +33,10 @@ import javax.inject.Inject
 
 data class MainState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
-    val connectedBrowserPackages: Set<String> = emptySet(),
+    val orderedSnapshotIds: List<String> = emptyList(),
     val bookmarkDocuments: Map<String, BookmarkDocument> = emptyMap(),
     val bookmarkColors: Map<String, Long> = emptyMap(),
-    val selectedBrowserPackage: String? = null,
+    val selectedBookmarkId: String? = null,
     val defaultBrowserPackage: String? = null,
     val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
 )
@@ -56,6 +56,7 @@ class HomeViewModel @Inject constructor(
     private val getBookmarkRawFileHashUseCase: GetBookmarkRawFileHashUseCase,
     private val getBookmarkSnapshotRawFileHashUseCase: GetBookmarkSnapshotRawFileHashUseCase,
     private val getBookmarkSnapshotsUseCase: GetBookmarkSnapshotsUseCase,
+    private val getOrderedSnapshotIdsUseCase: GetOrderedSnapshotIdsUseCase,
     private val getBookmarkColorsUseCase: GetBookmarkColorsUseCase,
     private val saveBookmarkSnapshotUseCase: SaveBookmarkSnapshotUseCase,
     private val setBookmarkColorUseCase: SetBookmarkColorUseCase,
@@ -66,9 +67,10 @@ class HomeViewModel @Inject constructor(
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
 ) : ViewModel(),
     ContainerHost<MainState, MainSideEffect> {
-    private data class PendingOverwriteImport(val uri: Uri, val browserPackage: String, val rawFileHash: String)
+    private data class PendingOverwriteImport(val uri: Uri, val snapshotId: String, val rawFileHash: String)
 
     private var isObservingSnapshots = false
+    private var isObservingOrderedIds = false
     private var isObservingColors = false
     private var isObservingDefaultBrowser = false
     private var isObservingBookmarkDisplayType = false
@@ -76,6 +78,7 @@ class HomeViewModel @Inject constructor(
 
     override val container = container<MainState, MainSideEffect>(MainState()) {
         observeBookmarkSnapshots()
+        observeOrderedSnapshotIds()
         observeBookmarkColors()
         observeDefaultBrowserPackage()
         observeBookmarkDisplayType()
@@ -84,17 +87,8 @@ class HomeViewModel @Inject constructor(
 
     private fun loadInstalledBrowsers() = intent {
         val browsers = getInstalledBrowsersUseCase()
-        val installedPackages = browsers.map(BrowserInfo::packageName).toSet()
         reduce {
-            state.copy(
-                installedBrowsers = browsers.map { browser ->
-                    browser.copy(bookmarkColorValue = state.bookmarkColors[browser.packageName] ?: 0L)
-                },
-                connectedBrowserPackages = state.bookmarkDocuments.keys.intersect(installedPackages),
-                selectedBrowserPackage = state.selectedBrowserPackage
-                    ?.takeIf { selected -> installedPackages.contains(selected) }
-                    ?: browsers.firstOrNull()?.packageName,
-            )
+            state.copy(installedBrowsers = browsers)
         }
     }
 
@@ -103,12 +97,7 @@ class HomeViewModel @Inject constructor(
         isObservingColors = true
         getBookmarkColorsUseCase().collect { colors ->
             reduce {
-                state.copy(
-                    bookmarkColors = colors,
-                    installedBrowsers = state.installedBrowsers.map { browser ->
-                        browser.copy(bookmarkColorValue = colors[browser.packageName] ?: 0L)
-                    },
-                )
+                state.copy(bookmarkColors = colors)
             }
         }
     }
@@ -117,15 +106,27 @@ class HomeViewModel @Inject constructor(
         if (isObservingSnapshots) return@intent
         isObservingSnapshots = true
         getBookmarkSnapshotsUseCase().collect { snapshots ->
-            val installedPackages = state.installedBrowsers.map(BrowserInfo::packageName).toSet()
             reduce {
                 state.copy(
                     bookmarkDocuments = snapshots,
-                    connectedBrowserPackages = snapshots.keys.intersect(installedPackages),
-                    selectedBrowserPackage = state.selectedBrowserPackage
-                        ?.takeIf { selected -> installedPackages.contains(selected) }
-                        ?: state.installedBrowsers.firstOrNull { snapshots.containsKey(it.packageName) }?.packageName
-                        ?: state.installedBrowsers.firstOrNull()?.packageName,
+                    selectedBookmarkId = state.selectedBookmarkId
+                        ?.takeIf { snapshots.containsKey(it) }
+                        ?: snapshots.keys.firstOrNull(),
+                )
+            }
+        }
+    }
+
+    private fun observeOrderedSnapshotIds() = intent {
+        if (isObservingOrderedIds) return@intent
+        isObservingOrderedIds = true
+        getOrderedSnapshotIdsUseCase().collect { ids ->
+            reduce {
+                state.copy(
+                    orderedSnapshotIds = ids,
+                    selectedBookmarkId = state.selectedBookmarkId
+                        ?.takeIf { ids.contains(it) }
+                        ?: ids.firstOrNull(),
                 )
             }
         }
@@ -135,9 +136,9 @@ class HomeViewModel @Inject constructor(
         postSideEffect(MainSideEffect.OpenFilePicker)
     }
 
-    fun onBrowserSelected(packageName: String) = intent {
-        if (state.selectedBrowserPackage == packageName) return@intent
-        reduce { state.copy(selectedBrowserPackage = packageName) }
+    fun onSnapshotSelected(snapshotId: String) = intent {
+        if (state.selectedBookmarkId == snapshotId) return@intent
+        reduce { state.copy(selectedBookmarkId = snapshotId) }
     }
 
     fun onDefaultBrowserSelected(packageName: String) = intent {
@@ -153,7 +154,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onHtmlFileSelected(uri: Uri) = intent {
-        val targetBrowserPackage = state.selectedBrowserPackage ?: return@intent
+        val targetSnapshotId = state.selectedBookmarkId
         val rawFileHash = when (val hashResult = getBookmarkRawFileHashUseCase(uri)) {
             is ContentFileResult.Success -> hashResult.data
 
@@ -168,16 +169,16 @@ class HomeViewModel @Inject constructor(
             }
         }
 
-        val existingRawFileHash = getBookmarkSnapshotRawFileHashUseCase(targetBrowserPackage)
+        val existingRawFileHash = targetSnapshotId?.let { getBookmarkSnapshotRawFileHashUseCase(it) }
         if (existingRawFileHash == rawFileHash) {
             postSideEffect(MainSideEffect.ShowMessage(R.string.import_skipped_same_file))
             return@intent
         }
 
-        if (!existingRawFileHash.isNullOrBlank()) {
+        if (!existingRawFileHash.isNullOrBlank() && targetSnapshotId != null) {
             pendingOverwriteImport = PendingOverwriteImport(
                 uri = uri,
-                browserPackage = targetBrowserPackage,
+                snapshotId = targetSnapshotId,
                 rawFileHash = rawFileHash,
             )
             postSideEffect(MainSideEffect.ShowOverwriteConfirmDialog)
@@ -186,18 +187,12 @@ class HomeViewModel @Inject constructor(
 
         when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = uri)) {
             is BookmarkImportResult.Success -> {
-                reduce {
-                    state.copy(
-                        connectedBrowserPackages = state.connectedBrowserPackages + targetBrowserPackage,
-                        bookmarkDocuments = state.bookmarkDocuments + (targetBrowserPackage to result.document),
-                        selectedBrowserPackage = targetBrowserPackage,
-                    )
-                }
-                saveBookmarkSnapshotUseCase(
-                    browserPackage = targetBrowserPackage,
+                val savedId = saveBookmarkSnapshotUseCase(
+                    snapshotId = targetSnapshotId,
                     document = result.document,
                     sourceHash = rawFileHash,
                 )
+                reduce { state.copy(selectedBookmarkId = savedId) }
             }
 
             is BookmarkImportResult.Failure -> {
@@ -217,18 +212,12 @@ class HomeViewModel @Inject constructor(
         pendingOverwriteImport = null
         when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = pending.uri)) {
             is BookmarkImportResult.Success -> {
-                reduce {
-                    state.copy(
-                        connectedBrowserPackages = state.connectedBrowserPackages + pending.browserPackage,
-                        bookmarkDocuments = state.bookmarkDocuments + (pending.browserPackage to result.document),
-                        selectedBrowserPackage = pending.browserPackage,
-                    )
-                }
                 saveBookmarkSnapshotUseCase(
-                    browserPackage = pending.browserPackage,
+                    snapshotId = pending.snapshotId,
                     document = result.document,
                     sourceHash = pending.rawFileHash,
                 )
+                reduce { state.copy(selectedBookmarkId = pending.snapshotId) }
             }
 
             is BookmarkImportResult.Failure -> {
@@ -247,24 +236,18 @@ class HomeViewModel @Inject constructor(
         pendingOverwriteImport = null
     }
 
-    fun onBookmarkColorSelected(browserPackage: String, bookmarkColor: Long) = intent {
-        setBookmarkColorUseCase(browserPackage, bookmarkColor)
+    fun onBookmarkColorSelected(snapshotId: String, bookmarkColor: Long) = intent {
+        setBookmarkColorUseCase(snapshotId, bookmarkColor)
     }
 
-    fun deleteBookmarkSnapshot(browserPackage: String) = intent {
-        clearBookmarkSnapshotUseCase(browserPackage)
-        val updatedConnectedPackages = state.connectedBrowserPackages - browserPackage
-        val updatedDocuments = state.bookmarkDocuments - browserPackage
+    fun deleteBookmarkSnapshot(snapshotId: String) = intent {
+        clearBookmarkSnapshotUseCase(snapshotId)
+        val updatedIds = state.orderedSnapshotIds - snapshotId
         reduce {
             state.copy(
-                connectedBrowserPackages = updatedConnectedPackages,
-                bookmarkDocuments = updatedDocuments,
-                selectedBrowserPackage = state.selectedBrowserPackage
-                    ?.takeIf { selected -> selected != browserPackage }
-                    ?: state.installedBrowsers.firstOrNull {
-                        updatedConnectedPackages.contains(it.packageName)
-                    }?.packageName
-                    ?: state.installedBrowsers.firstOrNull()?.packageName,
+                selectedBookmarkId = state.selectedBookmarkId
+                    ?.takeIf { it != snapshotId }
+                    ?: updatedIds.firstOrNull(),
             )
         }
     }

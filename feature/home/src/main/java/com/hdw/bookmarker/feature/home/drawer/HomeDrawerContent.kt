@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
@@ -28,7 +27,6 @@ import com.hdw.bookmarker.feature.home.R
 @Composable
 fun HomeDrawerContent(
     installedBrowsers: List<BrowserInfo>,
-    connectedBrowserPackages: Set<String>,
     onSyncClick: (String) -> Unit,
 ) {
     Column(
@@ -45,7 +43,6 @@ fun HomeDrawerContent(
         installedBrowsers.forEach { browser ->
             BrowserItem(
                 browser = browser,
-                isConnected = connectedBrowserPackages.contains(browser.packageName),
                 onSyncClick = { onSyncClick(browser.packageName) },
             )
         }
@@ -53,7 +50,7 @@ fun HomeDrawerContent(
 }
 
 @Composable
-private fun BrowserItem(browser: BrowserInfo, isConnected: Boolean, onSyncClick: () -> Unit) {
+private fun BrowserItem(browser: BrowserInfo, onSyncClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -64,9 +61,7 @@ private fun BrowserItem(browser: BrowserInfo, isConnected: Boolean, onSyncClick:
         Image(
             painter = rememberDrawablePainter(drawable = browser.icon),
             contentDescription = browser.appName,
-            modifier = Modifier
-                .size(40.dp)
-                .alpha(if (isConnected) 1f else 0.5f),
+            modifier = Modifier.size(40.dp),
         )
         Spacer(modifier = Modifier.width(12.dp))
         Text(

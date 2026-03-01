@@ -30,23 +30,19 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.hdw.bookmarker.core.model.browser.BrowserInfo
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun ConnectedBrowserBar(
-    installedBrowsers: List<BrowserInfo>,
-    connectedBrowserPackages: Set<String>,
-    selectedBrowserPackage: String?,
+internal fun BookMarkListBar(
+    orderedSnapshotIds: List<String>,
+    bookmarkColors: Map<String, Long>,
+    selectedBookmarkId: String?,
     isEditMode: Boolean,
-    onBrowserClick: (String) -> Unit,
+    onSnapshotClick: (String) -> Unit,
     onEnterEditMode: () -> Unit,
     onDeleteRequest: (String) -> Unit,
 ) {
-    val connectedBrowsers = installedBrowsers.filter { browser ->
-        connectedBrowserPackages.contains(browser.packageName)
-    }
-    if (connectedBrowsers.isEmpty()) return
+    if (orderedSnapshotIds.isEmpty()) return
 
     val shakeRotation = rememberInfiniteTransition(label = "connected_browser_shake").animateFloat(
         initialValue = -7f,
@@ -69,8 +65,9 @@ internal fun ConnectedBrowserBar(
         ),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(connectedBrowsers, key = { it.packageName }) { browser ->
-            val isSelected = selectedBrowserPackage == browser.packageName
+        items(orderedSnapshotIds, key = { it }) { snapshotId ->
+            val isSelected = selectedBookmarkId == snapshotId
+            val colorValue = bookmarkColors[snapshotId] ?: 0L
             Surface(
                 color = if (isSelected) {
                     MaterialTheme.colorScheme.primaryContainer
@@ -82,9 +79,9 @@ internal fun ConnectedBrowserBar(
                 Box(
                     modifier = Modifier
                         .combinedClickable(
-                            onClick = { onBrowserClick(browser.packageName) },
+                            onClick = { onSnapshotClick(snapshotId) },
                             onLongClick = {
-                                onBrowserClick(browser.packageName)
+                                onSnapshotClick(snapshotId)
                                 onEnterEditMode()
                             },
                         )
@@ -93,7 +90,7 @@ internal fun ConnectedBrowserBar(
                     Icon(
                         imageVector = Icons.Default.Bookmark,
                         contentDescription = null,
-                        tint = Color(browser.bookmarkColorValue),
+                        tint = Color(colorValue),
                         modifier = Modifier
                             .size(36.dp)
                             .graphicsLayer {
@@ -115,7 +112,7 @@ internal fun ConnectedBrowserBar(
                                 modifier = Modifier
                                     .size(16.dp)
                                     .combinedClickable(
-                                        onClick = { onDeleteRequest(browser.packageName) },
+                                        onClick = { onDeleteRequest(snapshotId) },
                                         onLongClick = {},
                                     ),
                                 contentAlignment = Alignment.Center,

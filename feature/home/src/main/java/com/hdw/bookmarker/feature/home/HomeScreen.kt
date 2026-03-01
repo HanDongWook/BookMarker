@@ -5,10 +5,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
@@ -77,9 +75,7 @@ fun HomeScreen(
     onOpenBookmark: (String, String?) -> Boolean,
 ) {
     val state by viewModel.collectAsState()
-    val connectedBrowsers = state.installedBrowsers.filter { browser ->
-        state.connectedBrowserPackages.contains(browser.packageName)
-    }
+    val orderedSnapshotIds = state.orderedSnapshotIds
     val context = LocalContext.current
     val resources = LocalResources.current
     var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
@@ -87,7 +83,8 @@ fun HomeScreen(
     var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
     var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
     var showColorPickerDialog by rememberSaveable { mutableStateOf(false) }
-    var pendingDeleteBrowserPackage by rememberSaveable { mutableStateOf<String?>(null) }
+    var pendingDeleteSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
+    var selectedBrowserPackageForImport by rememberSaveable { mutableStateOf<String?>(null) }
 
     val htmlPickerLauncher = rememberLauncherForActivityResult(OpenDocument()) { uri ->
         if (uri != null) {
@@ -129,27 +126,26 @@ fun HomeScreen(
 
     val pagerState = rememberPagerState(
         initialPage = 0,
-        pageCount = { connectedBrowsers.size },
+        pageCount = { orderedSnapshotIds.size },
     )
-    val selectedConnectedBrowserPackage = state.selectedBrowserPackage
-        ?.takeIf { selected -> connectedBrowsers.any { it.packageName == selected } }
-        ?: connectedBrowsers.getOrNull(pagerState.currentPage)?.packageName
-        ?: connectedBrowsers.firstOrNull()?.packageName
+    val selectedBookmarkId = state.selectedBookmarkId
+        ?.takeIf { id -> orderedSnapshotIds.contains(id) }
+        ?: orderedSnapshotIds.getOrNull(pagerState.currentPage)
+        ?: orderedSnapshotIds.firstOrNull()
 
-    val currentSelectedBrowser = state.installedBrowsers
-        .firstOrNull { it.packageName == state.selectedBrowserPackage }
-        ?: connectedBrowsers.getOrNull(pagerState.currentPage)
+    val currentSelectedBrowser = selectedBrowserPackageForImport
+        ?.let { pkg -> state.installedBrowsers.find { it.packageName == pkg } }
         ?: state.installedBrowsers.firstOrNull()
     val defaultBrowserIcon = state.installedBrowsers
         .firstOrNull { it.packageName == state.defaultBrowserPackage }
         ?.icon
 
-    LaunchedEffect(pagerState, connectedBrowsers) {
-        if (connectedBrowsers.isEmpty()) return@LaunchedEffect
+    LaunchedEffect(pagerState, orderedSnapshotIds) {
+        if (orderedSnapshotIds.isEmpty()) return@LaunchedEffect
         snapshotFlow { pagerState.settledPage }
             .distinctUntilChanged()
             .collect { page ->
-                connectedBrowsers.getOrNull(page)?.packageName?.let(viewModel::onBrowserSelected)
+                orderedSnapshotIds.getOrNull(page)?.let(viewModel::onSnapshotSelected)
             }
     }
 
@@ -176,13 +172,13 @@ fun HomeScreen(
         showColorPickerDialog = false
     }
 
-    if (showColorPickerDialog && selectedConnectedBrowserPackage != null) {
+    if (showColorPickerDialog && selectedBookmarkId != null) {
         BookmarkColorPickerDialog(
             colors = BookmarkColorGenerator.getAllColors(),
-            currentColor = state.bookmarkColors[selectedConnectedBrowserPackage]
-                ?: BookmarkColorGenerator.generateColorForPackage(selectedConnectedBrowserPackage),
+            currentColor = state.bookmarkColors[selectedBookmarkId]
+                ?: BookmarkColorGenerator.generateColorForId(selectedBookmarkId),
             onColorSelect = { color ->
-                viewModel.onBookmarkColorSelected(selectedConnectedBrowserPackage, color)
+                viewModel.onBookmarkColorSelected(selectedBookmarkId, color)
                 showColorPickerDialog = false
             },
             onDismiss = { showColorPickerDialog = false },
@@ -238,16 +234,16 @@ fun HomeScreen(
         )
     }
 
-    if (pendingDeleteBrowserPackage != null) {
+    if (pendingDeleteSnapshotId != null) {
         AlertDialog(
-            onDismissRequest = { pendingDeleteBrowserPackage = null },
+            onDismissRequest = { pendingDeleteSnapshotId = null },
             title = { Text(text = stringResource(R.string.delete_bookmark_dialog_title)) },
             text = { Text(text = stringResource(R.string.delete_bookmark_dialog_message)) },
             confirmButton = {
                 TextButton(
                     onClick = {
-                        viewModel.deleteBookmarkSnapshot(pendingDeleteBrowserPackage ?: return@TextButton)
-                        pendingDeleteBrowserPackage = null
+                        viewModel.deleteBookmarkSnapshot(pendingDeleteSnapshotId ?: return@TextButton)
+                        pendingDeleteSnapshotId = null
                         isBrowserEditMode = false
                     },
                 ) {
@@ -255,7 +251,7 @@ fun HomeScreen(
                 }
             },
             dismissButton = {
-                TextButton(onClick = { pendingDeleteBrowserPackage = null }) {
+                TextButton(onClick = { pendingDeleteSnapshotId = null }) {
                     Text(text = stringResource(R.string.delete_bookmark_dialog_cancel))
                 }
             },
@@ -273,9 +269,8 @@ fun HomeScreen(
                 ) {
                     HomeDrawerContent(
                         installedBrowsers = state.installedBrowsers,
-                        connectedBrowserPackages = state.connectedBrowserPackages,
                         onSyncClick = { packageName ->
-                            viewModel.onBrowserSelected(packageName)
+                            selectedBrowserPackageForImport = packageName
                             showImportGuideDialog = true
                             scope.launch { drawerState.close() }
                         },
@@ -312,31 +307,28 @@ fun HomeScreen(
                 },
             ) { innerPadding ->
                 Column(modifier = Modifier.padding(innerPadding)) {
-                    if (state.connectedBrowserPackages.isNotEmpty()) {
-                        ConnectedBrowserBar(
-                            installedBrowsers = state.installedBrowsers,
-                            connectedBrowserPackages = state.connectedBrowserPackages,
-                            selectedBrowserPackage = selectedConnectedBrowserPackage,
-                            isEditMode = isBrowserEditMode,
-                            onBrowserClick = { packageName ->
-                                val targetPage = connectedBrowsers
-                                    .indexOfFirst { it.packageName == packageName }
-                                if (targetPage >= 0 && targetPage != pagerState.currentPage) {
-                                    scope.launch {
-                                        pagerState.animateScrollToPage(targetPage)
-                                    }
+                    BookMarkListBar(
+                        orderedSnapshotIds = orderedSnapshotIds,
+                        bookmarkColors = state.bookmarkColors,
+                        selectedBookmarkId = selectedBookmarkId,
+                        isEditMode = isBrowserEditMode,
+                        onSnapshotClick = { snapshotId ->
+                            val targetPage = orderedSnapshotIds.indexOf(snapshotId)
+                            if (targetPage >= 0 && targetPage != pagerState.currentPage) {
+                                scope.launch {
+                                    pagerState.animateScrollToPage(targetPage)
                                 }
-                            },
-                            onEnterEditMode = {
-                                isBrowserEditMode = true
-                            },
-                            onDeleteRequest = { packageName ->
-                                pendingDeleteBrowserPackage = packageName
-                            },
-                        )
-                    }
+                            }
+                        },
+                        onEnterEditMode = {
+                            isBrowserEditMode = true
+                        },
+                        onDeleteRequest = { snapshotId ->
+                            pendingDeleteSnapshotId = snapshotId
+                        },
+                    )
 
-                    if (connectedBrowsers.isEmpty()) {
+                    if (orderedSnapshotIds.isEmpty()) {
                         NoConnectedBrowsers(
                             modifier = Modifier.weight(1f),
                             onImportClick = {
@@ -348,10 +340,10 @@ fun HomeScreen(
                             state = pagerState,
                             modifier = Modifier.weight(1f),
                         ) { page ->
-                            val browser = connectedBrowsers[page]
+                            val snapshotId = orderedSnapshotIds[page]
                             BookmarkContent(
                                 modifier = Modifier.fillMaxSize(),
-                                bookmarkDocument = state.bookmarkDocuments.getValue(browser.packageName),
+                                bookmarkDocument = state.bookmarkDocuments.getValue(snapshotId),
                                 displayType = state.bookmarkDisplayType,
                                 onBookmarkClick = { url ->
                                     if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
@@ -382,13 +374,6 @@ fun HomeScreen(
                 }
             },
             onSelectFile = {
-                val selectedPackage = state.selectedBrowserPackage
-                    ?: connectedBrowsers.getOrNull(pagerState.currentPage)?.packageName
-                if (selectedPackage == null) {
-                    context.showShortToast(resources.getString(R.string.no_browsers_connected))
-                    return@BookmarkImportGuideScreen
-                }
-                viewModel.onBrowserSelected(selectedPackage)
                 viewModel.openFilePicker()
             },
         )

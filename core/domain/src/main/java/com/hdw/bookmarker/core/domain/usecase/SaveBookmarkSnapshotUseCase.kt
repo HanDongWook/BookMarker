@@ -8,18 +8,22 @@ import javax.inject.Inject
 class SaveBookmarkSnapshotUseCase @Inject constructor(
     private val bookmarkRepository: BookmarkRepository,
 ) {
+    /**
+     * @param snapshotId null이면 새 스냅샷 생성, 아니면 해당 ID 덮어쓰기
+     * @return 저장에 사용된 snapshotId
+     */
     suspend operator fun invoke(
-        browserPackage: String,
+        snapshotId: String?,
         document: BookmarkDocument,
         sourceHash: String = "",
         bookmarkColor: Long? = null,
-    ) {
+    ): String {
         val colorToSave = bookmarkColor
-            ?: bookmarkRepository.getBookmarkColor(browserPackage)
-            ?: BookmarkColorGenerator.generateColorForPackage(browserPackage)
+            ?: (snapshotId?.let { bookmarkRepository.getBookmarkColor(it) })
+            ?: BookmarkColorGenerator.generateColorForId(java.util.UUID.randomUUID().toString())
 
-        bookmarkRepository.saveBookmarkSnapshot(
-            browserPackage = browserPackage,
+        return bookmarkRepository.saveBookmarkSnapshot(
+            snapshotId = snapshotId,
             document = document,
             sourceHash = sourceHash,
             bookmarkColor = colorToSave,
