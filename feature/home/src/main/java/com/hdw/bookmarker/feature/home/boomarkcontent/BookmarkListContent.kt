@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.feature.home.model.VisibleBookmarkNode
 
 private val ExpandedFoldersSaver = Saver<SnapshotStateMap<String, Boolean>, ArrayList<String>>(
@@ -52,6 +53,8 @@ private val ExpandedFoldersSaver = Saver<SnapshotStateMap<String, Boolean>, Arra
 internal fun BookmarkListContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
+    folderIconShape: BookmarkFolderIconShape,
+    folderIconColor: BookmarkFolderIconColor,
     modifier: Modifier = Modifier,
 ) {
     val expandedFolders = rememberSaveable(saver = ExpandedFoldersSaver) {
@@ -77,6 +80,8 @@ internal fun BookmarkListContent(
                         folder = item,
                         depth = node.depth,
                         isExpanded = expandedFolders[node.key] == true,
+                        folderIconShape = folderIconShape,
+                        folderIconColor = folderIconColor,
                         onToggle = {
                             if (expandedFolders[node.key] == true) {
                                 expandedFolders.remove(node.key)
@@ -100,7 +105,14 @@ internal fun BookmarkListContent(
 }
 
 @Composable
-private fun BookmarkFolderRow(folder: BookmarkItem.Folder, depth: Int, isExpanded: Boolean, onToggle: () -> Unit) {
+private fun BookmarkFolderRow(
+    folder: BookmarkItem.Folder,
+    depth: Int,
+    isExpanded: Boolean,
+    folderIconShape: BookmarkFolderIconShape,
+    folderIconColor: BookmarkFolderIconColor,
+    onToggle: () -> Unit,
+) {
     val directChildCount = folder.children.size
     Row(
         modifier = Modifier
@@ -110,9 +122,9 @@ private fun BookmarkFolderRow(folder: BookmarkItem.Folder, depth: Int, isExpande
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            imageVector = Icons.Default.Folder,
+            imageVector = folderIconShape.iconVector(),
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
+            tint = folderIconColor.resolveTint(),
         )
         Text(
             text = "${folder.title} ($directChildCount)",

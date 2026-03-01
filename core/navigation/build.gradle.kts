@@ -11,8 +11,10 @@ android {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.model)
+    implementation(projects.core.ui)
 
     implementation(projects.feature.home)
+    implementation(projects.feature.importguide)
     implementation(projects.feature.settings)
 
     implementation(libs.androidx.compose.ui)

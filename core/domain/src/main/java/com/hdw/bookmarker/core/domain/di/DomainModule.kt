@@ -4,15 +4,23 @@ import com.hdw.bookmarker.core.data.repository.BookmarkRepository
 import com.hdw.bookmarker.core.data.repository.BrowserRepository
 import com.hdw.bookmarker.core.data.repository.SettingsRepository
 import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconColorUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import dagger.Module
 import dagger.Provides
@@ -52,6 +60,11 @@ object DomainModule {
 
     @Provides
     @Singleton
+    fun provideGetOrderedSnapshotIdsUseCase(bookmarkRepository: BookmarkRepository): GetOrderedSnapshotIdsUseCase =
+        GetOrderedSnapshotIdsUseCase(bookmarkRepository)
+
+    @Provides
+    @Singleton
     fun provideSaveBookmarkSnapshotUseCase(bookmarkRepository: BookmarkRepository): SaveBookmarkSnapshotUseCase =
         SaveBookmarkSnapshotUseCase(bookmarkRepository)
 
@@ -62,9 +75,18 @@ object DomainModule {
 
     @Provides
     @Singleton
+    fun provideSetBookmarkColorUseCase(bookmarkRepository: BookmarkRepository): SetBookmarkColorUseCase =
+        SetBookmarkColorUseCase(bookmarkRepository)
+
+    @Provides
+    @Singleton
     fun provideGetDefaultBrowserPackageUseCase(
+        browserRepository: BrowserRepository,
         settingsRepository: SettingsRepository,
-    ): GetDefaultBrowserPackageUseCase = GetDefaultBrowserPackageUseCase(settingsRepository)
+    ): GetDefaultBrowserPackageUseCase = GetDefaultBrowserPackageUseCase(
+        browserRepository = browserRepository,
+        settingsRepository = settingsRepository,
+    )
 
     @Provides
     @Singleton
@@ -74,13 +96,45 @@ object DomainModule {
 
     @Provides
     @Singleton
-    fun provideGetBookmarkDisplayTypeUseCase(
-        settingsRepository: SettingsRepository,
-    ): GetBookmarkDisplayTypeUseCase = GetBookmarkDisplayTypeUseCase(settingsRepository)
+    fun provideGetBookmarkDisplayTypeUseCase(settingsRepository: SettingsRepository): GetBookmarkDisplayTypeUseCase =
+        GetBookmarkDisplayTypeUseCase(settingsRepository)
 
     @Provides
     @Singleton
-    fun provideSetBookmarkDisplayTypeUseCase(
+    fun provideSetBookmarkDisplayTypeUseCase(settingsRepository: SettingsRepository): SetBookmarkDisplayTypeUseCase =
+        SetBookmarkDisplayTypeUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetBookmarkFolderIconShapeUseCase(
         settingsRepository: SettingsRepository,
-    ): SetBookmarkDisplayTypeUseCase = SetBookmarkDisplayTypeUseCase(settingsRepository)
+    ): GetBookmarkFolderIconShapeUseCase = GetBookmarkFolderIconShapeUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetBookmarkFolderIconShapeUseCase(
+        settingsRepository: SettingsRepository,
+    ): SetBookmarkFolderIconShapeUseCase = SetBookmarkFolderIconShapeUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetBookmarkFolderIconColorUseCase(
+        settingsRepository: SettingsRepository,
+    ): GetBookmarkFolderIconColorUseCase = GetBookmarkFolderIconColorUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetBookmarkFolderIconColorUseCase(
+        settingsRepository: SettingsRepository,
+    ): SetBookmarkFolderIconColorUseCase = SetBookmarkFolderIconColorUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetAppThemeModeUseCase(settingsRepository: SettingsRepository): GetAppThemeModeUseCase =
+        GetAppThemeModeUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetAppThemeModeUseCase(settingsRepository: SettingsRepository): SetAppThemeModeUseCase =
+        SetAppThemeModeUseCase(settingsRepository)
 }

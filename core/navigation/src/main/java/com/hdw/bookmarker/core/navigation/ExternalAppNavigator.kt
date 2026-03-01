@@ -8,19 +8,13 @@ import com.hdw.bookmarker.core.common.uri.AppUri
 import com.hdw.bookmarker.core.model.browser.Browser
 
 object ExternalAppNavigator {
-    fun openBookmarkUrl(context: Context, url: String, preferredBrowserPackage: String?): Boolean {
-        return openUri(
-            context = context,
-            url = url,
-            preferredBrowserPackage = preferredBrowserPackage,
-        )
-    }
+    fun openBookmarkUrl(context: Context, url: String, preferredBrowserPackage: String?): Boolean = openUri(
+        context = context,
+        url = url,
+        preferredBrowserPackage = preferredBrowserPackage,
+    )
 
-    fun openBrowserBookmarkGuide(
-        context: Context,
-        browser: Browser,
-        preferredBrowserPackage: String?,
-    ): Boolean {
+    fun openBrowserBookmarkGuide(context: Context, browser: Browser, preferredBrowserPackage: String?): Boolean {
         if (browser == Browser.BRAVE && openBraveBookmarksScreen(context, preferredBrowserPackage)) {
             return true
         }

@@ -13,10 +13,11 @@ data class BookmarkSnapshotsProto(
 
 @Serializable
 data class BrowserBookmarkSnapshotProto(
-    @ProtoNumber(1) val browserPackage: String,
+    @ProtoNumber(1) val snapshotId: String,
     @ProtoNumber(2) val importedAtEpochMs: Long,
     @ProtoNumber(3) val sourceHash: String = "",
     @ProtoNumber(4) val document: BookmarkDocumentProto,
+    @ProtoNumber(5) val bookmarkColor: Long = 0L,
 )
 
 @Serializable

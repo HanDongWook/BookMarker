@@ -6,7 +6,6 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +17,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkAdd
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -30,25 +31,19 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
-import com.hdw.bookmarker.core.model.browser.BrowserInfo
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun ConnectedBrowserBar(
-    installedBrowsers: List<BrowserInfo>,
-    connectedBrowserPackages: Set<String>,
-    selectedBrowserPackage: String?,
+internal fun BookMarkListBar(
+    orderedSnapshotIds: List<String>,
+    bookmarkColors: Map<String, Long>,
+    selectedBookmarkId: String?,
     isEditMode: Boolean,
-    onBrowserClick: (String) -> Unit,
+    onAddClick: () -> Unit,
+    onSnapshotClick: (String) -> Unit,
     onEnterEditMode: () -> Unit,
     onDeleteRequest: (String) -> Unit,
 ) {
-    val connectedBrowsers = installedBrowsers.filter { browser ->
-        connectedBrowserPackages.contains(browser.packageName)
-    }
-    if (connectedBrowsers.isEmpty()) return
-
     val shakeRotation = rememberInfiniteTransition(label = "connected_browser_shake").animateFloat(
         initialValue = -7f,
         targetValue = 7f,
@@ -70,8 +65,32 @@ internal fun ConnectedBrowserBar(
         ),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(connectedBrowsers, key = { it.packageName }) { browser ->
-            val isSelected = selectedBrowserPackage == browser.packageName
+        item(key = "add_bookmark") {
+            Surface(
+                color = Color.Transparent,
+                shape = MaterialTheme.shapes.small,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .combinedClickable(
+                            onClick = onAddClick,
+                            onLongClick = {},
+                        )
+                        .padding(horizontal = 6.dp, vertical = 2.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.BookmarkAdd,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(36.dp),
+                    )
+                }
+            }
+        }
+
+        items(orderedSnapshotIds, key = { it }) { snapshotId ->
+            val isSelected = selectedBookmarkId == snapshotId
+            val colorValue = bookmarkColors[snapshotId] ?: 0L
             Surface(
                 color = if (isSelected) {
                     MaterialTheme.colorScheme.primaryContainer
@@ -83,18 +102,23 @@ internal fun ConnectedBrowserBar(
                 Box(
                     modifier = Modifier
                         .combinedClickable(
-                            onClick = { onBrowserClick(browser.packageName) },
-                            onLongClick = onEnterEditMode,
+                            onClick = { onSnapshotClick(snapshotId) },
+                            onLongClick = {
+                                onSnapshotClick(snapshotId)
+                                onEnterEditMode()
+                            },
                         )
                         .padding(horizontal = 6.dp, vertical = 2.dp),
                 ) {
-                    Image(
-                        painter = rememberDrawablePainter(drawable = browser.icon),
+                    Icon(
+                        imageVector = Icons.Default.Bookmark,
                         contentDescription = null,
+                        tint = Color(colorValue),
                         modifier = Modifier
                             .size(36.dp)
                             .graphicsLayer {
-                                rotationZ = if (isEditMode) shakeRotation.value else 0f
+                                rotationZ =
+                                    if (isEditMode && isSelected) shakeRotation.value else 0f
                             }
                             .alpha(1f),
                     )
@@ -111,7 +135,7 @@ internal fun ConnectedBrowserBar(
                                 modifier = Modifier
                                     .size(16.dp)
                                     .combinedClickable(
-                                        onClick = { onDeleteRequest(browser.packageName) },
+                                        onClick = { onDeleteRequest(snapshotId) },
                                         onLongClick = {},
                                     ),
                                 contentAlignment = Alignment.Center,
