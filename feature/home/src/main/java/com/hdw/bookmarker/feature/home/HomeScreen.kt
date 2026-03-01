@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
@@ -16,6 +17,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -79,6 +81,7 @@ fun HomeScreen(
     val context = LocalContext.current
     val resources = LocalResources.current
     var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
+    var showImportOptionDialog by rememberSaveable { mutableStateOf(false) }
     var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
     var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
     var showColorPickerDialog by rememberSaveable { mutableStateOf(false) }
@@ -154,6 +157,10 @@ fun HomeScreen(
         showImportGuideDialog = false
     }
 
+    BackHandler(enabled = showImportOptionDialog) {
+        showImportOptionDialog = false
+    }
+
     BackHandler(enabled = isBrowserEditMode) {
         isBrowserEditMode = false
     }
@@ -186,6 +193,41 @@ fun HomeScreen(
             onDismiss = {
                 showDefaultBrowserDialog = false
             },
+        )
+    }
+
+    if (showImportOptionDialog) {
+        AlertDialog(
+            onDismissRequest = { showImportOptionDialog = false },
+            text = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Button(
+                        onClick = {
+                            selectedBrowserPackageForImport = state.defaultBrowserPackage
+                            showImportOptionDialog = false
+                            showImportGuideDialog = true
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(text = stringResource(R.string.import_option_dialog_open_guide))
+                    }
+
+                    OutlinedButton(
+                        onClick = {
+                            showImportOptionDialog = false
+                            viewModel.openFilePicker()
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(text = stringResource(R.string.import_option_dialog_pick_file))
+                    }
+                }
+            },
+            confirmButton = {},
+            dismissButton = {},
         )
     }
 
@@ -268,7 +310,7 @@ fun HomeScreen(
                         selectedBookmarkId = selectedBookmarkId,
                         isEditMode = isBrowserEditMode,
                         onAddClick = {
-                            scope.launch { drawerState.open() }
+                            showImportOptionDialog = true
                         },
                         onSnapshotClick = { snapshotId ->
                             val targetPage = orderedSnapshotIds.indexOf(snapshotId)

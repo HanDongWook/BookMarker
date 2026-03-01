@@ -88,6 +88,8 @@
     <string name="delete_bookmark_dialog_message">북마크를 삭제하시겠습니까?</string>
     <string name="delete_bookmark_dialog_confirm">Delete</string>
     <string name="delete_bookmark_dialog_cancel">Cancel</string>
+    <string name="import_option_dialog_open_guide">View bookmark import guide</string>
+    <string name="import_option_dialog_pick_file">Import bookmark file</string>
     <string name="bookmark_color_picker_dialog_title">Select bookmark color</string>
     <string name="bookmark_color_picker_dialog_close">Close</string>
 </resources>
