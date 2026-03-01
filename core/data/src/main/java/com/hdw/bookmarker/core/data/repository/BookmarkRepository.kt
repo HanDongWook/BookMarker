@@ -26,4 +26,6 @@ interface BookmarkRepository {
     suspend fun getBookmarkSnapshotRawFileHash(browserPackage: String): String?
 
     suspend fun getBookmarkColor(browserPackage: String): Long?
+
+    suspend fun setBookmarkColor(browserPackage: String, bookmarkColor: Long)
 }

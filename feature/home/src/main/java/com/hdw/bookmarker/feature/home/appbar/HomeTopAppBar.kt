@@ -37,6 +37,7 @@ fun HomeTopAppBar(
     onDefaultBrowserIconClick: () -> Unit,
     onMenuClick: () -> Unit,
     onSettingsClick: () -> Unit,
+    onEditLabelClick: () -> Unit,
     onEditModeDoneClick: () -> Unit,
 ) {
     TopAppBar(
@@ -54,11 +55,9 @@ fun HomeTopAppBar(
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(
-                        text = stringResource(R.string.edit_mode_editing),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
+                    TextButton(onClick = onEditLabelClick) {
+                        Text(text = stringResource(R.string.edit_mode_editing))
+                    }
                     Spacer(modifier = Modifier.width(8.dp))
                     TextButton(onClick = onEditModeDoneClick) {
                         Text(text = stringResource(R.string.edit_mode_done))

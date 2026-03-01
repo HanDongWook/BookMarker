@@ -81,6 +81,22 @@ class BookMarkerBookmarkSnapshotDatastore @Inject constructor(@param:Application
         }
     }
 
+    suspend fun updateBookmarkColor(browserPackage: String, bookmarkColor: Long) {
+        dataStore.updateData { current ->
+            val updatedSnapshots = current.snapshots.map { snapshot ->
+                if (snapshot.browserPackage == browserPackage) {
+                    snapshot.copy(bookmarkColor = bookmarkColor)
+                } else {
+                    snapshot
+                }
+            }
+            current.copy(
+                schemaVersion = BOOKMARK_SNAPSHOT_SCHEMA_VERSION,
+                snapshots = updatedSnapshots,
+            )
+        }
+    }
+
     suspend fun clearSnapshot(browserPackage: String) {
         dataStore.updateData { current ->
             val updatedSnapshots = current.snapshots.filterNot { it.browserPackage == browserPackage }

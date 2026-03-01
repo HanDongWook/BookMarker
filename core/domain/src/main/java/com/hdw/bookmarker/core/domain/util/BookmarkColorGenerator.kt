@@ -22,6 +22,9 @@ object BookmarkColorGenerator {
         0xFF90A4AEL,
     )
 
+    /** 선택 가능한 북마크 색상 목록 (편집 시 색상 변경용) */
+    fun getAllColors(): List<Long> = colorValues
+
     fun generateColorForPackage(packageName: String): Long {
         val index = packageName.hashCode().absoluteValue % colorValues.size
         return colorValues[index]

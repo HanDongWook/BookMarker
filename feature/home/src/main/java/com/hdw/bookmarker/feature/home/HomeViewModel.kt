@@ -14,6 +14,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
@@ -57,6 +58,7 @@ class HomeViewModel @Inject constructor(
     private val getBookmarkSnapshotsUseCase: GetBookmarkSnapshotsUseCase,
     private val getBookmarkColorsUseCase: GetBookmarkColorsUseCase,
     private val saveBookmarkSnapshotUseCase: SaveBookmarkSnapshotUseCase,
+    private val setBookmarkColorUseCase: SetBookmarkColorUseCase,
     private val clearBookmarkSnapshotUseCase: ClearBookmarkSnapshotUseCase,
     private val getDefaultBrowserPackageUseCase: GetDefaultBrowserPackageUseCase,
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
@@ -243,6 +245,10 @@ class HomeViewModel @Inject constructor(
 
     fun cancelOverwriteImport() = intent {
         pendingOverwriteImport = null
+    }
+
+    fun onBookmarkColorSelected(browserPackage: String, bookmarkColor: Long) = intent {
+        setBookmarkColorUseCase(browserPackage, bookmarkColor)
     }
 
     fun deleteBookmarkSnapshot(browserPackage: String) = intent {

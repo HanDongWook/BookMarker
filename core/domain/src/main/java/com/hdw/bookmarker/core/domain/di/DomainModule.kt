@@ -12,6 +12,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import dagger.Module
@@ -59,6 +60,11 @@ object DomainModule {
     @Singleton
     fun provideClearBookmarkSnapshotUseCase(bookmarkRepository: BookmarkRepository): ClearBookmarkSnapshotUseCase =
         ClearBookmarkSnapshotUseCase(bookmarkRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetBookmarkColorUseCase(bookmarkRepository: BookmarkRepository): SetBookmarkColorUseCase =
+        SetBookmarkColorUseCase(bookmarkRepository)
 
     @Provides
     @Singleton

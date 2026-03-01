@@ -5,8 +5,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
@@ -30,18 +32,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.hdw.bookmarker.core.domain.util.BookmarkColorGenerator
 import com.hdw.bookmarker.core.model.MimeTypes
 import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.appbar.HomeTopAppBar
 import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkContent
+import com.hdw.bookmarker.feature.home.dialog.BookmarkColorPickerDialog
 import com.hdw.bookmarker.feature.home.dialog.DefaultBrowserPickerDialog
 import com.hdw.bookmarker.feature.home.drawer.HomeDrawerContent
 import com.hdw.bookmarker.feature.home.guide.BookmarkImportGuideScreen
@@ -82,6 +86,7 @@ fun HomeScreen(
     var showOverwriteConfirmDialog by rememberSaveable { mutableStateOf(false) }
     var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
     var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
+    var showColorPickerDialog by rememberSaveable { mutableStateOf(false) }
     var pendingDeleteBrowserPackage by rememberSaveable { mutableStateOf<String?>(null) }
 
     val htmlPickerLauncher = rememberLauncherForActivityResult(OpenDocument()) { uri ->
@@ -165,6 +170,23 @@ fun HomeScreen(
     BackHandler(enabled = showOverwriteConfirmDialog) {
         showOverwriteConfirmDialog = false
         viewModel.cancelOverwriteImport()
+    }
+
+    BackHandler(enabled = showColorPickerDialog) {
+        showColorPickerDialog = false
+    }
+
+    if (showColorPickerDialog && selectedConnectedBrowserPackage != null) {
+        BookmarkColorPickerDialog(
+            colors = BookmarkColorGenerator.getAllColors(),
+            currentColor = state.bookmarkColors[selectedConnectedBrowserPackage]
+                ?: BookmarkColorGenerator.generateColorForPackage(selectedConnectedBrowserPackage),
+            onColorSelect = { color ->
+                viewModel.onBookmarkColorSelected(selectedConnectedBrowserPackage, color)
+                showColorPickerDialog = false
+            },
+            onDismiss = { showColorPickerDialog = false },
+        )
     }
 
     if (showOverwriteConfirmDialog) {
@@ -280,6 +302,9 @@ fun HomeScreen(
                             scope.launch { drawerState.open() }
                         },
                         onSettingsClick = onSettingsClick,
+                        onEditLabelClick = {
+                            showColorPickerDialog = true
+                        },
                         onEditModeDoneClick = {
                             isBrowserEditMode = false
                         },
@@ -391,3 +416,4 @@ private fun NoConnectedBrowsers(modifier: Modifier, onImportClick: () -> Unit) {
         }
     }
 }
+

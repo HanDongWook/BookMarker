@@ -61,4 +61,11 @@ class BookmarkRepositoryImpl @Inject constructor(
 
     override suspend fun getBookmarkColor(browserPackage: String): Long? =
         bookmarkSnapshotDatastore.getBookmarkColorsFlow().first()[browserPackage]
+
+    override suspend fun setBookmarkColor(browserPackage: String, bookmarkColor: Long) {
+        bookmarkSnapshotDatastore.updateBookmarkColor(
+            browserPackage = browserPackage,
+            bookmarkColor = bookmarkColor,
+        )
+    }
 }
