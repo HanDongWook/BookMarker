@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
@@ -23,5 +24,14 @@ fun DeleteBookmarkItemDialog(onDismiss: () -> Unit, onConfirmDelete: () -> Unit)
                 Text(text = stringResource(R.string.delete_bookmark_item_dialog_cancel))
             }
         },
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DeleteBookmarkItemDialogPreview() {
+    DeleteBookmarkItemDialog(
+        onDismiss = {},
+        onConfirmDelete = {},
     )
 }

@@ -1,5 +1,6 @@
 package com.hdw.bookmarker.feature.home.dialog
 
+import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
@@ -63,5 +65,27 @@ fun DefaultBrowserPickerDialog(
                 Text(text = stringResource(android.R.string.cancel))
             }
         },
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DefaultBrowserPickerDialogPreview() {
+    DefaultBrowserPickerDialog(
+        installedBrowsers = listOf(
+            BrowserInfo(
+                packageName = "com.android.chrome",
+                appName = "Chrome",
+                icon = ColorDrawable(android.graphics.Color.GRAY),
+            ),
+            BrowserInfo(
+                packageName = "org.mozilla.firefox",
+                appName = "Firefox",
+                icon = ColorDrawable(android.graphics.Color.DKGRAY),
+            ),
+        ),
+        selectedPackage = "com.android.chrome",
+        onSelect = {},
+        onDismiss = {},
     )
 }
