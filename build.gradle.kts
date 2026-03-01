@@ -13,6 +13,10 @@ plugins {
     alias(libs.plugins.detekt)
 }
 
+subprojects {
+    apply(plugin = "com.autonomousapps.dependency-analysis")
+}
+
 tasks.register("codeQualityCheck") {
     description = "Run code quality SpotlessApply + Detekt for all modules"
     group = "verification"
