@@ -15,7 +15,12 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
-fun ImportOptionDialog(onDismiss: () -> Unit, onOpenGuide: () -> Unit, onPickFile: () -> Unit) {
+fun ImportOptionDialog(
+    onDismiss: () -> Unit,
+    onOpenGuide: () -> Unit,
+    onPickFile: () -> Unit,
+    onAddEmptyBookmarkItem: () -> Unit,
+) {
     AlertDialog(
         onDismissRequest = onDismiss,
         text = {
@@ -36,6 +41,13 @@ fun ImportOptionDialog(onDismiss: () -> Unit, onOpenGuide: () -> Unit, onPickFil
                 ) {
                     Text(text = stringResource(R.string.import_option_dialog_pick_file))
                 }
+
+                OutlinedButton(
+                    onClick = onAddEmptyBookmarkItem,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Text(text = stringResource(R.string.import_option_dialog_add_empty_bookmark_item))
+                }
             }
         },
         confirmButton = {},
@@ -50,5 +62,6 @@ private fun ImportOptionDialogPreview() {
         onDismiss = {},
         onOpenGuide = {},
         onPickFile = {},
+        onAddEmptyBookmarkItem = {},
     )
 }

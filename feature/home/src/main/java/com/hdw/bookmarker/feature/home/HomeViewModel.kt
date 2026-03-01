@@ -221,6 +221,19 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun addEmptyBookmarkSnapshot() = intent {
+        val snapshotId = saveBookmarkSnapshotUseCase(
+            snapshotId = null,
+            document = BookmarkDocument(
+                title = null,
+                metas = emptyMap(),
+                rootItems = emptyList(),
+            ),
+            sourceHash = "",
+        )
+        reduce { state.copy(selectedBookmarkId = snapshotId) }
+    }
+
     fun addFolder(title: String) = intent {
         val trimmedTitle = title.trim()
         if (trimmedTitle.isBlank()) return@intent
