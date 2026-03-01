@@ -38,8 +38,7 @@ class BookmarkRepositoryImpl @Inject constructor(
     override fun getBookmarkSnapshotsFlow(): Flow<Map<String, BookmarkDocument>> =
         bookmarkSnapshotDatastore.getSnapshotsFlow()
 
-    override fun getOrderedSnapshotIdsFlow(): Flow<List<String>> =
-        bookmarkSnapshotDatastore.getOrderedSnapshotIdsFlow()
+    override fun getOrderedSnapshotIdsFlow(): Flow<List<String>> = bookmarkSnapshotDatastore.getOrderedSnapshotIdsFlow()
 
     override suspend fun saveBookmarkSnapshot(
         snapshotId: String?,

@@ -62,7 +62,5 @@ class BrowserRepositoryImpl @Inject constructor(
         return isNaver && !isWhale
     }
 
-    override fun getBookmarkColors(): Flow<Map<String, Long>> {
-        return bookmarkSnapshotDatastore.getBookmarkColorsFlow()
-    }
+    override fun getBookmarkColors(): Flow<Map<String, Long>> = bookmarkSnapshotDatastore.getBookmarkColorsFlow()
 }

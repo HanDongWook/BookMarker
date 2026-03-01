@@ -7,11 +7,11 @@ import com.hdw.bookmarker.core.datastore.proto.BookmarkSnapshotsProto
 import com.hdw.bookmarker.core.datastore.proto.BrowserBookmarkSnapshotProto
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.util.UUID
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 

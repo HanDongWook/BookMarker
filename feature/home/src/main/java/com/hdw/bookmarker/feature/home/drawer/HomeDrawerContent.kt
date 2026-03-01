@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BookmarkAdd
-import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,10 +24,7 @@ import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.feature.home.R
 
 @Composable
-fun HomeDrawerContent(
-    installedBrowsers: List<BrowserInfo>,
-    onSyncClick: (String) -> Unit,
-) {
+fun HomeDrawerContent(installedBrowsers: List<BrowserInfo>, onSyncClick: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
