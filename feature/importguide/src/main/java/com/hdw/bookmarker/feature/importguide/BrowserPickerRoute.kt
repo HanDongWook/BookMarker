@@ -1,13 +1,8 @@
 package com.hdw.bookmarker.feature.importguide
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -15,10 +10,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.hdw.bookmarker.core.model.browser.Browser
+import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.importguide.detail.BookmarkImportGuideScreen
 import com.hdw.bookmarker.feature.importguide.picker.BrowserPickerScreen
@@ -40,22 +35,7 @@ fun BrowserPickerRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Browser, St
             navController = navController,
             startDestination = FeatureBookmarkImportGuideRoute.Picker,
         ) {
-            composable<FeatureBookmarkImportGuideRoute.Picker>(
-                enterTransition = { EnterTransition.None },
-                exitTransition = {
-                    slideOutHorizontally(
-                        animationSpec = tween(durationMillis = 320),
-                        targetOffsetX = { -it / 4 },
-                    )
-                },
-                popEnterTransition = {
-                    slideInHorizontally(
-                        animationSpec = tween(durationMillis = 320),
-                        initialOffsetX = { -it / 4 },
-                    )
-                },
-                popExitTransition = { ExitTransition.None },
-            ) {
+            slideComposable<FeatureBookmarkImportGuideRoute.Picker> {
                 BrowserPickerScreen(
                     installedBrowsers = state.installedBrowsers,
                     onOpenDesktopGuide = { packageName ->
@@ -65,29 +45,16 @@ fun BrowserPickerRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Browser, St
                     onBackClick = onBackClick,
                     iconModifierForBrowser = { browser ->
                         Modifier.sharedElement(
-                            sharedContentState = rememberSharedContentState(key = "browser-icon-${browser.packageName}"),
-                            animatedVisibilityScope = this@composable,
+                            sharedContentState = rememberSharedContentState(
+                                key = "browser-icon-${browser.packageName}",
+                            ),
+                            animatedVisibilityScope = this,
                         )
                     },
                 )
             }
 
-            composable<FeatureBookmarkImportGuideRoute.GuideFeatureBookmark>(
-                enterTransition = {
-                    slideInHorizontally(
-                        animationSpec = tween(durationMillis = 320),
-                        initialOffsetX = { it / 4 },
-                    )
-                },
-                exitTransition = { ExitTransition.None },
-                popEnterTransition = { EnterTransition.None },
-                popExitTransition = {
-                    slideOutHorizontally(
-                        animationSpec = tween(durationMillis = 320),
-                        targetOffsetX = { it / 4 },
-                    )
-                },
-            ) { entry ->
+            slideComposable<FeatureBookmarkImportGuideRoute.GuideFeatureBookmark> { entry ->
                 BackHandler {
                     viewModel.clearSelectedBrowser()
                     navController.popBackStack()
@@ -117,8 +84,10 @@ fun BrowserPickerRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Browser, St
                     },
                     iconModifier = currentSelectedBrowser?.let { browser ->
                         Modifier.sharedElement(
-                            sharedContentState = rememberSharedContentState(key = "browser-icon-${browser.packageName}"),
-                            animatedVisibilityScope = this@composable,
+                            sharedContentState = rememberSharedContentState(
+                                key = "browser-icon-${browser.packageName}",
+                            ),
+                            animatedVisibilityScope = this,
                         )
                     } ?: Modifier,
                 )

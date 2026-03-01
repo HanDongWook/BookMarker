@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.home.HomeRoute
 import com.hdw.bookmarker.feature.importguide.BookmarkImportGuideRoute
 import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
