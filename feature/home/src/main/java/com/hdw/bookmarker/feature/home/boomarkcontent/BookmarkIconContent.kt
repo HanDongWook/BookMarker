@@ -13,9 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -32,12 +31,16 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
-import com.hdw.bookmarker.feature.home.R
+import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 
 @Composable
 internal fun BookmarkIconContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
+    folderIconShape: BookmarkFolderIconShape,
+    folderIconColor: BookmarkFolderIconColor,
     modifier: Modifier = Modifier,
 ) {
     val folderDepthStack = remember(bookmarkDocument) { mutableStateListOf<BookmarkItem.Folder>() }
@@ -98,6 +101,8 @@ internal fun BookmarkIconContent(
                     is BookmarkItem.Folder -> {
                         BookmarkFolderIconItem(
                             folder = item,
+                            folderIconShape = folderIconShape,
+                            folderIconColor = folderIconColor,
                             onClick = { folderDepthStack.add(item) },
                         )
                     }
@@ -115,7 +120,12 @@ internal fun BookmarkIconContent(
 }
 
 @Composable
-private fun BookmarkFolderIconItem(folder: BookmarkItem.Folder, onClick: () -> Unit) {
+private fun BookmarkFolderIconItem(
+    folder: BookmarkItem.Folder,
+    folderIconShape: BookmarkFolderIconShape,
+    folderIconColor: BookmarkFolderIconColor,
+    onClick: () -> Unit,
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -124,9 +134,9 @@ private fun BookmarkFolderIconItem(folder: BookmarkItem.Folder, onClick: () -> U
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
-            imageVector = Icons.Default.Folder,
+            imageVector = folderIconShape.iconVector(),
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
+            tint = folderIconColor.resolveTint(),
             modifier = Modifier.size(36.dp),
         )
         Text(

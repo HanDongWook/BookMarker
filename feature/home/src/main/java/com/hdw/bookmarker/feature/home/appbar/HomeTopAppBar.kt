@@ -2,11 +2,13 @@ package com.hdw.bookmarker.feature.home.appbar
 
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.automirrored.filled.ViewList
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ViewList
 import androidx.compose.material.icons.filled.Apps
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -15,11 +17,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
-import com.hdw.bookmarker.feature.home.R
+import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkDisplayType
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,24 +33,24 @@ fun HomeTopAppBar(
     defaultBrowserIcon: Drawable?,
     onBookmarkDisplayTypeClick: () -> Unit,
     onDefaultBrowserIconClick: () -> Unit,
-    onMenuClick: () -> Unit,
     onSettingsClick: () -> Unit,
+    onEditLabelClick: () -> Unit,
     onEditModeDoneClick: () -> Unit,
 ) {
     TopAppBar(
         title = { Text(stringResource(R.string.title)) },
-        navigationIcon = {
-            IconButton(onClick = onMenuClick) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = stringResource(R.string.menu_description),
-                )
-            }
-        },
         actions = {
             if (isEditMode) {
-                TextButton(onClick = onEditModeDoneClick) {
-                    Text(text = stringResource(R.string.edit_mode_done))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    TextButton(onClick = onEditLabelClick) {
+                        Text(text = stringResource(R.string.edit_mode_editing))
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    TextButton(onClick = onEditModeDoneClick) {
+                        Text(text = stringResource(R.string.edit_mode_done))
+                    }
                 }
             } else {
                 IconButton(onClick = onBookmarkDisplayTypeClick) {

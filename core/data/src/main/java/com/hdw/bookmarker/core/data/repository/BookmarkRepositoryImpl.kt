@@ -10,6 +10,7 @@ import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
 import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -37,18 +38,34 @@ class BookmarkRepositoryImpl @Inject constructor(
     override fun getBookmarkSnapshotsFlow(): Flow<Map<String, BookmarkDocument>> =
         bookmarkSnapshotDatastore.getSnapshotsFlow()
 
-    override suspend fun saveBookmarkSnapshot(browserPackage: String, document: BookmarkDocument, sourceHash: String) {
-        bookmarkSnapshotDatastore.saveSnapshot(
-            browserPackage = browserPackage,
-            document = document,
-            sourceHash = sourceHash,
+    override fun getOrderedSnapshotIdsFlow(): Flow<List<String>> = bookmarkSnapshotDatastore.getOrderedSnapshotIdsFlow()
+
+    override suspend fun saveBookmarkSnapshot(
+        snapshotId: String?,
+        document: BookmarkDocument,
+        sourceHash: String,
+        bookmarkColor: Long,
+    ): String = bookmarkSnapshotDatastore.saveSnapshot(
+        snapshotId = snapshotId,
+        document = document,
+        sourceHash = sourceHash,
+        bookmarkColor = bookmarkColor,
+    )
+
+    override suspend fun clearBookmarkSnapshot(snapshotId: String) {
+        bookmarkSnapshotDatastore.clearSnapshot(snapshotId)
+    }
+
+    override suspend fun getBookmarkSnapshotRawFileHash(snapshotId: String): String? =
+        bookmarkSnapshotDatastore.getRawFileHash(snapshotId)
+
+    override suspend fun getBookmarkColor(snapshotId: String): Long? =
+        bookmarkSnapshotDatastore.getBookmarkColorsFlow().first()[snapshotId]
+
+    override suspend fun setBookmarkColor(snapshotId: String, bookmarkColor: Long) {
+        bookmarkSnapshotDatastore.updateBookmarkColor(
+            snapshotId = snapshotId,
+            bookmarkColor = bookmarkColor,
         )
     }
-
-    override suspend fun clearBookmarkSnapshot(browserPackage: String) {
-        bookmarkSnapshotDatastore.clearSnapshot(browserPackage)
-    }
-
-    override suspend fun getBookmarkSnapshotRawFileHash(browserPackage: String): String? =
-        bookmarkSnapshotDatastore.getRawFileHash(browserPackage)
 }

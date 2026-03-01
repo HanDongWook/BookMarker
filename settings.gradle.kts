@@ -37,3 +37,4 @@ include(":core:common")
 
 include(":feature:settings")
 include(":feature:home")
+include(":feature:importguide")

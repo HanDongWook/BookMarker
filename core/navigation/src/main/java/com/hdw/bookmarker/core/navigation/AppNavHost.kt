@@ -4,31 +4,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.hdw.bookmarker.core.model.browser.Browser
+import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.home.HomeRoute
+import com.hdw.bookmarker.feature.importguide.BookmarkImportGuideRoute
 import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
-import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRoute
 
 @Composable
-fun AppNavHost(
-    navController: NavHostController,
-) {
+fun AppNavHost(navController: NavHostController) {
     val context = LocalContext.current
     NavHost(
         navController = navController,
-        startDestination = Route.Home,
+        startDestination = AppRoute.Home,
     ) {
-        slideComposable<Route.Home> {
+        slideComposable<AppRoute.Home> {
             HomeRoute(
                 onSettingsClick = {
-                    navController.navigate(Route.Settings)
-                },
-                onOpenDesktopGuide = { browser, selectedBrowserPackage ->
-                    ExternalAppNavigator.openBrowserBookmarkGuide(
-                        context = context,
-                        browser = browser,
-                        preferredBrowserPackage = selectedBrowserPackage,
-                    )
+                    navController.navigate(AppRoute.Settings)
                 },
                 onOpenBookmark = { url, preferredBrowserPackage ->
                     ExternalAppNavigator.openBookmarkUrl(
@@ -37,20 +28,27 @@ fun AppNavHost(
                         preferredBrowserPackage = preferredBrowserPackage,
                     )
                 },
+                onOpenBookmarkImportGuide = {
+                    navController.navigate(AppRoute.BookmarkImportGuide)
+                },
             )
         }
-        slideComposable<Route.Settings> {
-            SettingsRoute(
+        slideComposable<AppRoute.BookmarkImportGuide> {
+            BookmarkImportGuideRoute(
                 onBackClick = {
                     navController.popBackStack()
                 },
-                onDefaultBrowserClick = {
-                    navController.navigate(Route.SettingsDefaultBrowser)
+                onOpenDesktopGuide = { browser, selectedBrowserPackage ->
+                    ExternalAppNavigator.openBrowserBookmarkGuide(
+                        context = context,
+                        browser = browser,
+                        preferredBrowserPackage = selectedBrowserPackage,
+                    )
                 },
             )
         }
-        slideComposable<Route.SettingsDefaultBrowser> {
-            DefaultBrowserRoute(
+        slideComposable<AppRoute.Settings> {
+            SettingsRoute(
                 onBackClick = {
                     navController.popBackStack()
                 },

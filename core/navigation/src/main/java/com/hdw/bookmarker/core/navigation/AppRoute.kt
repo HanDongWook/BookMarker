@@ -2,13 +2,13 @@ package com.hdw.bookmarker.core.navigation
 
 import kotlinx.serialization.Serializable
 
-sealed interface Route {
+sealed interface AppRoute {
     @Serializable
-    data object Home : Route
+    data object Home : AppRoute
 
     @Serializable
-    data object Settings : Route
+    data object BookmarkImportGuide : AppRoute
 
     @Serializable
-    data object SettingsDefaultBrowser : Route
+    data object Settings : AppRoute
 }

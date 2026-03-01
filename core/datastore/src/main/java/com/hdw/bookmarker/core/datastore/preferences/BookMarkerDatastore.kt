@@ -22,6 +22,9 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
     object Keys {
         val defaultBrowserPackage = stringPreferencesKey("default_browser_package")
         val bookmarkDisplayType = stringPreferencesKey("bookmark_display_type")
+        val appThemeMode = stringPreferencesKey("app_theme_mode")
+        val bookmarkFolderIconShape = stringPreferencesKey("bookmark_folder_icon_shape")
+        val bookmarkFolderIconColor = stringPreferencesKey("bookmark_folder_icon_color")
     }
 
     suspend fun saveDefaultBrowserPackage(value: String) {
@@ -38,5 +41,29 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
 
     fun getBookmarkDisplayType(): Flow<String?> = safeData.map { preferences ->
         preferences[Keys.bookmarkDisplayType]
+    }
+
+    suspend fun saveAppThemeMode(value: String) {
+        saveString(Keys.appThemeMode, value)
+    }
+
+    fun getAppThemeMode(): Flow<String?> = safeData.map { preferences ->
+        preferences[Keys.appThemeMode]
+    }
+
+    suspend fun saveBookmarkFolderIconShape(value: String) {
+        saveString(Keys.bookmarkFolderIconShape, value)
+    }
+
+    fun getBookmarkFolderIconShape(): Flow<String?> = safeData.map { preferences ->
+        preferences[Keys.bookmarkFolderIconShape]
+    }
+
+    suspend fun saveBookmarkFolderIconColor(value: String) {
+        saveString(Keys.bookmarkFolderIconColor, value)
+    }
+
+    fun getBookmarkFolderIconColor(): Flow<String?> = safeData.map { preferences ->
+        preferences[Keys.bookmarkFolderIconColor]
     }
 }

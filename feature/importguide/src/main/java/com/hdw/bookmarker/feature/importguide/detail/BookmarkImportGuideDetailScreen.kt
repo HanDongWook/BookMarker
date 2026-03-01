@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.guide
+package com.hdw.bookmarker.feature.importguide.detail
 
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
@@ -29,7 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.browser.Browser
-import com.hdw.bookmarker.feature.home.R
+import com.hdw.bookmarker.core.ui.R
 
 @Composable
 fun BookmarkImportGuideScreen(
@@ -38,8 +38,8 @@ fun BookmarkImportGuideScreen(
     browserName: String?,
     onDismiss: () -> Unit,
     onOpenDesktopGuide: () -> Unit,
-    onSelectFile: () -> Unit,
     iconModifier: Modifier = Modifier,
+    browserNameModifier: Modifier = Modifier,
 ) {
     val browser = remember(browserPackageName, browserName) {
         Browser.fromPackageAndName(
@@ -61,7 +61,13 @@ fun BookmarkImportGuideScreen(
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            GuideTitle(icon = icon, iconModifier = iconModifier, browserName = browserName, onDismiss = onDismiss)
+            GuideTitle(
+                icon = icon,
+                iconModifier = iconModifier,
+                browserName = browserName,
+                browserNameModifier = browserNameModifier,
+                onDismiss = onDismiss,
+            )
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -94,15 +100,6 @@ fun BookmarkImportGuideScreen(
             )
 
             Spacer(modifier = Modifier.height(12.dp))
-
-            GuideSection(
-                title = stringResource(R.string.import_guide_step3_title),
-                descriptions = arrayOf(stringResource(R.string.import_guide_step3_body)),
-                buttonText = stringResource(R.string.import_guide_step3_button),
-                onClick = onSelectFile,
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }
@@ -112,26 +109,27 @@ private fun GuideTitle(
     icon: Drawable?,
     iconModifier: Modifier = Modifier,
     browserName: String? = null,
+    browserNameModifier: Modifier = Modifier,
     onDismiss: () -> Unit,
 ) {
     Row(modifier = Modifier.fillMaxWidth()) {
         if (icon != null) {
             Image(
+                modifier = iconModifier.size(56.dp),
                 painter = rememberDrawablePainter(drawable = icon),
                 contentDescription = null,
-                modifier = iconModifier.size(56.dp),
             )
         }
         if (!browserName.isNullOrBlank()) {
             Text(
                 text = browserName,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(start = 12.dp, top = 12.dp),
+                modifier = browserNameModifier.padding(start = 12.dp, top = 12.dp),
             )
         }
         Spacer(modifier = Modifier.weight(1f))
         TextButton(onClick = onDismiss) {
-            Text(text = stringResource(android.R.string.cancel))
+            Text(text = stringResource(R.string.import_guide_exit))
         }
     }
 }
