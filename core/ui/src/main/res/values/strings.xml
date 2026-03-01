@@ -16,7 +16,7 @@
     <string name="not_selected">Not selected</string>
     <string name="edit_mode_editing">Editing</string>
     <string name="edit_mode_done">Done</string>
-    <string name="press_back_to_exit">Press \'back\' button one more time to close app</string>
+    <string name="press_back_to_exit">Press back one more time to close the app</string>
     <string name="sync">Sync</string>
     <string name="add">Add</string>
     <string name="add_folder">Add Folder</string>
@@ -32,7 +32,7 @@
     <string name="clear_temporary_data_dialog_message">Cached temporary data will be deleted and cleaned up. Do you want to continue?</string>
     <string name="clear_temporary_data_dialog_cancel">Cancel</string>
     <string name="clear_temporary_data_dialog_confirm">Delete</string>
-    <string name="no_browsers_connected">가져온 북마크가 없습니다.\n북마크를 동기화 해보세요.</string>
+    <string name="no_browsers_connected">No imported bookmarks yet.\nTry syncing bookmarks.</string>
     <string name="error_with_detail">%1$s (%2$s)</string>
     <string name="error_invalid_uri">The file path is invalid.</string>
     <string name="error_file_not_found">Bookmark file not found.</string>
@@ -43,7 +43,7 @@
     <string name="error_unsupported_browser">Unsupported browser.</string>
     <string name="error_unknown">An unknown error occurred.</string>
     <string name="no_bookmarks_imported">No bookmarks imported yet.</string>
-    <string name="empty_bookmarks">북마크가 비어있습니다.</string>
+    <string name="empty_bookmarks">No bookmarks in this view.</string>
     <string name="bookmark_icon_back">Back to previous folder</string>
     <string name="bookmark_mode_list">Bookmark list view</string>
     <string name="bookmark_mode_icon">Bookmark icon view</string>
@@ -111,11 +111,11 @@
     <string name="import_overwrite_dialog_confirm">Overwrite</string>
     <string name="import_overwrite_dialog_cancel">Cancel</string>
     <string name="delete_bookmark_dialog_title">Delete bookmarks?</string>
-    <string name="delete_bookmark_dialog_message">북마크를 삭제하시겠습니까?</string>
+    <string name="delete_bookmark_dialog_message">Do you want to delete these bookmarks?</string>
     <string name="delete_bookmark_dialog_confirm">Delete</string>
     <string name="delete_bookmark_dialog_cancel">Cancel</string>
     <string name="delete_bookmark_item_dialog_title">Delete</string>
-    <string name="delete_bookmark_item_dialog_message">선택한 폴더 또는 북마크를 삭제하시겠습니까?</string>
+    <string name="delete_bookmark_item_dialog_message">Do you want to delete the selected folder or bookmark?</string>
     <string name="delete_bookmark_item_dialog_confirm">Delete</string>
     <string name="delete_bookmark_item_dialog_cancel">Cancel</string>
     <string name="import_option_dialog_open_guide">View bookmark HTML import guide</string>
