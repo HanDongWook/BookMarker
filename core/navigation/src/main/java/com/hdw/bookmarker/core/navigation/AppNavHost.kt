@@ -8,7 +8,6 @@ import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.home.HomeRoute
 import com.hdw.bookmarker.feature.importguide.BookmarkImportGuideRoute
 import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
-import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRoute
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
@@ -50,16 +49,6 @@ fun AppNavHost(navController: NavHostController) {
         }
         slideComposable<AppRoute.Settings> {
             SettingsRoute(
-                onBackClick = {
-                    navController.popBackStack()
-                },
-                onDefaultBrowserClick = {
-                    navController.navigate(AppRoute.SettingsDefaultBrowser)
-                },
-            )
-        }
-        slideComposable<AppRoute.SettingsDefaultBrowser> {
-            DefaultBrowserRoute(
                 onBackClick = {
                     navController.popBackStack()
                 },

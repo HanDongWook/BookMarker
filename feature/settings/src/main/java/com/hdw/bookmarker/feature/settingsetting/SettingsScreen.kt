@@ -21,20 +21,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
-import androidx.compose.ui.res.stringResource
 import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
 import com.hdw.bookmarker.core.data.repository.SettingsRepository
 import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.core.ui.util.getAppVersionName
 import com.hdw.bookmarker.feature.settingsetting.appversion.AppVersionRow
 import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRow
+import com.hdw.bookmarker.feature.settingsetting.folderstyle.FolderStyleRow
 import com.hdw.bookmarker.feature.settingsetting.theme.ThemeModeDialog
 import com.hdw.bookmarker.feature.settingsetting.theme.ThemeModeRow
 
 @Composable
-fun SettingsRoute(onBackClick: () -> Unit, onDefaultBrowserClick: () -> Unit) {
+fun SettingsRoute(onBackClick: () -> Unit) {
     val viewModel: SettingsViewModel = mavericksViewModel()
     val state by viewModel.collectAsState()
     val context = LocalContext.current
@@ -45,18 +47,13 @@ fun SettingsRoute(onBackClick: () -> Unit, onDefaultBrowserClick: () -> Unit) {
         )
     }
 
-    SettingsScreen(
+    SettingsNavHost(
+        state = state,
         onBackClick = onBackClick,
-        appVersion = state.appVersion,
-        selectedThemeMode = state.selectedThemeMode,
-        selectedBrowserName =
-        state.installedBrowsers.firstOrNull { it.packageName == state.selectedBrowserPackage }?.appName
-            ?: stringResource(R.string.not_selected),
-        selectedBrowserIcon = state.installedBrowsers.firstOrNull {
-            it.packageName == state.selectedBrowserPackage
-        }?.icon,
-        onDefaultBrowserClick = onDefaultBrowserClick,
         onThemeModeSelect = viewModel::selectAppThemeMode,
+        onDefaultBrowserSelect = viewModel::selectDefaultBrowser,
+        onFolderShapeSelect = viewModel::selectFolderIconShape,
+        onFolderColorSelect = viewModel::selectFolderIconColor,
     )
 }
 
@@ -69,6 +66,9 @@ fun SettingsScreen(
     selectedBrowserName: String,
     selectedBrowserIcon: Any?,
     onDefaultBrowserClick: () -> Unit,
+    selectedFolderIconShape: BookmarkFolderIconShape,
+    selectedFolderIconColor: BookmarkFolderIconColor,
+    onFolderStyleClick: () -> Unit,
     onThemeModeSelect: (String) -> Unit,
 ) {
     val resources = LocalResources.current
@@ -111,6 +111,13 @@ fun SettingsScreen(
             ThemeModeRow(
                 selectedThemeMode = effectiveThemeMode,
                 onClick = { showThemeDialog = true },
+            )
+            BookMarkerDivider()
+
+            FolderStyleRow(
+                shape = selectedFolderIconShape,
+                color = selectedFolderIconColor,
+                onClick = onFolderStyleClick,
             )
             BookMarkerDivider()
 

@@ -1,19 +1,36 @@
 package com.hdw.bookmarker.feature.settingsetting
 
+import com.airbnb.mvrx.MavericksState
 import com.airbnb.mvrx.MavericksViewModel
 import com.airbnb.mvrx.MavericksViewModelFactory
 import com.airbnb.mvrx.hilt.AssistedViewModelFactory
 import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
 import com.hdw.bookmarker.core.domain.usecase.GetAppThemeModeUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconColorUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
+import com.hdw.bookmarker.core.model.browser.BrowserInfo
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
+data class SettingsState(
+    val appVersion: String = "-",
+    val installedBrowsers: List<BrowserInfo> = emptyList(),
+    val selectedBrowserPackage: String? = null,
+    val selectedThemeMode: String? = null,
+    val selectedFolderIconShape: BookmarkFolderIconShape = BookmarkFolderIconShape.FILLED,
+    val selectedFolderIconColor: BookmarkFolderIconColor = BookmarkFolderIconColor.DEFAULT,
+) : MavericksState
 
 class SettingsViewModel @AssistedInject constructor(
     @Assisted initialState: SettingsState,
@@ -22,9 +39,15 @@ class SettingsViewModel @AssistedInject constructor(
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
     private val setAppThemeModeUseCase: SetAppThemeModeUseCase,
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
+    private val getBookmarkFolderIconShapeUseCase: GetBookmarkFolderIconShapeUseCase,
+    private val setBookmarkFolderIconShapeUseCase: SetBookmarkFolderIconShapeUseCase,
+    private val getBookmarkFolderIconColorUseCase: GetBookmarkFolderIconColorUseCase,
+    private val setBookmarkFolderIconColorUseCase: SetBookmarkFolderIconColorUseCase,
 ) : MavericksViewModel<SettingsState>(initialState) {
     private var observingAppTheme = false
     private var observingDefaultBrowser = false
+    private var observingFolderIconShape = false
+    private var observingFolderIconColor = false
 
     fun initialize(appVersion: String) {
         val installedBrowsers = getInstalledBrowsersUseCase()
@@ -41,6 +64,8 @@ class SettingsViewModel @AssistedInject constructor(
         }
         observeAppThemeMode()
         observeDefaultBrowser()
+        observeFolderIconShape()
+        observeFolderIconColor()
     }
 
     fun selectAppThemeMode(mode: String) {
@@ -54,6 +79,20 @@ class SettingsViewModel @AssistedInject constructor(
         setState { copy(selectedBrowserPackage = packageName) }
         viewModelScope.launch {
             setDefaultBrowserPackageUseCase(packageName)
+        }
+    }
+
+    fun selectFolderIconShape(shape: BookmarkFolderIconShape) {
+        setState { copy(selectedFolderIconShape = shape) }
+        viewModelScope.launch {
+            setBookmarkFolderIconShapeUseCase(shape.name)
+        }
+    }
+
+    fun selectFolderIconColor(color: BookmarkFolderIconColor) {
+        setState { copy(selectedFolderIconColor = color) }
+        viewModelScope.launch {
+            setBookmarkFolderIconColorUseCase(color.name)
         }
     }
 
@@ -82,6 +121,34 @@ class SettingsViewModel @AssistedInject constructor(
                         ?: current.installedBrowsers.firstOrNull()?.packageName
                     if (nextSelection == current.selectedBrowserPackage) return@withState
                     setState { copy(selectedBrowserPackage = nextSelection) }
+                }
+            }
+        }
+    }
+
+    private fun observeFolderIconShape() {
+        if (observingFolderIconShape) return
+        observingFolderIconShape = true
+        viewModelScope.launch {
+            getBookmarkFolderIconShapeUseCase().collectLatest { persisted ->
+                val shape = BookmarkFolderIconShape.fromPersisted(persisted)
+                withState { current ->
+                    if (shape == current.selectedFolderIconShape) return@withState
+                    setState { copy(selectedFolderIconShape = shape) }
+                }
+            }
+        }
+    }
+
+    private fun observeFolderIconColor() {
+        if (observingFolderIconColor) return
+        observingFolderIconColor = true
+        viewModelScope.launch {
+            getBookmarkFolderIconColorUseCase().collectLatest { persisted ->
+                val color = BookmarkFolderIconColor.fromPersisted(persisted)
+                withState { current ->
+                    if (color == current.selectedFolderIconColor) return@withState
+                    setState { copy(selectedFolderIconColor = color) }
                 }
             }
         }

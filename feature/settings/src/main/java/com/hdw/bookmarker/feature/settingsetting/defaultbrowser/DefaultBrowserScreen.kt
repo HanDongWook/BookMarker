@@ -21,48 +21,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.airbnb.mvrx.compose.collectAsState
-import com.airbnb.mvrx.compose.mavericksViewModel
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.util.getAppVersionName
-import com.hdw.bookmarker.feature.settingsetting.SettingsViewModel
-
-@Composable
-fun DefaultBrowserRoute(onBackClick: () -> Unit) {
-    val viewModel: SettingsViewModel = mavericksViewModel()
-    val state by viewModel.collectAsState()
-    val context = LocalContext.current
-
-    LaunchedEffect(context) {
-        viewModel.initialize(
-            appVersion = context.getAppVersionName(),
-        )
-    }
-
-    DefaultBrowserScreen(
-        installedBrowsers = state.installedBrowsers,
-        selectedBrowserPackage = state.selectedBrowserPackage,
-        onBackClick = onBackClick,
-        onBrowserSelect = { packageName ->
-            viewModel.selectDefaultBrowser(packageName)
-        },
-    )
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DefaultBrowserScreen(
+fun DefaultBrowserScreen(
     installedBrowsers: List<BrowserInfo>,
     selectedBrowserPackage: String?,
     onBackClick: () -> Unit,

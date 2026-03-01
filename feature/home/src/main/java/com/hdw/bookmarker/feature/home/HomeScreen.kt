@@ -317,6 +317,8 @@ fun HomeScreen(
                                     modifier = Modifier.fillMaxSize(),
                                     bookmarkDocument = bookmarkDocument,
                                     displayType = state.bookmarkDisplayType,
+                                    folderIconShape = state.folderIconShape,
+                                    folderIconColor = state.folderIconColor,
                                     onBookmarkClick = { url ->
                                         if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
                                             context.showShortToast(

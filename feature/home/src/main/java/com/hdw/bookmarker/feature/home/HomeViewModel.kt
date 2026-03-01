@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkColorsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconColorUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
@@ -24,6 +26,8 @@ import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.core.model.file.error.ContentFileError
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkDisplayType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost
@@ -39,6 +43,8 @@ data class HomeState(
     val selectedBookmarkId: String? = null,
     val defaultBrowserPackage: String? = null,
     val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
+    val folderIconShape: BookmarkFolderIconShape = BookmarkFolderIconShape.FILLED,
+    val folderIconColor: BookmarkFolderIconColor = BookmarkFolderIconColor.DEFAULT,
     val isImporting: Boolean = false,
 )
 
@@ -63,6 +69,8 @@ class HomeViewModel @Inject constructor(
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
+    private val getBookmarkFolderIconShapeUseCase: GetBookmarkFolderIconShapeUseCase,
+    private val getBookmarkFolderIconColorUseCase: GetBookmarkFolderIconColorUseCase,
 ) : ViewModel(),
     ContainerHost<HomeState, HomeSideEffect> {
     private var isObservingSnapshots = false
@@ -70,6 +78,8 @@ class HomeViewModel @Inject constructor(
     private var isObservingColors = false
     private var isObservingDefaultBrowser = false
     private var isObservingBookmarkDisplayType = false
+    private var isObservingFolderIconShape = false
+    private var isObservingFolderIconColor = false
 
     override val container = container<HomeState, HomeSideEffect>(HomeState()) {
         observeBookmarkSnapshots()
@@ -77,6 +87,8 @@ class HomeViewModel @Inject constructor(
         observeBookmarkColors()
         observeDefaultBrowserPackage()
         observeBookmarkDisplayType()
+        observeFolderIconShape()
+        observeFolderIconColor()
         loadInstalledBrowsers()
     }
 
@@ -225,6 +237,30 @@ class HomeViewModel @Inject constructor(
             reduce {
                 state.copy(
                     bookmarkDisplayType = displayType.toBookmarkDisplayType(),
+                )
+            }
+        }
+    }
+
+    private fun observeFolderIconShape() = intent {
+        if (isObservingFolderIconShape) return@intent
+        isObservingFolderIconShape = true
+        getBookmarkFolderIconShapeUseCase().collect { shape ->
+            reduce {
+                state.copy(
+                    folderIconShape = BookmarkFolderIconShape.fromPersisted(shape),
+                )
+            }
+        }
+    }
+
+    private fun observeFolderIconColor() = intent {
+        if (isObservingFolderIconColor) return@intent
+        isObservingFolderIconColor = true
+        getBookmarkFolderIconColorUseCase().collect { color ->
+            reduce {
+                state.copy(
+                    folderIconColor = BookmarkFolderIconColor.fromPersisted(color),
                 )
             }
         }

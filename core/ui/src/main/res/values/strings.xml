@@ -105,4 +105,15 @@
     <string name="import_option_dialog_pick_file">Import bookmark file</string>
     <string name="bookmark_color_picker_dialog_title">Select bookmark color</string>
     <string name="bookmark_color_picker_dialog_close">Close</string>
+    <string name="folder_style_label">Folder style</string>
+    <string name="folder_style_title">Folder icon style</string>
+    <string name="folder_shape_label">Folder shape</string>
+    <string name="folder_color_label">Folder color</string>
+    <string name="folder_shape_filled">Filled</string>
+    <string name="folder_shape_outlined">Outlined</string>
+    <string name="folder_color_default">Default</string>
+    <string name="folder_color_blue">Blue</string>
+    <string name="folder_color_green">Green</string>
+    <string name="folder_color_orange">Orange</string>
+    <string name="folder_color_purple">Purple</string>
 </resources>
