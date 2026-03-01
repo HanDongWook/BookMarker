@@ -70,19 +70,10 @@ dependencies {
     implementation(projects.core.ui)
 
     implementation(libs.androidx.startup)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.foundation)
 
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.hilt.navigation.compose)
-
-    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.mavericks.core)
 
@@ -93,11 +84,6 @@ dependencies {
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.perf)
 
-    debugImplementation(libs.leakcanary.android)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugRuntimeOnly(libs.leakcanary.android)
+    debugRuntimeOnly(libs.androidx.compose.ui.test.manifest)
 }
