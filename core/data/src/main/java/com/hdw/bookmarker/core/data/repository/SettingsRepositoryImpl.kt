@@ -9,6 +9,7 @@ class SettingsRepositoryImpl @Inject constructor(private val bookMarkerDatastore
 
     override fun getDefaultBrowserPackageFlow(): Flow<String?> = bookMarkerDatastore.getDefaultBrowserPackage()
     override fun getBookmarkDisplayTypeFlow(): Flow<String?> = bookMarkerDatastore.getBookmarkDisplayType()
+    override fun getAppThemeModeFlow(): Flow<String?> = bookMarkerDatastore.getAppThemeMode()
 
     override suspend fun setDefaultBrowserPackage(packageName: String) {
         bookMarkerDatastore.saveDefaultBrowserPackage(packageName)
@@ -16,5 +17,9 @@ class SettingsRepositoryImpl @Inject constructor(private val bookMarkerDatastore
 
     override suspend fun setBookmarkDisplayType(displayType: String) {
         bookMarkerDatastore.saveBookmarkDisplayType(displayType)
+    }
+
+    override suspend fun setAppThemeMode(mode: String) {
+        bookMarkerDatastore.saveAppThemeMode(mode)
     }
 }

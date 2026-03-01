@@ -4,6 +4,7 @@ import com.hdw.bookmarker.core.data.repository.BookmarkRepository
 import com.hdw.bookmarker.core.data.repository.BrowserRepository
 import com.hdw.bookmarker.core.data.repository.SettingsRepository
 import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
@@ -13,6 +14,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
@@ -75,8 +77,12 @@ object DomainModule {
     @Provides
     @Singleton
     fun provideGetDefaultBrowserPackageUseCase(
+        browserRepository: BrowserRepository,
         settingsRepository: SettingsRepository,
-    ): GetDefaultBrowserPackageUseCase = GetDefaultBrowserPackageUseCase(settingsRepository)
+    ): GetDefaultBrowserPackageUseCase = GetDefaultBrowserPackageUseCase(
+        browserRepository = browserRepository,
+        settingsRepository = settingsRepository,
+    )
 
     @Provides
     @Singleton
@@ -93,4 +99,14 @@ object DomainModule {
     @Singleton
     fun provideSetBookmarkDisplayTypeUseCase(settingsRepository: SettingsRepository): SetBookmarkDisplayTypeUseCase =
         SetBookmarkDisplayTypeUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetAppThemeModeUseCase(settingsRepository: SettingsRepository): GetAppThemeModeUseCase =
+        GetAppThemeModeUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetAppThemeModeUseCase(settingsRepository: SettingsRepository): SetAppThemeModeUseCase =
+        SetAppThemeModeUseCase(settingsRepository)
 }

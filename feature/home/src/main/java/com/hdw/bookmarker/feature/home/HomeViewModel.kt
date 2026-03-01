@@ -208,10 +208,10 @@ class HomeViewModel @Inject constructor(
     private fun observeDefaultBrowserPackage() = intent {
         if (isObservingDefaultBrowser) return@intent
         isObservingDefaultBrowser = true
-        getDefaultBrowserPackageUseCase().collect { packageName ->
+        getDefaultBrowserPackageUseCase().collect { browserInfo ->
             reduce {
                 state.copy(
-                    defaultBrowserPackage = packageName,
+                    defaultBrowserPackage = browserInfo?.packageName,
                 )
             }
         }

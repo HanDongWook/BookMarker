@@ -1,6 +1,5 @@
 package com.hdw.bookmarker.feature.settingsetting.defaultbrowser
 
-import android.widget.ImageView
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -24,7 +23,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -32,13 +30,12 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
+import coil.compose.AsyncImage
 import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
+import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.util.InstalledBrowserInfo
 import com.hdw.bookmarker.core.ui.util.getAppVersionName
-import com.hdw.bookmarker.core.ui.util.getInstalledBrowsers
 import com.hdw.bookmarker.feature.settingsetting.SettingsViewModel
 
 @Composable
@@ -50,7 +47,6 @@ fun DefaultBrowserRoute(onBackClick: () -> Unit) {
     LaunchedEffect(context) {
         viewModel.initialize(
             appVersion = context.getAppVersionName(),
-            installedBrowsers = context.getInstalledBrowsers(),
         )
     }
 
@@ -67,7 +63,7 @@ fun DefaultBrowserRoute(onBackClick: () -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DefaultBrowserScreen(
-    installedBrowsers: List<InstalledBrowserInfo>,
+    installedBrowsers: List<BrowserInfo>,
     selectedBrowserPackage: String?,
     onBackClick: () -> Unit,
     onBrowserSelect: (String) -> Unit,
@@ -116,7 +112,7 @@ private fun DefaultBrowserScreen(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    BrowserIcon(packageName = browser.packageName)
+                    BrowserIcon(icon = browser.icon)
                     Text(
                         text = browser.appName,
                         modifier = Modifier.weight(1f),
@@ -133,20 +129,10 @@ private fun DefaultBrowserScreen(
 }
 
 @Composable
-private fun BrowserIcon(packageName: String) {
-    val context = LocalContext.current
-    val icon = remember(packageName) {
-        runCatching { context.packageManager.getApplicationIcon(packageName) }.getOrNull()
-    }
-    AndroidView(
+private fun BrowserIcon(icon: Any) {
+    AsyncImage(
+        model = icon,
+        contentDescription = null,
         modifier = Modifier.size(24.dp),
-        factory = { viewContext ->
-            ImageView(viewContext).apply {
-                scaleType = ImageView.ScaleType.FIT_CENTER
-            }
-        },
-        update = { imageView ->
-            imageView.setImageDrawable(icon)
-        },
     )
 }

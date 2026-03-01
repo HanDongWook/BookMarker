@@ -10,10 +10,12 @@ android {
 
 dependencies {
     implementation(projects.core.domain)
+    implementation(projects.core.model)
 
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.coil.compose)
 
     implementation(libs.timber)
 
