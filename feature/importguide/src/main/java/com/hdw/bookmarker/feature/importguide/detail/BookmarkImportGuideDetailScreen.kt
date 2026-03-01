@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.guide
+package com.hdw.bookmarker.feature.importguide.detail
 
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
@@ -29,7 +29,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.browser.Browser
-import com.hdw.bookmarker.feature.home.R
+import com.hdw.bookmarker.feature.importguide.R
+import com.hdw.bookmarker.feature.importguide.detail.model.toStep1GuideContent
 
 @Composable
 fun BookmarkImportGuideScreen(
@@ -38,6 +39,7 @@ fun BookmarkImportGuideScreen(
     browserName: String?,
     onDismiss: () -> Unit,
     onOpenDesktopGuide: () -> Unit,
+    iconModifier: Modifier = Modifier,
 ) {
     val browser = remember(browserPackageName, browserName) {
         Browser.fromPackageAndName(
@@ -59,7 +61,7 @@ fun BookmarkImportGuideScreen(
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            GuideTitle(icon = icon, browserName = browserName, onDismiss = onDismiss)
+            GuideTitle(icon = icon, iconModifier = iconModifier, browserName = browserName, onDismiss = onDismiss)
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -97,11 +99,16 @@ fun BookmarkImportGuideScreen(
 }
 
 @Composable
-private fun GuideTitle(icon: Drawable?, browserName: String? = null, onDismiss: () -> Unit) {
+private fun GuideTitle(
+    icon: Drawable?,
+    iconModifier: Modifier = Modifier,
+    browserName: String? = null,
+    onDismiss: () -> Unit,
+) {
     Row(modifier = Modifier.fillMaxWidth()) {
         if (icon != null) {
             Image(
-                modifier = Modifier.size(56.dp),
+                modifier = iconModifier.size(56.dp),
                 painter = rememberDrawablePainter(drawable = icon),
                 contentDescription = null,
             )

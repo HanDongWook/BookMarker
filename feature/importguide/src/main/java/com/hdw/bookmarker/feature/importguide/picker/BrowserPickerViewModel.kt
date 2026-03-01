@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.guide
+package com.hdw.bookmarker.feature.importguide.picker
 
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
@@ -10,7 +10,13 @@ import javax.inject.Inject
 
 data class BrowserPickerState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
-)
+    val selectedBrowserPackageForImport: String? = null,
+) {
+    val currentSelectedBrowser: BrowserInfo?
+        get() = selectedBrowserPackageForImport
+            ?.let { pkg -> installedBrowsers.find { it.packageName == pkg } }
+            ?: installedBrowsers.firstOrNull()
+}
 
 @HiltViewModel
 class BrowserPickerViewModel @Inject constructor(
@@ -24,6 +30,19 @@ class BrowserPickerViewModel @Inject constructor(
         val browsers = getInstalledBrowsersUseCase()
         reduce {
             state.copy(installedBrowsers = browsers)
+        }
+    }
+
+    fun onBrowserSelected(packageName: String) = intent {
+        reduce {
+            state.copy(selectedBrowserPackageForImport = packageName)
+        }
+    }
+
+    fun clearSelectedBrowser() = intent {
+        if (state.selectedBrowserPackageForImport == null) return@intent
+        reduce {
+            state.copy(selectedBrowserPackageForImport = null)
         }
     }
 }

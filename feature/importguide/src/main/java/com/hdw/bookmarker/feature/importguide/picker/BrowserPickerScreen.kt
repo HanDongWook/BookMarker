@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.guide
+package com.hdw.bookmarker.feature.importguide.picker
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -27,7 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
-import com.hdw.bookmarker.feature.home.R
+import com.hdw.bookmarker.feature.importguide.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,6 +35,7 @@ fun BrowserPickerScreen(
     installedBrowsers: List<BrowserInfo>,
     onOpenDesktopGuide: (String) -> Unit,
     onBackClick: () -> Unit,
+    iconModifierForBrowser: @Composable (BrowserInfo) -> Modifier = { Modifier },
 ) {
     Scaffold(
         topBar = {
@@ -61,6 +62,7 @@ fun BrowserPickerScreen(
                 BrowserItem(
                     browser = browser,
                     onSyncClick = { onOpenDesktopGuide(browser.packageName) },
+                    iconModifier = iconModifierForBrowser(browser),
                 )
             }
         }
@@ -68,7 +70,11 @@ fun BrowserPickerScreen(
 }
 
 @Composable
-private fun BrowserItem(browser: BrowserInfo, onSyncClick: () -> Unit) {
+private fun BrowserItem(
+    browser: BrowserInfo,
+    onSyncClick: () -> Unit,
+    iconModifier: Modifier = Modifier,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -79,7 +85,7 @@ private fun BrowserItem(browser: BrowserInfo, onSyncClick: () -> Unit) {
         Image(
             painter = rememberDrawablePainter(drawable = browser.icon),
             contentDescription = browser.appName,
-            modifier = Modifier.size(40.dp),
+            modifier = iconModifier.size(40.dp),
         )
         Spacer(modifier = Modifier.width(12.dp))
         Text(

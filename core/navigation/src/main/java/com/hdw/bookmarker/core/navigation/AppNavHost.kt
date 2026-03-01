@@ -5,7 +5,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.hdw.bookmarker.feature.home.HomeRoute
-import com.hdw.bookmarker.feature.home.guide.BrowserPickerRoute
+import com.hdw.bookmarker.feature.importguide.BookmarkImportGuideEntry
 import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
 import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRoute
 
@@ -14,12 +14,12 @@ fun AppNavHost(navController: NavHostController) {
     val context = LocalContext.current
     NavHost(
         navController = navController,
-        startDestination = Route.Home,
+        startDestination = AppRoute.Home,
     ) {
-        slideComposable<Route.Home> {
+        slideComposable<AppRoute.Home> {
             HomeRoute(
                 onSettingsClick = {
-                    navController.navigate(Route.Settings)
+                    navController.navigate(AppRoute.Settings)
                 },
                 onOpenBookmark = { url, preferredBrowserPackage ->
                     ExternalAppNavigator.openBookmarkUrl(
@@ -29,12 +29,12 @@ fun AppNavHost(navController: NavHostController) {
                     )
                 },
                 onOpenBookmarkImportGuide = {
-                    navController.navigate(Route.BookmarkImportGuide)
+                    navController.navigate(AppRoute.BookmarkImportGuide)
                 },
             )
         }
-        slideComposable<Route.BookmarkImportGuide> {
-            BrowserPickerRoute(
+        slideComposable<AppRoute.BookmarkImportGuide> {
+            BookmarkImportGuideEntry(
                 onBackClick = {
                     navController.popBackStack()
                 },
@@ -47,17 +47,17 @@ fun AppNavHost(navController: NavHostController) {
                 },
             )
         }
-        slideComposable<Route.Settings> {
+        slideComposable<AppRoute.Settings> {
             SettingsRoute(
                 onBackClick = {
                     navController.popBackStack()
                 },
                 onDefaultBrowserClick = {
-                    navController.navigate(Route.SettingsDefaultBrowser)
+                    navController.navigate(AppRoute.SettingsDefaultBrowser)
                 },
             )
         }
-        slideComposable<Route.SettingsDefaultBrowser> {
+        slideComposable<AppRoute.SettingsDefaultBrowser> {
             DefaultBrowserRoute(
                 onBackClick = {
                     navController.popBackStack()

@@ -1,9 +1,9 @@
-package com.hdw.bookmarker.feature.home.guide
+package com.hdw.bookmarker.feature.importguide.detail.model
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.hdw.bookmarker.core.model.browser.Browser
-import com.hdw.bookmarker.feature.home.R
+import com.hdw.bookmarker.feature.importguide.R
 
 data class Step1GuideContent(
     val step1Title: String,
