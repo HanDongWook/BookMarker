@@ -7,6 +7,9 @@ sealed interface Route {
     data object Home : Route
 
     @Serializable
+    data object BookmarkImportGuide : Route
+
+    @Serializable
     data object Settings : Route
 
     @Serializable

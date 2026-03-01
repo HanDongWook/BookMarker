@@ -38,8 +38,6 @@ fun BookmarkImportGuideScreen(
     browserName: String?,
     onDismiss: () -> Unit,
     onOpenDesktopGuide: () -> Unit,
-    onSelectFile: () -> Unit,
-    iconModifier: Modifier = Modifier,
 ) {
     val browser = remember(browserPackageName, browserName) {
         Browser.fromPackageAndName(
@@ -61,7 +59,7 @@ fun BookmarkImportGuideScreen(
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            GuideTitle(icon = icon, iconModifier = iconModifier, browserName = browserName, onDismiss = onDismiss)
+            GuideTitle(icon = icon, browserName = browserName, onDismiss = onDismiss)
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -94,32 +92,18 @@ fun BookmarkImportGuideScreen(
             )
 
             Spacer(modifier = Modifier.height(12.dp))
-
-            GuideSection(
-                title = stringResource(R.string.import_guide_step3_title),
-                descriptions = arrayOf(stringResource(R.string.import_guide_step3_body)),
-                buttonText = stringResource(R.string.import_guide_step3_button),
-                onClick = onSelectFile,
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }
 
 @Composable
-private fun GuideTitle(
-    icon: Drawable?,
-    iconModifier: Modifier = Modifier,
-    browserName: String? = null,
-    onDismiss: () -> Unit,
-) {
+private fun GuideTitle(icon: Drawable?, browserName: String? = null, onDismiss: () -> Unit) {
     Row(modifier = Modifier.fillMaxWidth()) {
         if (icon != null) {
             Image(
+                modifier = Modifier.size(56.dp),
                 painter = rememberDrawablePainter(drawable = icon),
                 contentDescription = null,
-                modifier = iconModifier.size(56.dp),
             )
         }
         if (!browserName.isNullOrBlank()) {

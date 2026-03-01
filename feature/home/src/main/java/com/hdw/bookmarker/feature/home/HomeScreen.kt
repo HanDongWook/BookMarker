@@ -34,14 +34,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.hdw.bookmarker.core.domain.util.BookmarkColorGenerator
 import com.hdw.bookmarker.core.model.MimeTypes
-import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.appbar.HomeTopAppBar
 import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkContent
 import com.hdw.bookmarker.feature.home.dialog.BookmarkColorPickerDialog
 import com.hdw.bookmarker.feature.home.dialog.DefaultBrowserPickerDialog
-import com.hdw.bookmarker.feature.home.guide.BrowserPickerScreen
-import com.hdw.bookmarker.feature.home.guide.BookmarkImportGuideScreen
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
@@ -50,15 +47,15 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Composable
 fun HomeRoute(
     onSettingsClick: () -> Unit,
-    onOpenDesktopGuide: (Browser, String?) -> Boolean,
     onOpenBookmark: (String, String?) -> Boolean,
+    onOpenBookmarkImportGuide: () -> Unit,
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     HomeScreen(
         viewModel = viewModel,
         onSettingsClick = onSettingsClick,
-        onOpenDesktopGuide = onOpenDesktopGuide,
         onOpenBookmark = onOpenBookmark,
+        onOpenBookmarkImportGuide = onOpenBookmarkImportGuide,
     )
 }
 
@@ -66,25 +63,21 @@ fun HomeRoute(
 fun HomeScreen(
     viewModel: HomeViewModel,
     onSettingsClick: () -> Unit,
-    onOpenDesktopGuide: (Browser, String?) -> Boolean,
     onOpenBookmark: (String, String?) -> Boolean,
+    onOpenBookmarkImportGuide: () -> Unit,
 ) {
     val state by viewModel.collectAsState()
     val orderedSnapshotIds = state.orderedSnapshotIds
     val context = LocalContext.current
     val resources = LocalResources.current
-    var showImportGuideDialog by rememberSaveable { mutableStateOf(false) }
     var showImportOptionDialog by rememberSaveable { mutableStateOf(false) }
-    var showBrowserSelectScreen by rememberSaveable { mutableStateOf(false) }
     var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
     var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
     var showColorPickerDialog by rememberSaveable { mutableStateOf(false) }
     var pendingDeleteSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
-    var selectedBrowserPackageForImport by rememberSaveable { mutableStateOf<String?>(null) }
 
     val htmlPickerLauncher = rememberLauncherForActivityResult(OpenDocument()) { uri ->
         if (uri != null) {
-            showImportGuideDialog = false
             viewModel.onHtmlFileSelected(uri)
         }
     }
@@ -122,9 +115,6 @@ fun HomeScreen(
         ?: orderedSnapshotIds.getOrNull(pagerState.currentPage)
         ?: orderedSnapshotIds.firstOrNull()
 
-    val currentSelectedBrowser = selectedBrowserPackageForImport
-        ?.let { pkg -> state.installedBrowsers.find { it.packageName == pkg } }
-        ?: state.installedBrowsers.firstOrNull()
     val defaultBrowserIcon = state.installedBrowsers
         .firstOrNull { it.packageName == state.defaultBrowserPackage }
         ?.icon
@@ -138,16 +128,8 @@ fun HomeScreen(
             }
     }
 
-    BackHandler(enabled = showImportGuideDialog) {
-        showImportGuideDialog = false
-    }
-
     BackHandler(enabled = showImportOptionDialog) {
         showImportOptionDialog = false
-    }
-
-    BackHandler(enabled = showBrowserSelectScreen) {
-        showBrowserSelectScreen = false
     }
 
     BackHandler(enabled = isBrowserEditMode) {
@@ -196,7 +178,7 @@ fun HomeScreen(
                     Button(
                         onClick = {
                             showImportOptionDialog = false
-                            showBrowserSelectScreen = true
+                            onOpenBookmarkImportGuide()
                         },
                         modifier = Modifier.fillMaxWidth(),
                     ) {
@@ -243,111 +225,81 @@ fun HomeScreen(
         )
     }
 
-    if (showImportGuideDialog) {
-        BookmarkImportGuideScreen(
-            icon = currentSelectedBrowser?.icon,
-            browserPackageName = currentSelectedBrowser?.packageName,
-            browserName = currentSelectedBrowser?.appName,
-            onDismiss = { showImportGuideDialog = false },
-            onOpenDesktopGuide = {
-                val selectedBrowserType = Browser.fromPackageAndName(
-                    packageName = currentSelectedBrowser?.packageName,
-                    appName = currentSelectedBrowser?.appName,
-                )
-                if (!onOpenDesktopGuide(selectedBrowserType, currentSelectedBrowser?.packageName)) {
-                    context.showShortToast(resources.getString(R.string.import_guide_open_guide_failed))
-                }
-            },
-            onSelectFile = {
-                viewModel.openFilePicker()
-            },
-        )
-    } else if (showBrowserSelectScreen) {
-        BrowserPickerScreen(
-            installedBrowsers = state.installedBrowsers,
-            onSyncClick = { packageName ->
-                selectedBrowserPackageForImport = packageName
-                showBrowserSelectScreen = false
-                showImportGuideDialog = true
-            },
-        )
-    } else {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            topBar = {
-                HomeTopAppBar(
-                    isEditMode = isBrowserEditMode,
-                    bookmarkDisplayType = state.bookmarkDisplayType,
-                    defaultBrowserIcon = defaultBrowserIcon,
-                    onBookmarkDisplayTypeClick = {
-                        viewModel.onBookmarkDisplayTypeToggle()
-                    },
-                    onDefaultBrowserIconClick = {
-                        if (state.installedBrowsers.isNotEmpty()) {
-                            showDefaultBrowserDialog = true
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            HomeTopAppBar(
+                isEditMode = isBrowserEditMode,
+                bookmarkDisplayType = state.bookmarkDisplayType,
+                defaultBrowserIcon = defaultBrowserIcon,
+                onBookmarkDisplayTypeClick = {
+                    viewModel.onBookmarkDisplayTypeToggle()
+                },
+                onDefaultBrowserIconClick = {
+                    if (state.installedBrowsers.isNotEmpty()) {
+                        showDefaultBrowserDialog = true
+                    }
+                },
+                onSettingsClick = onSettingsClick,
+                onEditLabelClick = {
+                    showColorPickerDialog = true
+                },
+                onEditModeDoneClick = {
+                    isBrowserEditMode = false
+                },
+            )
+        },
+    ) { innerPadding ->
+        Column(modifier = Modifier.padding(innerPadding)) {
+            BookMarkListBar(
+                orderedSnapshotIds = orderedSnapshotIds,
+                bookmarkColors = state.bookmarkColors,
+                selectedBookmarkId = selectedBookmarkId,
+                isEditMode = isBrowserEditMode,
+                onAddClick = {
+                    showImportOptionDialog = true
+                },
+                onSnapshotClick = { snapshotId ->
+                    val targetPage = orderedSnapshotIds.indexOf(snapshotId)
+                    if (targetPage >= 0 && targetPage != pagerState.currentPage) {
+                        scope.launch {
+                            pagerState.animateScrollToPage(targetPage)
                         }
-                    },
-                    onSettingsClick = onSettingsClick,
-                    onEditLabelClick = {
-                        showColorPickerDialog = true
-                    },
-                    onEditModeDoneClick = {
-                        isBrowserEditMode = false
-                    },
-                )
-            },
-        ) { innerPadding ->
-            Column(modifier = Modifier.padding(innerPadding)) {
-                BookMarkListBar(
-                    orderedSnapshotIds = orderedSnapshotIds,
-                    bookmarkColors = state.bookmarkColors,
-                    selectedBookmarkId = selectedBookmarkId,
-                    isEditMode = isBrowserEditMode,
-                    onAddClick = {
+                    }
+                },
+                onEnterEditMode = {
+                    isBrowserEditMode = true
+                },
+                onDeleteRequest = { snapshotId ->
+                    pendingDeleteSnapshotId = snapshotId
+                },
+            )
+
+            if (orderedSnapshotIds.isEmpty()) {
+                NoConnectedBrowsers(
+                    modifier = Modifier.weight(1f),
+                    onImportClick = {
                         showImportOptionDialog = true
                     },
-                    onSnapshotClick = { snapshotId ->
-                        val targetPage = orderedSnapshotIds.indexOf(snapshotId)
-                        if (targetPage >= 0 && targetPage != pagerState.currentPage) {
-                            scope.launch {
-                                pagerState.animateScrollToPage(targetPage)
-                            }
-                        }
-                    },
-                    onEnterEditMode = {
-                        isBrowserEditMode = true
-                    },
-                    onDeleteRequest = { snapshotId ->
-                        pendingDeleteSnapshotId = snapshotId
-                    },
                 )
-
-                if (orderedSnapshotIds.isEmpty()) {
-                    NoConnectedBrowsers(
-                        modifier = Modifier.weight(1f),
-                        onImportClick = {
-                            showImportOptionDialog = true
+            } else {
+                HorizontalPager(
+                    state = pagerState,
+                    modifier = Modifier.weight(1f),
+                ) { page ->
+                    val snapshotId = orderedSnapshotIds[page]
+                    BookmarkContent(
+                        modifier = Modifier.fillMaxSize(),
+                        bookmarkDocument = state.bookmarkDocuments.getValue(snapshotId),
+                        displayType = state.bookmarkDisplayType,
+                        onBookmarkClick = { url ->
+                            if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
+                                context.showShortToast(
+                                    resources.getString(R.string.open_bookmark_failed),
+                                )
+                            }
                         },
                     )
-                } else {
-                    HorizontalPager(
-                        state = pagerState,
-                        modifier = Modifier.weight(1f),
-                    ) { page ->
-                        val snapshotId = orderedSnapshotIds[page]
-                        BookmarkContent(
-                            modifier = Modifier.fillMaxSize(),
-                            bookmarkDocument = state.bookmarkDocuments.getValue(snapshotId),
-                            displayType = state.bookmarkDisplayType,
-                            onBookmarkClick = { url ->
-                                if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
-                                    context.showShortToast(
-                                        resources.getString(R.string.open_bookmark_failed),
-                                    )
-                                }
-                            },
-                        )
-                    }
                 }
             }
         }

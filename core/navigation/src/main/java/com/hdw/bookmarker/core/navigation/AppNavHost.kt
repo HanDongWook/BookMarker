@@ -5,6 +5,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.hdw.bookmarker.feature.home.HomeRoute
+import com.hdw.bookmarker.feature.home.guide.BrowserPickerRoute
 import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
 import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRoute
 
@@ -20,18 +21,28 @@ fun AppNavHost(navController: NavHostController) {
                 onSettingsClick = {
                     navController.navigate(Route.Settings)
                 },
-                onOpenDesktopGuide = { browser, selectedBrowserPackage ->
-                    ExternalAppNavigator.openBrowserBookmarkGuide(
-                        context = context,
-                        browser = browser,
-                        preferredBrowserPackage = selectedBrowserPackage,
-                    )
-                },
                 onOpenBookmark = { url, preferredBrowserPackage ->
                     ExternalAppNavigator.openBookmarkUrl(
                         context = context,
                         url = url,
                         preferredBrowserPackage = preferredBrowserPackage,
+                    )
+                },
+                onOpenBookmarkImportGuide = {
+                    navController.navigate(Route.BookmarkImportGuide)
+                },
+            )
+        }
+        slideComposable<Route.BookmarkImportGuide> {
+            BrowserPickerRoute(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onOpenDesktopGuide = { browser, selectedBrowserPackage ->
+                    ExternalAppNavigator.openBrowserBookmarkGuide(
+                        context = context,
+                        browser = browser,
+                        preferredBrowserPackage = selectedBrowserPackage,
                     )
                 },
             )
