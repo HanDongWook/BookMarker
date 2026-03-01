@@ -211,7 +211,6 @@ fun HomeScreen(
                     onClick = {
                         viewModel.deleteBookmarkSnapshot(pendingDeleteSnapshotId ?: return@TextButton)
                         pendingDeleteSnapshotId = null
-                        isBrowserEditMode = false
                     },
                 ) {
                     Text(text = stringResource(R.string.delete_bookmark_dialog_confirm))
