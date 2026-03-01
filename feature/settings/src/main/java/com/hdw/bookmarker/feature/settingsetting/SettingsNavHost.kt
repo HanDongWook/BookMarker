@@ -14,7 +14,9 @@ import com.hdw.bookmarker.feature.settingsetting.folderstyle.FolderStyleScreen
 @Composable
 internal fun SettingsNavHost(
     state: SettingsState,
+    temporaryDataSize: String,
     onBackClick: () -> Unit,
+    onTemporaryDataClick: () -> Unit,
     onThemeModeSelect: (String) -> Unit,
     onDefaultBrowserSelect: (String) -> Unit,
     onFolderShapeSelect: (BookmarkFolderIconShape) -> Unit,
@@ -30,6 +32,7 @@ internal fun SettingsNavHost(
             SettingsScreen(
                 onBackClick = onBackClick,
                 appVersion = state.appVersion,
+                temporaryDataSize = temporaryDataSize,
                 selectedThemeMode = state.selectedThemeMode,
                 selectedBrowserName =
                 state.installedBrowsers.firstOrNull { it.packageName == state.selectedBrowserPackage }?.appName
@@ -37,6 +40,7 @@ internal fun SettingsNavHost(
                 selectedBrowserIcon = state.installedBrowsers.firstOrNull {
                     it.packageName == state.selectedBrowserPackage
                 }?.icon,
+                onTemporaryDataClick = onTemporaryDataClick,
                 onDefaultBrowserClick = {
                     navController.navigate(SettingsNavRoute.DefaultBrowser)
                 },
