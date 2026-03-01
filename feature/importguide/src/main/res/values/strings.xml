@@ -52,4 +52,5 @@
     <string name="import_guide_step1_body_desktop_generic">On your computer %1$s, find Bookmark/Favorites manager and export to HTML.</string>
     <string name="import_guide_step2_title">2. Save the HTML file to phone</string>
     <string name="import_guide_open_guide_failed">Could not open guide page.</string>
+    <string name="import_guide_exit">Exit</string>
 </resources>

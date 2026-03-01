@@ -39,6 +39,7 @@ fun BookmarkImportGuideScreen(
     onDismiss: () -> Unit,
     onOpenDesktopGuide: () -> Unit,
     iconModifier: Modifier = Modifier,
+    browserNameModifier: Modifier = Modifier,
 ) {
     val browser = remember(browserPackageName, browserName) {
         Browser.fromPackageAndName(
@@ -60,7 +61,13 @@ fun BookmarkImportGuideScreen(
                 .padding(20.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            GuideTitle(icon = icon, iconModifier = iconModifier, browserName = browserName, onDismiss = onDismiss)
+            GuideTitle(
+                icon = icon,
+                iconModifier = iconModifier,
+                browserName = browserName,
+                browserNameModifier = browserNameModifier,
+                onDismiss = onDismiss,
+            )
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -102,6 +109,7 @@ private fun GuideTitle(
     icon: Drawable?,
     iconModifier: Modifier = Modifier,
     browserName: String? = null,
+    browserNameModifier: Modifier = Modifier,
     onDismiss: () -> Unit,
 ) {
     Row(modifier = Modifier.fillMaxWidth()) {
@@ -116,12 +124,12 @@ private fun GuideTitle(
             Text(
                 text = browserName,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(start = 12.dp, top = 12.dp),
+                modifier = browserNameModifier.padding(start = 12.dp, top = 12.dp),
             )
         }
         Spacer(modifier = Modifier.weight(1f))
         TextButton(onClick = onDismiss) {
-            Text(text = stringResource(android.R.string.cancel))
+            Text(text = stringResource(R.string.import_guide_exit))
         }
     }
 }

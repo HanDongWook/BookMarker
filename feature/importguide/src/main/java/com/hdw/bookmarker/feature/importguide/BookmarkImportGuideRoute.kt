@@ -51,6 +51,14 @@ fun BookmarkImportGuideRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Brows
                             animatedVisibilityScope = this,
                         )
                     },
+                    textModifierForBrowser = { browser ->
+                        Modifier.sharedElement(
+                            sharedContentState = rememberSharedContentState(
+                                key = "browser-name-${browser.packageName}",
+                            ),
+                            animatedVisibilityScope = this,
+                        )
+                    },
                 )
             }
 
@@ -86,6 +94,14 @@ fun BookmarkImportGuideRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Brows
                         Modifier.sharedElement(
                             sharedContentState = rememberSharedContentState(
                                 key = "browser-icon-${browser.packageName}",
+                            ),
+                            animatedVisibilityScope = this,
+                        )
+                    } ?: Modifier,
+                    browserNameModifier = currentSelectedBrowser?.let { browser ->
+                        Modifier.sharedElement(
+                            sharedContentState = rememberSharedContentState(
+                                key = "browser-name-${browser.packageName}",
                             ),
                             animatedVisibilityScope = this,
                         )

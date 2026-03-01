@@ -36,6 +36,7 @@ fun BrowserPickerScreen(
     onOpenDesktopGuide: (String) -> Unit,
     onBackClick: () -> Unit,
     iconModifierForBrowser: @Composable (BrowserInfo) -> Modifier = { Modifier },
+    textModifierForBrowser: @Composable (BrowserInfo) -> Modifier = { Modifier },
 ) {
     Scaffold(
         topBar = {
@@ -63,6 +64,7 @@ fun BrowserPickerScreen(
                     browser = browser,
                     onSyncClick = { onOpenDesktopGuide(browser.packageName) },
                     iconModifier = iconModifierForBrowser(browser),
+                    textModifier = textModifierForBrowser(browser),
                 )
             }
         }
@@ -70,7 +72,12 @@ fun BrowserPickerScreen(
 }
 
 @Composable
-private fun BrowserItem(browser: BrowserInfo, onSyncClick: () -> Unit, iconModifier: Modifier = Modifier) {
+private fun BrowserItem(
+    browser: BrowserInfo,
+    onSyncClick: () -> Unit,
+    iconModifier: Modifier = Modifier,
+    textModifier: Modifier = Modifier,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -87,7 +94,7 @@ private fun BrowserItem(browser: BrowserInfo, onSyncClick: () -> Unit, iconModif
         Text(
             text = browser.appName,
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.weight(1f),
+            modifier = textModifier.weight(1f),
         )
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowRight,

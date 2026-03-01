@@ -52,4 +52,5 @@
     <string name="import_guide_step1_body_desktop_generic">PC %1$s에서 북마크/즐겨찾기 관리 화면으로 이동해 HTML로 내보내기를 진행하세요.</string>
     <string name="import_guide_step2_title">2. HTML 파일을 휴대폰에 저장</string>
     <string name="import_guide_open_guide_failed">가이드 페이지를 열 수 없어요.</string>
+    <string name="import_guide_exit">나가기</string>
 </resources>
