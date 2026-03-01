@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.drawer
+package com.hdw.bookmarker.feature.home.guide
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -24,7 +24,7 @@ import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.feature.home.R
 
 @Composable
-fun HomeDrawerContent(installedBrowsers: List<BrowserInfo>, onSyncClick: (String) -> Unit) {
+fun BrowserPickerScreen(installedBrowsers: List<BrowserInfo>, onSyncClick: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

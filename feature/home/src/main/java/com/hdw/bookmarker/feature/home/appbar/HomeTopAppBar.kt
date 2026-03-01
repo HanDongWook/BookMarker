@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ViewList
 import androidx.compose.material.icons.filled.Apps
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,21 +33,12 @@ fun HomeTopAppBar(
     defaultBrowserIcon: Drawable?,
     onBookmarkDisplayTypeClick: () -> Unit,
     onDefaultBrowserIconClick: () -> Unit,
-    onMenuClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onEditLabelClick: () -> Unit,
     onEditModeDoneClick: () -> Unit,
 ) {
     TopAppBar(
         title = { Text(stringResource(R.string.title)) },
-        navigationIcon = {
-            IconButton(onClick = onMenuClick) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = stringResource(R.string.menu_description),
-                )
-            }
-        },
         actions = {
             if (isEditMode) {
                 Row(
