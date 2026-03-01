@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BookmarkAdd
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -74,7 +75,7 @@ private fun BrowserItem(browser: BrowserInfo, isConnected: Boolean, onSyncClick:
             modifier = Modifier.weight(1f),
         )
         Icon(
-            imageVector = Icons.Default.Sync,
+            imageVector = Icons.Default.BookmarkAdd,
             contentDescription = stringResource(R.string.sync),
         )
     }

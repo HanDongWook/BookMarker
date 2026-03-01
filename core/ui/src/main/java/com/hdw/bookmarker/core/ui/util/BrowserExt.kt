@@ -32,7 +32,9 @@ fun Context.getInstalledBrowsers(): List<InstalledBrowserInfo> {
 private fun isExcludedNaverApp(packageName: String, appName: String): Boolean {
     val normalizedPackage = packageName.lowercase(Locale.ROOT)
     val normalizedName = appName.lowercase(Locale.ROOT)
-    val isNaver = normalizedPackage.contains("naver") || normalizedName.contains("naver") || normalizedName.contains("네이버")
-    val isWhale = normalizedPackage.contains("whale") || normalizedName.contains("whale") || normalizedName.contains("웨일")
+    val isNaver =
+        normalizedPackage.contains("naver") || normalizedName.contains("naver") || normalizedName.contains("네이버")
+    val isWhale =
+        normalizedPackage.contains("whale") || normalizedName.contains("whale") || normalizedName.contains("웨일")
     return isNaver && !isWhale
 }

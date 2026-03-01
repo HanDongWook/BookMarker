@@ -3,12 +3,17 @@ package com.hdw.bookmarker.core.data.repository
 import android.app.Application
 import android.content.Intent
 import android.content.pm.PackageManager
+import com.hdw.bookmarker.core.datastore.bookmark.BookMarkerBookmarkSnapshotDatastore
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
+import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
-import javax.inject.Inject
 import java.util.Locale
+import javax.inject.Inject
 
-class BrowserRepositoryImpl @Inject constructor(private val application: Application) : BrowserRepository {
+class BrowserRepositoryImpl @Inject constructor(
+    private val application: Application,
+    private val bookmarkSnapshotDatastore: BookMarkerBookmarkSnapshotDatastore,
+) : BrowserRepository {
 
     override fun getInstalledBrowsers(): List<BrowserInfo> {
         val packageManager = application.packageManager
@@ -50,8 +55,14 @@ class BrowserRepositoryImpl @Inject constructor(private val application: Applica
     private fun isExcludedNaverApp(packageName: String, appName: String): Boolean {
         val normalizedPackage = packageName.lowercase(Locale.ROOT)
         val normalizedName = appName.lowercase(Locale.ROOT)
-        val isNaver = normalizedPackage.contains("naver") || normalizedName.contains("naver") || normalizedName.contains("네이버")
-        val isWhale = normalizedPackage.contains("whale") || normalizedName.contains("whale") || normalizedName.contains("웨일")
+        val isNaver =
+            normalizedPackage.contains("naver") || normalizedName.contains("naver") || normalizedName.contains("네이버")
+        val isWhale =
+            normalizedPackage.contains("whale") || normalizedName.contains("whale") || normalizedName.contains("웨일")
         return isNaver && !isWhale
+    }
+
+    override fun getBookmarkColors(): Flow<Map<String, Long>> {
+        return bookmarkSnapshotDatastore.getBookmarkColorsFlow()
     }
 }

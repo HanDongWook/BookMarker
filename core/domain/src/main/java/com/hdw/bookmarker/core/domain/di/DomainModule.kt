@@ -74,13 +74,11 @@ object DomainModule {
 
     @Provides
     @Singleton
-    fun provideGetBookmarkDisplayTypeUseCase(
-        settingsRepository: SettingsRepository,
-    ): GetBookmarkDisplayTypeUseCase = GetBookmarkDisplayTypeUseCase(settingsRepository)
+    fun provideGetBookmarkDisplayTypeUseCase(settingsRepository: SettingsRepository): GetBookmarkDisplayTypeUseCase =
+        GetBookmarkDisplayTypeUseCase(settingsRepository)
 
     @Provides
     @Singleton
-    fun provideSetBookmarkDisplayTypeUseCase(
-        settingsRepository: SettingsRepository,
-    ): SetBookmarkDisplayTypeUseCase = SetBookmarkDisplayTypeUseCase(settingsRepository)
+    fun provideSetBookmarkDisplayTypeUseCase(settingsRepository: SettingsRepository): SetBookmarkDisplayTypeUseCase =
+        SetBookmarkDisplayTypeUseCase(settingsRepository)
 }

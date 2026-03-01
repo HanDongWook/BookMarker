@@ -10,6 +10,7 @@ import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
 import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -37,11 +38,17 @@ class BookmarkRepositoryImpl @Inject constructor(
     override fun getBookmarkSnapshotsFlow(): Flow<Map<String, BookmarkDocument>> =
         bookmarkSnapshotDatastore.getSnapshotsFlow()
 
-    override suspend fun saveBookmarkSnapshot(browserPackage: String, document: BookmarkDocument, sourceHash: String) {
+    override suspend fun saveBookmarkSnapshot(
+        browserPackage: String,
+        document: BookmarkDocument,
+        sourceHash: String,
+        bookmarkColor: Long,
+    ) {
         bookmarkSnapshotDatastore.saveSnapshot(
             browserPackage = browserPackage,
             document = document,
             sourceHash = sourceHash,
+            bookmarkColor = bookmarkColor,
         )
     }
 
@@ -51,4 +58,7 @@ class BookmarkRepositoryImpl @Inject constructor(
 
     override suspend fun getBookmarkSnapshotRawFileHash(browserPackage: String): String? =
         bookmarkSnapshotDatastore.getRawFileHash(browserPackage)
+
+    override suspend fun getBookmarkColor(browserPackage: String): Long? =
+        bookmarkSnapshotDatastore.getBookmarkColorsFlow().first()[browserPackage]
 }

@@ -14,9 +14,16 @@ interface BookmarkRepository {
 
     fun getBookmarkSnapshotsFlow(): Flow<Map<String, BookmarkDocument>>
 
-    suspend fun saveBookmarkSnapshot(browserPackage: String, document: BookmarkDocument, sourceHash: String = "")
+    suspend fun saveBookmarkSnapshot(
+        browserPackage: String,
+        document: BookmarkDocument,
+        sourceHash: String = "",
+        bookmarkColor: Long,
+    )
 
     suspend fun clearBookmarkSnapshot(browserPackage: String)
 
     suspend fun getBookmarkSnapshotRawFileHash(browserPackage: String): String?
+
+    suspend fun getBookmarkColor(browserPackage: String): Long?
 }

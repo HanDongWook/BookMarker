@@ -2,8 +2,10 @@ package com.hdw.bookmarker.feature.home
 
 import android.net.Uri
 import androidx.annotation.StringRes
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkColorsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
@@ -32,6 +34,7 @@ data class MainState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
     val connectedBrowserPackages: Set<String> = emptySet(),
     val bookmarkDocuments: Map<String, BookmarkDocument> = emptyMap(),
+    val bookmarkColors: Map<String, Long> = emptyMap(),
     val selectedBrowserPackage: String? = null,
     val defaultBrowserPackage: String? = null,
     val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
@@ -52,6 +55,7 @@ class HomeViewModel @Inject constructor(
     private val getBookmarkRawFileHashUseCase: GetBookmarkRawFileHashUseCase,
     private val getBookmarkSnapshotRawFileHashUseCase: GetBookmarkSnapshotRawFileHashUseCase,
     private val getBookmarkSnapshotsUseCase: GetBookmarkSnapshotsUseCase,
+    private val getBookmarkColorsUseCase: GetBookmarkColorsUseCase,
     private val saveBookmarkSnapshotUseCase: SaveBookmarkSnapshotUseCase,
     private val clearBookmarkSnapshotUseCase: ClearBookmarkSnapshotUseCase,
     private val getDefaultBrowserPackageUseCase: GetDefaultBrowserPackageUseCase,
@@ -63,12 +67,14 @@ class HomeViewModel @Inject constructor(
     private data class PendingOverwriteImport(val uri: Uri, val browserPackage: String, val rawFileHash: String)
 
     private var isObservingSnapshots = false
+    private var isObservingColors = false
     private var isObservingDefaultBrowser = false
     private var isObservingBookmarkDisplayType = false
     private var pendingOverwriteImport: PendingOverwriteImport? = null
 
     override val container = container<MainState, MainSideEffect>(MainState()) {
         observeBookmarkSnapshots()
+        observeBookmarkColors()
         observeDefaultBrowserPackage()
         observeBookmarkDisplayType()
         loadInstalledBrowsers()
@@ -79,12 +85,29 @@ class HomeViewModel @Inject constructor(
         val installedPackages = browsers.map(BrowserInfo::packageName).toSet()
         reduce {
             state.copy(
-                installedBrowsers = browsers,
+                installedBrowsers = browsers.map { browser ->
+                    browser.copy(bookmarkColorValue = state.bookmarkColors[browser.packageName] ?: 0L)
+                },
                 connectedBrowserPackages = state.bookmarkDocuments.keys.intersect(installedPackages),
                 selectedBrowserPackage = state.selectedBrowserPackage
                     ?.takeIf { selected -> installedPackages.contains(selected) }
                     ?: browsers.firstOrNull()?.packageName,
             )
+        }
+    }
+
+    private fun observeBookmarkColors() = intent {
+        if (isObservingColors) return@intent
+        isObservingColors = true
+        getBookmarkColorsUseCase().collect { colors ->
+            reduce {
+                state.copy(
+                    bookmarkColors = colors,
+                    installedBrowsers = state.installedBrowsers.map { browser ->
+                        browser.copy(bookmarkColorValue = colors[browser.packageName] ?: 0L)
+                    },
+                )
+            }
         }
     }
 

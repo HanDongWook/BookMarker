@@ -42,11 +42,26 @@ class BookMarkerBookmarkSnapshotDatastore @Inject constructor(@param:Application
             }
         }
 
+    fun getBookmarkColorsFlow(): Flow<Map<String, Long>> = dataStore.data
+        .catch { exception ->
+            if (exception is java.io.IOException) {
+                emit(BookmarkSnapshotsProto())
+            } else {
+                throw exception
+            }
+        }
+        .map { snapshots ->
+            snapshots.snapshots.associate { snapshot ->
+                snapshot.browserPackage to snapshot.bookmarkColor
+            }
+        }
+
     suspend fun saveSnapshot(
         browserPackage: String,
         document: BookmarkDocument,
         importedAtEpochMs: Long = System.currentTimeMillis(),
         sourceHash: String = "",
+        bookmarkColor: Long,
     ) {
         dataStore.updateData { current ->
             val nextSnapshot = BrowserBookmarkSnapshotProto(
@@ -54,6 +69,7 @@ class BookMarkerBookmarkSnapshotDatastore @Inject constructor(@param:Application
                 importedAtEpochMs = importedAtEpochMs,
                 sourceHash = sourceHash,
                 document = document.toProto(),
+                bookmarkColor = bookmarkColor,
             )
             val updatedSnapshots = current.snapshots
                 .filterNot { it.browserPackage == browserPackage } + nextSnapshot
