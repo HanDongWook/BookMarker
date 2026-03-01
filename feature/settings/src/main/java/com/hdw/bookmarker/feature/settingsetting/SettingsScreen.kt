@@ -35,6 +35,7 @@ import com.hdw.bookmarker.core.ui.util.getTemporaryDataSizeDisplay
 import com.hdw.bookmarker.feature.settingsetting.appversion.AppVersionRow
 import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRow
 import com.hdw.bookmarker.feature.settingsetting.folderstyle.FolderStyleRow
+import com.hdw.bookmarker.feature.settingsetting.opensource.OpenSourceLicenseRow
 import com.hdw.bookmarker.feature.settingsetting.temporarydata.ClearTemporaryDataDialog
 import com.hdw.bookmarker.feature.settingsetting.temporarydata.TemporaryDataRow
 import com.hdw.bookmarker.feature.settingsetting.theme.ThemeModeDialog
@@ -106,6 +107,7 @@ fun SettingsScreen(
     selectedFolderIconShape: BookmarkFolderIconShape,
     selectedFolderIconColor: BookmarkFolderIconColor,
     onFolderStyleClick: () -> Unit,
+    onOpenSourceLicensesClick: () -> Unit,
     onThemeModeSelect: (String) -> Unit,
 ) {
     val resources = LocalResources.current
@@ -161,6 +163,11 @@ fun SettingsScreen(
             TemporaryDataRow(
                 size = temporaryDataSize,
                 onClick = onTemporaryDataClick,
+            )
+            BookMarkerDivider()
+
+            OpenSourceLicenseRow(
+                onClick = onOpenSourceLicensesClick,
             )
             BookMarkerDivider()
 

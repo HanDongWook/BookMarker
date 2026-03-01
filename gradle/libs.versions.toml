@@ -30,6 +30,7 @@ kotlinxSerializationProtobuf = "1.10.0"
 kotest = "6.1.4"
 kotlinxCoroutines = "1.10.2"
 coil = "2.7.0"
+aboutLibraries = "13.2.1"
 
 [libraries]
 # androidx
@@ -90,6 +91,8 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }
+aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
+aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
 
 # Dependencies of the included build-logic
 android-gradleApiPlugin = { group = "com.android.tools.build", name = "gradle-api", version.ref = "agp" }
@@ -109,6 +112,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
+aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
 
 # Plugins defined by bookmarker
 bookmarker-android-application = { id = "bookmarker.android.application" }

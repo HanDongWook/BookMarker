@@ -3,13 +3,14 @@ package com.hdw.bookmarker.feature.settingsetting
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserScreen
 import com.hdw.bookmarker.feature.settingsetting.folderstyle.FolderStyleScreen
+import com.hdw.bookmarker.feature.settingsetting.opensource.OpenSourceLicensesScreen
 
 @Composable
 internal fun SettingsNavHost(
@@ -28,7 +29,7 @@ internal fun SettingsNavHost(
         navController = navController,
         startDestination = SettingsNavRoute.Main,
     ) {
-        composable<SettingsNavRoute.Main> {
+        slideComposable<SettingsNavRoute.Main> {
             SettingsScreen(
                 onBackClick = onBackClick,
                 appVersion = state.appVersion,
@@ -49,11 +50,14 @@ internal fun SettingsNavHost(
                 onFolderStyleClick = {
                     navController.navigate(SettingsNavRoute.FolderStyle)
                 },
+                onOpenSourceLicensesClick = {
+                    navController.navigate(SettingsNavRoute.OpenSourceLicenses)
+                },
                 onThemeModeSelect = onThemeModeSelect,
             )
         }
 
-        composable<SettingsNavRoute.DefaultBrowser> {
+        slideComposable<SettingsNavRoute.DefaultBrowser> {
             DefaultBrowserScreen(
                 installedBrowsers = state.installedBrowsers,
                 selectedBrowserPackage = state.selectedBrowserPackage,
@@ -62,13 +66,19 @@ internal fun SettingsNavHost(
             )
         }
 
-        composable<SettingsNavRoute.FolderStyle> {
+        slideComposable<SettingsNavRoute.FolderStyle> {
             FolderStyleScreen(
                 selectedShape = state.selectedFolderIconShape,
                 selectedColor = state.selectedFolderIconColor,
                 onBackClick = { navController.popBackStack() },
                 onShapeSelect = onFolderShapeSelect,
                 onColorSelect = onFolderColorSelect,
+            )
+        }
+
+        slideComposable<SettingsNavRoute.OpenSourceLicenses> {
+            OpenSourceLicensesScreen(
+                onBackClick = { navController.popBackStack() },
             )
         }
     }
