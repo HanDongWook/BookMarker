@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.feature.importguide.R
-import com.hdw.bookmarker.feature.importguide.detail.model.toStep1GuideContent
 
 @Composable
 fun BookmarkImportGuideScreen(

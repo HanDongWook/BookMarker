@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.importguide.picker
+package com.hdw.bookmarker.feature.importguide
 
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
@@ -19,7 +19,7 @@ data class BrowserPickerState(
 }
 
 @HiltViewModel
-class BrowserPickerViewModel @Inject constructor(
+class BookmarkImportGuideViewModel @Inject constructor(
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
 ) : ViewModel(),
     ContainerHost<BrowserPickerState, Nothing> {
