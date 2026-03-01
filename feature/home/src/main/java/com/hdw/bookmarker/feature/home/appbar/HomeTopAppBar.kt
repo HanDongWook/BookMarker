@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
-import com.hdw.bookmarker.feature.home.R
+import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkDisplayType
 
 @OptIn(ExperimentalMaterial3Api::class)

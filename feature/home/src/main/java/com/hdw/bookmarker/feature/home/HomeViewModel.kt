@@ -23,6 +23,7 @@ import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.core.model.file.error.ContentFileError
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
+import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkDisplayType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost

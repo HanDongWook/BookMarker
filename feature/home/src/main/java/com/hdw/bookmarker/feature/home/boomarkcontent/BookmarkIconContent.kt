@@ -31,8 +31,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
-import com.hdw.bookmarker.feature.home.R
 
 @Composable
 internal fun BookmarkIconContent(

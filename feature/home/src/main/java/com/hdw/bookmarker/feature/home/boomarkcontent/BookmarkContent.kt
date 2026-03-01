@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
-import com.hdw.bookmarker.feature.home.R
+import com.hdw.bookmarker.core.ui.R
 
 @Composable
 fun BookmarkContent(

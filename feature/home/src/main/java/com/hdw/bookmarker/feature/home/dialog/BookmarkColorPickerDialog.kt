@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.hdw.bookmarker.feature.home.R
+import com.hdw.bookmarker.core.ui.R
 
 @Composable
 fun BookmarkColorPickerDialog(

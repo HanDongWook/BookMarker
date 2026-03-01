@@ -29,7 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.browser.Browser
-import com.hdw.bookmarker.feature.importguide.R
+import com.hdw.bookmarker.core.ui.R
 
 @Composable
 fun BookmarkImportGuideScreen(

@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.hdw.bookmarker.core.domain.util.BookmarkColorGenerator
 import com.hdw.bookmarker.core.model.MimeTypes
+import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.appbar.HomeTopAppBar
 import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkContent
