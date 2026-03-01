@@ -267,6 +267,9 @@ fun HomeScreen(
                         bookmarkColors = state.bookmarkColors,
                         selectedBookmarkId = selectedBookmarkId,
                         isEditMode = isBrowserEditMode,
+                        onAddClick = {
+                            scope.launch { drawerState.open() }
+                        },
                         onSnapshotClick = { snapshotId ->
                             val targetPage = orderedSnapshotIds.indexOf(snapshotId)
                             if (targetPage >= 0 && targetPage != pagerState.currentPage) {

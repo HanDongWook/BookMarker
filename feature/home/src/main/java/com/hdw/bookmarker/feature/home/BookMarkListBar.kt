@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkAdd
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -38,6 +39,7 @@ internal fun BookMarkListBar(
     bookmarkColors: Map<String, Long>,
     selectedBookmarkId: String?,
     isEditMode: Boolean,
+    onAddClick: () -> Unit,
     onSnapshotClick: (String) -> Unit,
     onEnterEditMode: () -> Unit,
     onDeleteRequest: (String) -> Unit,
@@ -65,6 +67,29 @@ internal fun BookMarkListBar(
         ),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
+        item(key = "add_bookmark") {
+            Surface(
+                color = Color.Transparent,
+                shape = MaterialTheme.shapes.small,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .combinedClickable(
+                            onClick = onAddClick,
+                            onLongClick = {},
+                        )
+                        .padding(horizontal = 6.dp, vertical = 2.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.BookmarkAdd,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(36.dp),
+                    )
+                }
+            }
+        }
+
         items(orderedSnapshotIds, key = { it }) { snapshotId ->
             val isSelected = selectedBookmarkId == snapshotId
             val colorValue = bookmarkColors[snapshotId] ?: 0L
