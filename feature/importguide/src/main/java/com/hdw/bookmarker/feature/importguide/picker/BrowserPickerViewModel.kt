@@ -21,7 +21,8 @@ data class BrowserPickerState(
 @HiltViewModel
 class BrowserPickerViewModel @Inject constructor(
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
-) : ViewModel(), ContainerHost<BrowserPickerState, Nothing> {
+) : ViewModel(),
+    ContainerHost<BrowserPickerState, Nothing> {
     override val container = container<BrowserPickerState, Nothing>(BrowserPickerState()) {
         loadInstalledBrowsers()
     }

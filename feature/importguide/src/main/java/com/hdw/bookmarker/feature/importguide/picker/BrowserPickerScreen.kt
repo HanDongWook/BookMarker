@@ -70,11 +70,7 @@ fun BrowserPickerScreen(
 }
 
 @Composable
-private fun BrowserItem(
-    browser: BrowserInfo,
-    onSyncClick: () -> Unit,
-    iconModifier: Modifier = Modifier,
-) {
+private fun BrowserItem(browser: BrowserInfo, onSyncClick: () -> Unit, iconModifier: Modifier = Modifier) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

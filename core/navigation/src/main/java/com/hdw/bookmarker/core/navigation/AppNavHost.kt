@@ -5,7 +5,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.hdw.bookmarker.feature.home.HomeRoute
-import com.hdw.bookmarker.feature.importguide.BookmarkImportGuideEntry
+import com.hdw.bookmarker.feature.importguide.BookmarkImportGuideRoute
 import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
 import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRoute
 
@@ -34,7 +34,7 @@ fun AppNavHost(navController: NavHostController) {
             )
         }
         slideComposable<AppRoute.BookmarkImportGuide> {
-            BookmarkImportGuideEntry(
+            BookmarkImportGuideRoute(
                 onBackClick = {
                     navController.popBackStack()
                 },

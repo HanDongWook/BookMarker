@@ -23,6 +23,7 @@ import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.importguide.detail.BookmarkImportGuideScreen
 import com.hdw.bookmarker.feature.importguide.picker.BrowserPickerScreen
 import com.hdw.bookmarker.feature.importguide.picker.BrowserPickerViewModel
+import com.hdw.bookmarker.feature.importguide.route.FeatureBookmarkImportGuideRoute
 import org.orbitmvi.orbit.compose.collectAsState
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -37,9 +38,9 @@ fun BrowserPickerRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Browser, St
     SharedTransitionLayout {
         NavHost(
             navController = navController,
-            startDestination = ImportGuideRoute.Picker,
+            startDestination = FeatureBookmarkImportGuideRoute.Picker,
         ) {
-            composable<ImportGuideRoute.Picker>(
+            composable<FeatureBookmarkImportGuideRoute.Picker>(
                 enterTransition = { EnterTransition.None },
                 exitTransition = {
                     slideOutHorizontally(
@@ -59,7 +60,7 @@ fun BrowserPickerRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Browser, St
                     installedBrowsers = state.installedBrowsers,
                     onOpenDesktopGuide = { packageName ->
                         viewModel.onBrowserSelected(packageName)
-                        navController.navigate(ImportGuideRoute.Guide(packageName))
+                        navController.navigate(FeatureBookmarkImportGuideRoute.GuideFeatureBookmark(packageName))
                     },
                     onBackClick = onBackClick,
                     iconModifierForBrowser = { browser ->
@@ -71,7 +72,7 @@ fun BrowserPickerRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Browser, St
                 )
             }
 
-            composable<ImportGuideRoute.Guide>(
+            composable<FeatureBookmarkImportGuideRoute.GuideFeatureBookmark>(
                 enterTransition = {
                     slideInHorizontally(
                         animationSpec = tween(durationMillis = 320),
@@ -92,7 +93,7 @@ fun BrowserPickerRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Browser, St
                     navController.popBackStack()
                 }
 
-                val selectedPackage = entry.toRoute<ImportGuideRoute.Guide>().packageName
+                val selectedPackage = entry.toRoute<FeatureBookmarkImportGuideRoute.GuideFeatureBookmark>().packageName
                 val currentSelectedBrowser = state.installedBrowsers
                     .find { it.packageName == selectedPackage }
                     ?: state.currentSelectedBrowser
