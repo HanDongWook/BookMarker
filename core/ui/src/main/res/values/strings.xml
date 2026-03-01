@@ -19,6 +19,10 @@
     <string name="press_back_to_exit">Press \'back\' button one more time to close app</string>
     <string name="sync">Sync</string>
     <string name="app_version_label">App Version</string>
+    <string name="temporary_data_label">Temporary Data</string>
+    <string name="clear_temporary_data_dialog_message">Cached temporary data will be deleted and cleaned up. Do you want to continue?</string>
+    <string name="clear_temporary_data_dialog_cancel">Cancel</string>
+    <string name="clear_temporary_data_dialog_confirm">Delete</string>
     <string name="no_browsers_connected">가져온 북마크가 없습니다.\n북마크를 동기화 해보세요.</string>
     <string name="error_with_detail">%1$s (%2$s)</string>
     <string name="error_invalid_uri">The file path is invalid.</string>

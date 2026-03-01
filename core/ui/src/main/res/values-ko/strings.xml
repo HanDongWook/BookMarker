@@ -8,5 +8,9 @@
     <string name="press_back_to_exit">앱을 종료하려면 \'뒤로\' 버튼을 한 번 더 누르세요</string>
     <string name="sync">동기화</string>
     <string name="app_version_label">앱 버전</string>
+    <string name="temporary_data_label">임시 데이터</string>
+    <string name="clear_temporary_data_dialog_message">캐시에 임시 저장된 기타 데이터를 삭제하고 정리합니다. 계속하시겠습니까?</string>
+    <string name="clear_temporary_data_dialog_cancel">취소</string>
+    <string name="clear_temporary_data_dialog_confirm">삭제</string>
     <string name="no_browsers_connected">가져온 북마크가 없습니다.\n북마크를 동기화 해보세요.</string>
 </resources>
