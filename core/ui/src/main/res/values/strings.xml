@@ -120,6 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">Cancel</string>
     <string name="import_option_dialog_open_guide">View bookmark HTML import guide</string>
     <string name="import_option_dialog_pick_file">Import bookmark HTML file</string>
+    <string name="import_option_dialog_add_empty_bookmark_item">Add empty bookmark item</string>
     <string name="bookmark_color_picker_dialog_title">Select bookmark color</string>
     <string name="bookmark_color_picker_dialog_close">Close</string>
     <string name="folder_style_label">Folder style</string>

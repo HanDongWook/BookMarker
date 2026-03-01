@@ -106,6 +106,7 @@ fun HomeRoute(
         onAddFolder = viewModel::addFolder,
         onAddBookmark = viewModel::addBookmark,
         onDeleteBookmarkItem = viewModel::deleteBookmarkItem,
+        onAddEmptyBookmarkSnapshot = viewModel::addEmptyBookmarkSnapshot,
     )
 }
 
@@ -124,6 +125,7 @@ fun HomeScreen(
     onAddFolder: (String) -> Unit,
     onAddBookmark: (String, String) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
+    onAddEmptyBookmarkSnapshot: () -> Unit,
 ) {
     val orderedSnapshotIds = state.orderedSnapshotIds
     val context = LocalContext.current
@@ -230,6 +232,10 @@ fun HomeScreen(
             onPickFile = {
                 showImportOptionDialog = false
                 onOpenFilePicker()
+            },
+            onAddEmptyBookmarkItem = {
+                showImportOptionDialog = false
+                onAddEmptyBookmarkSnapshot()
             },
         )
     }

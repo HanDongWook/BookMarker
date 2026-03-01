@@ -119,6 +119,7 @@
     <string name="delete_bookmark_item_dialog_cancel">취소</string>
     <string name="import_option_dialog_open_guide">북마크 HTML 가져오기 가이드</string>
     <string name="import_option_dialog_pick_file">북마크 HTML 파일 가져오기</string>
+    <string name="import_option_dialog_add_empty_bookmark_item">빈 북마크 아이템 추가하기</string>
     <string name="bookmark_color_picker_dialog_title">북마크 색상 선택</string>
     <string name="bookmark_color_picker_dialog_close">닫기</string>
     <string name="folder_style_label">폴더 스타일</string>
