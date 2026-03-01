@@ -259,6 +259,22 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
     }
 
+    fun deleteBookmarkItem(path: List<Int>) = intent {
+        if (path.isEmpty()) return@intent
+
+        val currentSnapshotId = state.selectedBookmarkId ?: return@intent
+        val currentDocument = state.bookmarkDocuments[currentSnapshotId] ?: return@intent
+        val updatedRootItems = removeItemByPath(currentDocument.rootItems, path) ?: return@intent
+        val sourceHash = getBookmarkSnapshotRawFileHashUseCase(currentSnapshotId).orEmpty()
+
+        val savedSnapshotId = saveBookmarkSnapshotUseCase(
+            snapshotId = currentSnapshotId,
+            document = currentDocument.copy(rootItems = updatedRootItems),
+            sourceHash = sourceHash,
+        )
+        reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
+    }
+
     private suspend fun saveAddedItem(currentState: HomeState, item: BookmarkItem): String {
         val currentSnapshotId = currentState.selectedBookmarkId
         val currentDocument = currentSnapshotId
@@ -287,6 +303,22 @@ class HomeViewModel @Inject constructor(
     private fun normalizeUrl(url: String): String {
         val trimmedUrl = url.trim()
         return if (trimmedUrl.contains("://")) trimmedUrl else "https://$trimmedUrl"
+    }
+
+    private fun removeItemByPath(items: List<BookmarkItem>, path: List<Int>): List<BookmarkItem>? {
+        val targetIndex = path.firstOrNull() ?: return null
+        if (targetIndex !in items.indices) return null
+
+        if (path.size == 1) {
+            return items.toMutableList().apply { removeAt(targetIndex) }
+        }
+
+        val targetFolder = items[targetIndex] as? BookmarkItem.Folder ?: return null
+        val updatedChildren = removeItemByPath(targetFolder.children, path.drop(1)) ?: return null
+
+        return items.toMutableList().apply {
+            this[targetIndex] = targetFolder.copy(children = updatedChildren)
+        }
     }
 
     private fun currentEpochSecondsString(): String = (System.currentTimeMillis() / 1000L).toString()

@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -45,6 +46,7 @@ import com.hdw.bookmarker.feature.home.dialog.AddFolderDialog
 import com.hdw.bookmarker.feature.home.dialog.AddItemTypeDialog
 import com.hdw.bookmarker.feature.home.dialog.BookmarkColorPickerDialog
 import com.hdw.bookmarker.feature.home.dialog.DefaultBrowserPickerDialog
+import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkItemDialog
 import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkSnapshotDialog
 import com.hdw.bookmarker.feature.home.dialog.ImportOptionDialog
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -103,6 +105,7 @@ fun HomeRoute(
         onBookmarkDisplayTypeToggle = viewModel::onBookmarkDisplayTypeToggle,
         onAddFolder = viewModel::addFolder,
         onAddBookmark = viewModel::addBookmark,
+        onDeleteBookmarkItem = viewModel::deleteBookmarkItem,
     )
 }
 
@@ -120,6 +123,7 @@ fun HomeScreen(
     onBookmarkDisplayTypeToggle: () -> Unit,
     onAddFolder: (String) -> Unit,
     onAddBookmark: (String, String) -> Unit,
+    onDeleteBookmarkItem: (List<Int>) -> Unit,
 ) {
     val orderedSnapshotIds = state.orderedSnapshotIds
     val context = LocalContext.current
@@ -135,6 +139,7 @@ fun HomeScreen(
     var pendingBookmarkTitle by rememberSaveable { mutableStateOf("") }
     var pendingBookmarkUrl by rememberSaveable { mutableStateOf("") }
     var pendingDeleteSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
+    var pendingDeleteBookmarkItemPath by remember { mutableStateOf<List<Int>?>(null) }
 
     val scope = rememberCoroutineScope()
 
@@ -184,6 +189,10 @@ fun HomeScreen(
         showAddBookmarkDialog = false
     }
 
+    BackHandler(enabled = pendingDeleteBookmarkItemPath != null) {
+        pendingDeleteBookmarkItemPath = null
+    }
+
     if (showColorPickerDialog && selectedBookmarkId != null) {
         BookmarkColorPickerDialog(
             colors = BookmarkColorGenerator.getAllColors(),
@@ -231,6 +240,16 @@ fun HomeScreen(
             onConfirmDelete = {
                 onDeleteBookmarkSnapshot(pendingDeleteSnapshotId ?: return@DeleteBookmarkSnapshotDialog)
                 pendingDeleteSnapshotId = null
+            },
+        )
+    }
+
+    if (pendingDeleteBookmarkItemPath != null) {
+        DeleteBookmarkItemDialog(
+            onDismiss = { pendingDeleteBookmarkItemPath = null },
+            onConfirmDelete = {
+                onDeleteBookmarkItem(pendingDeleteBookmarkItemPath ?: return@DeleteBookmarkItemDialog)
+                pendingDeleteBookmarkItemPath = null
             },
         )
     }
@@ -348,7 +367,7 @@ fun HomeScreen(
                     )
 
                     if (orderedSnapshotIds.isEmpty()) {
-                        NoConnectedBrowsers(
+                        NoBookmarkItem(
                             modifier = Modifier.weight(1f),
                             onImportClick = {
                                 showImportOptionDialog = true
@@ -375,9 +394,12 @@ fun HomeScreen(
                                             )
                                         }
                                     },
+                                    onItemLongClick = { _, path ->
+                                        pendingDeleteBookmarkItemPath = path
+                                    },
                                 )
                             } else {
-                                NoConnectedBrowsers(
+                                NoBookmarkItem(
                                     modifier = Modifier.fillMaxSize(),
                                     onImportClick = {
                                         showImportOptionDialog = true
@@ -393,7 +415,7 @@ fun HomeScreen(
 }
 
 @Composable
-private fun NoConnectedBrowsers(modifier: Modifier, onImportClick: () -> Unit) {
+private fun NoBookmarkItem(modifier: Modifier, onImportClick: () -> Unit) {
     Column(
         modifier = modifier
             .fillMaxSize()
