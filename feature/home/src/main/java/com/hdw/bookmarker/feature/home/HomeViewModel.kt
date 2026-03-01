@@ -9,6 +9,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
@@ -19,6 +20,7 @@ import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
+import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
 import com.hdw.bookmarker.core.model.browser.Browser
@@ -59,6 +61,7 @@ class HomeViewModel @Inject constructor(
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
     private val getBookmarksUseCase: GetBookmarksUseCase,
     private val getBookmarkRawFileHashUseCase: GetBookmarkRawFileHashUseCase,
+    private val getBookmarkSnapshotRawFileHashUseCase: GetBookmarkSnapshotRawFileHashUseCase,
     private val getBookmarkSnapshotsUseCase: GetBookmarkSnapshotsUseCase,
     private val getOrderedSnapshotIdsUseCase: GetOrderedSnapshotIdsUseCase,
     private val getBookmarkColorsUseCase: GetBookmarkColorsUseCase,
@@ -217,6 +220,79 @@ class HomeViewModel @Inject constructor(
             )
         }
     }
+
+    fun addFolder(title: String) = intent {
+        val trimmedTitle = title.trim()
+        if (trimmedTitle.isBlank()) return@intent
+
+        val now = currentEpochSecondsString()
+        val currentState = state
+        val savedSnapshotId = saveAddedItem(
+            currentState = currentState,
+            item = BookmarkItem.Folder(
+                title = trimmedTitle,
+                addDate = now,
+                lastModified = now,
+                children = emptyList(),
+            ),
+        )
+        reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
+    }
+
+    fun addBookmark(title: String, url: String) = intent {
+        val trimmedTitle = title.trim()
+        val trimmedUrl = url.trim()
+        if (trimmedTitle.isBlank() || trimmedUrl.isBlank()) return@intent
+
+        val now = currentEpochSecondsString()
+        val currentState = state
+        val savedSnapshotId = saveAddedItem(
+            currentState = currentState,
+            item = BookmarkItem.Bookmark(
+                title = trimmedTitle,
+                url = normalizeUrl(trimmedUrl),
+                addDate = now,
+                lastModified = now,
+                iconUri = null,
+            ),
+        )
+        reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
+    }
+
+    private suspend fun saveAddedItem(
+        currentState: HomeState,
+        item: BookmarkItem,
+    ): String {
+        val currentSnapshotId = currentState.selectedBookmarkId
+        val currentDocument = currentSnapshotId
+            ?.let { currentState.bookmarkDocuments[it] }
+            ?: BookmarkDocument(
+                title = null,
+                metas = emptyMap(),
+                rootItems = emptyList(),
+            )
+
+        val updatedDocument = currentDocument.copy(
+            rootItems = currentDocument.rootItems + item,
+        )
+
+        val sourceHash = currentSnapshotId
+            ?.let { getBookmarkSnapshotRawFileHashUseCase(it) }
+            .orEmpty()
+
+        return saveBookmarkSnapshotUseCase(
+            snapshotId = currentSnapshotId,
+            document = updatedDocument,
+            sourceHash = sourceHash,
+        )
+    }
+
+    private fun normalizeUrl(url: String): String {
+        val trimmedUrl = url.trim()
+        return if (trimmedUrl.contains("://")) trimmedUrl else "https://$trimmedUrl"
+    }
+
+    private fun currentEpochSecondsString(): String = (System.currentTimeMillis() / 1000L).toString()
 
     private fun observeDefaultBrowserPackage() = intent {
         if (isObservingDefaultBrowser) return@intent

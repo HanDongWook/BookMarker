@@ -89,8 +89,12 @@ class BookMarkerBookmarkSnapshotDatastore @Inject constructor(@param:Application
                 document = document.toProto(),
                 bookmarkColor = bookmarkColor,
             )
-            val updatedSnapshots = current.snapshots
-                .filterNot { it.snapshotId == id } + nextSnapshot
+            val existingIndex = current.snapshots.indexOfFirst { it.snapshotId == id }
+            val updatedSnapshots = if (existingIndex >= 0) {
+                current.snapshots.toMutableList().apply { set(existingIndex, nextSnapshot) }
+            } else {
+                current.snapshots + nextSnapshot
+            }
 
             current.copy(
                 schemaVersion = BOOKMARK_SNAPSHOT_SCHEMA_VERSION,

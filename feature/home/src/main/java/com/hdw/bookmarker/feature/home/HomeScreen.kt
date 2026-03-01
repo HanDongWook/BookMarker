@@ -11,10 +11,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -96,6 +101,8 @@ fun HomeRoute(
         onOpenFilePicker = viewModel::openFilePicker,
         onDeleteBookmarkSnapshot = viewModel::deleteBookmarkSnapshot,
         onBookmarkDisplayTypeToggle = viewModel::onBookmarkDisplayTypeToggle,
+        onAddFolder = viewModel::addFolder,
+        onAddBookmark = viewModel::addBookmark,
     )
 }
 
@@ -111,6 +118,8 @@ fun HomeScreen(
     onOpenFilePicker: () -> Unit,
     onDeleteBookmarkSnapshot: (String) -> Unit,
     onBookmarkDisplayTypeToggle: () -> Unit,
+    onAddFolder: (String) -> Unit,
+    onAddBookmark: (String, String) -> Unit,
 ) {
     val orderedSnapshotIds = state.orderedSnapshotIds
     val context = LocalContext.current
@@ -119,6 +128,12 @@ fun HomeScreen(
     var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
     var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
     var showColorPickerDialog by rememberSaveable { mutableStateOf(false) }
+    var showAddItemTypeDialog by rememberSaveable { mutableStateOf(false) }
+    var showAddFolderDialog by rememberSaveable { mutableStateOf(false) }
+    var showAddBookmarkDialog by rememberSaveable { mutableStateOf(false) }
+    var pendingFolderTitle by rememberSaveable { mutableStateOf("") }
+    var pendingBookmarkTitle by rememberSaveable { mutableStateOf("") }
+    var pendingBookmarkUrl by rememberSaveable { mutableStateOf("") }
     var pendingDeleteSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
 
     val scope = rememberCoroutineScope()
@@ -155,6 +170,18 @@ fun HomeScreen(
 
     BackHandler(enabled = showColorPickerDialog) {
         showColorPickerDialog = false
+    }
+
+    BackHandler(enabled = showAddItemTypeDialog) {
+        showAddItemTypeDialog = false
+    }
+
+    BackHandler(enabled = showAddFolderDialog) {
+        showAddFolderDialog = false
+    }
+
+    BackHandler(enabled = showAddBookmarkDialog) {
+        showAddBookmarkDialog = false
     }
 
     if (showColorPickerDialog && selectedBookmarkId != null) {
@@ -241,6 +268,119 @@ fun HomeScreen(
         )
     }
 
+    if (showAddItemTypeDialog) {
+        AlertDialog(
+            onDismissRequest = { showAddItemTypeDialog = false },
+            text = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Button(
+                        onClick = {
+                            showAddItemTypeDialog = false
+                            pendingFolderTitle = ""
+                            showAddFolderDialog = true
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(text = stringResource(R.string.add_folder))
+                    }
+
+                    OutlinedButton(
+                        onClick = {
+                            showAddItemTypeDialog = false
+                            pendingBookmarkTitle = ""
+                            pendingBookmarkUrl = ""
+                            showAddBookmarkDialog = true
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(text = stringResource(R.string.add_bookmark))
+                    }
+                }
+            },
+            confirmButton = {},
+            dismissButton = {},
+        )
+    }
+
+    if (showAddFolderDialog) {
+        AlertDialog(
+            onDismissRequest = { showAddFolderDialog = false },
+            title = { Text(text = stringResource(R.string.add_folder)) },
+            text = {
+                OutlinedTextField(
+                    value = pendingFolderTitle,
+                    onValueChange = { pendingFolderTitle = it },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text(text = stringResource(R.string.folder_name)) },
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onAddFolder(pendingFolderTitle)
+                        showAddFolderDialog = false
+                    },
+                    enabled = pendingFolderTitle.isNotBlank(),
+                ) {
+                    Text(text = stringResource(R.string.add))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showAddFolderDialog = false }) {
+                    Text(text = stringResource(android.R.string.cancel))
+                }
+            },
+        )
+    }
+
+    if (showAddBookmarkDialog) {
+        AlertDialog(
+            onDismissRequest = { showAddBookmarkDialog = false },
+            title = { Text(text = stringResource(R.string.add_bookmark)) },
+            text = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    OutlinedTextField(
+                        value = pendingBookmarkTitle,
+                        onValueChange = { pendingBookmarkTitle = it },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth(),
+                        label = { Text(text = stringResource(R.string.bookmark_name)) },
+                    )
+                    OutlinedTextField(
+                        value = pendingBookmarkUrl,
+                        onValueChange = { pendingBookmarkUrl = it },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth(),
+                        label = { Text(text = stringResource(R.string.bookmark_url)) },
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onAddBookmark(pendingBookmarkTitle, pendingBookmarkUrl)
+                        showAddBookmarkDialog = false
+                    },
+                    enabled = pendingBookmarkTitle.isNotBlank() && pendingBookmarkUrl.isNotBlank(),
+                ) {
+                    Text(text = stringResource(R.string.add))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showAddBookmarkDialog = false }) {
+                    Text(text = stringResource(android.R.string.cancel))
+                }
+            },
+        )
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         if (state.isImporting) {
             CircularProgressIndicator(
@@ -271,6 +411,18 @@ fun HomeScreen(
                             isBrowserEditMode = false
                         },
                     )
+                },
+                floatingActionButton = {
+                    FloatingActionButton(
+                        onClick = {
+                            showAddItemTypeDialog = true
+                        },
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = stringResource(R.string.add_bookmark_or_folder),
+                        )
+                    }
                 },
             ) { innerPadding ->
                 Column(modifier = Modifier.padding(innerPadding)) {
