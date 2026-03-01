@@ -38,6 +38,7 @@ data class HomeState(
     val selectedBookmarkId: String? = null,
     val defaultBrowserPackage: String? = null,
     val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
+    val isImporting: Boolean = false,
 )
 
 sealed interface HomeSideEffect {
@@ -147,39 +148,44 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onHtmlFileSelected(uri: Uri) = intent {
-        val rawFileHash = when (val hashResult = getBookmarkRawFileHashUseCase(uri)) {
-            is ContentFileResult.Success -> hashResult.data
+        reduce { state.copy(isImporting = true) }
+        try {
+            val rawFileHash = when (val hashResult = getBookmarkRawFileHashUseCase(uri)) {
+                is ContentFileResult.Success -> hashResult.data
 
-            is ContentFileResult.Failure -> {
-                postSideEffect(
-                    HomeSideEffect.ShowError(
-                        messageResId = hashResult.error.toUiMessageResId(),
-                        detail = hashResult.message,
-                    ),
-                )
-                return@intent
-            }
-        }
-
-        when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = uri)) {
-            is BookmarkImportResult.Success -> {
-                val savedId = saveBookmarkSnapshotUseCase(
-                    snapshotId = null,
-                    document = result.document,
-                    sourceHash = rawFileHash,
-                )
-                reduce { state.copy(selectedBookmarkId = savedId) }
+                is ContentFileResult.Failure -> {
+                    postSideEffect(
+                        HomeSideEffect.ShowError(
+                            messageResId = hashResult.error.toUiMessageResId(),
+                            detail = hashResult.message,
+                        ),
+                    )
+                    return@intent
+                }
             }
 
-            is BookmarkImportResult.Failure -> {
-                Timber.e("Bookmark html import failed. error=%s, message=%s", result.error, result.message)
-                postSideEffect(
-                    HomeSideEffect.ShowError(
-                        messageResId = result.error.toUiMessageResId(),
-                        detail = result.message,
-                    ),
-                )
+            when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = uri)) {
+                is BookmarkImportResult.Success -> {
+                    val savedId = saveBookmarkSnapshotUseCase(
+                        snapshotId = null,
+                        document = result.document,
+                        sourceHash = rawFileHash,
+                    )
+                    reduce { state.copy(selectedBookmarkId = savedId) }
+                }
+
+                is BookmarkImportResult.Failure -> {
+                    Timber.e("Bookmark html import failed. error=%s, message=%s", result.error, result.message)
+                    postSideEffect(
+                        HomeSideEffect.ShowError(
+                            messageResId = result.error.toUiMessageResId(),
+                            detail = result.message,
+                        ),
+                    )
+                }
             }
+        } finally {
+            reduce { state.copy(isImporting = false) }
         }
     }
 

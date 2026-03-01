@@ -4,6 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,8 +13,10 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -238,81 +241,100 @@ fun HomeScreen(
         )
     }
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            HomeTopAppBar(
-                isEditMode = isBrowserEditMode,
-                bookmarkDisplayType = state.bookmarkDisplayType,
-                defaultBrowserIcon = defaultBrowserIcon,
-                onBookmarkDisplayTypeClick = {
-                    onBookmarkDisplayTypeToggle()
-                },
-                onDefaultBrowserIconClick = {
-                    if (state.installedBrowsers.isNotEmpty()) {
-                        showDefaultBrowserDialog = true
-                    }
-                },
-                onSettingsClick = onSettingsClick,
-                onEditLabelClick = {
-                    showColorPickerDialog = true
-                },
-                onEditModeDoneClick = {
-                    isBrowserEditMode = false
-                },
+    Box(modifier = Modifier.fillMaxSize()) {
+        if (state.isImporting) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center),
+                trackColor = androidx.compose.material3.MaterialTheme.colorScheme.surfaceVariant,
             )
-        },
-    ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)) {
-            BookMarkListBar(
-                orderedSnapshotIds = orderedSnapshotIds,
-                bookmarkColors = state.bookmarkColors,
-                selectedBookmarkId = selectedBookmarkId,
-                isEditMode = isBrowserEditMode,
-                onAddClick = {
-                    showImportOptionDialog = true
-                },
-                onSnapshotClick = { snapshotId ->
-                    val targetPage = orderedSnapshotIds.indexOf(snapshotId)
-                    if (targetPage >= 0 && targetPage != pagerState.currentPage) {
-                        scope.launch {
-                            pagerState.animateScrollToPage(targetPage)
-                        }
-                    }
-                },
-                onEnterEditMode = {
-                    isBrowserEditMode = true
-                },
-                onDeleteRequest = { snapshotId ->
-                    pendingDeleteSnapshotId = snapshotId
-                },
-            )
-
-            if (orderedSnapshotIds.isEmpty()) {
-                NoConnectedBrowsers(
-                    modifier = Modifier.weight(1f),
-                    onImportClick = {
-                        showImportOptionDialog = true
-                    },
-                )
-            } else {
-                HorizontalPager(
-                    state = pagerState,
-                    modifier = Modifier.weight(1f),
-                ) { page ->
-                    val snapshotId = orderedSnapshotIds[page]
-                    BookmarkContent(
-                        modifier = Modifier.fillMaxSize(),
-                        bookmarkDocument = state.bookmarkDocuments.getValue(snapshotId),
-                        displayType = state.bookmarkDisplayType,
-                        onBookmarkClick = { url ->
-                            if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
-                                context.showShortToast(
-                                    resources.getString(R.string.open_bookmark_failed),
-                                )
+        } else {
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                topBar = {
+                    HomeTopAppBar(
+                        isEditMode = isBrowserEditMode,
+                        bookmarkDisplayType = state.bookmarkDisplayType,
+                        defaultBrowserIcon = defaultBrowserIcon,
+                        onBookmarkDisplayTypeClick = {
+                            onBookmarkDisplayTypeToggle()
+                        },
+                        onDefaultBrowserIconClick = {
+                            if (state.installedBrowsers.isNotEmpty()) {
+                                showDefaultBrowserDialog = true
                             }
                         },
+                        onSettingsClick = onSettingsClick,
+                        onEditLabelClick = {
+                            showColorPickerDialog = true
+                        },
+                        onEditModeDoneClick = {
+                            isBrowserEditMode = false
+                        },
                     )
+                },
+            ) { innerPadding ->
+                Column(modifier = Modifier.padding(innerPadding)) {
+                    BookMarkListBar(
+                        orderedSnapshotIds = orderedSnapshotIds,
+                        bookmarkColors = state.bookmarkColors,
+                        selectedBookmarkId = selectedBookmarkId,
+                        isEditMode = isBrowserEditMode,
+                        onAddClick = {
+                            showImportOptionDialog = true
+                        },
+                        onSnapshotClick = { snapshotId ->
+                            val targetPage = orderedSnapshotIds.indexOf(snapshotId)
+                            if (targetPage >= 0 && targetPage != pagerState.currentPage) {
+                                scope.launch {
+                                    pagerState.animateScrollToPage(targetPage)
+                                }
+                            }
+                        },
+                        onEnterEditMode = {
+                            isBrowserEditMode = true
+                        },
+                        onDeleteRequest = { snapshotId ->
+                            pendingDeleteSnapshotId = snapshotId
+                        },
+                    )
+
+                    if (orderedSnapshotIds.isEmpty()) {
+                        NoConnectedBrowsers(
+                            modifier = Modifier.weight(1f),
+                            onImportClick = {
+                                showImportOptionDialog = true
+                            },
+                        )
+                    } else {
+                        HorizontalPager(
+                            state = pagerState,
+                            modifier = Modifier.weight(1f),
+                        ) { page ->
+                            val snapshotId = orderedSnapshotIds[page]
+                            val bookmarkDocument = state.bookmarkDocuments[snapshotId]
+                            if (bookmarkDocument != null) {
+                                BookmarkContent(
+                                    modifier = Modifier.fillMaxSize(),
+                                    bookmarkDocument = bookmarkDocument,
+                                    displayType = state.bookmarkDisplayType,
+                                    onBookmarkClick = { url ->
+                                        if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
+                                            context.showShortToast(
+                                                resources.getString(R.string.open_bookmark_failed),
+                                            )
+                                        }
+                                    },
+                                )
+                            } else {
+                                NoConnectedBrowsers(
+                                    modifier = Modifier.fillMaxSize(),
+                                    onImportClick = {
+                                        showImportOptionDialog = true
+                                    },
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }

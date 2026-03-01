@@ -44,8 +44,6 @@ internal fun BookMarkListBar(
     onEnterEditMode: () -> Unit,
     onDeleteRequest: (String) -> Unit,
 ) {
-    if (orderedSnapshotIds.isEmpty()) return
-
     val shakeRotation = rememberInfiniteTransition(label = "connected_browser_shake").animateFloat(
         initialValue = -7f,
         targetValue = 7f,
