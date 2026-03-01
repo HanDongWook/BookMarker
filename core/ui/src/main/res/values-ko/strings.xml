@@ -123,7 +123,7 @@
     <string name="bookmark_color_picker_dialog_title">북마크 색상 선택</string>
     <string name="bookmark_color_picker_dialog_close">닫기</string>
     <string name="folder_style_label">폴더 스타일</string>
-    <string name="folder_style_title">폴더 아이콘 스타일</string>
+    <string name="folder_style_title">폴더 스타일</string>
     <string name="folder_shape_label">폴더 모양</string>
     <string name="folder_color_label">폴더 색상</string>
     <string name="folder_shape_filled">채움</string>
