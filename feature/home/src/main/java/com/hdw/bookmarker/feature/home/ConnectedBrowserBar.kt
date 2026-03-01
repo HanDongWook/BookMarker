@@ -18,7 +18,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.Bookmarks
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -84,7 +83,10 @@ internal fun ConnectedBrowserBar(
                     modifier = Modifier
                         .combinedClickable(
                             onClick = { onBrowserClick(browser.packageName) },
-                            onLongClick = onEnterEditMode,
+                            onLongClick = {
+                                onBrowserClick(browser.packageName)
+                                onEnterEditMode()
+                            },
                         )
                         .padding(horizontal = 6.dp, vertical = 2.dp),
                 ) {
@@ -95,7 +97,8 @@ internal fun ConnectedBrowserBar(
                         modifier = Modifier
                             .size(36.dp)
                             .graphicsLayer {
-                                rotationZ = if (isEditMode && isSelected) shakeRotation.value else 0f
+                                rotationZ =
+                                    if (isEditMode && isSelected) shakeRotation.value else 0f
                             }
                             .alpha(1f),
                     )
