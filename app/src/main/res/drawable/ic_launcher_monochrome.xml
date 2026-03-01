@@ -9,16 +9,10 @@
         android:scaleX="0.74"
         android:scaleY="0.74">
         <path
-            android:fillColor="#FFF7C948"
+            android:fillColor="#FFFFFFFF"
             android:pathData="M33,20h42c5,0 9,4 9,9v58.5c0,1.5 -1.6,2.5 -3,1.8L54,77.5 27,89.3c-1.4,0.7 -3,-0.3 -3,-1.8V29c0,-5 4,-9 9,-9z" />
         <path
-            android:fillColor="#FFEAA92D"
-            android:pathData="M33,20h42c5,0 9,4 9,9v11H24V29c0,-5 4,-9 9,-9z" />
-        <path
-            android:fillColor="#FF2D4E6F"
-            android:pathData="M54,44a8,8 0 1,0 0,16a8,8 0 1,0 0,-16z" />
-        <path
-            android:fillColor="#FFFAF7F2"
+            android:fillColor="#FFFFFFFF"
             android:pathData="M79,22l2.3,5.7 5.7,2.3 -5.7,2.3 -2.3,5.7 -2.3,-5.7 -5.7,-2.3 5.7,-2.3z" />
     </group>
 </vector>

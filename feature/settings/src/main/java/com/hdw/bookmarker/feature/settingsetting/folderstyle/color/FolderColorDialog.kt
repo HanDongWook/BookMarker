@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
-import com.hdw.bookmarker.feature.settingsetting.folderstyle.FolderColorOptionRow
 
 @Composable
 fun FolderColorDialog(
