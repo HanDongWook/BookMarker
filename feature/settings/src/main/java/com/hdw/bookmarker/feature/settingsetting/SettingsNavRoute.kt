@@ -11,4 +11,7 @@ sealed interface SettingsNavRoute {
 
     @Serializable
     data object FolderStyle : SettingsNavRoute
+
+    @Serializable
+    data object OpenSourceLicenses : SettingsNavRoute
 }

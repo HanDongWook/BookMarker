@@ -25,3 +25,6 @@ local.properties
 
 .cxx
 
+# Local version / generated license metadata
+/version.properties
+/app/src/main/res/raw/aboutlibraries.json

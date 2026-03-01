@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.bookmarker.android.application.compose)
     alias(libs.plugins.bookmarker.hilt)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.aboutlibraries)
 }
 
 val versionProperties =
@@ -43,6 +44,16 @@ android {
         compose = true
         buildConfig = true
     }
+}
+
+aboutLibraries {
+    export {
+        outputFile = file("src/main/res/raw/aboutlibraries.json")
+    }
+}
+
+tasks.named("preBuild") {
+    dependsOn("exportLibraryDefinitions")
 }
 
 dependencies {
