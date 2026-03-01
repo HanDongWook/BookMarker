@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.ui.R
 
@@ -75,5 +76,25 @@ fun BookmarkColorPickerDialog(
                 Text(text = stringResource(R.string.bookmark_color_picker_dialog_close))
             }
         },
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BookmarkColorPickerDialogPreview() {
+    BookmarkColorPickerDialog(
+        colors = listOf(
+            0xFFEF5350,
+            0xFFFFA726,
+            0xFFFFEE58,
+            0xFF66BB6A,
+            0xFF42A5F5,
+            0xFF7E57C2,
+            0xFFEC407A,
+            0xFF8D6E63,
+        ),
+        currentColor = 0xFF42A5F5,
+        onColorSelect = {},
+        onDismiss = {},
     )
 }
