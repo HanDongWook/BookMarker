@@ -124,6 +124,8 @@
     <string name="bookmark_color_picker_dialog_close">ปิด</string>
     <string name="folder_style_label">สไตล์โฟลเดอร์</string>
     <string name="folder_style_title">สไตล์โฟลเดอร์</string>
+    <string name="app_language_label">ภาษาของแอป</string>
+    <string name="app_language_system_default">ค่าเริ่มต้นของระบบ</string>
     <string name="folder_shape_label">รูปทรงโฟลเดอร์</string>
     <string name="folder_color_label">สีโฟลเดอร์</string>
     <string name="folder_shape_filled">ทึบ</string>

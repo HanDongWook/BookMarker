@@ -124,6 +124,8 @@
     <string name="bookmark_color_picker_dialog_close">關閉</string>
     <string name="folder_style_label">資料夾樣式</string>
     <string name="folder_style_title">資料夾樣式</string>
+    <string name="app_language_label">應用程式語言</string>
+    <string name="app_language_system_default">系統預設</string>
     <string name="folder_shape_label">資料夾形狀</string>
     <string name="folder_color_label">資料夾顏色</string>
     <string name="folder_shape_filled">實心</string>
