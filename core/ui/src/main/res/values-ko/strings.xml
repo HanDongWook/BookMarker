@@ -13,7 +13,7 @@
     <string name="theme_light">라이트</string>
     <string name="theme_dark">다크</string>
     <string name="not_selected">선택 안 함</string>
-    <string name="edit_mode_editing">편집</string>
+    <string name="edit_mode_editing">편집 중</string>
     <string name="edit_mode_done">완료</string>
     <string name="press_back_to_exit">앱을 종료하려면 뒤로 버튼을 한 번 더 누르세요</string>
     <string name="sync">동기화</string>

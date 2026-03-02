@@ -128,8 +128,8 @@
     <string name="app_language_system_default">सिस्टम डिफ़ॉल्ट</string>
     <string name="folder_shape_label">फ़ोल्डर आकार</string>
     <string name="folder_color_label">फ़ोल्डर रंग</string>
-    <string name="folder_shape_filled">Filled</string>
-    <string name="folder_shape_outlined">Outlined</string>
+    <string name="folder_shape_filled">भरा हुआ</string>
+    <string name="folder_shape_outlined">आउटलाइन</string>
     <string name="folder_color_default">डिफ़ॉल्ट</string>
     <string name="folder_color_blue">नीला</string>
     <string name="folder_color_green">हरा</string>
