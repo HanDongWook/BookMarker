@@ -96,6 +96,7 @@ dependencies {
 
     implementation(libs.androidx.startup)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.foundation)
 
     implementation(libs.androidx.navigation.compose)
