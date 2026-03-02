@@ -5,6 +5,10 @@
 # Local configuration file (sdk path, etc)
 local.properties
 
+# apk & abb
+*.apk
+*.aab
+
 # Intellij
 *.iml
 /.idea/caches
@@ -25,10 +29,15 @@ local.properties
 
 .cxx
 
-# Local
+# Version
 /version.properties
-/app/src/main/res/raw/aboutlibraries.json
+
+# google-services
 /app/src/debug/google-services.json
 /app/src/release/google-services.json
-*.apk
-*.aab
+
+# signing
+/release-signing.properties
+
+# etc
+/app/src/main/res/raw/aboutlibraries.json
