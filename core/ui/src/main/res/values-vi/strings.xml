@@ -124,6 +124,8 @@
     <string name="bookmark_color_picker_dialog_close">Đóng</string>
     <string name="folder_style_label">Kiểu thư mục</string>
     <string name="folder_style_title">Kiểu thư mục</string>
+    <string name="app_language_label">Ngôn ngữ ứng dụng</string>
+    <string name="app_language_system_default">Mặc định hệ thống</string>
     <string name="folder_shape_label">Hình dạng thư mục</string>
     <string name="folder_color_label">Màu thư mục</string>
     <string name="folder_shape_filled">Đổ đầy</string>

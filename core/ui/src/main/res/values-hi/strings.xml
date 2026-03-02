@@ -124,6 +124,8 @@
     <string name="bookmark_color_picker_dialog_close">बंद करें</string>
     <string name="folder_style_label">फ़ोल्डर शैली</string>
     <string name="folder_style_title">फ़ोल्डर शैली</string>
+    <string name="app_language_label">ऐप भाषा</string>
+    <string name="app_language_system_default">सिस्टम डिफ़ॉल्ट</string>
     <string name="folder_shape_label">फ़ोल्डर आकार</string>
     <string name="folder_color_label">फ़ोल्डर रंग</string>
     <string name="folder_shape_filled">Filled</string>

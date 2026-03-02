@@ -124,6 +124,8 @@
     <string name="bookmark_color_picker_dialog_close">Tutup</string>
     <string name="folder_style_label">Gaya folder</string>
     <string name="folder_style_title">Gaya folder</string>
+    <string name="app_language_label">Bahasa aplikasi</string>
+    <string name="app_language_system_default">Default sistem</string>
     <string name="folder_shape_label">Bentuk folder</string>
     <string name="folder_color_label">Warna folder</string>
     <string name="folder_shape_filled">Filled</string>

@@ -22,6 +22,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
 import com.hdw.bookmarker.core.data.repository.SettingsRepository
@@ -35,6 +37,8 @@ import com.hdw.bookmarker.core.ui.util.getTemporaryDataSizeDisplay
 import com.hdw.bookmarker.feature.settingsetting.appversion.AppVersionRow
 import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRow
 import com.hdw.bookmarker.feature.settingsetting.folderstyle.FolderStyleRow
+import com.hdw.bookmarker.feature.settingsetting.language.AppLanguageDialog
+import com.hdw.bookmarker.feature.settingsetting.language.AppLanguageRow
 import com.hdw.bookmarker.feature.settingsetting.opensource.OpenSourceLicenseRow
 import com.hdw.bookmarker.feature.settingsetting.temporarydata.ClearTemporaryDataDialog
 import com.hdw.bookmarker.feature.settingsetting.temporarydata.TemporaryDataRow
@@ -43,6 +47,7 @@ import com.hdw.bookmarker.feature.settingsetting.theme.ThemeModeRow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 
 @Composable
 fun SettingsRoute(onBackClick: () -> Unit) {
@@ -117,7 +122,11 @@ fun SettingsScreen(
     } else {
         SettingsRepository.APP_THEME_MODE_LIGHT
     }
+    var selectedLanguageTag by rememberSaveable {
+        mutableStateOf(AppCompatDelegate.getApplicationLocales().toLanguageTags().substringBefore(","))
+    }
     var showThemeDialog by rememberSaveable { mutableStateOf(false) }
+    var showAppLanguageDialog by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -153,6 +162,12 @@ fun SettingsScreen(
             )
             BookMarkerDivider()
 
+            AppLanguageRow(
+                languageLabel = selectedLanguageTag.toReadableLanguageLabel(resources),
+                onClick = { showAppLanguageDialog = true },
+            )
+            BookMarkerDivider()
+
             FolderStyleRow(
                 shape = selectedFolderIconShape,
                 color = selectedFolderIconColor,
@@ -185,5 +200,37 @@ fun SettingsScreen(
                 showThemeDialog = false
             },
         )
+    }
+
+    if (showAppLanguageDialog) {
+        AppLanguageDialog(
+            selectedLanguageTag = selectedLanguageTag,
+            onDismiss = { showAppLanguageDialog = false },
+            onLanguageSelect = { languageTag ->
+                selectedLanguageTag = languageTag
+                val localeList = if (languageTag.isBlank()) {
+                    LocaleListCompat.getEmptyLocaleList()
+                } else {
+                    LocaleListCompat.forLanguageTags(languageTag)
+                }
+                AppCompatDelegate.setApplicationLocales(localeList)
+                showAppLanguageDialog = false
+            },
+        )
+    }
+}
+
+private fun String.toReadableLanguageLabel(resources: android.content.res.Resources): String {
+    if (isBlank()) {
+        return resources.getString(R.string.app_language_system_default)
+    }
+    val locale = Locale.forLanguageTag(this)
+    val displayName = locale.getDisplayName(locale)
+    return displayName.replaceFirstChar { ch ->
+        if (ch.isLowerCase()) {
+            ch.titlecase(locale)
+        } else {
+            ch.toString()
+        }
     }
 }

@@ -124,6 +124,8 @@
     <string name="bookmark_color_picker_dialog_close">閉じる</string>
     <string name="folder_style_label">フォルダスタイル</string>
     <string name="folder_style_title">フォルダスタイル</string>
+    <string name="app_language_label">アプリの言語</string>
+    <string name="app_language_system_default">システムのデフォルト</string>
     <string name="folder_shape_label">フォルダ形状</string>
     <string name="folder_color_label">フォルダ色</string>
     <string name="folder_shape_filled">塗りつぶし</string>

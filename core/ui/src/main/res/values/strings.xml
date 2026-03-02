@@ -125,6 +125,8 @@
     <string name="bookmark_color_picker_dialog_close">Close</string>
     <string name="folder_style_label">Folder style</string>
     <string name="folder_style_title">Folder style</string>
+    <string name="app_language_label">App language</string>
+    <string name="app_language_system_default">System default</string>
     <string name="folder_shape_label">Folder shape</string>
     <string name="folder_color_label">Folder color</string>
     <string name="folder_shape_filled">Filled</string>
