@@ -18,6 +18,14 @@ val versionProperties =
         }
     }
 
+val releaseSigningProperties =
+    Properties().apply {
+        val signingFile = rootProject.file("release-signing.properties")
+        if (signingFile.exists()) {
+            signingFile.inputStream().use(::load)
+        }
+    }
+
 val appVersionCode = versionProperties.getProperty("VERSION_CODE")?.toIntOrNull() ?: 1
 val appVersionName = versionProperties.getProperty("VERSION_NAME") ?: "1.0.0"
 
@@ -32,9 +40,26 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            val releaseStoreFile = releaseSigningProperties.getProperty("RELEASE_STORE_FILE") ?: ""
+            val releaseStorePassword = releaseSigningProperties.getProperty("RELEASE_STORE_PASSWORD") ?: ""
+            val releaseKeyAlias = releaseSigningProperties.getProperty("RELEASE_KEY_ALIAS") ?: ""
+            val releaseKeyPassword = releaseSigningProperties.getProperty("RELEASE_KEY_PASSWORD") ?: ""
+
+            if (releaseStoreFile.isNotBlank()) {
+                storeFile = rootProject.file(releaseStoreFile)
+            }
+            storePassword = releaseStorePassword
+            keyAlias = releaseKeyAlias
+            keyPassword = releaseKeyPassword
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
