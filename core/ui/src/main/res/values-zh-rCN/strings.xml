@@ -25,6 +25,7 @@
     <string name="bookmark_name">书签名称</string>
     <string name="bookmark_url">书签 URL</string>
     <string name="app_version_label">应用版本</string>
+    <string name="rate_app_label">为此应用评分</string>
     <string name="temporary_data_label">临时数据</string>
     <string name="open_source_licenses_label">开源许可证</string>
     <string name="open_source_licenses_unavailable">无法加载许可证信息。</string>

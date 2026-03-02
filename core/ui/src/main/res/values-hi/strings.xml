@@ -25,6 +25,7 @@
     <string name="bookmark_name">बुकमार्क का नाम</string>
     <string name="bookmark_url">बुकमार्क URL</string>
     <string name="app_version_label">ऐप संस्करण</string>
+    <string name="rate_app_label">ऐप को रेट करें</string>
     <string name="temporary_data_label">अस्थायी डेटा</string>
     <string name="open_source_licenses_label">ओपन सोर्स लाइसेंस</string>
     <string name="open_source_licenses_unavailable">लाइसेंस जानकारी लोड नहीं की जा सकी।</string>

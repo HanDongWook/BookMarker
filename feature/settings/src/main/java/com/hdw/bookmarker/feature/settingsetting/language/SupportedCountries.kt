@@ -1,8 +1,6 @@
 package com.hdw.bookmarker.feature.settingsetting.language
 
-enum class SupportedCountries(
-    val language: SupportedLanguageTags,
-) {
+enum class SupportedCountries(val language: SupportedLanguageTags) {
     GLOBAL_ENGLISH(SupportedLanguageTags.EN),
     INDIA(SupportedLanguageTags.EN_IN),
     KOREA(SupportedLanguageTags.KO),
@@ -49,5 +47,4 @@ enum class SupportedLanguageTags(val tag: String) {
     ZH_TW("zh-TW"),
     TH("th"),
     VI("vi"),
-    ;
 }

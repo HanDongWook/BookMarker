@@ -25,6 +25,7 @@
     <string name="bookmark_name">Lesezeichenname</string>
     <string name="bookmark_url">Lesezeichen-URL</string>
     <string name="app_version_label">App-Version</string>
+    <string name="rate_app_label">Diese App bewerten</string>
     <string name="temporary_data_label">Temporäre Daten</string>
     <string name="open_source_licenses_label">Open-Source-Lizenzen</string>
     <string name="open_source_licenses_unavailable">Lizenzinformationen konnten nicht geladen werden.</string>

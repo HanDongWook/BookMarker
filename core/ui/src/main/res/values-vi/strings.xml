@@ -25,6 +25,7 @@
     <string name="bookmark_name">Tên dấu trang</string>
     <string name="bookmark_url">URL dấu trang</string>
     <string name="app_version_label">Phiên bản ứng dụng</string>
+    <string name="rate_app_label">Đánh giá ứng dụng</string>
     <string name="temporary_data_label">Dữ liệu tạm thời</string>
     <string name="open_source_licenses_label">Giấy phép mã nguồn mở</string>
     <string name="open_source_licenses_unavailable">Không thể tải thông tin giấy phép.</string>
