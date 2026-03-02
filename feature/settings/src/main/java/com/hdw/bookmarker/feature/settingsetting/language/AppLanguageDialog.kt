@@ -25,28 +25,6 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.ui.R
 import java.util.Locale
 
-private val SupportedLanguageTags = listOf(
-    "en",
-    "en-IN",
-    "ko",
-    "ja",
-    "fr",
-    "de",
-    "it",
-    "tr",
-    "es",
-    "pt-BR",
-    "pt-PT",
-    "hi",
-    "id",
-    "ru",
-    "zh-CN",
-    "zh-HK",
-    "zh-TW",
-    "th",
-    "vi",
-)
-
 @Composable
 fun AppLanguageDialog(
     selectedLanguageTag: String,
@@ -58,7 +36,7 @@ fun AppLanguageDialog(
     val languageOptions = remember(systemDefaultLabel) {
         buildList {
             add("" to systemDefaultLabel)
-            SupportedLanguageTags.forEach { tag ->
+            SupportedCountries.supportedLanguageTags.forEach { tag ->
                 add(tag to localeDisplayName(tag))
             }
         }
