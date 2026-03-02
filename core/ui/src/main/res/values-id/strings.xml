@@ -25,6 +25,7 @@
     <string name="bookmark_name">Nama bookmark</string>
     <string name="bookmark_url">URL bookmark</string>
     <string name="app_version_label">Versi aplikasi</string>
+    <string name="rate_app_label">Beri rating aplikasi</string>
     <string name="temporary_data_label">Data sementara</string>
     <string name="open_source_licenses_label">Lisensi open source</string>
     <string name="open_source_licenses_unavailable">Tidak dapat memuat informasi lisensi.</string>

@@ -25,6 +25,7 @@
     <string name="bookmark_name">Название закладки</string>
     <string name="bookmark_url">URL закладки</string>
     <string name="app_version_label">Версия приложения</string>
+    <string name="rate_app_label">Оценить приложение</string>
     <string name="temporary_data_label">Временные данные</string>
     <string name="open_source_licenses_label">Лицензии Open Source</string>
     <string name="open_source_licenses_unavailable">Не удалось загрузить информацию о лицензиях.</string>

@@ -1,5 +1,6 @@
 package com.hdw.bookmarker.feature.settingsetting
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +23,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
@@ -40,6 +40,8 @@ import com.hdw.bookmarker.feature.settingsetting.folderstyle.FolderStyleRow
 import com.hdw.bookmarker.feature.settingsetting.language.AppLanguageDialog
 import com.hdw.bookmarker.feature.settingsetting.language.AppLanguageRow
 import com.hdw.bookmarker.feature.settingsetting.opensource.OpenSourceLicenseRow
+import com.hdw.bookmarker.feature.settingsetting.rateapp.RateAppRow
+import com.hdw.bookmarker.feature.settingsetting.rateapp.requestInAppReview
 import com.hdw.bookmarker.feature.settingsetting.temporarydata.ClearTemporaryDataDialog
 import com.hdw.bookmarker.feature.settingsetting.temporarydata.TemporaryDataRow
 import com.hdw.bookmarker.feature.settingsetting.theme.ThemeModeDialog
@@ -47,7 +49,6 @@ import com.hdw.bookmarker.feature.settingsetting.theme.ThemeModeRow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.Locale
 
 @Composable
 fun SettingsRoute(onBackClick: () -> Unit) {
@@ -115,6 +116,7 @@ fun SettingsScreen(
     onOpenSourceLicensesClick: () -> Unit,
     onThemeModeSelect: (String) -> Unit,
 ) {
+    val context = LocalContext.current
     val resources = LocalResources.current
     val isSystemDarkTheme = isSystemInDarkTheme()
     val effectiveThemeMode = selectedThemeMode ?: if (isSystemDarkTheme) {
@@ -163,7 +165,7 @@ fun SettingsScreen(
             BookMarkerDivider()
 
             AppLanguageRow(
-                languageLabel = selectedLanguageTag.toReadableLanguageLabel(resources),
+                languageTag = selectedLanguageTag,
                 onClick = { showAppLanguageDialog = true },
             )
             BookMarkerDivider()
@@ -183,6 +185,11 @@ fun SettingsScreen(
 
             OpenSourceLicenseRow(
                 onClick = onOpenSourceLicensesClick,
+            )
+            BookMarkerDivider()
+
+            RateAppRow(
+                onClick = { requestInAppReview(context) },
             )
             BookMarkerDivider()
 
@@ -217,20 +224,5 @@ fun SettingsScreen(
                 showAppLanguageDialog = false
             },
         )
-    }
-}
-
-private fun String.toReadableLanguageLabel(resources: android.content.res.Resources): String {
-    if (isBlank()) {
-        return resources.getString(R.string.app_language_system_default)
-    }
-    val locale = Locale.forLanguageTag(this)
-    val displayName = locale.getDisplayName(locale)
-    return displayName.replaceFirstChar { ch ->
-        if (ch.isLowerCase()) {
-            ch.titlecase(locale)
-        } else {
-            ch.toString()
-        }
     }
 }

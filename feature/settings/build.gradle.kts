@@ -19,8 +19,13 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.appcompat)
 
+    implementation(libs.timber)
+
     implementation(libs.coil.compose)
 
     implementation(libs.aboutlibraries.core)
     implementation(libs.aboutlibraries.compose.m3)
+
+    implementation(libs.google.play.review)
+    implementation(libs.google.play.review.ktx)
 }

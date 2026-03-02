@@ -26,11 +26,7 @@ import com.hdw.bookmarker.core.ui.R
 import java.util.Locale
 
 @Composable
-fun AppLanguageDialog(
-    selectedLanguageTag: String,
-    onDismiss: () -> Unit,
-    onLanguageSelect: (String) -> Unit,
-) {
+fun AppLanguageDialog(selectedLanguageTag: String, onDismiss: () -> Unit, onLanguageSelect: (String) -> Unit) {
     var pendingLanguageTag by remember(selectedLanguageTag) { mutableStateOf(selectedLanguageTag) }
     val systemDefaultLabel = stringResource(R.string.app_language_system_default)
     val languageOptions = remember(systemDefaultLabel) {
