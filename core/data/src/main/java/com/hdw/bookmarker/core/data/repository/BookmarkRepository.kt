@@ -8,7 +8,7 @@ import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import kotlinx.coroutines.flow.Flow
 
 interface BookmarkRepository {
-    fun getBookMarks(browser: Browser, uri: Uri): BookmarkImportResult
+    fun getBookmarks(browser: Browser, uri: Uri): BookmarkImportResult
 
     fun getRawFileHash(uri: Uri): ContentFileResult<String>
 

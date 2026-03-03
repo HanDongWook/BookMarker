@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.home.HomeRoute
 import com.hdw.bookmarker.feature.importguide.BookmarkImportGuideRoute
-import com.hdw.bookmarker.feature.settingsetting.SettingsRoute
+import com.hdw.bookmarker.feature.settings.SettingsRoute
 
 @Composable
 fun AppNavHost(navController: NavHostController) {

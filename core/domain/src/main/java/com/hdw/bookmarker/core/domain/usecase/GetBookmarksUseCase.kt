@@ -8,5 +8,5 @@ import javax.inject.Inject
 
 class GetBookmarksUseCase @Inject constructor(private val bookmarkRepository: BookmarkRepository) {
     operator fun invoke(browser: Browser, uri: Uri): BookmarkImportResult =
-        bookmarkRepository.getBookMarks(browser = browser, uri = uri)
+        bookmarkRepository.getBookmarks(browser = browser, uri = uri)
 }

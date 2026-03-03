@@ -14,7 +14,7 @@ import javax.inject.Singleton
 class ChromeBookmarkManager @Inject constructor(private val contentFileManager: ContentFileManager) {
     private val parser = ChromeBookmarkParser()
 
-    fun parsingHtml(uri: Uri): BookmarkImportResult {
+    fun parseHtml(uri: Uri): BookmarkImportResult {
         val htmlContent = when (val fileResult = contentFileManager.readUtf8Text(uri)) {
             is ContentFileResult.Success -> fileResult.data
 
