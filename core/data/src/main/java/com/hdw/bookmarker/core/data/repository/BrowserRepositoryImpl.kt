@@ -3,9 +3,13 @@ package com.hdw.bookmarker.core.data.repository
 import android.app.Application
 import android.content.Intent
 import android.content.pm.PackageManager
+import com.hdw.bookmarker.core.common.BookmarkerDispatchers
+import com.hdw.bookmarker.core.common.Dispatcher
 import com.hdw.bookmarker.core.datastore.bookmark.BookMarkerBookmarkSnapshotDatastore
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
@@ -13,9 +17,10 @@ import javax.inject.Inject
 class BrowserRepositoryImpl @Inject constructor(
     private val application: Application,
     private val bookmarkSnapshotDatastore: BookMarkerBookmarkSnapshotDatastore,
+    @param:Dispatcher(BookmarkerDispatchers.Default) private val defaultDispatcher: CoroutineDispatcher,
 ) : BrowserRepository {
 
-    override fun getInstalledBrowsers(): List<BrowserInfo> {
+    override suspend fun getInstalledBrowsers(): List<BrowserInfo> = withContext(defaultDispatcher) {
         val packageManager = application.packageManager
 
         val browserIntent = Intent.makeMainSelectorActivity(
@@ -48,8 +53,8 @@ class BrowserRepositoryImpl @Inject constructor(
             }
         }.distinctBy { it.packageName }
 
-        Timber.e("Found ${browsers.size} browsers: ${browsers.map { it.appName }}")
-        return browsers
+        Timber.d("Found ${browsers.size} browsers: ${browsers.map { it.appName }}")
+        browsers
     }
 
     private fun isExcludedNaverApp(packageName: String, appName: String): Boolean {

@@ -1,21 +1,28 @@
 package com.hdw.bookmarker.core.data.bookmark.importer
 
 import android.net.Uri
+import com.hdw.bookmarker.core.common.BookmarkerDispatchers
+import com.hdw.bookmarker.core.common.Dispatcher
 import com.hdw.bookmarker.core.data.bookmark.parser.BookmarkHtmlParser
 import com.hdw.bookmarker.core.data.file.ContentFileManager
 import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
 import com.hdw.bookmarker.core.model.file.error.ContentFileError
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class BookmarkHtmlImportManager @Inject constructor(private val contentFileManager: ContentFileManager) {
+class BookmarkHtmlImportManager @Inject constructor(
+    private val contentFileManager: ContentFileManager,
+    @param:Dispatcher(BookmarkerDispatchers.Default) private val defaultDispatcher: CoroutineDispatcher,
+) {
     private val parser = BookmarkHtmlParser()
 
-    fun parseHtml(uri: Uri): BookmarkImportResult {
+    suspend fun parseHtml(uri: Uri): BookmarkImportResult {
         val htmlContent = when (val fileResult = contentFileManager.readUtf8Text(uri)) {
             is ContentFileResult.Success -> fileResult.data
 
@@ -28,7 +35,9 @@ class BookmarkHtmlImportManager @Inject constructor(private val contentFileManag
         }
 
         return try {
-            val document = parser.getBookmarkDocument(htmlContent)
+            val document = withContext(defaultDispatcher) {
+                parser.getBookmarkDocument(htmlContent)
+            }
             BookmarkImportResult.Success(document)
         } catch (exception: Exception) {
             Timber.e(exception, "Unknown parse error while reading bookmark html. uri=%s", uri)

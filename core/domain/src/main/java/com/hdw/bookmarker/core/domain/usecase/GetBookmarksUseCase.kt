@@ -7,6 +7,6 @@ import com.hdw.bookmarker.core.model.browser.Browser
 import javax.inject.Inject
 
 class GetBookmarksUseCase @Inject constructor(private val bookmarkRepository: BookmarkRepository) {
-    operator fun invoke(browser: Browser, uri: Uri): BookmarkImportResult =
+    suspend operator fun invoke(browser: Browser, uri: Uri): BookmarkImportResult =
         bookmarkRepository.getBookmarks(browser = browser, uri = uri)
 }

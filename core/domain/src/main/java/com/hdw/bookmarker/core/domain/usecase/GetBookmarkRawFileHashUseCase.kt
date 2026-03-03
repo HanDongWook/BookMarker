@@ -6,5 +6,5 @@ import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import javax.inject.Inject
 
 class GetBookmarkRawFileHashUseCase @Inject constructor(private val bookmarkRepository: BookmarkRepository) {
-    operator fun invoke(uri: Uri): ContentFileResult<String> = bookmarkRepository.getRawFileHash(uri)
+    suspend operator fun invoke(uri: Uri): ContentFileResult<String> = bookmarkRepository.getRawFileHash(uri)
 }

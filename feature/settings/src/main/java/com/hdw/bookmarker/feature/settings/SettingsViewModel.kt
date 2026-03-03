@@ -49,7 +49,7 @@ class SettingsViewModel @AssistedInject constructor(
     private var observingFolderIconShape = false
     private var observingFolderIconColor = false
 
-    fun initialize(appVersion: String) {
+    suspend fun initialize(appVersion: String) {
         val installedBrowsers = getInstalledBrowsersUseCase()
         withState { _ ->
             setState {

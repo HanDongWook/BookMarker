@@ -2,9 +2,13 @@ package com.hdw.bookmarker.core.data.file
 
 import android.content.Context
 import android.net.Uri
+import com.hdw.bookmarker.core.common.BookmarkerDispatchers
+import com.hdw.bookmarker.core.common.Dispatcher
 import com.hdw.bookmarker.core.model.file.error.ContentFileError
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -13,9 +17,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ContentFileManager @Inject constructor(@param:ApplicationContext private val context: Context) {
+class ContentFileManager @Inject constructor(
+    @param:ApplicationContext private val context: Context,
+    @param:Dispatcher(BookmarkerDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
+) {
 
-    internal fun readUtf8Text(uri: Uri): ContentFileResult<String> = when (val bytesResult = readBytes(uri)) {
+    internal suspend fun readUtf8Text(uri: Uri): ContentFileResult<String> = when (val bytesResult = readBytes(uri)) {
         is ContentFileResult.Success -> {
             val text = bytesResult.data.toString(Charsets.UTF_8)
             if (text.isBlank()) {
@@ -28,7 +35,7 @@ class ContentFileManager @Inject constructor(@param:ApplicationContext private v
         is ContentFileResult.Failure -> bytesResult
     }
 
-    internal fun getRawFileHash(uri: Uri): ContentFileResult<String> = when (val bytesResult = readBytes(uri)) {
+    internal suspend fun getRawFileHash(uri: Uri): ContentFileResult<String> = when (val bytesResult = readBytes(uri)) {
         is ContentFileResult.Success -> {
             val digest = MessageDigest.getInstance("SHA-256").digest(bytesResult.data)
             val hash = digest.joinToString(separator = "") { byte -> "%02x".format(byte) }
@@ -38,14 +45,14 @@ class ContentFileManager @Inject constructor(@param:ApplicationContext private v
         is ContentFileResult.Failure -> bytesResult
     }
 
-    private fun readBytes(uri: Uri): ContentFileResult<ByteArray> {
-        return try {
+    private suspend fun readBytes(uri: Uri): ContentFileResult<ByteArray> = withContext(ioDispatcher) {
+        try {
             val bytes = context.contentResolver.openInputStream(uri)
                 ?.use { it.readBytes() }
-                ?: return ContentFileResult.Failure(error = ContentFileError.INVALID_URI)
+                ?: return@withContext ContentFileResult.Failure(error = ContentFileError.INVALID_URI)
 
             if (bytes.isEmpty()) {
-                return ContentFileResult.Failure(error = ContentFileError.EMPTY_CONTENT)
+                return@withContext ContentFileResult.Failure(error = ContentFileError.EMPTY_CONTENT)
             }
 
             ContentFileResult.Success(data = bytes)
