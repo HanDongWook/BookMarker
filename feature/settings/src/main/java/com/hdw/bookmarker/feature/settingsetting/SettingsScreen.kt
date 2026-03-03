@@ -32,6 +32,7 @@ import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.ui.url.AppWebUrl
 import com.hdw.bookmarker.core.ui.util.clearTemporaryData
 import com.hdw.bookmarker.core.ui.util.getAppVersionDisplay
 import com.hdw.bookmarker.core.ui.util.getTemporaryDataSizeDisplay
@@ -197,7 +198,7 @@ fun SettingsScreen(
             BookMarkerDivider()
 
             PrivacyPolicyRow(
-                onClick = { uriHandler.openUri(PRIVACY_POLICY_URL) },
+                onClick = { uriHandler.openUri(AppWebUrl.PRIVACY_POLICY_URL) },
             )
             BookMarkerDivider()
 
@@ -234,5 +235,3 @@ fun SettingsScreen(
         )
     }
 }
-
-private const val PRIVACY_POLICY_URL = "https://example.com/privacy-policy"
