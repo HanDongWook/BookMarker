@@ -3,8 +3,6 @@ package com.hdw.bookmarker.feature.settingsetting.folderstyle
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -37,10 +35,6 @@ fun FolderStyleRow(shape: BookmarkFolderIconShape, color: BookmarkFolderIconColo
                 Text(
                     text = "${shape.label()} / ${color.label()}",
                     style = MaterialTheme.typography.bodyMedium,
-                )
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                    contentDescription = null,
                 )
             }
         },

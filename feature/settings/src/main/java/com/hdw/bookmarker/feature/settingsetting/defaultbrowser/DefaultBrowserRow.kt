@@ -3,9 +3,6 @@ package com.hdw.bookmarker.feature.settingsetting.defaultbrowser
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,10 +34,6 @@ fun DefaultBrowserRow(browserName: String, browserIcon: Any?, onClick: () -> Uni
                 Text(
                     text = browserName,
                     style = MaterialTheme.typography.bodyMedium,
-                )
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                    contentDescription = null,
                 )
             }
         },
