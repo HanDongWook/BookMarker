@@ -1,7 +1,7 @@
 package com.hdw.bookmarker.core.data.repository
 
 import android.net.Uri
-import com.hdw.bookmarker.core.data.bookmark.chrome.ChromeBookmarkManager
+import com.hdw.bookmarker.core.data.bookmark.importer.BookmarkHtmlImportManager
 import com.hdw.bookmarker.core.data.file.ContentFileManager
 import com.hdw.bookmarker.core.datastore.bookmark.BookMarkerBookmarkSnapshotDatastore
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
@@ -15,7 +15,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class BookmarkRepositoryImpl @Inject constructor(
-    private val chromeBookmarkManager: ChromeBookmarkManager,
+    private val bookmarkHtmlImportManager: BookmarkHtmlImportManager,
     private val contentFileManager: ContentFileManager,
     private val bookmarkSnapshotDatastore: BookMarkerBookmarkSnapshotDatastore,
 ) : BookmarkRepository {
@@ -31,7 +31,7 @@ class BookmarkRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun handleChromeBookmark(uri: Uri): BookmarkImportResult = chromeBookmarkManager.parseHtml(uri)
+    private fun handleChromeBookmark(uri: Uri): BookmarkImportResult = bookmarkHtmlImportManager.parseHtml(uri)
 
     override fun getRawFileHash(uri: Uri): ContentFileResult<String> = contentFileManager.getRawFileHash(uri)
 

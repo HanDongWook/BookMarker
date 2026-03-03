@@ -1,6 +1,7 @@
-package com.hdw.bookmarker.core.data.bookmark.chrome
+package com.hdw.bookmarker.core.data.bookmark.importer
 
 import android.net.Uri
+import com.hdw.bookmarker.core.data.bookmark.parser.BookmarkHtmlParser
 import com.hdw.bookmarker.core.data.file.ContentFileManager
 import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
@@ -11,8 +12,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ChromeBookmarkManager @Inject constructor(private val contentFileManager: ContentFileManager) {
-    private val parser = ChromeBookmarkParser()
+class BookmarkHtmlImportManager @Inject constructor(private val contentFileManager: ContentFileManager) {
+    private val parser = BookmarkHtmlParser()
 
     fun parseHtml(uri: Uri): BookmarkImportResult {
         val htmlContent = when (val fileResult = contentFileManager.readUtf8Text(uri)) {
