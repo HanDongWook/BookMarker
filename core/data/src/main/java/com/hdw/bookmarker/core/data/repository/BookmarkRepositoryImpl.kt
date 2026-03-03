@@ -20,7 +20,7 @@ class BookmarkRepositoryImpl @Inject constructor(
     private val bookmarkSnapshotDatastore: BookMarkerBookmarkSnapshotDatastore,
 ) : BookmarkRepository {
 
-    override fun getBookmarks(browser: Browser, uri: Uri): BookmarkImportResult {
+    override suspend fun getBookmarks(browser: Browser, uri: Uri): BookmarkImportResult {
         Timber.d("getBookmarks browser:$browser")
         return when (browser) {
             Browser.CHROME -> handleChromeBookmark(uri)
@@ -31,9 +31,9 @@ class BookmarkRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun handleChromeBookmark(uri: Uri): BookmarkImportResult = bookmarkHtmlImportManager.parseHtml(uri)
+    private suspend fun handleChromeBookmark(uri: Uri): BookmarkImportResult = bookmarkHtmlImportManager.parseHtml(uri)
 
-    override fun getRawFileHash(uri: Uri): ContentFileResult<String> = contentFileManager.getRawFileHash(uri)
+    override suspend fun getRawFileHash(uri: Uri): ContentFileResult<String> = contentFileManager.getRawFileHash(uri)
 
     override fun getBookmarkSnapshotsFlow(): Flow<Map<String, BookmarkDocument>> =
         bookmarkSnapshotDatastore.getSnapshotsFlow()
