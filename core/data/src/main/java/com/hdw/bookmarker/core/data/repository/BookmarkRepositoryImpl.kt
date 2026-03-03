@@ -20,10 +20,10 @@ class BookmarkRepositoryImpl @Inject constructor(
     private val bookmarkSnapshotDatastore: BookMarkerBookmarkSnapshotDatastore,
 ) : BookmarkRepository {
 
-    override fun getBookMarks(browser: Browser, uri: Uri): BookmarkImportResult {
-        Timber.d("getBookMarks browser:$browser")
+    override fun getBookmarks(browser: Browser, uri: Uri): BookmarkImportResult {
+        Timber.d("getBookmarks browser:$browser")
         return when (browser) {
-            Browser.CHROME -> handleChromeBookMarker(uri)
+            Browser.CHROME -> handleChromeBookmark(uri)
 
             else -> BookmarkImportResult.Failure(
                 error = BookmarkImportError.UNSUPPORTED_BROWSER,
@@ -31,7 +31,7 @@ class BookmarkRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun handleChromeBookMarker(uri: Uri): BookmarkImportResult = chromeBookmarkManager.parsingHtml(uri)
+    private fun handleChromeBookmark(uri: Uri): BookmarkImportResult = chromeBookmarkManager.parseHtml(uri)
 
     override fun getRawFileHash(uri: Uri): ContentFileResult<String> = contentFileManager.getRawFileHash(uri)
 

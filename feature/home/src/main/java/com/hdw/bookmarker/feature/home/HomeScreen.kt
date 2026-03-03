@@ -40,7 +40,7 @@ import com.hdw.bookmarker.core.model.MimeTypes
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.appbar.HomeTopAppBar
-import com.hdw.bookmarker.feature.home.boomarkcontent.BookmarkContent
+import com.hdw.bookmarker.feature.home.bookmarkcontent.BookmarkContent
 import com.hdw.bookmarker.feature.home.dialog.AddBookmarkDialog
 import com.hdw.bookmarker.feature.home.dialog.AddFolderDialog
 import com.hdw.bookmarker.feature.home.dialog.AddItemTypeDialog
@@ -348,7 +348,7 @@ fun HomeScreen(
                 },
             ) { innerPadding ->
                 Column(modifier = Modifier.padding(innerPadding)) {
-                    BookMarkListBar(
+                    BookmarkListBar(
                         orderedSnapshotIds = orderedSnapshotIds,
                         bookmarkColors = state.bookmarkColors,
                         selectedBookmarkId = selectedBookmarkId,
