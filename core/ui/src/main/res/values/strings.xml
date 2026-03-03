@@ -27,6 +27,7 @@
     <string name="bookmark_url">Bookmark URL</string>
     <string name="app_version_label">App Version</string>
     <string name="rate_app_label">Rate this app</string>
+    <string name="privacy_policy_label">Privacy Policy</string>
     <string name="temporary_data_label">Temporary Data</string>
     <string name="open_source_licenses_label">Open Source Licenses</string>
     <string name="open_source_licenses_unavailable">Unable to load license information.</string>

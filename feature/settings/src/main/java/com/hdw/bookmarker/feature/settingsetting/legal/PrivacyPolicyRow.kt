@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.settingsetting.opensource
+package com.hdw.bookmarker.feature.settingsetting.legal
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
@@ -6,9 +6,9 @@ import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.settingsetting.SettingsRow
 
 @Composable
-fun OpenSourceLicenseRow(onClick: () -> Unit) {
+fun PrivacyPolicyRow(onClick: () -> Unit) {
     SettingsRow(
-        title = stringResource(R.string.open_source_licenses_label),
+        title = stringResource(R.string.privacy_policy_label),
         onClick = onClick,
     )
 }

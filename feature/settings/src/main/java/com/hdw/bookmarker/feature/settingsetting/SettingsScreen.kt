@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.core.os.LocaleListCompat
 import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
@@ -39,6 +40,7 @@ import com.hdw.bookmarker.feature.settingsetting.defaultbrowser.DefaultBrowserRo
 import com.hdw.bookmarker.feature.settingsetting.folderstyle.FolderStyleRow
 import com.hdw.bookmarker.feature.settingsetting.language.AppLanguageDialog
 import com.hdw.bookmarker.feature.settingsetting.language.AppLanguageRow
+import com.hdw.bookmarker.feature.settingsetting.legal.PrivacyPolicyRow
 import com.hdw.bookmarker.feature.settingsetting.opensource.OpenSourceLicenseRow
 import com.hdw.bookmarker.feature.settingsetting.rateapp.RateAppRow
 import com.hdw.bookmarker.feature.settingsetting.rateapp.requestInAppReview
@@ -117,6 +119,7 @@ fun SettingsScreen(
     onThemeModeSelect: (String) -> Unit,
 ) {
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
     val resources = LocalResources.current
     val isSystemDarkTheme = isSystemInDarkTheme()
     val effectiveThemeMode = selectedThemeMode ?: if (isSystemDarkTheme) {
@@ -193,6 +196,11 @@ fun SettingsScreen(
             )
             BookMarkerDivider()
 
+            PrivacyPolicyRow(
+                onClick = { uriHandler.openUri(PRIVACY_POLICY_URL) },
+            )
+            BookMarkerDivider()
+
             AppVersionRow(version = appVersion)
             BookMarkerDivider()
         }
@@ -226,3 +234,5 @@ fun SettingsScreen(
         )
     }
 }
+
+private const val PRIVACY_POLICY_URL = "https://example.com/privacy-policy"

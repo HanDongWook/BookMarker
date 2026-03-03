@@ -3,6 +3,7 @@ package com.hdw.bookmarker.feature.settingsetting
 import kotlinx.serialization.Serializable
 
 sealed interface SettingsNavRoute {
+
     @Serializable
     data object Main : SettingsNavRoute
 

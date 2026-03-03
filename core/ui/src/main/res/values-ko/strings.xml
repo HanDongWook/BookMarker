@@ -26,6 +26,7 @@
     <string name="bookmark_url">북마크 URL</string>
     <string name="app_version_label">앱 버전</string>
     <string name="rate_app_label">앱 평가하기</string>
+    <string name="privacy_policy_label">개인정보 처리방침</string>
     <string name="temporary_data_label">임시 데이터</string>
     <string name="open_source_licenses_label">오픈소스 라이선스</string>
     <string name="open_source_licenses_unavailable">라이선스 정보를 불러올 수 없습니다.</string>
