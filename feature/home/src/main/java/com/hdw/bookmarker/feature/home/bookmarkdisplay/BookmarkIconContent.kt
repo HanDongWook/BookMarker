@@ -49,6 +49,7 @@ internal fun BookmarkIconContent(
     val folderPathStack = remember(bookmarkDocument) { mutableStateListOf<Int>() }
     val currentFolder = folderDepthStack.lastOrNull()
     val currentItems = currentFolder?.children ?: bookmarkDocument.rootItems
+    val currentFolderPath = folderDepthStack.joinToString(separator = "/") { it.title }
 
     BackHandler(enabled = folderDepthStack.isNotEmpty()) {
         folderDepthStack.removeAt(folderDepthStack.lastIndex)
@@ -77,10 +78,10 @@ internal fun BookmarkIconContent(
                     )
                 }
                 Text(
-                    text = currentFolder?.title.orEmpty(),
+                    text = currentFolderPath,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+                    overflow = TextOverflow.StartEllipsis,
                     modifier = Modifier.padding(end = 12.dp),
                 )
             }
