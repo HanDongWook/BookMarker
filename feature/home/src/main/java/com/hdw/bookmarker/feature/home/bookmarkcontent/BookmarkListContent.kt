@@ -1,5 +1,6 @@
 package com.hdw.bookmarker.feature.home.bookmarkcontent
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
@@ -17,14 +19,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.LineHeightStyle
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
@@ -63,6 +70,7 @@ internal fun BookmarkListContent(
     val expandedFolders = rememberSaveable(saver = ExpandedFoldersSaver) {
         mutableStateMapOf<String, Boolean>()
     }
+    var selectedFolderKey by rememberSaveable { mutableStateOf<String?>(null) }
     val visibleNodes = remember(bookmarkDocument, expandedFolders.toMap()) {
         flattenBookmarkTree(
             items = bookmarkDocument.rootItems,
@@ -74,7 +82,7 @@ internal fun BookmarkListContent(
         modifier = modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(2.dp),
-        contentPadding = PaddingValues(start = 8.dp, top = 4.dp, end = 4.dp, bottom = 4.dp)
+        contentPadding = PaddingValues(start = 8.dp, top = 4.dp, end = 4.dp, bottom = 4.dp),
     ) {
         items(items = visibleNodes, key = { it.key }) { node ->
             when (val item = node.item) {
@@ -83,10 +91,12 @@ internal fun BookmarkListContent(
                         folder = item,
                         depth = node.depth,
                         isExpanded = expandedFolders[node.key] == true,
+                        isSelected = selectedFolderKey == node.key,
                         folderIconShape = folderIconShape,
                         folderIconColor = folderIconColor,
                         onLongClick = { onItemLongClick(item, node.path) },
                         onToggle = {
+                            selectedFolderKey = node.key
                             if (expandedFolders[node.key] == true) {
                                 expandedFolders.remove(node.key)
                             } else {
@@ -114,6 +124,7 @@ private fun BookmarkFolderRow(
     folder: BookmarkItem.Folder,
     depth: Int,
     isExpanded: Boolean,
+    isSelected: Boolean,
     folderIconShape: BookmarkFolderIconShape,
     folderIconColor: BookmarkFolderIconColor,
     onLongClick: () -> Unit,
@@ -123,11 +134,20 @@ private fun BookmarkFolderRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(start = (depth * 16).dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(
+                if (isSelected) {
+                    folderIconColor.resolveTint().copy(alpha = 0.25f)
+                } else {
+                    Color.Transparent
+                },
+            )
             .combinedClickable(
                 onClick = onToggle,
                 onLongClick = onLongClick,
             )
-            .padding(start = (depth * 16).dp, end = 12.dp, top = 8.dp, bottom = 8.dp),
+            .padding(start = 8.dp, end = 12.dp, top = 8.dp, bottom = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
@@ -138,6 +158,7 @@ private fun BookmarkFolderRow(
         Text(
             text = "${folder.title} ($directChildCount)",
             style = MaterialTheme.typography.bodyLarge,
+            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
