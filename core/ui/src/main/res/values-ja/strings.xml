@@ -26,6 +26,10 @@
     <string name="bookmark_url">ブックマークURL</string>
     <string name="app_version_label">アプリバージョン</string>
     <string name="rate_app_label">このアプリを評価</string>
+    <string name="share_app_label">このアプリを共有</string>
+    <string name="share_app_chooser_title">アプリを共有</string>
+    <string name="share_app_message">BookMarkerを使ってみてください: %1$s</string>
+    <string name="privacy_policy_label">プライバシーポリシー</string>
     <string name="temporary_data_label">一時データ</string>
     <string name="open_source_licenses_label">オープンソースライセンス</string>
     <string name="open_source_licenses_unavailable">ライセンス情報を読み込めませんでした。</string>

@@ -26,6 +26,10 @@
     <string name="bookmark_url">URL закладки</string>
     <string name="app_version_label">Версия приложения</string>
     <string name="rate_app_label">Оценить приложение</string>
+    <string name="share_app_label">Поделиться приложением</string>
+    <string name="share_app_chooser_title">Поделиться приложением</string>
+    <string name="share_app_message">Попробуйте BookMarker: %1$s</string>
+    <string name="privacy_policy_label">Политика конфиденциальности</string>
     <string name="temporary_data_label">Временные данные</string>
     <string name="open_source_licenses_label">Лицензии Open Source</string>
     <string name="open_source_licenses_unavailable">Не удалось загрузить информацию о лицензиях.</string>

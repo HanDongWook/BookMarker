@@ -26,6 +26,10 @@
     <string name="bookmark_url">URL บุ๊กมาร์ก</string>
     <string name="app_version_label">เวอร์ชันแอป</string>
     <string name="rate_app_label">ให้คะแนนแอปนี้</string>
+    <string name="share_app_label">แชร์แอปนี้</string>
+    <string name="share_app_chooser_title">แชร์แอป</string>
+    <string name="share_app_message">ลองใช้ BookMarker: %1$s</string>
+    <string name="privacy_policy_label">นโยบายความเป็นส่วนตัว</string>
     <string name="temporary_data_label">ข้อมูลชั่วคราว</string>
     <string name="open_source_licenses_label">สัญญาอนุญาตโอเพนซอร์ส</string>
     <string name="open_source_licenses_unavailable">ไม่สามารถโหลดข้อมูลสัญญาอนุญาตได้</string>

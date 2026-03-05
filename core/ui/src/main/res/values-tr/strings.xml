@@ -26,6 +26,10 @@
     <string name="bookmark_url">Yer imi URL’si</string>
     <string name="app_version_label">Uygulama sürümü</string>
     <string name="rate_app_label">Bu uygulamayı değerlendir</string>
+    <string name="share_app_label">Bu uygulamayı paylaş</string>
+    <string name="share_app_chooser_title">Uygulamayı paylaş</string>
+    <string name="share_app_message">BookMarker’ı deneyin: %1$s</string>
+    <string name="privacy_policy_label">Gizlilik Politikası</string>
     <string name="temporary_data_label">Geçici veriler</string>
     <string name="open_source_licenses_label">Açık kaynak lisansları</string>
     <string name="open_source_licenses_unavailable">Lisans bilgileri yüklenemedi.</string>

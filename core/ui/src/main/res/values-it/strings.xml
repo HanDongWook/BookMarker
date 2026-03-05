@@ -26,6 +26,10 @@
     <string name="bookmark_url">URL segnalibro</string>
     <string name="app_version_label">Versione app</string>
     <string name="rate_app_label">Valuta questa app</string>
+    <string name="share_app_label">Condividi questa app</string>
+    <string name="share_app_chooser_title">Condividi app</string>
+    <string name="share_app_message">Prova BookMarker: %1$s</string>
+    <string name="privacy_policy_label">Informativa sulla privacy</string>
     <string name="temporary_data_label">Dati temporanei</string>
     <string name="open_source_licenses_label">Licenze open source</string>
     <string name="open_source_licenses_unavailable">Impossibile caricare le informazioni sulle licenze.</string>

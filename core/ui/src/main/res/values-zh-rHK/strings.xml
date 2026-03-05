@@ -26,6 +26,10 @@
     <string name="bookmark_url">書籤 URL</string>
     <string name="app_version_label">App 版本</string>
     <string name="rate_app_label">為此應用程式評分</string>
+    <string name="share_app_label">分享此應用程式</string>
+    <string name="share_app_chooser_title">分享應用程式</string>
+    <string name="share_app_message">試試 BookMarker：%1$s</string>
+    <string name="privacy_policy_label">私隱政策</string>
     <string name="temporary_data_label">暫存資料</string>
     <string name="open_source_licenses_label">開源授權</string>
     <string name="open_source_licenses_unavailable">無法載入授權資訊。</string>

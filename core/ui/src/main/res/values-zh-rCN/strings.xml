@@ -26,6 +26,10 @@
     <string name="bookmark_url">书签 URL</string>
     <string name="app_version_label">应用版本</string>
     <string name="rate_app_label">为此应用评分</string>
+    <string name="share_app_label">分享此应用</string>
+    <string name="share_app_chooser_title">分享应用</string>
+    <string name="share_app_message">试试 BookMarker：%1$s</string>
+    <string name="privacy_policy_label">隐私政策</string>
     <string name="temporary_data_label">临时数据</string>
     <string name="open_source_licenses_label">开源许可证</string>
     <string name="open_source_licenses_unavailable">无法加载许可证信息。</string>

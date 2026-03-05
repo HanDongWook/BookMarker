@@ -26,6 +26,10 @@
     <string name="bookmark_url">URL do marcador</string>
     <string name="app_version_label">Versão da aplicação</string>
     <string name="rate_app_label">Avaliar esta aplicação</string>
+    <string name="share_app_label">Partilhar esta aplicação</string>
+    <string name="share_app_chooser_title">Partilhar aplicação</string>
+    <string name="share_app_message">Experimente o BookMarker: %1$s</string>
+    <string name="privacy_policy_label">Política de privacidade</string>
     <string name="temporary_data_label">Dados temporários</string>
     <string name="open_source_licenses_label">Licenças de código aberto</string>
     <string name="open_source_licenses_unavailable">Não foi possível carregar as informações de licença.</string>

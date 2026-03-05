@@ -46,6 +46,8 @@ import com.hdw.bookmarker.feature.settings.legal.PrivacyPolicyRow
 import com.hdw.bookmarker.feature.settings.opensource.OpenSourceLicenseRow
 import com.hdw.bookmarker.feature.settings.rateapp.RateAppRow
 import com.hdw.bookmarker.feature.settings.rateapp.requestInAppReview
+import com.hdw.bookmarker.feature.settings.shareapp.ShareAppRow
+import com.hdw.bookmarker.feature.settings.shareapp.requestAppShare
 import com.hdw.bookmarker.feature.settings.temporarydata.ClearTemporaryDataDialog
 import com.hdw.bookmarker.feature.settings.temporarydata.TemporaryDataRow
 import com.hdw.bookmarker.feature.settings.theme.ThemeModeDialog
@@ -195,6 +197,11 @@ fun SettingsScreen(
 
             RateAppRow(
                 onClick = { requestInAppReview(context) },
+            )
+            BookMarkerDivider()
+
+            ShareAppRow(
+                onClick = { requestAppShare(context) },
             )
             BookMarkerDivider()
 
