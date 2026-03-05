@@ -18,6 +18,7 @@
     <string name="press_back_to_exit">Premi di nuovo Indietro per chiudere l’app</string>
     <string name="sync">Sincronizza</string>
     <string name="add">Aggiungi</string>
+    <string name="action_apply">Applica</string>
     <string name="add_folder">Aggiungi cartella</string>
     <string name="add_bookmark">Aggiungi segnalibro</string>
     <string name="add_bookmark_or_folder">Aggiungi segnalibro o cartella</string>

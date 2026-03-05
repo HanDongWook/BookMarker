@@ -18,6 +18,7 @@
     <string name="press_back_to_exit">Нажмите «Назад» ещё раз, чтобы закрыть приложение</string>
     <string name="sync">Синхронизировать</string>
     <string name="add">Добавить</string>
+    <string name="action_apply">Применить</string>
     <string name="add_folder">Добавить папку</string>
     <string name="add_bookmark">Добавить закладку</string>
     <string name="add_bookmark_or_folder">Добавить закладку или папку</string>

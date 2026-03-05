@@ -19,6 +19,7 @@
     <string name="press_back_to_exit">Press back one more time to close the app</string>
     <string name="sync">Sync</string>
     <string name="add">Add</string>
+    <string name="action_apply">Apply</string>
     <string name="add_folder">Add Folder</string>
     <string name="add_bookmark">Add Bookmark</string>
     <string name="add_bookmark_or_folder">Add bookmark or folder</string>

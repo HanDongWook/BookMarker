@@ -18,6 +18,7 @@
     <string name="press_back_to_exit">ऐप बंद करने के लिए एक बार और बैक दबाएं</string>
     <string name="sync">सिंक</string>
     <string name="add">जोड़ें</string>
+    <string name="action_apply">लागू करें</string>
     <string name="add_folder">फ़ोल्डर जोड़ें</string>
     <string name="add_bookmark">बुकमार्क जोड़ें</string>
     <string name="add_bookmark_or_folder">बुकमार्क या फ़ोल्डर जोड़ें</string>
