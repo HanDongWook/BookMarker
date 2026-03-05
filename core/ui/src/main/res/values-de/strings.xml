@@ -12,7 +12,7 @@
     <string name="theme_label">Design</string>
     <string name="theme_light">Hell</string>
     <string name="theme_dark">Dunkel</string>
-    <string name="not_selected">Nicht ausgewählt</string>
+    <string name="bookmarker_not_selected">Nicht ausgewählt</string>
     <string name="edit_mode_editing">Bearbeiten</string>
     <string name="edit_mode_done">Fertig</string>
     <string name="press_back_to_exit">Drücken Sie Zurück noch einmal, um die App zu schließen</string>
@@ -24,6 +24,9 @@
     <string name="folder_name">Ordnername</string>
     <string name="bookmark_name">Lesezeichenname</string>
     <string name="bookmark_url">Lesezeichen-URL</string>
+    <string name="bookmark_snapshot_name">Snapshot-Name</string>
+    <string name="default_snapshot_title_prefix">Lesezeichen</string>
+    <string name="rename_bookmark_snapshot">Snapshot umbenennen</string>
     <string name="app_version_label">App-Version</string>
     <string name="rate_app_label">Diese App bewerten</string>
     <string name="share_app_label">Diese App teilen</string>

@@ -37,7 +37,7 @@ internal fun SettingsNavHost(
                 selectedThemeMode = state.selectedThemeMode,
                 selectedBrowserName =
                 state.installedBrowsers.firstOrNull { it.packageName == state.selectedBrowserPackage }?.appName
-                    ?: stringResource(R.string.not_selected),
+                    ?: stringResource(R.string.bookmarker_not_selected),
                 selectedBrowserIcon = state.installedBrowsers.firstOrNull {
                     it.packageName == state.selectedBrowserPackage
                 }?.icon,

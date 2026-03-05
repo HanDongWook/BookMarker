@@ -12,7 +12,7 @@
     <string name="theme_label">Tema</string>
     <string name="theme_light">Chiaro</string>
     <string name="theme_dark">Scuro</string>
-    <string name="not_selected">Non selezionato</string>
+    <string name="bookmarker_not_selected">Non selezionato</string>
     <string name="edit_mode_editing">Modifica</string>
     <string name="edit_mode_done">Fatto</string>
     <string name="press_back_to_exit">Premi di nuovo Indietro per chiudere l’app</string>
@@ -24,6 +24,9 @@
     <string name="folder_name">Nome cartella</string>
     <string name="bookmark_name">Nome segnalibro</string>
     <string name="bookmark_url">URL segnalibro</string>
+    <string name="bookmark_snapshot_name">Nome snapshot</string>
+    <string name="default_snapshot_title_prefix">Segnalibro</string>
+    <string name="rename_bookmark_snapshot">Rinomina snapshot</string>
     <string name="app_version_label">Versione app</string>
     <string name="rate_app_label">Valuta questa app</string>
     <string name="share_app_label">Condividi questa app</string>

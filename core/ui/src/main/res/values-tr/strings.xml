@@ -12,7 +12,7 @@
     <string name="theme_label">Tema</string>
     <string name="theme_light">Açık</string>
     <string name="theme_dark">Koyu</string>
-    <string name="not_selected">Seçilmedi</string>
+    <string name="bookmarker_not_selected">Seçilmedi</string>
     <string name="edit_mode_editing">Düzenleniyor</string>
     <string name="edit_mode_done">Bitti</string>
     <string name="press_back_to_exit">Uygulamayı kapatmak için geri tuşuna bir kez daha basın</string>
@@ -24,6 +24,9 @@
     <string name="folder_name">Klasör adı</string>
     <string name="bookmark_name">Yer imi adı</string>
     <string name="bookmark_url">Yer imi URL’si</string>
+    <string name="bookmark_snapshot_name">Anlık görüntü adı</string>
+    <string name="default_snapshot_title_prefix">Yer imi</string>
+    <string name="rename_bookmark_snapshot">Anlık görüntüyü yeniden adlandır</string>
     <string name="app_version_label">Uygulama sürümü</string>
     <string name="rate_app_label">Bu uygulamayı değerlendir</string>
     <string name="share_app_label">Bu uygulamayı paylaş</string>

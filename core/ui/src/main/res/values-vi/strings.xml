@@ -12,7 +12,7 @@
     <string name="theme_label">Giao diện</string>
     <string name="theme_light">Sáng</string>
     <string name="theme_dark">Tối</string>
-    <string name="not_selected">Chưa chọn</string>
+    <string name="bookmarker_not_selected">Chưa chọn</string>
     <string name="edit_mode_editing">Đang chỉnh sửa</string>
     <string name="edit_mode_done">Xong</string>
     <string name="press_back_to_exit">Nhấn quay lại thêm một lần để thoát ứng dụng</string>
@@ -24,6 +24,9 @@
     <string name="folder_name">Tên thư mục</string>
     <string name="bookmark_name">Tên dấu trang</string>
     <string name="bookmark_url">URL dấu trang</string>
+    <string name="bookmark_snapshot_name">Tên ảnh chụp nhanh</string>
+    <string name="default_snapshot_title_prefix">Dấu trang</string>
+    <string name="rename_bookmark_snapshot">Đổi tên ảnh chụp nhanh</string>
     <string name="app_version_label">Phiên bản ứng dụng</string>
     <string name="rate_app_label">Đánh giá ứng dụng</string>
     <string name="share_app_label">Chia sẻ ứng dụng này</string>

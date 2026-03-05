@@ -47,7 +47,7 @@ fun HomeTopAppBar(
                     TextButton(onClick = onEditLabelClick) {
                         Text(text = stringResource(R.string.edit_mode_editing))
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(4.dp))
                     TextButton(onClick = onEditModeDoneClick) {
                         Text(text = stringResource(R.string.edit_mode_done))
                     }

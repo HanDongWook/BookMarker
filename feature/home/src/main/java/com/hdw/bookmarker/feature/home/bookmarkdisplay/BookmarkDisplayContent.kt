@@ -1,13 +1,17 @@
 package com.hdw.bookmarker.feature.home.bookmarkdisplay
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
@@ -24,45 +28,99 @@ fun BookmarkDisplayContent(
     folderIconColor: BookmarkFolderIconColor,
     modifier: Modifier = Modifier,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
+    snapshotTitle: String? = null,
+    onSnapshotTitleClick: (() -> Unit)? = null,
 ) {
     if (bookmarkDocument.rootItems.isEmpty()) {
-        EmptyBookmarks(modifier = modifier)
+        EmptyBookmarks(
+            modifier = modifier,
+            snapshotTitle = snapshotTitle,
+            onSnapshotTitleClick = onSnapshotTitleClick,
+        )
         return
     }
 
-    when (displayType) {
-        BookmarkDisplayType.LIST -> {
-            BookmarkListContent(
-                bookmarkDocument = bookmarkDocument,
-                onBookmarkClick = onBookmarkClick,
-                onItemLongClick = onItemLongClick,
-                onSelectedFolderPathChange = onSelectedFolderPathChange,
-                folderIconShape = folderIconShape,
-                folderIconColor = folderIconColor,
-                modifier = modifier,
-            )
+    val titleTopPadding = if (snapshotTitle.isNullOrBlank()) 0.dp else 44.dp
+    Box(modifier = modifier.fillMaxSize()) {
+        when (displayType) {
+            BookmarkDisplayType.LIST -> {
+                BookmarkListContent(
+                    bookmarkDocument = bookmarkDocument,
+                    onBookmarkClick = onBookmarkClick,
+                    onItemLongClick = onItemLongClick,
+                    onSelectedFolderPathChange = onSelectedFolderPathChange,
+                    folderIconShape = folderIconShape,
+                    folderIconColor = folderIconColor,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = titleTopPadding),
+                )
+            }
+
+            BookmarkDisplayType.ICON -> {
+                BookmarkIconContent(
+                    bookmarkDocument = bookmarkDocument,
+                    onBookmarkClick = onBookmarkClick,
+                    onItemLongClick = onItemLongClick,
+                    folderIconShape = folderIconShape,
+                    folderIconColor = folderIconColor,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = titleTopPadding),
+                )
+            }
         }
 
-        BookmarkDisplayType.ICON -> {
-            BookmarkIconContent(
-                bookmarkDocument = bookmarkDocument,
-                onBookmarkClick = onBookmarkClick,
-                onItemLongClick = onItemLongClick,
-                folderIconShape = folderIconShape,
-                folderIconColor = folderIconColor,
-                modifier = modifier,
+        if (!snapshotTitle.isNullOrBlank()) {
+            Text(
+                text = snapshotTitle,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .then(
+                        if (onSnapshotTitleClick != null) {
+                            Modifier.clickable(onClick = onSnapshotTitleClick)
+                        } else {
+                            Modifier
+                        },
+                    ),
             )
         }
     }
 }
 
 @Composable
-private fun EmptyBookmarks(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(text = stringResource(R.string.empty_bookmarks))
+private fun EmptyBookmarks(
+    modifier: Modifier = Modifier,
+    snapshotTitle: String? = null,
+    onSnapshotTitleClick: (() -> Unit)? = null,
+) {
+    Box(modifier = modifier.fillMaxSize()) {
+        val titleTopPadding = if (snapshotTitle.isNullOrBlank()) 0.dp else 44.dp
+        if (!snapshotTitle.isNullOrBlank()) {
+            Text(
+                text = snapshotTitle,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .then(
+                        if (onSnapshotTitleClick != null) {
+                            Modifier.clickable(onClick = onSnapshotTitleClick)
+                        } else {
+                            Modifier
+                        },
+                    ),
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = titleTopPadding),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(text = stringResource(R.string.empty_bookmarks))
+        }
     }
 }
 
@@ -82,6 +140,8 @@ private fun BookmarkDisplayContentListPreview() {
         displayType = BookmarkDisplayType.LIST,
         folderIconShape = BookmarkFolderIconShape.FILLED,
         folderIconColor = BookmarkFolderIconColor.DEFAULT,
+        snapshotTitle = "북마크1",
+        onSnapshotTitleClick = {},
     )
 }
 
@@ -95,6 +155,8 @@ private fun BookmarkDisplayContentIconPreview() {
         displayType = BookmarkDisplayType.ICON,
         folderIconShape = BookmarkFolderIconShape.FILLED,
         folderIconColor = BookmarkFolderIconColor.DEFAULT,
+        snapshotTitle = "북마크1",
+        onSnapshotTitleClick = {},
     )
 }
 

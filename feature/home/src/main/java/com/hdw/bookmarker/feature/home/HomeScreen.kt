@@ -34,6 +34,7 @@ import com.hdw.bookmarker.feature.home.dialog.DefaultBrowserPickerDialog
 import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkItemDialog
 import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkSnapshotDialog
 import com.hdw.bookmarker.feature.home.dialog.ImportOptionDialog
+import com.hdw.bookmarker.feature.home.dialog.RenameBookmarkSnapshotDialog
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -89,6 +90,7 @@ fun HomeRoute(
         onBookmarkDisplayTypeToggle = viewModel::onBookmarkDisplayTypeToggle,
         onAddFolder = viewModel::addFolder,
         onAddBookmark = viewModel::addBookmark,
+        onRenameBookmarkSnapshot = viewModel::renameBookmarkSnapshot,
         onDeleteBookmarkItem = viewModel::deleteBookmarkItem,
         onAddEmptyBookmarkSnapshot = viewModel::addEmptyBookmarkSnapshot,
     )
@@ -108,6 +110,7 @@ fun HomeScreen(
     onBookmarkDisplayTypeToggle: () -> Unit,
     onAddFolder: (String, List<Int>?) -> Unit,
     onAddBookmark: (String, String, List<Int>?) -> Unit,
+    onRenameBookmarkSnapshot: (String, String) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
 ) {
@@ -125,6 +128,8 @@ fun HomeScreen(
     var pendingBookmarkTitle by rememberSaveable { mutableStateOf("") }
     var pendingBookmarkUrl by rememberSaveable { mutableStateOf("") }
     var pendingDeleteSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
+    var pendingRenameSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
+    var pendingSnapshotTitle by rememberSaveable { mutableStateOf("") }
     var pendingDeleteBookmarkItemPath by remember { mutableStateOf<List<Int>?>(null) }
 
     val pagerState = rememberPagerState(
@@ -136,6 +141,18 @@ fun HomeScreen(
         ?: orderedSnapshotIds.getOrNull(pagerState.currentPage)
         ?: orderedSnapshotIds.firstOrNull()
     var selectedFolderPath by rememberSaveable(selectedBookmarkId) { mutableStateOf<List<Int>?>(null) }
+    val snapshotTitles = remember(orderedSnapshotIds, state.bookmarkDocuments) {
+        orderedSnapshotIds.mapIndexed { index, snapshotId ->
+            val defaultTitle = "북마크${index + 1}"
+            snapshotId to (
+                state.bookmarkDocuments[snapshotId]
+                    ?.title
+                    ?.trim()
+                    ?.takeIf { it.isNotBlank() }
+                    ?: defaultTitle
+                )
+        }.toMap()
+    }
 
     val defaultBrowserIcon = state.installedBrowsers
         .firstOrNull { it.packageName == state.defaultBrowserPackage }
@@ -229,6 +246,19 @@ fun HomeScreen(
             onConfirmDelete = {
                 onDeleteBookmarkSnapshot(pendingDeleteSnapshotId ?: return@DeleteBookmarkSnapshotDialog)
                 pendingDeleteSnapshotId = null
+            },
+        )
+    }
+
+    if (pendingRenameSnapshotId != null) {
+        RenameBookmarkSnapshotDialog(
+            snapshotTitle = pendingSnapshotTitle,
+            onSnapshotTitleChange = { pendingSnapshotTitle = it },
+            onDismiss = { pendingRenameSnapshotId = null },
+            onConfirm = {
+                val snapshotId = pendingRenameSnapshotId ?: return@RenameBookmarkSnapshotDialog
+                onRenameBookmarkSnapshot(snapshotId, pendingSnapshotTitle)
+                pendingRenameSnapshotId = null
             },
         )
     }
@@ -327,6 +357,13 @@ fun HomeScreen(
                 },
                 onItemLongClick = { path -> pendingDeleteBookmarkItemPath = path },
                 onSelectedFolderPathChange = { path -> selectedFolderPath = path },
+                currentSnapshotTitle = selectedBookmarkId?.let(snapshotTitles::get),
+                onSnapshotTitleClick = {
+                    if (selectedBookmarkId != null) {
+                        pendingRenameSnapshotId = selectedBookmarkId
+                        pendingSnapshotTitle = snapshotTitles[selectedBookmarkId].orEmpty()
+                    }
+                },
             )
         }
     }
@@ -351,6 +388,7 @@ private fun HomeScreenPreview() {
         onBookmarkDisplayTypeToggle = {},
         onAddFolder = { _, _ -> },
         onAddBookmark = { _, _, _ -> },
+        onRenameBookmarkSnapshot = { _, _ -> },
         onDeleteBookmarkItem = {},
         onAddEmptyBookmarkSnapshot = {},
     )

@@ -12,7 +12,7 @@
     <string name="theme_label">Theme</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
-    <string name="not_selected">Not selected</string>
+    <string name="bookmarker_not_selected">Not selected</string>
     <string name="edit_mode_editing">Edit</string>
     <string name="edit_mode_done">Done</string>
     <string name="press_back_to_exit">Press back one more time to close the app</string>
@@ -24,6 +24,9 @@
     <string name="folder_name">Folder name</string>
     <string name="bookmark_name">Bookmark name</string>
     <string name="bookmark_url">Bookmark URL</string>
+    <string name="bookmark_snapshot_name">Snapshot name</string>
+    <string name="default_snapshot_title_prefix">Bookmark</string>
+    <string name="rename_bookmark_snapshot">Rename snapshot</string>
     <string name="app_version_label">App Version</string>
     <string name="rate_app_label">Rate this app</string>
     <string name="share_app_label">Share this app</string>

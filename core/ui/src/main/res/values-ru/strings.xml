@@ -12,7 +12,7 @@
     <string name="theme_label">Тема</string>
     <string name="theme_light">Светлая</string>
     <string name="theme_dark">Темная</string>
-    <string name="not_selected">Не выбрано</string>
+    <string name="bookmarker_not_selected">Не выбрано</string>
     <string name="edit_mode_editing">Редактирование</string>
     <string name="edit_mode_done">Готово</string>
     <string name="press_back_to_exit">Нажмите «Назад» ещё раз, чтобы закрыть приложение</string>
@@ -24,6 +24,9 @@
     <string name="folder_name">Название папки</string>
     <string name="bookmark_name">Название закладки</string>
     <string name="bookmark_url">URL закладки</string>
+    <string name="bookmark_snapshot_name">Название снимка</string>
+    <string name="default_snapshot_title_prefix">Закладка</string>
+    <string name="rename_bookmark_snapshot">Переименовать снимок</string>
     <string name="app_version_label">Версия приложения</string>
     <string name="rate_app_label">Оценить приложение</string>
     <string name="share_app_label">Поделиться приложением</string>
