@@ -48,6 +48,7 @@ internal fun HomeContent(
     onDeleteSnapshotRequest: (String) -> Unit,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (List<Int>) -> Unit,
+    onSelectedFolderPathChange: (List<Int>?) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
 
@@ -117,6 +118,7 @@ internal fun HomeContent(
                             folderIconColor = state.folderIconColor,
                             onBookmarkClick = onBookmarkClick,
                             onItemLongClick = { _, path -> onItemLongClick(path) },
+                            onSelectedFolderPathChange = onSelectedFolderPathChange,
                         )
                     } else {
                         NoBookmarkItem(
@@ -188,5 +190,6 @@ private fun HomeContentPreview() {
         onDeleteSnapshotRequest = {},
         onBookmarkClick = {},
         onItemLongClick = {},
+        onSelectedFolderPathChange = {},
     )
 }

@@ -23,6 +23,7 @@ fun BookmarkDisplayContent(
     folderIconShape: BookmarkFolderIconShape,
     folderIconColor: BookmarkFolderIconColor,
     modifier: Modifier = Modifier,
+    onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
 ) {
     if (bookmarkDocument.rootItems.isEmpty()) {
         EmptyBookmarks(modifier = modifier)
@@ -35,6 +36,7 @@ fun BookmarkDisplayContent(
                 bookmarkDocument = bookmarkDocument,
                 onBookmarkClick = onBookmarkClick,
                 onItemLongClick = onItemLongClick,
+                onSelectedFolderPathChange = onSelectedFolderPathChange,
                 folderIconShape = folderIconShape,
                 folderIconColor = folderIconColor,
                 modifier = modifier,
