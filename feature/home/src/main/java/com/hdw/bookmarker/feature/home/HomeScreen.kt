@@ -22,8 +22,8 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.hdw.bookmarker.core.domain.util.BookmarkColorGenerator
-import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.MimeTypes
+import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.bookmarkdisplay.BookmarkDisplayType
