@@ -26,6 +26,10 @@
     <string name="bookmark_url">URL du signet</string>
     <string name="app_version_label">Version de l’application</string>
     <string name="rate_app_label">Évaluer cette application</string>
+    <string name="share_app_label">Partager cette application</string>
+    <string name="share_app_chooser_title">Partager l’application</string>
+    <string name="share_app_message">Essayez BookMarker : %1$s</string>
+    <string name="privacy_policy_label">Politique de confidentialité</string>
     <string name="temporary_data_label">Données temporaires</string>
     <string name="open_source_licenses_label">Licences open source</string>
     <string name="open_source_licenses_unavailable">Impossible de charger les informations de licence.</string>

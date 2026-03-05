@@ -26,6 +26,10 @@
     <string name="bookmark_url">Lesezeichen-URL</string>
     <string name="app_version_label">App-Version</string>
     <string name="rate_app_label">Diese App bewerten</string>
+    <string name="share_app_label">Diese App teilen</string>
+    <string name="share_app_chooser_title">App teilen</string>
+    <string name="share_app_message">Probier BookMarker aus: %1$s</string>
+    <string name="privacy_policy_label">Datenschutzrichtlinie</string>
     <string name="temporary_data_label">Temporäre Daten</string>
     <string name="open_source_licenses_label">Open-Source-Lizenzen</string>
     <string name="open_source_licenses_unavailable">Lizenzinformationen konnten nicht geladen werden.</string>

@@ -14,7 +14,7 @@
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
     <string name="not_selected">Not selected</string>
-    <string name="edit_mode_editing">Editing</string>
+    <string name="edit_mode_editing">Edit</string>
     <string name="edit_mode_done">Done</string>
     <string name="press_back_to_exit">Press back one more time to close the app</string>
     <string name="sync">Sync</string>
@@ -27,6 +27,9 @@
     <string name="bookmark_url">Bookmark URL</string>
     <string name="app_version_label">App Version</string>
     <string name="rate_app_label">Rate this app</string>
+    <string name="share_app_label">Share this app</string>
+    <string name="share_app_chooser_title">Share app</string>
+    <string name="share_app_message">Try BookMarker: %1$s</string>
     <string name="privacy_policy_label">Privacy Policy</string>
     <string name="temporary_data_label">Temporary Data</string>
     <string name="open_source_licenses_label">Open Source Licenses</string>
