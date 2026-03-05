@@ -9,8 +9,10 @@ BookMarker는 브라우저 북마크 HTML 파일을 앱으로 가져와 폴더 �
 
 ## 스크린샷
 
-![Screenshot 1](docs/screenshots/Screenshot1.png)
-![Screenshot 2](docs/screenshots/Screenshot2.png)
+<p align="center">
+  <img src="docs/screenshots/Screenshot1.png" alt="Screenshot 1" width="220" />
+  <img src="docs/screenshots/Screenshot2.png" alt="Screenshot 2" width="220" />
+</p>
 
 ## 기술 스택
 
