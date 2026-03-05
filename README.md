@@ -26,13 +26,16 @@ BookMarker는 브라우저 북마크 HTML 파일을 앱으로 가져와 폴더 �
 ## 프로젝트 구조
 
 - `app`: 앱 진입점, 앱 레벨 초기화
-- `feature:home`: 홈 화면, 북마크 가져오기/탐색/열기
-- `feature:importguide`: 브라우저별 북마크 가져오기 가이드
-- `feature:settings`: 설정(기본 브라우저, 테마, 폴더 아이콘 스타일)
-- `core:navigation`: 앱 라우팅, 외부 앱/브라우저 실행
-- `core:domain`: UseCase 계층
-- `core:data`: Repository 구현
-- `core:datastore`: DataStore 접근 계층
-- `core:model`: 도메인 모델
-- `core:ui`: 공통 UI 컴포넌트/리소스
-- `core:designsystem`, `core:common`: 공통 디자인/유틸
+- `build-logic`: 빌드 스크립트
+- `feature:`
+  - `home`: 홈 화면, 북마크 가져오기/탐색/열기
+  - `importguide`: 브라우저별 북마크 가져오기 가이드
+  - `settings`: 설정(기본 브라우저, 테마, 폴더 아이콘 스타일)
+- `core:`
+  - `navigation`: 앱 라우팅, 외부 앱/브라우저 실행
+  - `domain`: UseCase 계층
+  - `data`: Repository 구현
+  - `datastore`: DataStore 접근 계층
+  - `model`: 도메인 모델
+  - `ui`: 공통 UI 컴포넌트/리소스
+  - `designsystem`, `core:common`: 공통 디자인/유틸
