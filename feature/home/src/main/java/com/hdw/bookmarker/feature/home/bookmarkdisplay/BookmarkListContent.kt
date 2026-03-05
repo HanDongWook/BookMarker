@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.bookmarkcontent
+package com.hdw.bookmarker.feature.home.bookmarkdisplay
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -33,6 +33,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
@@ -234,3 +235,88 @@ private fun flattenBookmarkTree(
     }
     return flattened
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun BookmarkListContentPreview() {
+    BookmarkListContent(
+        bookmarkDocument = previewBookmarkListDocument(),
+        onBookmarkClick = {},
+        onItemLongClick = { _, _ -> },
+        folderIconShape = BookmarkFolderIconShape.FILLED,
+        folderIconColor = BookmarkFolderIconColor.DEFAULT,
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BookmarkFolderRowPreview() {
+    BookmarkFolderRow(
+        folder = BookmarkItem.Folder(
+            title = "Development",
+            addDate = null,
+            lastModified = null,
+            children = listOf(
+                BookmarkItem.Bookmark(
+                    title = "Android",
+                    url = "https://developer.android.com",
+                    addDate = null,
+                    lastModified = null,
+                    iconUri = null,
+                ),
+            ),
+        ),
+        depth = 0,
+        isExpanded = true,
+        isSelected = true,
+        folderIconShape = BookmarkFolderIconShape.FILLED,
+        folderIconColor = BookmarkFolderIconColor.DEFAULT,
+        onLongClick = {},
+        onToggle = {},
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BookmarkLeafRowPreview() {
+    BookmarkLeafRow(
+        bookmark = BookmarkItem.Bookmark(
+            title = "Kotlin",
+            url = "https://kotlinlang.org",
+            addDate = null,
+            lastModified = null,
+            iconUri = null,
+        ),
+        depth = 0,
+        onClick = {},
+        onLongClick = {},
+    )
+}
+
+private fun previewBookmarkListDocument(): BookmarkDocument = BookmarkDocument(
+    title = "Sample",
+    metas = emptyMap(),
+    rootItems = listOf(
+        BookmarkItem.Folder(
+            title = "Engineering",
+            addDate = null,
+            lastModified = null,
+            children = listOf(
+                BookmarkItem.Bookmark(
+                    title = "Kotlin",
+                    url = "https://kotlinlang.org",
+                    addDate = null,
+                    lastModified = null,
+                    iconUri = null,
+                ),
+            ),
+        ),
+        BookmarkItem.Bookmark(
+            title = "Compose",
+            url = "https://developer.android.com/jetpack/compose",
+            addDate = null,
+            lastModified = null,
+            iconUri = null,
+        ),
+    ),
+)

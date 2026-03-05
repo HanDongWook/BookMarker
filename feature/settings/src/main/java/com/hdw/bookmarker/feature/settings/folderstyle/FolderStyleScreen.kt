@@ -18,6 +18,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
@@ -97,4 +98,16 @@ fun FolderStyleScreen(
             },
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FolderStyleScreenPreview() {
+    FolderStyleScreen(
+        selectedShape = BookmarkFolderIconShape.FILLED,
+        selectedColor = BookmarkFolderIconColor.DEFAULT,
+        onBackClick = {},
+        onShapeSelect = {},
+        onColorSelect = {},
+    )
 }

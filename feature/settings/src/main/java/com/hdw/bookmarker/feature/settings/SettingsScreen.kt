@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.os.LocaleListCompat
 import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
@@ -234,4 +235,24 @@ fun SettingsScreen(
             },
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SettingsScreenPreview() {
+    SettingsScreen(
+        onBackClick = {},
+        appVersion = "1.0.0",
+        temporaryDataSize = "12.3 MB",
+        selectedThemeMode = SettingsRepository.APP_THEME_MODE_LIGHT,
+        selectedBrowserName = "Chrome",
+        selectedBrowserIcon = null,
+        onTemporaryDataClick = {},
+        onDefaultBrowserClick = {},
+        selectedFolderIconShape = BookmarkFolderIconShape.FILLED,
+        selectedFolderIconColor = BookmarkFolderIconColor.DEFAULT,
+        onFolderStyleClick = {},
+        onOpenSourceLicensesClick = {},
+        onThemeModeSelect = {},
+    )
 }
