@@ -25,9 +25,9 @@
     <string name="folder_name">ชื่อโฟลเดอร์</string>
     <string name="bookmark_name">ชื่อบุ๊กมาร์ก</string>
     <string name="bookmark_url">URL บุ๊กมาร์ก</string>
-    <string name="bookmark_snapshot_name">ชื่อสแนปช็อต</string>
+    <string name="bookmark_snapshot_name">ชื่อ</string>
     <string name="default_snapshot_title_prefix">บุ๊กมาร์ก</string>
-    <string name="rename_bookmark_snapshot">เปลี่ยนชื่อสแนปช็อต</string>
+    <string name="rename_bookmark_snapshot">เปลี่ยนชื่อ</string>
     <string name="app_version_label">เวอร์ชันแอป</string>
     <string name="rate_app_label">ให้คะแนนแอปนี้</string>
     <string name="share_app_label">แชร์แอปนี้</string>

@@ -25,9 +25,9 @@
     <string name="folder_name">Nombre de la carpeta</string>
     <string name="bookmark_name">Nombre del marcador</string>
     <string name="bookmark_url">URL del marcador</string>
-    <string name="bookmark_snapshot_name">Nombre de la instantánea</string>
+    <string name="bookmark_snapshot_name">Nombre</string>
     <string name="default_snapshot_title_prefix">Marcador</string>
-    <string name="rename_bookmark_snapshot">Renombrar instantánea</string>
+    <string name="rename_bookmark_snapshot">Cambiar nombre</string>
     <string name="app_version_label">Versión de la app</string>
     <string name="rate_app_label">Calificar esta app</string>
     <string name="share_app_label">Compartir esta app</string>
