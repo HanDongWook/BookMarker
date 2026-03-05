@@ -12,7 +12,7 @@
     <string name="theme_label">Tema</string>
     <string name="theme_light">Terang</string>
     <string name="theme_dark">Gelap</string>
-    <string name="not_selected">Belum dipilih</string>
+    <string name="bookmarker_not_selected">Belum dipilih</string>
     <string name="edit_mode_editing">Mengedit</string>
     <string name="edit_mode_done">Selesai</string>
     <string name="press_back_to_exit">Tekan kembali sekali lagi untuk menutup aplikasi</string>
@@ -24,6 +24,9 @@
     <string name="folder_name">Nama folder</string>
     <string name="bookmark_name">Nama bookmark</string>
     <string name="bookmark_url">URL bookmark</string>
+    <string name="bookmark_snapshot_name">Nama snapshot</string>
+    <string name="default_snapshot_title_prefix">Bookmark</string>
+    <string name="rename_bookmark_snapshot">Ubah nama snapshot</string>
     <string name="app_version_label">Versi aplikasi</string>
     <string name="rate_app_label">Beri rating aplikasi</string>
     <string name="share_app_label">Bagikan aplikasi ini</string>

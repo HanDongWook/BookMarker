@@ -49,6 +49,8 @@ internal fun HomeContent(
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (List<Int>) -> Unit,
     onSelectedFolderPathChange: (List<Int>?) -> Unit,
+    currentSnapshotTitle: String?,
+    onSnapshotTitleClick: () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
 
@@ -119,6 +121,8 @@ internal fun HomeContent(
                             onBookmarkClick = onBookmarkClick,
                             onItemLongClick = { _, path -> onItemLongClick(path) },
                             onSelectedFolderPathChange = onSelectedFolderPathChange,
+                            snapshotTitle = currentSnapshotTitle,
+                            onSnapshotTitleClick = onSnapshotTitleClick,
                         )
                     } else {
                         NoBookmarkItem(
@@ -191,5 +195,7 @@ private fun HomeContentPreview() {
         onBookmarkClick = {},
         onItemLongClick = {},
         onSelectedFolderPathChange = {},
+        currentSnapshotTitle = "북마크1",
+        onSnapshotTitleClick = {},
     )
 }

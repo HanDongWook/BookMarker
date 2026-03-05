@@ -12,7 +12,7 @@
     <string name="theme_label">主题</string>
     <string name="theme_light">浅色</string>
     <string name="theme_dark">深色</string>
-    <string name="not_selected">未选择</string>
+    <string name="bookmarker_not_selected">未选择</string>
     <string name="edit_mode_editing">编辑中</string>
     <string name="edit_mode_done">完成</string>
     <string name="press_back_to_exit">再按一次返回即可关闭应用</string>
@@ -24,6 +24,9 @@
     <string name="folder_name">文件夹名称</string>
     <string name="bookmark_name">书签名称</string>
     <string name="bookmark_url">书签 URL</string>
+    <string name="bookmark_snapshot_name">快照名称</string>
+    <string name="default_snapshot_title_prefix">书签</string>
+    <string name="rename_bookmark_snapshot">重命名快照</string>
     <string name="app_version_label">应用版本</string>
     <string name="rate_app_label">为此应用评分</string>
     <string name="share_app_label">分享此应用</string>

@@ -12,7 +12,7 @@
     <string name="theme_label">テーマ</string>
     <string name="theme_light">ライト</string>
     <string name="theme_dark">ダーク</string>
-    <string name="not_selected">未選択</string>
+    <string name="bookmarker_not_selected">未選択</string>
     <string name="edit_mode_editing">編集中</string>
     <string name="edit_mode_done">完了</string>
     <string name="press_back_to_exit">アプリを閉じるには、もう一度戻るを押してください</string>
@@ -24,6 +24,9 @@
     <string name="folder_name">フォルダ名</string>
     <string name="bookmark_name">ブックマーク名</string>
     <string name="bookmark_url">ブックマークURL</string>
+    <string name="bookmark_snapshot_name">スナップショット名</string>
+    <string name="default_snapshot_title_prefix">ブックマーク</string>
+    <string name="rename_bookmark_snapshot">スナップショット名を変更</string>
     <string name="app_version_label">アプリバージョン</string>
     <string name="rate_app_label">このアプリを評価</string>
     <string name="share_app_label">このアプリを共有</string>

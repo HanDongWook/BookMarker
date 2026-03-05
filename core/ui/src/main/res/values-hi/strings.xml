@@ -12,7 +12,7 @@
     <string name="theme_label">थीम</string>
     <string name="theme_light">लाइट</string>
     <string name="theme_dark">डार्क</string>
-    <string name="not_selected">चयनित नहीं</string>
+    <string name="bookmarker_not_selected">चयनित नहीं</string>
     <string name="edit_mode_editing">संपादन में</string>
     <string name="edit_mode_done">पूर्ण</string>
     <string name="press_back_to_exit">ऐप बंद करने के लिए एक बार और बैक दबाएं</string>
@@ -24,6 +24,9 @@
     <string name="folder_name">फ़ोल्डर का नाम</string>
     <string name="bookmark_name">बुकमार्क का नाम</string>
     <string name="bookmark_url">बुकमार्क URL</string>
+    <string name="bookmark_snapshot_name">स्नैपशॉट का नाम</string>
+    <string name="default_snapshot_title_prefix">बुकमार्क</string>
+    <string name="rename_bookmark_snapshot">स्नैपशॉट का नाम बदलें</string>
     <string name="app_version_label">ऐप संस्करण</string>
     <string name="rate_app_label">ऐप को रेट करें</string>
     <string name="share_app_label">इस ऐप को साझा करें</string>

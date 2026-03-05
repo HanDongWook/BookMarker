@@ -1,5 +1,6 @@
 package com.hdw.bookmarker.feature.home
 
+import android.content.Context
 import android.net.Uri
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
@@ -32,6 +33,7 @@ import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.feature.home.bookmarkdisplay.BookmarkDisplayType
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
@@ -58,6 +60,7 @@ sealed interface HomeSideEffect {
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context,
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
     private val getBookmarksUseCase: GetBookmarksUseCase,
     private val getBookmarkRawFileHashUseCase: GetBookmarkRawFileHashUseCase,
@@ -182,9 +185,10 @@ class HomeViewModel @Inject constructor(
 
             when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = uri)) {
                 is BookmarkImportResult.Success -> {
+                    val snapshotTitle = state.nextDefaultSnapshotTitle(context)
                     val savedId = saveBookmarkSnapshotUseCase(
                         snapshotId = null,
-                        document = result.document,
+                        document = result.document.copy(title = snapshotTitle),
                         sourceHash = rawFileHash,
                     )
                     reduce { state.copy(selectedBookmarkId = savedId) }
@@ -222,10 +226,11 @@ class HomeViewModel @Inject constructor(
     }
 
     fun addEmptyBookmarkSnapshot() = intent {
+        val snapshotTitle = state.nextDefaultSnapshotTitle(context)
         val snapshotId = saveBookmarkSnapshotUseCase(
             snapshotId = null,
             document = BookmarkDocument(
-                title = null,
+                title = snapshotTitle,
                 metas = emptyMap(),
                 rootItems = emptyList(),
             ),
@@ -290,6 +295,21 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
     }
 
+    fun renameBookmarkSnapshot(snapshotId: String, title: String) = intent {
+        val trimmedTitle = title.trim()
+        if (trimmedTitle.isBlank()) return@intent
+
+        val currentDocument = state.bookmarkDocuments[snapshotId] ?: return@intent
+        val sourceHash = getBookmarkSnapshotRawFileHashUseCase(snapshotId).orEmpty()
+
+        val savedSnapshotId = saveBookmarkSnapshotUseCase(
+            snapshotId = snapshotId,
+            document = currentDocument.copy(title = trimmedTitle),
+            sourceHash = sourceHash,
+        )
+        reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
+    }
+
     private suspend fun saveAddedItem(
         currentState: HomeState,
         item: BookmarkItem,
@@ -299,7 +319,7 @@ class HomeViewModel @Inject constructor(
         val currentDocument = currentSnapshotId
             ?.let { currentState.bookmarkDocuments[it] }
             ?: BookmarkDocument(
-                title = null,
+                title = currentState.nextDefaultSnapshotTitle(context),
                 metas = emptyMap(),
                 rootItems = emptyList(),
             )
@@ -369,6 +389,21 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun currentEpochSecondsString(): String = (System.currentTimeMillis() / 1000L).toString()
+
+    private fun HomeState.nextDefaultSnapshotTitle(context: Context): String {
+        val titlePrefix = context.getString(R.string.default_snapshot_title_prefix)
+        val maxNumber = bookmarkDocuments.values
+            .mapNotNull { document ->
+                document.title
+                    ?.trim()
+                    ?.takeIf { it.startsWith(titlePrefix) }
+                    ?.removePrefix(titlePrefix)
+                    ?.toIntOrNull()
+            }
+            .maxOrNull()
+            ?: 0
+        return "$titlePrefix${maxNumber + 1}"
+    }
 
     private fun observeDefaultBrowserPackage() = intent {
         if (isObservingDefaultBrowser) return@intent
