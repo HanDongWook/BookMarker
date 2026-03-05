@@ -30,7 +30,7 @@ import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
-import com.hdw.bookmarker.feature.home.bookmarkcontent.BookmarkDisplayType
+import com.hdw.bookmarker.feature.home.bookmarkdisplay.BookmarkDisplayType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container

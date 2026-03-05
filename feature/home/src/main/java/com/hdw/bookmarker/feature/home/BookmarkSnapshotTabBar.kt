@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun BookmarkListBar(
+internal fun BookmarkSnapshotTabBar(
     orderedSnapshotIds: List<String>,
     bookmarkColors: Map<String, Long>,
     selectedBookmarkId: String?,

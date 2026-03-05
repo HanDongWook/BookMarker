@@ -1,5 +1,7 @@
 package com.hdw.bookmarker.feature.settings.defaultbrowser
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
@@ -105,5 +108,33 @@ private fun BrowserIcon(icon: Any) {
         model = icon,
         contentDescription = null,
         modifier = Modifier.size(24.dp),
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BrowserIconPreview() {
+    BrowserIcon(icon = ColorDrawable(Color.GRAY))
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DefaultBrowserScreenPreview() {
+    DefaultBrowserScreen(
+        installedBrowsers = listOf(
+            BrowserInfo(
+                packageName = "com.android.chrome",
+                appName = "Chrome",
+                icon = ColorDrawable(Color.GRAY),
+            ),
+            BrowserInfo(
+                packageName = "org.mozilla.firefox",
+                appName = "Firefox",
+                icon = ColorDrawable(Color.DKGRAY),
+            ),
+        ),
+        selectedBrowserPackage = "com.android.chrome",
+        onBackClick = {},
+        onBrowserSelect = {},
     )
 }

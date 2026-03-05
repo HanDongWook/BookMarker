@@ -1,5 +1,7 @@
 package com.hdw.bookmarker.feature.importguide.picker
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -24,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
@@ -101,4 +104,38 @@ private fun BrowserItem(
             contentDescription = stringResource(R.string.sync),
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BrowserItemPreview() {
+    BrowserItem(
+        browser = BrowserInfo(
+            packageName = "com.android.chrome",
+            appName = "Chrome",
+            icon = ColorDrawable(Color.GRAY),
+        ),
+        onSyncClick = {},
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BrowserPickerScreenPreview() {
+    BrowserPickerScreen(
+        installedBrowsers = listOf(
+            BrowserInfo(
+                packageName = "com.android.chrome",
+                appName = "Chrome",
+                icon = ColorDrawable(Color.GRAY),
+            ),
+            BrowserInfo(
+                packageName = "com.microsoft.emmx",
+                appName = "Edge",
+                icon = ColorDrawable(Color.LTGRAY),
+            ),
+        ),
+        onOpenDesktopGuide = {},
+        onBackClick = {},
+    )
 }

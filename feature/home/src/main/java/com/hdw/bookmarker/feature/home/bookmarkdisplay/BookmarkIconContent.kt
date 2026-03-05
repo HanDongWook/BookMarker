@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.bookmarkcontent
+package com.hdw.bookmarker.feature.home.bookmarkdisplay
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.combinedClickable
@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
@@ -200,3 +201,76 @@ private fun BookmarkLeafIconItem(bookmark: BookmarkItem.Bookmark, onClick: () ->
         )
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun BookmarkIconContentPreview() {
+    BookmarkIconContent(
+        bookmarkDocument = previewBookmarkIconDocument(),
+        onBookmarkClick = {},
+        onItemLongClick = { _, _ -> },
+        folderIconShape = BookmarkFolderIconShape.FILLED,
+        folderIconColor = BookmarkFolderIconColor.DEFAULT,
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BookmarkFolderIconItemPreview() {
+    BookmarkFolderIconItem(
+        folder = BookmarkItem.Folder(
+            title = "Favorites",
+            addDate = null,
+            lastModified = null,
+            children = emptyList(),
+        ),
+        folderIconShape = BookmarkFolderIconShape.FILLED,
+        folderIconColor = BookmarkFolderIconColor.DEFAULT,
+        onClick = {},
+        onLongClick = {},
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BookmarkLeafIconItemPreview() {
+    BookmarkLeafIconItem(
+        bookmark = BookmarkItem.Bookmark(
+            title = "OpenAI",
+            url = "https://openai.com",
+            addDate = null,
+            lastModified = null,
+            iconUri = null,
+        ),
+        onClick = {},
+        onLongClick = {},
+    )
+}
+
+private fun previewBookmarkIconDocument(): BookmarkDocument = BookmarkDocument(
+    title = "Sample",
+    metas = emptyMap(),
+    rootItems = listOf(
+        BookmarkItem.Folder(
+            title = "AI",
+            addDate = null,
+            lastModified = null,
+            children = listOf(
+                BookmarkItem.Bookmark(
+                    title = "OpenAI",
+                    url = "https://openai.com",
+                    addDate = null,
+                    lastModified = null,
+                    iconUri = null,
+                ),
+            ),
+        ),
+        BookmarkItem.Bookmark(
+            title = "Android",
+            url = "https://developer.android.com",
+            addDate = null,
+            lastModified = null,
+            iconUri = null,
+        ),
+    ),
+)

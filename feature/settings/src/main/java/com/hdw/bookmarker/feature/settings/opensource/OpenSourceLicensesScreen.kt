@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.ui.R
 import com.mikepenz.aboutlibraries.ui.compose.android.produceLibraries
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
@@ -73,4 +74,10 @@ fun OpenSourceLicensesScreen(onBackClick: () -> Unit) {
                 .padding(innerPadding),
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun OpenSourceLicensesScreenPreview() {
+    OpenSourceLicensesScreen(onBackClick = {})
 }
