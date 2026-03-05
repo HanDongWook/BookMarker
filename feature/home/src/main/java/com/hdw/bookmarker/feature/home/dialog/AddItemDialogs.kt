@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BookmarkAdd
 import androidx.compose.material.icons.filled.CreateNewFolder
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,7 +25,12 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
-fun AddItemTypeDialog(onDismiss: () -> Unit, onAddFolderClick: () -> Unit, onAddBookmarkClick: () -> Unit) {
+fun AddItemTypeDialog(
+    onDismiss: () -> Unit,
+    onAddFolderClick: () -> Unit,
+    onAddBookmarkClick: () -> Unit,
+    onShareClick: () -> Unit,
+) {
     AlertDialog(
         onDismissRequest = onDismiss,
         text = {
@@ -48,6 +54,14 @@ fun AddItemTypeDialog(onDismiss: () -> Unit, onAddFolderClick: () -> Unit, onAdd
                         Icon(
                             imageVector = Icons.Default.BookmarkAdd,
                             contentDescription = stringResource(R.string.add_bookmark),
+                            modifier = Modifier.size(60.dp),
+                        )
+                    }
+
+                    IconButton(onClick = onShareClick) {
+                        Icon(
+                            imageVector = Icons.Default.Share,
+                            contentDescription = stringResource(R.string.share_current_bookmarks_label),
                             modifier = Modifier.size(60.dp),
                         )
                     }
@@ -150,6 +164,7 @@ private fun AddItemTypeDialogPreview() {
         onDismiss = {},
         onAddFolderClick = {},
         onAddBookmarkClick = {},
+        onShareClick = {},
     )
 }
 

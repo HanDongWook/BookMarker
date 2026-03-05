@@ -33,6 +33,9 @@
     <string name="share_app_label">分享此应用</string>
     <string name="share_app_chooser_title">分享应用</string>
     <string name="share_app_message">试试 BookMarker：%1$s</string>
+    <string name="share_current_bookmarks_label">分享书签</string>
+    <string name="share_current_bookmarks_chooser_title">分享书签</string>
+    <string name="share_current_bookmarks_empty">没有可分享的书签。</string>
     <string name="privacy_policy_label">隐私政策</string>
     <string name="temporary_data_label">临时数据</string>
     <string name="open_source_licenses_label">开源许可证</string>

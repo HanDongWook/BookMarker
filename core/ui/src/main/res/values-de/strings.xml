@@ -33,6 +33,9 @@
     <string name="share_app_label">Diese App teilen</string>
     <string name="share_app_chooser_title">App teilen</string>
     <string name="share_app_message">Probier BookMarker aus: %1$s</string>
+    <string name="share_current_bookmarks_label">Lesezeichen teilen</string>
+    <string name="share_current_bookmarks_chooser_title">Lesezeichen teilen</string>
+    <string name="share_current_bookmarks_empty">Keine Lesezeichen zum Teilen.</string>
     <string name="privacy_policy_label">Datenschutzrichtlinie</string>
     <string name="temporary_data_label">Temporäre Daten</string>
     <string name="open_source_licenses_label">Open-Source-Lizenzen</string>

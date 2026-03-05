@@ -33,6 +33,9 @@
     <string name="share_app_label">Поделиться приложением</string>
     <string name="share_app_chooser_title">Поделиться приложением</string>
     <string name="share_app_message">Попробуйте BookMarker: %1$s</string>
+    <string name="share_current_bookmarks_label">Поделиться закладками</string>
+    <string name="share_current_bookmarks_chooser_title">Поделиться закладками</string>
+    <string name="share_current_bookmarks_empty">Нет закладок для отправки.</string>
     <string name="privacy_policy_label">Политика конфиденциальности</string>
     <string name="temporary_data_label">Временные данные</string>
     <string name="open_source_licenses_label">Лицензии Open Source</string>

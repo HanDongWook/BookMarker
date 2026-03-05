@@ -33,6 +33,9 @@
     <string name="share_app_label">แชร์แอปนี้</string>
     <string name="share_app_chooser_title">แชร์แอป</string>
     <string name="share_app_message">ลองใช้ BookMarker: %1$s</string>
+    <string name="share_current_bookmarks_label">แชร์บุ๊กมาร์ก</string>
+    <string name="share_current_bookmarks_chooser_title">แชร์บุ๊กมาร์ก</string>
+    <string name="share_current_bookmarks_empty">ไม่มีบุ๊กมาร์กให้แชร์</string>
     <string name="privacy_policy_label">นโยบายความเป็นส่วนตัว</string>
     <string name="temporary_data_label">ข้อมูลชั่วคราว</string>
     <string name="open_source_licenses_label">สัญญาอนุญาตโอเพนซอร์ส</string>

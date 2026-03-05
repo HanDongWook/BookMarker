@@ -33,6 +33,9 @@
     <string name="share_app_label">Partager cette application</string>
     <string name="share_app_chooser_title">Partager l’application</string>
     <string name="share_app_message">Essayez BookMarker : %1$s</string>
+    <string name="share_current_bookmarks_label">Partager les signets</string>
+    <string name="share_current_bookmarks_chooser_title">Partager les signets</string>
+    <string name="share_current_bookmarks_empty">Aucun signet à partager.</string>
     <string name="privacy_policy_label">Politique de confidentialité</string>
     <string name="temporary_data_label">Données temporaires</string>
     <string name="open_source_licenses_label">Licences open source</string>

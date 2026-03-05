@@ -33,6 +33,9 @@
     <string name="share_app_label">このアプリを共有</string>
     <string name="share_app_chooser_title">アプリを共有</string>
     <string name="share_app_message">BookMarkerを使ってみてください: %1$s</string>
+    <string name="share_current_bookmarks_label">ブックマークを共有</string>
+    <string name="share_current_bookmarks_chooser_title">ブックマークを共有</string>
+    <string name="share_current_bookmarks_empty">共有するブックマークがありません。</string>
     <string name="privacy_policy_label">プライバシーポリシー</string>
     <string name="temporary_data_label">一時データ</string>
     <string name="open_source_licenses_label">オープンソースライセンス</string>
