@@ -2,6 +2,7 @@ package com.hdw.bookmarker.feature.home.bookmarkcontent
 
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,6 +24,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
@@ -70,9 +72,9 @@ internal fun BookmarkListContent(
 
     LazyColumn(
         modifier = modifier
-            .fillMaxSize()
-            .padding(start = 2.dp),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(2.dp),
+        contentPadding = PaddingValues(start = 8.dp, top = 4.dp, end = 4.dp, bottom = 4.dp)
     ) {
         items(items = visibleNodes, key = { it.key }) { node ->
             when (val item = node.item) {
