@@ -33,6 +33,9 @@
     <string name="share_app_label">Chia sẻ ứng dụng này</string>
     <string name="share_app_chooser_title">Chia sẻ ứng dụng</string>
     <string name="share_app_message">Hãy thử BookMarker: %1$s</string>
+    <string name="share_current_bookmarks_label">Chia sẻ dấu trang</string>
+    <string name="share_current_bookmarks_chooser_title">Chia sẻ dấu trang</string>
+    <string name="share_current_bookmarks_empty">Không có dấu trang để chia sẻ.</string>
     <string name="privacy_policy_label">Chính sách quyền riêng tư</string>
     <string name="temporary_data_label">Dữ liệu tạm thời</string>
     <string name="open_source_licenses_label">Giấy phép mã nguồn mở</string>

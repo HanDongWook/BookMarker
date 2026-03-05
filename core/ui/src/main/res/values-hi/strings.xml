@@ -33,6 +33,9 @@
     <string name="share_app_label">इस ऐप को साझा करें</string>
     <string name="share_app_chooser_title">ऐप साझा करें</string>
     <string name="share_app_message">BookMarker आज़माएँ: %1$s</string>
+    <string name="share_current_bookmarks_label">बुकमार्क साझा करें</string>
+    <string name="share_current_bookmarks_chooser_title">बुकमार्क साझा करें</string>
+    <string name="share_current_bookmarks_empty">साझा करने के लिए कोई बुकमार्क नहीं है।</string>
     <string name="privacy_policy_label">गोपनीयता नीति</string>
     <string name="temporary_data_label">अस्थायी डेटा</string>
     <string name="open_source_licenses_label">ओपन सोर्स लाइसेंस</string>

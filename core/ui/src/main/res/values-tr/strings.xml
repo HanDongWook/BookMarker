@@ -33,6 +33,9 @@
     <string name="share_app_label">Bu uygulamayı paylaş</string>
     <string name="share_app_chooser_title">Uygulamayı paylaş</string>
     <string name="share_app_message">BookMarker’ı deneyin: %1$s</string>
+    <string name="share_current_bookmarks_label">Yer imlerini paylaş</string>
+    <string name="share_current_bookmarks_chooser_title">Yer imlerini paylaş</string>
+    <string name="share_current_bookmarks_empty">Paylaşılacak yer imi yok.</string>
     <string name="privacy_policy_label">Gizlilik Politikası</string>
     <string name="temporary_data_label">Geçici veriler</string>
     <string name="open_source_licenses_label">Açık kaynak lisansları</string>

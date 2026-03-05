@@ -37,6 +37,9 @@ import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkSnapshotDialog
 import com.hdw.bookmarker.feature.home.dialog.ImportOptionDialog
 import com.hdw.bookmarker.feature.home.dialog.ManageBookmarkItemDialog
 import com.hdw.bookmarker.feature.home.dialog.RenameBookmarkSnapshotDialog
+import com.hdw.bookmarker.feature.home.sharebookmark.ShareBookmarkMethodDialog
+import com.hdw.bookmarker.feature.home.sharebookmark.requestCurrentBookmarkHtmlShare
+import com.hdw.bookmarker.feature.home.sharebookmark.requestCurrentBookmarkTextShare
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -126,6 +129,7 @@ fun HomeScreen(
     var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
     var showColorPickerDialog by rememberSaveable { mutableStateOf(false) }
     var showAddItemTypeDialog by rememberSaveable { mutableStateOf(false) }
+    var showShareBookmarkMethodDialog by rememberSaveable { mutableStateOf(false) }
     var showAddFolderDialog by rememberSaveable { mutableStateOf(false) }
     var showAddBookmarkDialog by rememberSaveable { mutableStateOf(false) }
     var pendingFolderTitle by rememberSaveable { mutableStateOf("") }
@@ -165,6 +169,8 @@ fun HomeScreen(
     val defaultBrowserIcon = state.installedBrowsers
         .firstOrNull { it.packageName == state.defaultBrowserPackage }
         ?.icon
+    val selectedBookmarkDocument = selectedBookmarkId
+        ?.let { state.bookmarkDocuments[it] }
 
     LaunchedEffect(pagerState, orderedSnapshotIds) {
         if (orderedSnapshotIds.isEmpty()) return@LaunchedEffect
@@ -189,6 +195,9 @@ fun HomeScreen(
 
     BackHandler(enabled = showAddItemTypeDialog) {
         showAddItemTypeDialog = false
+    }
+    BackHandler(enabled = showShareBookmarkMethodDialog) {
+        showShareBookmarkMethodDialog = false
     }
 
     BackHandler(enabled = showAddFolderDialog) {
@@ -329,6 +338,36 @@ fun HomeScreen(
                 pendingBookmarkTitle = ""
                 pendingBookmarkUrl = ""
                 showAddBookmarkDialog = true
+            },
+            onShareClick = {
+                showAddItemTypeDialog = false
+                showShareBookmarkMethodDialog = true
+            },
+        )
+    }
+
+    if (showShareBookmarkMethodDialog) {
+        ShareBookmarkMethodDialog(
+            onDismiss = { showShareBookmarkMethodDialog = false },
+            onShareTextClick = {
+                showShareBookmarkMethodDialog = false
+                val currentDocument = selectedBookmarkDocument
+                if (currentDocument == null || !requestCurrentBookmarkTextShare(context, currentDocument)) {
+                    context.showShortToast(resources.getString(R.string.share_current_bookmarks_empty))
+                }
+            },
+            onShareHtmlClick = {
+                showShareBookmarkMethodDialog = false
+                val currentDocument = selectedBookmarkDocument
+                when {
+                    currentDocument == null -> {
+                        context.showShortToast(resources.getString(R.string.share_current_bookmarks_empty))
+                    }
+
+                    !requestCurrentBookmarkHtmlShare(context, currentDocument) -> {
+                        context.showShortToast(resources.getString(R.string.share_current_bookmarks_html_failed))
+                    }
+                }
             },
         )
     }

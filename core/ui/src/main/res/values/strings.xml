@@ -34,6 +34,13 @@
     <string name="share_app_label">Share this app</string>
     <string name="share_app_chooser_title">Share app</string>
     <string name="share_app_message">Try BookMarker: %1$s</string>
+    <string name="share_current_bookmarks_label">Share bookmarks</string>
+    <string name="share_current_bookmarks_chooser_title">Share bookmarks</string>
+    <string name="share_current_bookmarks_empty">No bookmarks to share.</string>
+    <string name="share_current_bookmarks_html_failed">Failed to create bookmark HTML file.</string>
+    <string name="share_bookmark_method_title">Choose share type</string>
+    <string name="share_bookmark_method_text">Share as text</string>
+    <string name="share_bookmark_method_html">Share as HTML</string>
     <string name="privacy_policy_label">Privacy Policy</string>
     <string name="temporary_data_label">Temporary Data</string>
     <string name="open_source_licenses_label">Open Source Licenses</string>

@@ -33,6 +33,9 @@
     <string name="share_app_label">Bagikan aplikasi ini</string>
     <string name="share_app_chooser_title">Bagikan aplikasi</string>
     <string name="share_app_message">Coba BookMarker: %1$s</string>
+    <string name="share_current_bookmarks_label">Bagikan bookmark</string>
+    <string name="share_current_bookmarks_chooser_title">Bagikan bookmark</string>
+    <string name="share_current_bookmarks_empty">Tidak ada bookmark untuk dibagikan.</string>
     <string name="privacy_policy_label">Kebijakan Privasi</string>
     <string name="temporary_data_label">Data sementara</string>
     <string name="open_source_licenses_label">Lisensi open source</string>
