@@ -67,6 +67,7 @@ internal fun BookmarkListContent(
     folderIconShape: BookmarkFolderIconShape,
     folderIconColor: BookmarkFolderIconColor,
     modifier: Modifier = Modifier,
+    onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
 ) {
     val expandedFolders = rememberSaveable(saver = ExpandedFoldersSaver) {
         mutableStateMapOf<String, Boolean>()
@@ -97,7 +98,9 @@ internal fun BookmarkListContent(
                         folderIconColor = folderIconColor,
                         onLongClick = { onItemLongClick(item, node.path) },
                         onToggle = {
-                            selectedFolderKey = node.key
+                            val isSelected = selectedFolderKey == node.key
+                            selectedFolderKey = if (isSelected) null else node.key
+                            onSelectedFolderPathChange(if (isSelected) null else node.path)
                             if (expandedFolders[node.key] == true) {
                                 expandedFolders.remove(node.key)
                             } else {

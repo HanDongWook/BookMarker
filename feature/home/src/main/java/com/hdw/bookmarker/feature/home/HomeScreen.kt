@@ -106,8 +106,8 @@ fun HomeScreen(
     onOpenFilePicker: () -> Unit,
     onDeleteBookmarkSnapshot: (String) -> Unit,
     onBookmarkDisplayTypeToggle: () -> Unit,
-    onAddFolder: (String) -> Unit,
-    onAddBookmark: (String, String) -> Unit,
+    onAddFolder: (String, List<Int>?) -> Unit,
+    onAddBookmark: (String, String, List<Int>?) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
 ) {
@@ -135,6 +135,7 @@ fun HomeScreen(
         ?.takeIf { id -> orderedSnapshotIds.contains(id) }
         ?: orderedSnapshotIds.getOrNull(pagerState.currentPage)
         ?: orderedSnapshotIds.firstOrNull()
+    var selectedFolderPath by rememberSaveable(selectedBookmarkId) { mutableStateOf<List<Int>?>(null) }
 
     val defaultBrowserIcon = state.installedBrowsers
         .firstOrNull { it.packageName == state.defaultBrowserPackage }
@@ -265,7 +266,10 @@ fun HomeScreen(
             onFolderTitleChange = { pendingFolderTitle = it },
             onDismiss = { showAddFolderDialog = false },
             onConfirm = {
-                onAddFolder(pendingFolderTitle)
+                onAddFolder(
+                    pendingFolderTitle,
+                    selectedFolderPath.takeIf { state.bookmarkDisplayType == BookmarkDisplayType.LIST },
+                )
                 showAddFolderDialog = false
             },
         )
@@ -279,7 +283,11 @@ fun HomeScreen(
             onBookmarkUrlChange = { pendingBookmarkUrl = it },
             onDismiss = { showAddBookmarkDialog = false },
             onConfirm = {
-                onAddBookmark(pendingBookmarkTitle, pendingBookmarkUrl)
+                onAddBookmark(
+                    pendingBookmarkTitle,
+                    pendingBookmarkUrl,
+                    selectedFolderPath.takeIf { state.bookmarkDisplayType == BookmarkDisplayType.LIST },
+                )
                 showAddBookmarkDialog = false
             },
         )
@@ -318,6 +326,7 @@ fun HomeScreen(
                     }
                 },
                 onItemLongClick = { path -> pendingDeleteBookmarkItemPath = path },
+                onSelectedFolderPathChange = { path -> selectedFolderPath = path },
             )
         }
     }
@@ -340,8 +349,8 @@ private fun HomeScreenPreview() {
         onOpenFilePicker = {},
         onDeleteBookmarkSnapshot = {},
         onBookmarkDisplayTypeToggle = {},
-        onAddFolder = {},
-        onAddBookmark = { _, _ -> },
+        onAddFolder = { _, _ -> },
+        onAddBookmark = { _, _, _ -> },
         onDeleteBookmarkItem = {},
         onAddEmptyBookmarkSnapshot = {},
     )

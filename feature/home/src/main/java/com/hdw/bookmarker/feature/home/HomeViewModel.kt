@@ -234,7 +234,7 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(selectedBookmarkId = snapshotId) }
     }
 
-    fun addFolder(title: String) = intent {
+    fun addFolder(title: String, parentFolderPath: List<Int>? = null) = intent {
         val trimmedTitle = title.trim()
         if (trimmedTitle.isBlank()) return@intent
 
@@ -242,6 +242,7 @@ class HomeViewModel @Inject constructor(
         val currentState = state
         val savedSnapshotId = saveAddedItem(
             currentState = currentState,
+            parentFolderPath = parentFolderPath,
             item = BookmarkItem.Folder(
                 title = trimmedTitle,
                 addDate = now,
@@ -252,7 +253,7 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
     }
 
-    fun addBookmark(title: String, url: String) = intent {
+    fun addBookmark(title: String, url: String, parentFolderPath: List<Int>? = null) = intent {
         val trimmedTitle = title.trim()
         val trimmedUrl = url.trim()
         if (trimmedTitle.isBlank() || trimmedUrl.isBlank()) return@intent
@@ -261,6 +262,7 @@ class HomeViewModel @Inject constructor(
         val currentState = state
         val savedSnapshotId = saveAddedItem(
             currentState = currentState,
+            parentFolderPath = parentFolderPath,
             item = BookmarkItem.Bookmark(
                 title = trimmedTitle,
                 url = normalizeUrl(trimmedUrl),
@@ -288,7 +290,11 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
     }
 
-    private suspend fun saveAddedItem(currentState: HomeState, item: BookmarkItem): String {
+    private suspend fun saveAddedItem(
+        currentState: HomeState,
+        item: BookmarkItem,
+        parentFolderPath: List<Int>? = null,
+    ): String {
         val currentSnapshotId = currentState.selectedBookmarkId
         val currentDocument = currentSnapshotId
             ?.let { currentState.bookmarkDocuments[it] }
@@ -298,8 +304,15 @@ class HomeViewModel @Inject constructor(
                 rootItems = emptyList(),
             )
 
+        val updatedRootItems = if (parentFolderPath.isNullOrEmpty()) {
+            currentDocument.rootItems + item
+        } else {
+            addItemToFolderByPath(currentDocument.rootItems, parentFolderPath, item)
+                ?: (currentDocument.rootItems + item)
+        }
+
         val updatedDocument = currentDocument.copy(
-            rootItems = currentDocument.rootItems + item,
+            rootItems = updatedRootItems,
         )
 
         val sourceHash = currentSnapshotId
@@ -331,6 +344,27 @@ class HomeViewModel @Inject constructor(
 
         return items.toMutableList().apply {
             this[targetIndex] = targetFolder.copy(children = updatedChildren)
+        }
+    }
+
+    private fun addItemToFolderByPath(
+        items: List<BookmarkItem>,
+        path: List<Int>,
+        item: BookmarkItem,
+    ): List<BookmarkItem>? {
+        val targetIndex = path.firstOrNull() ?: return null
+        if (targetIndex !in items.indices) return null
+
+        val targetFolder = items[targetIndex] as? BookmarkItem.Folder ?: return null
+        val updatedFolder = if (path.size == 1) {
+            targetFolder.copy(children = targetFolder.children + item)
+        } else {
+            val updatedChildren = addItemToFolderByPath(targetFolder.children, path.drop(1), item) ?: return null
+            targetFolder.copy(children = updatedChildren)
+        }
+
+        return items.toMutableList().apply {
+            this[targetIndex] = updatedFolder
         }
     }
 
