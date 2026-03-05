@@ -18,6 +18,7 @@
     <string name="press_back_to_exit">Pressione voltar mais uma vez para fechar o aplicativo</string>
     <string name="sync">Sincronizar</string>
     <string name="add">Adicionar</string>
+    <string name="action_apply">Aplicar</string>
     <string name="add_folder">Adicionar pasta</string>
     <string name="add_bookmark">Adicionar marcador</string>
     <string name="add_bookmark_or_folder">Adicionar marcador ou pasta</string>

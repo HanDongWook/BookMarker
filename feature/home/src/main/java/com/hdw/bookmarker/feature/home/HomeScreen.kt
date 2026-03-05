@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.hdw.bookmarker.core.domain.util.BookmarkColorGenerator
+import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.MimeTypes
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
@@ -34,6 +35,7 @@ import com.hdw.bookmarker.feature.home.dialog.DefaultBrowserPickerDialog
 import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkItemDialog
 import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkSnapshotDialog
 import com.hdw.bookmarker.feature.home.dialog.ImportOptionDialog
+import com.hdw.bookmarker.feature.home.dialog.ManageBookmarkItemDialog
 import com.hdw.bookmarker.feature.home.dialog.RenameBookmarkSnapshotDialog
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.orbitmvi.orbit.compose.collectAsState
@@ -92,6 +94,7 @@ fun HomeRoute(
         onAddBookmark = viewModel::addBookmark,
         onRenameBookmarkSnapshot = viewModel::renameBookmarkSnapshot,
         onDeleteBookmarkItem = viewModel::deleteBookmarkItem,
+        onUpdateBookmarkItem = viewModel::updateBookmarkItem,
         onAddEmptyBookmarkSnapshot = viewModel::addEmptyBookmarkSnapshot,
     )
 }
@@ -112,6 +115,7 @@ fun HomeScreen(
     onAddBookmark: (String, String, List<Int>?) -> Unit,
     onRenameBookmarkSnapshot: (String, String) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
+    onUpdateBookmarkItem: (List<Int>, String, String?) -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
 ) {
     val orderedSnapshotIds = state.orderedSnapshotIds
@@ -130,7 +134,11 @@ fun HomeScreen(
     var pendingDeleteSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
     var pendingRenameSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
     var pendingSnapshotTitle by rememberSaveable { mutableStateOf("") }
+    var pendingEditBookmarkItemPath by remember { mutableStateOf<List<Int>?>(null) }
     var pendingDeleteBookmarkItemPath by remember { mutableStateOf<List<Int>?>(null) }
+    var pendingEditBookmarkItem by remember { mutableStateOf<BookmarkItem?>(null) }
+    var pendingEditBookmarkTitle by rememberSaveable { mutableStateOf("") }
+    var pendingEditBookmarkUrl by rememberSaveable { mutableStateOf("") }
 
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -189,6 +197,11 @@ fun HomeScreen(
 
     BackHandler(enabled = showAddBookmarkDialog) {
         showAddBookmarkDialog = false
+    }
+
+    BackHandler(enabled = pendingEditBookmarkItemPath != null) {
+        pendingEditBookmarkItemPath = null
+        pendingEditBookmarkItem = null
     }
 
     BackHandler(enabled = pendingDeleteBookmarkItemPath != null) {
@@ -259,6 +272,36 @@ fun HomeScreen(
                 val snapshotId = pendingRenameSnapshotId ?: return@RenameBookmarkSnapshotDialog
                 onRenameBookmarkSnapshot(snapshotId, pendingSnapshotTitle)
                 pendingRenameSnapshotId = null
+            },
+        )
+    }
+
+    if (pendingEditBookmarkItemPath != null && pendingEditBookmarkItem != null) {
+        val editingItem = pendingEditBookmarkItem!!
+        ManageBookmarkItemDialog(
+            item = editingItem,
+            title = pendingEditBookmarkTitle,
+            url = pendingEditBookmarkUrl,
+            onTitleChange = { pendingEditBookmarkTitle = it },
+            onUrlChange = { pendingEditBookmarkUrl = it },
+            onDismiss = {
+                pendingEditBookmarkItemPath = null
+                pendingEditBookmarkItem = null
+            },
+            onApply = {
+                val path = pendingEditBookmarkItemPath ?: return@ManageBookmarkItemDialog
+                onUpdateBookmarkItem(
+                    path,
+                    pendingEditBookmarkTitle,
+                    pendingEditBookmarkUrl.takeIf { editingItem is BookmarkItem.Bookmark },
+                )
+                pendingEditBookmarkItemPath = null
+                pendingEditBookmarkItem = null
+            },
+            onDelete = {
+                pendingDeleteBookmarkItemPath = pendingEditBookmarkItemPath
+                pendingEditBookmarkItemPath = null
+                pendingEditBookmarkItem = null
             },
         )
     }
@@ -355,7 +398,15 @@ fun HomeScreen(
                         context.showShortToast(resources.getString(R.string.open_bookmark_failed))
                     }
                 },
-                onItemLongClick = { path -> pendingDeleteBookmarkItemPath = path },
+                onItemLongClick = { item, path ->
+                    pendingEditBookmarkItem = item
+                    pendingEditBookmarkItemPath = path
+                    pendingEditBookmarkTitle = when (item) {
+                        is BookmarkItem.Folder -> item.title
+                        is BookmarkItem.Bookmark -> item.title
+                    }
+                    pendingEditBookmarkUrl = (item as? BookmarkItem.Bookmark)?.url.orEmpty()
+                },
                 onSelectedFolderPathChange = { path -> selectedFolderPath = path },
                 currentSnapshotTitle = selectedBookmarkId?.let(snapshotTitles::get),
                 onSnapshotTitleClick = {
@@ -390,6 +441,7 @@ private fun HomeScreenPreview() {
         onAddBookmark = { _, _, _ -> },
         onRenameBookmarkSnapshot = { _, _ -> },
         onDeleteBookmarkItem = {},
+        onUpdateBookmarkItem = { _, _, _ -> },
         onAddEmptyBookmarkSnapshot = {},
     )
 }

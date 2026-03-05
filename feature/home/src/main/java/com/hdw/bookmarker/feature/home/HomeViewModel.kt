@@ -295,6 +295,29 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
     }
 
+    fun updateBookmarkItem(path: List<Int>, title: String, url: String?) = intent {
+        if (path.isEmpty()) return@intent
+        val trimmedTitle = title.trim()
+        if (trimmedTitle.isBlank()) return@intent
+
+        val currentSnapshotId = state.selectedBookmarkId ?: return@intent
+        val currentDocument = state.bookmarkDocuments[currentSnapshotId] ?: return@intent
+        val updatedRootItems = updateItemByPath(
+            items = currentDocument.rootItems,
+            path = path,
+            title = trimmedTitle,
+            url = url,
+        ) ?: return@intent
+        val sourceHash = getBookmarkSnapshotRawFileHashUseCase(currentSnapshotId).orEmpty()
+
+        val savedSnapshotId = saveBookmarkSnapshotUseCase(
+            snapshotId = currentSnapshotId,
+            document = currentDocument.copy(rootItems = updatedRootItems),
+            sourceHash = sourceHash,
+        )
+        reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
+    }
+
     fun renameBookmarkSnapshot(snapshotId: String, title: String) = intent {
         val trimmedTitle = title.trim()
         if (trimmedTitle.isBlank()) return@intent
@@ -385,6 +408,53 @@ class HomeViewModel @Inject constructor(
 
         return items.toMutableList().apply {
             this[targetIndex] = updatedFolder
+        }
+    }
+
+    private fun updateItemByPath(
+        items: List<BookmarkItem>,
+        path: List<Int>,
+        title: String,
+        url: String?,
+    ): List<BookmarkItem>? {
+        val targetIndex = path.firstOrNull() ?: return null
+        if (targetIndex !in items.indices) return null
+
+        if (path.size == 1) {
+            val now = currentEpochSecondsString()
+            val target = items[targetIndex]
+            val updatedItem = when (target) {
+                is BookmarkItem.Folder -> target.copy(
+                    title = title,
+                    lastModified = now,
+                )
+
+                is BookmarkItem.Bookmark -> {
+                    val trimmedUrl = url?.trim().orEmpty()
+                    if (trimmedUrl.isBlank()) return null
+                    target.copy(
+                        title = title,
+                        url = normalizeUrl(trimmedUrl),
+                        lastModified = now,
+                    )
+                }
+            }
+
+            return items.toMutableList().apply {
+                this[targetIndex] = updatedItem
+            }
+        }
+
+        val targetFolder = items[targetIndex] as? BookmarkItem.Folder ?: return null
+        val updatedChildren = updateItemByPath(
+            items = targetFolder.children,
+            path = path.drop(1),
+            title = title,
+            url = url,
+        ) ?: return null
+
+        return items.toMutableList().apply {
+            this[targetIndex] = targetFolder.copy(children = updatedChildren)
         }
     }
 

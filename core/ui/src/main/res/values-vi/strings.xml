@@ -18,6 +18,7 @@
     <string name="press_back_to_exit">Nhấn quay lại thêm một lần để thoát ứng dụng</string>
     <string name="sync">Đồng bộ</string>
     <string name="add">Thêm</string>
+    <string name="action_apply">Áp dụng</string>
     <string name="add_folder">Thêm thư mục</string>
     <string name="add_bookmark">Thêm dấu trang</string>
     <string name="add_bookmark_or_folder">Thêm dấu trang hoặc thư mục</string>

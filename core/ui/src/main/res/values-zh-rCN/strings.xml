@@ -18,6 +18,7 @@
     <string name="press_back_to_exit">再按一次返回即可关闭应用</string>
     <string name="sync">同步</string>
     <string name="add">添加</string>
+    <string name="action_apply">应用</string>
     <string name="add_folder">添加文件夹</string>
     <string name="add_bookmark">添加书签</string>
     <string name="add_bookmark_or_folder">添加书签或文件夹</string>

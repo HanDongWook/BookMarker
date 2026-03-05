@@ -18,6 +18,7 @@
     <string name="press_back_to_exit">Drücken Sie Zurück noch einmal, um die App zu schließen</string>
     <string name="sync">Synchronisieren</string>
     <string name="add">Hinzufügen</string>
+    <string name="action_apply">Anwenden</string>
     <string name="add_folder">Ordner hinzufügen</string>
     <string name="add_bookmark">Lesezeichen hinzufügen</string>
     <string name="add_bookmark_or_folder">Lesezeichen oder Ordner hinzufügen</string>

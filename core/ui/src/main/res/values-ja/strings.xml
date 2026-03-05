@@ -18,6 +18,7 @@
     <string name="press_back_to_exit">アプリを閉じるには、もう一度戻るを押してください</string>
     <string name="sync">同期</string>
     <string name="add">追加</string>
+    <string name="action_apply">適用</string>
     <string name="add_folder">フォルダを追加</string>
     <string name="add_bookmark">ブックマークを追加</string>
     <string name="add_bookmark_or_folder">ブックマークまたはフォルダを追加</string>

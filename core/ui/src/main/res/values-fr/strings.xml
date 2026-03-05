@@ -18,6 +18,7 @@
     <string name="press_back_to_exit">Appuyez encore une fois sur Retour pour fermer l’application</string>
     <string name="sync">Synchroniser</string>
     <string name="add">Ajouter</string>
+    <string name="action_apply">Appliquer</string>
     <string name="add_folder">Ajouter un dossier</string>
     <string name="add_bookmark">Ajouter un signet</string>
     <string name="add_bookmark_or_folder">Ajouter un signet ou un dossier</string>

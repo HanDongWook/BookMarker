@@ -40,7 +40,7 @@ fun BookmarkDisplayContent(
         return
     }
 
-    val titleTopPadding = if (snapshotTitle.isNullOrBlank()) 0.dp else 44.dp
+    val titleTopPadding = if (snapshotTitle.isNullOrBlank()) 0.dp else 30.dp
     Box(modifier = modifier.fillMaxSize()) {
         when (displayType) {
             BookmarkDisplayType.LIST -> {
@@ -74,7 +74,7 @@ fun BookmarkDisplayContent(
         if (!snapshotTitle.isNullOrBlank()) {
             Text(
                 text = snapshotTitle,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 8.dp)
                     .then(
