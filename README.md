@@ -7,6 +7,11 @@
 BookMarker는 브라우저 북마크 HTML 파일을 앱으로 가져와 폴더 구조 그대로 탐색할 수 있게 해줍니다.  
 또한 기본 브라우저 선택, 테마 선택, 폴더 아이콘 스타일(모양/색상) 같은 개인화 설정을 제공합니다.
 
+## 스크린샷
+
+![Screenshot 1](docs/screenshots/Screenshot1.png)
+![Screenshot 2](docs/screenshots/Screenshot2.png)
+
 ## 기술 스택
 
 - **Language**: Kotlin
