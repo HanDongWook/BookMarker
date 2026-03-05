@@ -25,9 +25,9 @@
     <string name="folder_name">資料夾名稱</string>
     <string name="bookmark_name">書籤名稱</string>
     <string name="bookmark_url">書籤 URL</string>
-    <string name="bookmark_snapshot_name">快照名稱</string>
+    <string name="bookmark_snapshot_name">名稱</string>
     <string name="default_snapshot_title_prefix">書籤</string>
-    <string name="rename_bookmark_snapshot">重新命名快照</string>
+    <string name="rename_bookmark_snapshot">重新命名</string>
     <string name="app_version_label">App 版本</string>
     <string name="rate_app_label">為此應用程式評分</string>
     <string name="share_app_label">分享此應用程式</string>

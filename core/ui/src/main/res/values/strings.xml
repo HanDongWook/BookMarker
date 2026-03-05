@@ -26,9 +26,9 @@
     <string name="folder_name">Folder name</string>
     <string name="bookmark_name">Bookmark name</string>
     <string name="bookmark_url">Bookmark URL</string>
-    <string name="bookmark_snapshot_name">Snapshot name</string>
+    <string name="bookmark_snapshot_name">Name</string>
     <string name="default_snapshot_title_prefix">Bookmark</string>
-    <string name="rename_bookmark_snapshot">Rename snapshot</string>
+    <string name="rename_bookmark_snapshot">Rename</string>
     <string name="app_version_label">App Version</string>
     <string name="rate_app_label">Rate this app</string>
     <string name="share_app_label">Share this app</string>

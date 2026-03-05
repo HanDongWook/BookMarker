@@ -25,9 +25,9 @@
     <string name="folder_name">Tên thư mục</string>
     <string name="bookmark_name">Tên dấu trang</string>
     <string name="bookmark_url">URL dấu trang</string>
-    <string name="bookmark_snapshot_name">Tên ảnh chụp nhanh</string>
+    <string name="bookmark_snapshot_name">Tên</string>
     <string name="default_snapshot_title_prefix">Dấu trang</string>
-    <string name="rename_bookmark_snapshot">Đổi tên ảnh chụp nhanh</string>
+    <string name="rename_bookmark_snapshot">Đổi tên</string>
     <string name="app_version_label">Phiên bản ứng dụng</string>
     <string name="rate_app_label">Đánh giá ứng dụng</string>
     <string name="share_app_label">Chia sẻ ứng dụng này</string>

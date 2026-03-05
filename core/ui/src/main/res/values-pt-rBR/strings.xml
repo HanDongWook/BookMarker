@@ -25,9 +25,9 @@
     <string name="folder_name">Nome da pasta</string>
     <string name="bookmark_name">Nome do marcador</string>
     <string name="bookmark_url">URL do marcador</string>
-    <string name="bookmark_snapshot_name">Nome do snapshot</string>
+    <string name="bookmark_snapshot_name">Nome</string>
     <string name="default_snapshot_title_prefix">Favorito</string>
-    <string name="rename_bookmark_snapshot">Renomear snapshot</string>
+    <string name="rename_bookmark_snapshot">Renomear</string>
     <string name="app_version_label">Versão do app</string>
     <string name="rate_app_label">Avaliar este app</string>
     <string name="share_app_label">Compartilhar este app</string>

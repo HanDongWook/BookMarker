@@ -25,9 +25,9 @@
     <string name="folder_name">フォルダ名</string>
     <string name="bookmark_name">ブックマーク名</string>
     <string name="bookmark_url">ブックマークURL</string>
-    <string name="bookmark_snapshot_name">スナップショット名</string>
+    <string name="bookmark_snapshot_name">名前</string>
     <string name="default_snapshot_title_prefix">ブックマーク</string>
-    <string name="rename_bookmark_snapshot">スナップショット名を変更</string>
+    <string name="rename_bookmark_snapshot">名前を変更</string>
     <string name="app_version_label">アプリバージョン</string>
     <string name="rate_app_label">このアプリを評価</string>
     <string name="share_app_label">このアプリを共有</string>

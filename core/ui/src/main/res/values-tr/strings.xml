@@ -25,9 +25,9 @@
     <string name="folder_name">Klasör adı</string>
     <string name="bookmark_name">Yer imi adı</string>
     <string name="bookmark_url">Yer imi URL’si</string>
-    <string name="bookmark_snapshot_name">Anlık görüntü adı</string>
+    <string name="bookmark_snapshot_name">Ad</string>
     <string name="default_snapshot_title_prefix">Yer imi</string>
-    <string name="rename_bookmark_snapshot">Anlık görüntüyü yeniden adlandır</string>
+    <string name="rename_bookmark_snapshot">Yeniden adlandır</string>
     <string name="app_version_label">Uygulama sürümü</string>
     <string name="rate_app_label">Bu uygulamayı değerlendir</string>
     <string name="share_app_label">Bu uygulamayı paylaş</string>

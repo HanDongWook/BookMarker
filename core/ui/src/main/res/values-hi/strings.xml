@@ -25,9 +25,9 @@
     <string name="folder_name">फ़ोल्डर का नाम</string>
     <string name="bookmark_name">बुकमार्क का नाम</string>
     <string name="bookmark_url">बुकमार्क URL</string>
-    <string name="bookmark_snapshot_name">स्नैपशॉट का नाम</string>
+    <string name="bookmark_snapshot_name">नाम</string>
     <string name="default_snapshot_title_prefix">बुकमार्क</string>
-    <string name="rename_bookmark_snapshot">स्नैपशॉट का नाम बदलें</string>
+    <string name="rename_bookmark_snapshot">नाम बदलें</string>
     <string name="app_version_label">ऐप संस्करण</string>
     <string name="rate_app_label">ऐप को रेट करें</string>
     <string name="share_app_label">इस ऐप को साझा करें</string>

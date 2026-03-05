@@ -25,9 +25,9 @@
     <string name="folder_name">Nom du dossier</string>
     <string name="bookmark_name">Nom du signet</string>
     <string name="bookmark_url">URL du signet</string>
-    <string name="bookmark_snapshot_name">Nom de l’instantané</string>
+    <string name="bookmark_snapshot_name">Nom</string>
     <string name="default_snapshot_title_prefix">Signet</string>
-    <string name="rename_bookmark_snapshot">Renommer l’instantané</string>
+    <string name="rename_bookmark_snapshot">Renommer</string>
     <string name="app_version_label">Version de l’application</string>
     <string name="rate_app_label">Évaluer cette application</string>
     <string name="share_app_label">Partager cette application</string>

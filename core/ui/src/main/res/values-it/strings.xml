@@ -25,9 +25,9 @@
     <string name="folder_name">Nome cartella</string>
     <string name="bookmark_name">Nome segnalibro</string>
     <string name="bookmark_url">URL segnalibro</string>
-    <string name="bookmark_snapshot_name">Nome snapshot</string>
+    <string name="bookmark_snapshot_name">Nome</string>
     <string name="default_snapshot_title_prefix">Segnalibro</string>
-    <string name="rename_bookmark_snapshot">Rinomina snapshot</string>
+    <string name="rename_bookmark_snapshot">Rinomina</string>
     <string name="app_version_label">Versione app</string>
     <string name="rate_app_label">Valuta questa app</string>
     <string name="share_app_label">Condividi questa app</string>
