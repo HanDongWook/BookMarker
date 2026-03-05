@@ -38,4 +38,4 @@ BookMarker는 브라우저 북마크 HTML 파일을 앱으로 가져와 폴더 �
   - `datastore`: DataStore 접근 계층
   - `model`: 도메인 모델
   - `ui`: 공통 UI 컴포넌트/리소스
-  - `designsystem`, `core:common`: 공통 디자인/유틸
+  - `designsystem`, `common`: 공통 디자인/유틸
