@@ -64,6 +64,7 @@ fun BookmarkDisplayContent(
                     onItemLongClick = onItemLongClick,
                     folderIconShape = folderIconShape,
                     folderIconColor = folderIconColor,
+                    onSelectedFolderPathChange = onSelectedFolderPathChange,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(top = titleTopPadding),

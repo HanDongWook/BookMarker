@@ -20,6 +20,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -44,12 +45,18 @@ internal fun BookmarkIconContent(
     folderIconShape: BookmarkFolderIconShape,
     folderIconColor: BookmarkFolderIconColor,
     modifier: Modifier = Modifier,
+    onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
 ) {
     val folderDepthStack = remember(bookmarkDocument) { mutableStateListOf<BookmarkItem.Folder>() }
     val folderPathStack = remember(bookmarkDocument) { mutableStateListOf<Int>() }
     val currentFolder = folderDepthStack.lastOrNull()
     val currentItems = currentFolder?.children ?: bookmarkDocument.rootItems
     val currentFolderPath = folderDepthStack.joinToString(separator = "/") { it.title }
+    val selectedFolderPath = folderPathStack.toList().takeIf { it.isNotEmpty() }
+
+    LaunchedEffect(selectedFolderPath) {
+        onSelectedFolderPathChange(selectedFolderPath)
+    }
 
     BackHandler(enabled = folderDepthStack.isNotEmpty()) {
         folderDepthStack.removeAt(folderDepthStack.lastIndex)
