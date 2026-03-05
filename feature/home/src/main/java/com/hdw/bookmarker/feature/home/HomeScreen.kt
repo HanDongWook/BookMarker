@@ -380,7 +380,7 @@ fun HomeScreen(
             onConfirm = {
                 onAddFolder(
                     pendingFolderTitle,
-                    selectedFolderPath.takeIf { state.bookmarkDisplayType == BookmarkDisplayType.LIST },
+                    selectedFolderPath,
                 )
                 showAddFolderDialog = false
             },
@@ -398,7 +398,7 @@ fun HomeScreen(
                 onAddBookmark(
                     pendingBookmarkTitle,
                     pendingBookmarkUrl,
-                    selectedFolderPath.takeIf { state.bookmarkDisplayType == BookmarkDisplayType.LIST },
+                    selectedFolderPath,
                 )
                 showAddBookmarkDialog = false
             },
