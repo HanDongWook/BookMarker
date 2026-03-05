@@ -1,5 +1,7 @@
 # BookMarker
-
+<p align="center">
+  <img src="docs/images/AppIconImage.png" alt="Screenshot 1" width="440" />
+</p>
 여러 브라우저의 북마크를 하나의 앱에서 가져오고, 탐색하고, 빠르게 열 수 있는 Android 앱입니다.
 
 ## 앱 소개
