@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.settings
+package com.hdw.bookmarker.feature.settings.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
@@ -8,6 +8,8 @@ import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
+import com.hdw.bookmarker.feature.settings.SettingsScreen
+import com.hdw.bookmarker.feature.settings.SettingsState
 import com.hdw.bookmarker.feature.settings.defaultbrowser.DefaultBrowserScreen
 import com.hdw.bookmarker.feature.settings.folderstyle.FolderStyleScreen
 import com.hdw.bookmarker.feature.settings.opensource.OpenSourceLicensesScreen

@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.settings
+package com.hdw.bookmarker.feature.settings.navigation
 
 import kotlinx.serialization.Serializable
 
