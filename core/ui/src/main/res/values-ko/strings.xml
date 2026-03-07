@@ -29,6 +29,14 @@
     <string name="default_snapshot_title_prefix">북마크</string>
     <string name="rename_bookmark_snapshot">이름 변경</string>
     <string name="app_version_label">앱 버전</string>
+    <string name="app_update_status_checking">업데이트 확인 중…</string>
+    <string name="app_update_status_latest">최신 버전</string>
+    <string name="app_update_status_available">업데이트 가능 (v%1$d)</string>
+    <string name="app_update_status_in_progress">업데이트 진행 중</string>
+    <string name="app_update_status_unavailable">업데이트를 확인할 수 없어요</string>
+    <string name="app_update_action_update">업데이트</string>
+    <string name="app_update_flow_canceled">업데이트가 취소되었어요.</string>
+    <string name="app_update_flow_failed">업데이트 시작에 실패했어요.</string>
     <string name="rate_app_label">앱 평가하기</string>
     <string name="share_app_label">앱 공유하기</string>
     <string name="share_app_chooser_title">앱 공유</string>
