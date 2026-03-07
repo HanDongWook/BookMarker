@@ -147,4 +147,19 @@
     <string name="folder_color_green">Xanh lá</string>
     <string name="folder_color_orange">Cam</string>
     <string name="folder_color_purple">Tím</string>
+    <string name="app_update_status_checking">Đang kiểm tra bản cập nhật…</string>
+    <string name="app_update_status_latest">Phiên bản mới nhất</string>
+    <string name="app_update_status_available">Có bản cập nhật (v%1$d)</string>
+    <string name="app_update_status_in_progress">Đang cập nhật</string>
+    <string name="app_update_status_unavailable">Không thể kiểm tra bản cập nhật</string>
+    <string name="app_update_action_update">Cập nhật</string>
+    <string name="app_update_flow_canceled">Đã hủy cập nhật.</string>
+    <string name="app_update_flow_failed">Không thể bắt đầu cập nhật.</string>
+    <string name="rate_app_fallback_opening_store">Không thể hiển thị đánh giá trong ứng dụng. Đang mở Play Store.</string>
+    <string name="rate_app_review_requested_hint">Nếu không thấy cửa sổ bật lên, vui lòng đánh giá trên Play Store.</string>
+    <string name="share_current_bookmarks_html_failed">Không thể tạo tệp HTML dấu trang.</string>
+    <string name="share_bookmark_method_title">Chọn kiểu chia sẻ</string>
+    <string name="share_bookmark_method_text">Chia sẻ dưới dạng văn bản</string>
+    <string name="share_bookmark_method_html">Chia sẻ dưới dạng HTML</string>
+    <string name="rate_app_open_store_failed">Không thể mở Play Store.</string>
 </resources>

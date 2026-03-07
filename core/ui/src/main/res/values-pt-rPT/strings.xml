@@ -147,4 +147,19 @@
     <string name="folder_color_green">Verde</string>
     <string name="folder_color_orange">Laranja</string>
     <string name="folder_color_purple">Roxo</string>
+    <string name="app_update_status_checking">A verificar atualizações…</string>
+    <string name="app_update_status_latest">Versão mais recente</string>
+    <string name="app_update_status_available">Atualização disponível (v%1$d)</string>
+    <string name="app_update_status_in_progress">Atualização em curso</string>
+    <string name="app_update_status_unavailable">Não foi possível verificar atualizações</string>
+    <string name="app_update_action_update">Atualizar</string>
+    <string name="app_update_flow_canceled">Atualização cancelada.</string>
+    <string name="app_update_flow_failed">Falha ao iniciar a atualização.</string>
+    <string name="rate_app_fallback_opening_store">Não foi possível mostrar a avaliação na app. A abrir a Play Store.</string>
+    <string name="rate_app_review_requested_hint">Se não aparecer qualquer pop-up, avalie a app na Play Store.</string>
+    <string name="share_current_bookmarks_html_failed">Falha ao criar o ficheiro HTML de marcadores.</string>
+    <string name="share_bookmark_method_title">Escolher tipo de partilha</string>
+    <string name="share_bookmark_method_text">Partilhar como texto</string>
+    <string name="share_bookmark_method_html">Partilhar como HTML</string>
+    <string name="rate_app_open_store_failed">Não foi possível abrir a Play Store.</string>
 </resources>
