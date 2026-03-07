@@ -147,4 +147,19 @@
     <string name="folder_color_green">Vert</string>
     <string name="folder_color_orange">Orange</string>
     <string name="folder_color_purple">Violet</string>
+    <string name="app_update_status_checking">Vérification des mises à jour…</string>
+    <string name="app_update_status_latest">Dernière version</string>
+    <string name="app_update_status_available">Mise à jour disponible (v%1$d)</string>
+    <string name="app_update_status_in_progress">Mise à jour en cours</string>
+    <string name="app_update_status_unavailable">Impossible de vérifier les mises à jour</string>
+    <string name="app_update_action_update">Mettre à jour</string>
+    <string name="app_update_flow_canceled">Mise à jour annulée.</string>
+    <string name="app_update_flow_failed">Échec du démarrage de la mise à jour.</string>
+    <string name="rate_app_fallback_opening_store">Impossible d’afficher l’avis intégré. Ouverture du Play Store.</string>
+    <string name="rate_app_review_requested_hint">Si aucune fenêtre ne s’affiche, veuillez noter l’application sur le Play Store.</string>
+    <string name="share_current_bookmarks_html_failed">Impossible de créer le fichier HTML des favoris.</string>
+    <string name="share_bookmark_method_title">Choisir le type de partage</string>
+    <string name="share_bookmark_method_text">Partager en texte</string>
+    <string name="share_bookmark_method_html">Partager en HTML</string>
+    <string name="rate_app_open_store_failed">Impossible d’ouvrir le Play Store.</string>
 </resources>

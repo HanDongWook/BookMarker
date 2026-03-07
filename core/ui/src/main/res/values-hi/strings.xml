@@ -147,4 +147,19 @@
     <string name="folder_color_green">हरा</string>
     <string name="folder_color_orange">नारंगी</string>
     <string name="folder_color_purple">बैंगनी</string>
+    <string name="app_update_status_checking">अपडेट की जाँच की जा रही है…</string>
+    <string name="app_update_status_latest">नवीनतम संस्करण</string>
+    <string name="app_update_status_available">अपडेट उपलब्ध है (v%1$d)</string>
+    <string name="app_update_status_in_progress">अपडेट जारी है</string>
+    <string name="app_update_status_unavailable">अपडेट की जाँच नहीं हो सकी</string>
+    <string name="app_update_action_update">अपडेट करें</string>
+    <string name="app_update_flow_canceled">अपडेट रद्द कर दिया गया।</string>
+    <string name="app_update_flow_failed">अपडेट शुरू नहीं हो सका।</string>
+    <string name="rate_app_fallback_opening_store">इन-ऐप रिव्यू नहीं दिखाया जा सका। Play Store खोला जा रहा है।</string>
+    <string name="rate_app_review_requested_hint">अगर कोई पॉपअप नहीं दिखे, तो कृपया Play Store में रेटिंग दें।</string>
+    <string name="share_current_bookmarks_html_failed">बुकमार्क HTML फ़ाइल बनाई नहीं जा सकी।</string>
+    <string name="share_bookmark_method_title">शेयर प्रकार चुनें</string>
+    <string name="share_bookmark_method_text">टेक्स्ट के रूप में शेयर करें</string>
+    <string name="share_bookmark_method_html">HTML के रूप में शेयर करें</string>
+    <string name="rate_app_open_store_failed">Play Store नहीं खोला जा सका।</string>
 </resources>

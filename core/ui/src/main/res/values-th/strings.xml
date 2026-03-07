@@ -147,4 +147,19 @@
     <string name="folder_color_green">สีเขียว</string>
     <string name="folder_color_orange">สีส้ม</string>
     <string name="folder_color_purple">สีม่วง</string>
+    <string name="app_update_status_checking">กำลังตรวจสอบการอัปเดต…</string>
+    <string name="app_update_status_latest">เวอร์ชันล่าสุด</string>
+    <string name="app_update_status_available">มีการอัปเดต (v%1$d)</string>
+    <string name="app_update_status_in_progress">กำลังอัปเดต</string>
+    <string name="app_update_status_unavailable">ไม่สามารถตรวจสอบการอัปเดตได้</string>
+    <string name="app_update_action_update">อัปเดต</string>
+    <string name="app_update_flow_canceled">ยกเลิกการอัปเดตแล้ว</string>
+    <string name="app_update_flow_failed">เริ่มการอัปเดตไม่สำเร็จ</string>
+    <string name="rate_app_fallback_opening_store">ไม่สามารถแสดงรีวิวในแอปได้ กำลังเปิด Play Store</string>
+    <string name="rate_app_review_requested_hint">หากไม่มีป๊อปอัป โปรดให้คะแนนใน Play Store</string>
+    <string name="share_current_bookmarks_html_failed">สร้างไฟล์ HTML ของบุ๊กมาร์กไม่สำเร็จ</string>
+    <string name="share_bookmark_method_title">เลือกประเภทการแชร์</string>
+    <string name="share_bookmark_method_text">แชร์เป็นข้อความ</string>
+    <string name="share_bookmark_method_html">แชร์เป็น HTML</string>
+    <string name="rate_app_open_store_failed">ไม่สามารถเปิด Play Store ได้</string>
 </resources>
