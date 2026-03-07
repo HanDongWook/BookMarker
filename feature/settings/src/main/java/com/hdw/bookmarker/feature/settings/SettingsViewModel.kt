@@ -35,7 +35,7 @@ data class SettingsState(
     val selectedFolderIconShape: BookmarkFolderIconShape = BookmarkFolderIconShape.FILLED,
     val selectedFolderIconColor: BookmarkFolderIconColor = BookmarkFolderIconColor.DEFAULT,
     val appUpdateUiState: AppUpdateUiState = AppUpdateUiState.Checking,
-    val appUpdateLaunchRequestNonce: Long = 0L,
+    val updateLaunchRequestId: Long = 0L,
 ) : MavericksState
 
 class SettingsViewModel @AssistedInject constructor(
@@ -132,7 +132,7 @@ class SettingsViewModel @AssistedInject constructor(
     }
 
     private fun requestAppUpdateLaunch() {
-        setState { copy(appUpdateLaunchRequestNonce = appUpdateLaunchRequestNonce + 1) }
+        setState { copy(updateLaunchRequestId = updateLaunchRequestId + 1) }
     }
 
     private fun observeAppThemeMode() {
