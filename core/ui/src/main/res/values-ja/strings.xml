@@ -147,4 +147,19 @@
     <string name="folder_color_green">緑</string>
     <string name="folder_color_orange">オレンジ</string>
     <string name="folder_color_purple">紫</string>
+    <string name="app_update_status_checking">更新を確認中…</string>
+    <string name="app_update_status_latest">最新バージョン</string>
+    <string name="app_update_status_available">アップデートあり (v%1$d)</string>
+    <string name="app_update_status_in_progress">アップデート進行中</string>
+    <string name="app_update_status_unavailable">アップデートを確認できません</string>
+    <string name="app_update_action_update">アップデート</string>
+    <string name="app_update_flow_canceled">アップデートはキャンセルされました。</string>
+    <string name="app_update_flow_failed">アップデートの開始に失敗しました。</string>
+    <string name="rate_app_fallback_opening_store">アプリ内レビューを表示できません。Play ストアを開きます。</string>
+    <string name="rate_app_review_requested_hint">ポップアップが表示されない場合は、Play ストアで評価してください。</string>
+    <string name="share_current_bookmarks_html_failed">ブックマークHTMLファイルの作成に失敗しました。</string>
+    <string name="share_bookmark_method_title">共有方法を選択</string>
+    <string name="share_bookmark_method_text">テキストで共有</string>
+    <string name="share_bookmark_method_html">HTMLで共有</string>
+    <string name="rate_app_open_store_failed">Play ストアを開けませんでした。</string>
 </resources>
