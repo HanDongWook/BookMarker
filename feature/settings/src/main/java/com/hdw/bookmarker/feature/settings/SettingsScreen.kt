@@ -43,6 +43,7 @@ import com.hdw.bookmarker.feature.settings.folderstyle.FolderStyleRow
 import com.hdw.bookmarker.feature.settings.language.AppLanguageDialog
 import com.hdw.bookmarker.feature.settings.language.AppLanguageRow
 import com.hdw.bookmarker.feature.settings.legal.PrivacyPolicyRow
+import com.hdw.bookmarker.feature.settings.navigation.SettingsNavHost
 import com.hdw.bookmarker.feature.settings.opensource.OpenSourceLicenseRow
 import com.hdw.bookmarker.feature.settings.rateapp.RateAppRow
 import com.hdw.bookmarker.feature.settings.rateapp.requestInAppReview
