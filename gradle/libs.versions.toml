@@ -1,6 +1,6 @@
 [versions]
 accompanist = "0.37.3"
-agp = "9.0.1"
+agp = "9.1.0"
 androidxNavigation = "2.9.7"
 androidxDatastore = "1.2.0"
 coreKtx = "1.17.0"
@@ -15,7 +15,7 @@ timber = "5.0.1"
 jsoup = "1.22.1"
 appStartup = "1.2.0"
 appcompat = "1.7.1"
-splashscreen = "1.0.1"
+splashscreen = "1.2.0"
 material = "1.13.0"
 hilt = "2.59.2"
 hiltNavigationCompose = "1.3.0"
@@ -23,7 +23,7 @@ orbit = "11.0.0"
 mavericks = "3.1.0"
 ksp = "2.3.4"
 ktlint = "1.8.0"
-spotless = "8.2.1"
+spotless = "8.3.0"
 detekt = "1.23.8"
 dependencyAnalysis = "3.6.1"
 kotlinSerialization = "1.10.0"
@@ -37,6 +37,7 @@ googleServices = "4.4.4"
 firebaseCrashlyticsPlugin = "3.0.6"
 leakcanary = "2.14"
 playReview = "2.0.2"
+playAppUpdate = "2.1.0"
 
 [libraries]
 # androidx
@@ -73,6 +74,8 @@ firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-perf = { module = "com.google.firebase:firebase-perf" }
 google-play-review = { module = "com.google.android.play:review", version.ref = "playReview" }
 google-play-review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "playReview" }
+google-play-app-update = { module = "com.google.android.play:app-update", version.ref = "playAppUpdate" }
+google-play-app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "playAppUpdate" }
 
 # hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
