@@ -58,7 +58,7 @@
         <activity
             android:name=".main.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.BookMarker">
+            android:theme="@style/Theme.BookMarker.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
