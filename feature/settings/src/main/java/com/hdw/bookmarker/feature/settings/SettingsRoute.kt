@@ -48,7 +48,7 @@ fun SettingsRoute(onBackClick: () -> Unit) {
     var showClearTemporaryDataDialog by rememberSaveable { mutableStateOf(false) }
     val appUpdateManager = remember(context) { AppUpdateManagerFactory.create(context) }
     var pendingAppUpdateInfo by remember { mutableStateOf<AppUpdateInfo?>(null) }
-    var lastHandledUpdateLaunchNonce by rememberSaveable { mutableLongStateOf(0L) }
+    var lastHandledUpdateLaunchRequestId by rememberSaveable { mutableLongStateOf(0L) }
     val refreshAppUpdateState: () -> Unit = remember(viewModel, appUpdateManager) {
         {
             viewModel.fetchAppUpdateState(appUpdateManager) { updateInfo ->
@@ -95,10 +95,10 @@ fun SettingsRoute(onBackClick: () -> Unit) {
         }
     }
 
-    LaunchedEffect(state.appUpdateLaunchRequestNonce) {
-        val launchRequestNonce = state.appUpdateLaunchRequestNonce
-        if (launchRequestNonce == 0L || launchRequestNonce == lastHandledUpdateLaunchNonce) return@LaunchedEffect
-        lastHandledUpdateLaunchNonce = launchRequestNonce
+    LaunchedEffect(state.updateLaunchRequestId) {
+        val launchRequestId = state.updateLaunchRequestId
+        if (launchRequestId == 0L || launchRequestId == lastHandledUpdateLaunchRequestId) return@LaunchedEffect
+        lastHandledUpdateLaunchRequestId = launchRequestId
 
         val updateInfo = pendingAppUpdateInfo
         if (context.findActivity() == null || updateInfo == null) {
