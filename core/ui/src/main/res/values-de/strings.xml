@@ -147,4 +147,19 @@
     <string name="folder_color_green">Grün</string>
     <string name="folder_color_orange">Orange</string>
     <string name="folder_color_purple">Lila</string>
+    <string name="app_update_status_checking">Suche nach Updates…</string>
+    <string name="app_update_status_latest">Neueste Version</string>
+    <string name="app_update_status_available">Update verfügbar (v%1$d)</string>
+    <string name="app_update_status_in_progress">Update wird durchgeführt</string>
+    <string name="app_update_status_unavailable">Updates können nicht geprüft werden</string>
+    <string name="app_update_action_update">Aktualisieren</string>
+    <string name="app_update_flow_canceled">Update abgebrochen.</string>
+    <string name="app_update_flow_failed">Update konnte nicht gestartet werden.</string>
+    <string name="rate_app_fallback_opening_store">In-App-Bewertung kann nicht angezeigt werden. Play Store wird geöffnet.</string>
+    <string name="rate_app_review_requested_hint">Wenn kein Popup erscheint, bewerten Sie bitte im Play Store.</string>
+    <string name="share_current_bookmarks_html_failed">HTML-Datei für Lesezeichen konnte nicht erstellt werden.</string>
+    <string name="share_bookmark_method_title">Freigabetyp wählen</string>
+    <string name="share_bookmark_method_text">Als Text teilen</string>
+    <string name="share_bookmark_method_html">Als HTML teilen</string>
+    <string name="rate_app_open_store_failed">Play Store konnte nicht geöffnet werden.</string>
 </resources>

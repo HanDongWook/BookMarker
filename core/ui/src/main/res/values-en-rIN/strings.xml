@@ -147,4 +147,19 @@
     <string name="folder_color_green">Green</string>
     <string name="folder_color_orange">Orange</string>
     <string name="folder_color_purple">Purple</string>
+    <string name="app_update_status_checking">Checking for updates…</string>
+    <string name="app_update_status_latest">Latest version</string>
+    <string name="app_update_status_available">Update available (v%1$d)</string>
+    <string name="app_update_status_in_progress">Update in progress</string>
+    <string name="app_update_status_unavailable">Unable to check updates</string>
+    <string name="app_update_action_update">Update</string>
+    <string name="app_update_flow_canceled">Update canceled.</string>
+    <string name="app_update_flow_failed">Failed to start update.</string>
+    <string name="rate_app_fallback_opening_store">Unable to show in-app review. Opening Play Store.</string>
+    <string name="rate_app_review_requested_hint">If no popup appears, please rate in Play Store.</string>
+    <string name="share_current_bookmarks_html_failed">Failed to create bookmark HTML file.</string>
+    <string name="share_bookmark_method_title">Choose share type</string>
+    <string name="share_bookmark_method_text">Share as text</string>
+    <string name="share_bookmark_method_html">Share as HTML</string>
+    <string name="rate_app_open_store_failed">Could not open Play Store.</string>
 </resources>

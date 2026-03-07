@@ -147,4 +147,19 @@
     <string name="folder_color_green">Hijau</string>
     <string name="folder_color_orange">Oranye</string>
     <string name="folder_color_purple">Ungu</string>
+    <string name="app_update_status_checking">Memeriksa pembaruan…</string>
+    <string name="app_update_status_latest">Versi terbaru</string>
+    <string name="app_update_status_available">Pembaruan tersedia (v%1$d)</string>
+    <string name="app_update_status_in_progress">Pembaruan sedang berlangsung</string>
+    <string name="app_update_status_unavailable">Tidak dapat memeriksa pembaruan</string>
+    <string name="app_update_action_update">Perbarui</string>
+    <string name="app_update_flow_canceled">Pembaruan dibatalkan.</string>
+    <string name="app_update_flow_failed">Gagal memulai pembaruan.</string>
+    <string name="rate_app_fallback_opening_store">Ulasan dalam aplikasi tidak dapat ditampilkan. Membuka Play Store.</string>
+    <string name="rate_app_review_requested_hint">Jika tidak ada popup, beri nilai aplikasi di Play Store.</string>
+    <string name="share_current_bookmarks_html_failed">Gagal membuat file HTML bookmark.</string>
+    <string name="share_bookmark_method_title">Pilih jenis berbagi</string>
+    <string name="share_bookmark_method_text">Bagikan sebagai teks</string>
+    <string name="share_bookmark_method_html">Bagikan sebagai HTML</string>
+    <string name="rate_app_open_store_failed">Tidak dapat membuka Play Store.</string>
 </resources>

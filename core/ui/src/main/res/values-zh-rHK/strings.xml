@@ -147,4 +147,19 @@
     <string name="folder_color_green">綠色</string>
     <string name="folder_color_orange">橘色</string>
     <string name="folder_color_purple">紫色</string>
+    <string name="app_update_status_checking">正在檢查更新…</string>
+    <string name="app_update_status_latest">最新版本</string>
+    <string name="app_update_status_available">有可用更新 (v%1$d)</string>
+    <string name="app_update_status_in_progress">更新進行中</string>
+    <string name="app_update_status_unavailable">無法檢查更新</string>
+    <string name="app_update_action_update">更新</string>
+    <string name="app_update_flow_canceled">更新已取消。</string>
+    <string name="app_update_flow_failed">無法啟動更新。</string>
+    <string name="rate_app_fallback_opening_store">無法顯示應用程式內評價，正在開啟 Play 商店。</string>
+    <string name="rate_app_review_requested_hint">如果沒有彈出視窗，請到 Play 商店評分。</string>
+    <string name="share_current_bookmarks_html_failed">無法建立書籤 HTML 檔案。</string>
+    <string name="share_bookmark_method_title">選擇分享方式</string>
+    <string name="share_bookmark_method_text">以文字分享</string>
+    <string name="share_bookmark_method_html">以 HTML 分享</string>
+    <string name="rate_app_open_store_failed">無法開啟 Play 商店。</string>
 </resources>

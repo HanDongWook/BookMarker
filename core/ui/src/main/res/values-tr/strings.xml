@@ -147,4 +147,19 @@
     <string name="folder_color_green">Yeşil</string>
     <string name="folder_color_orange">Turuncu</string>
     <string name="folder_color_purple">Mor</string>
+    <string name="app_update_status_checking">Güncellemeler kontrol ediliyor…</string>
+    <string name="app_update_status_latest">En son sürüm</string>
+    <string name="app_update_status_available">Güncelleme mevcut (v%1$d)</string>
+    <string name="app_update_status_in_progress">Güncelleme sürüyor</string>
+    <string name="app_update_status_unavailable">Güncellemeler kontrol edilemiyor</string>
+    <string name="app_update_action_update">Güncelle</string>
+    <string name="app_update_flow_canceled">Güncelleme iptal edildi.</string>
+    <string name="app_update_flow_failed">Güncelleme başlatılamadı.</string>
+    <string name="rate_app_fallback_opening_store">Uygulama içi değerlendirme gösterilemedi. Play Store açılıyor.</string>
+    <string name="rate_app_review_requested_hint">Açılır pencere görünmezse lütfen Play Store’da puan verin.</string>
+    <string name="share_current_bookmarks_html_failed">Yer imi HTML dosyası oluşturulamadı.</string>
+    <string name="share_bookmark_method_title">Paylaşım türünü seçin</string>
+    <string name="share_bookmark_method_text">Metin olarak paylaş</string>
+    <string name="share_bookmark_method_html">HTML olarak paylaş</string>
+    <string name="rate_app_open_store_failed">Play Store açılamadı.</string>
 </resources>
