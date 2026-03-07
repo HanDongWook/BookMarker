@@ -39,6 +39,9 @@
     <string name="app_update_flow_canceled">Update canceled.</string>
     <string name="app_update_flow_failed">Failed to start update.</string>
     <string name="rate_app_label">Rate this app</string>
+    <string name="rate_app_fallback_opening_store">Unable to show in-app review. Opening Play Store.</string>
+    <string name="rate_app_review_requested_hint">If no popup appears, please rate in Play Store.</string>
+    <string name="rate_app_open_store_failed">Could not open Play Store.</string>
     <string name="share_app_label">Share this app</string>
     <string name="share_app_chooser_title">Share app</string>
     <string name="share_app_message">Try BookMarker: %1$s</string>

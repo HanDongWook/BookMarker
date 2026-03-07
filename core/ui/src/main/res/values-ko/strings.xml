@@ -38,6 +38,9 @@
     <string name="app_update_flow_canceled">업데이트가 취소되었어요.</string>
     <string name="app_update_flow_failed">업데이트 시작에 실패했어요.</string>
     <string name="rate_app_label">앱 평가하기</string>
+    <string name="rate_app_fallback_opening_store">인앱 평가를 표시할 수 없어 Play 스토어를 열어요.</string>
+    <string name="rate_app_review_requested_hint">평가 팝업이 보이지 않으면 Play 스토어에서 평가해주세요.</string>
+    <string name="rate_app_open_store_failed">Play 스토어를 열 수 없어요.</string>
     <string name="share_app_label">앱 공유하기</string>
     <string name="share_app_chooser_title">앱 공유</string>
     <string name="share_app_message">BookMarker 앱을 사용해보세요: %1$s</string>
