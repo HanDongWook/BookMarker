@@ -2,14 +2,17 @@ package com.hdw.bookmarker.feature.settings.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.hdw.bookmarker.core.data.repository.SettingsRepository
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.settings.SettingsScreen
 import com.hdw.bookmarker.feature.settings.SettingsState
+import com.hdw.bookmarker.feature.settings.appversion.AppUpdateUiState
 import com.hdw.bookmarker.feature.settings.defaultbrowser.DefaultBrowserScreen
 import com.hdw.bookmarker.feature.settings.folderstyle.FolderStyleScreen
 import com.hdw.bookmarker.feature.settings.opensource.OpenSourceLicensesScreen
@@ -20,6 +23,7 @@ internal fun SettingsNavHost(
     temporaryDataSize: String,
     onBackClick: () -> Unit,
     onTemporaryDataClick: () -> Unit,
+    onAppUpdateClick: () -> Unit,
     onThemeModeSelect: (String) -> Unit,
     onDefaultBrowserSelect: (String) -> Unit,
     onFolderShapeSelect: (BookmarkFolderIconShape) -> Unit,
@@ -55,6 +59,8 @@ internal fun SettingsNavHost(
                 onOpenSourceLicensesClick = {
                     navController.navigate(SettingsNavRoute.OpenSourceLicenses)
                 },
+                appUpdateUiState = state.appUpdateUiState,
+                onAppUpdateClick = onAppUpdateClick,
                 onThemeModeSelect = onThemeModeSelect,
             )
         }
@@ -84,4 +90,26 @@ internal fun SettingsNavHost(
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SettingsNavHostPreview() {
+    SettingsNavHost(
+        state = SettingsState(
+            appVersion = "1.2.3 (123)",
+            selectedThemeMode = SettingsRepository.APP_THEME_MODE_LIGHT,
+            selectedFolderIconShape = BookmarkFolderIconShape.FILLED,
+            selectedFolderIconColor = BookmarkFolderIconColor.DEFAULT,
+            appUpdateUiState = AppUpdateUiState.UpToDate,
+        ),
+        temporaryDataSize = "12.3 MB",
+        onBackClick = {},
+        onTemporaryDataClick = {},
+        onAppUpdateClick = {},
+        onThemeModeSelect = {},
+        onDefaultBrowserSelect = {},
+        onFolderShapeSelect = {},
+        onFolderColorSelect = {},
+    )
 }
