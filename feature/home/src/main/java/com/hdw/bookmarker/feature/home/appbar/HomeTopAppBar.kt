@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -20,6 +21,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.ui.R
@@ -38,7 +41,13 @@ fun HomeTopAppBar(
     onEditModeDoneClick: () -> Unit,
 ) {
     TopAppBar(
-        title = { Text(stringResource(R.string.title)) },
+        title = {
+            Text(
+                stringResource(R.string.title),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+            )
+        },
         actions = {
             if (isEditMode) {
                 Row(
@@ -83,4 +92,22 @@ fun HomeTopAppBar(
             }
         },
     )
+}
+
+
+@Preview(showBackground = true)
+@Composable
+private fun HomeTopAppBarPreview() {
+    MaterialTheme {
+        HomeTopAppBar(
+            isEditMode = false,
+            bookmarkDisplayType = BookmarkDisplayType.LIST,
+            defaultBrowserIcon = null,
+            onBookmarkDisplayTypeClick = {},
+            onDefaultBrowserIconClick = {},
+            onSettingsClick = {},
+            onEditLabelClick = {},
+            onEditModeDoneClick = {},
+        )
+    }
 }
