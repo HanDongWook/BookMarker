@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
@@ -39,4 +40,16 @@ fun FolderStyleRow(shape: BookmarkFolderIconShape, color: BookmarkFolderIconColo
             }
         },
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FolderStyleRowPreview() {
+    MaterialTheme {
+        FolderStyleRow(
+            shape = BookmarkFolderIconShape.FILLED,
+            color = BookmarkFolderIconColor.DEFAULT,
+            onClick = {},
+        )
+    }
 }

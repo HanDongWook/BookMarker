@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -45,5 +46,32 @@ fun SettingsRow(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Value")
+@Composable
+private fun SettingsRowValuePreview() {
+    MaterialTheme {
+        SettingsRow(
+            title = "Setting title",
+            value = "Current value",
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Trailing")
+@Composable
+private fun SettingsRowTrailingPreview() {
+    MaterialTheme {
+        SettingsRow(
+            title = "Setting title",
+            trailingContent = {
+                Text(
+                    text = "Action",
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            },
+        )
     }
 }

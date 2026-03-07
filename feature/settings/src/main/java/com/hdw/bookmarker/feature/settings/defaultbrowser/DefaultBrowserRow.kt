@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.hdw.bookmarker.core.ui.R
@@ -38,4 +39,16 @@ fun DefaultBrowserRow(browserName: String, browserIcon: Any?, onClick: () -> Uni
             }
         },
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DefaultBrowserRowPreview() {
+    MaterialTheme {
+        DefaultBrowserRow(
+            browserName = "Chrome",
+            browserIcon = null,
+            onClick = {},
+        )
+    }
 }
