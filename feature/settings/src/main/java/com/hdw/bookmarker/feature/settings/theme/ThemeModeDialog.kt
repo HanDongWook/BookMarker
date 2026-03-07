@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.data.repository.SettingsRepository
 import com.hdw.bookmarker.core.ui.R
@@ -70,5 +71,17 @@ private fun ThemeModeOption(title: String, selected: Boolean, onClick: () -> Uni
             style = MaterialTheme.typography.bodyLarge,
         )
         RadioButton(selected = selected, onClick = onClick)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ThemeModeDialogPreview() {
+    MaterialTheme {
+        ThemeModeDialog(
+            selectedThemeMode = SettingsRepository.APP_THEME_MODE_LIGHT,
+            onDismiss = {},
+            onThemeModeSelect = {},
+        )
     }
 }

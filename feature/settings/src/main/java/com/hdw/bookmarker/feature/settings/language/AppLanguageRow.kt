@@ -1,8 +1,10 @@
 package com.hdw.bookmarker.feature.settings.language
 
 import androidx.compose.runtime.Composable
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.settings.SettingsRow
 import java.util.Locale
@@ -29,5 +31,16 @@ private fun String.toReadableLanguageLabel(resources: android.content.res.Resour
         } else {
             ch.toString()
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AppLanguageRowPreview() {
+    MaterialTheme {
+        AppLanguageRow(
+            languageTag = "ko-KR",
+            onClick = {},
+        )
     }
 }
