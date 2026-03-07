@@ -5,6 +5,8 @@ import com.airbnb.mvrx.MavericksViewModel
 import com.airbnb.mvrx.MavericksViewModelFactory
 import com.airbnb.mvrx.hilt.AssistedViewModelFactory
 import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManager
 import com.hdw.bookmarker.core.domain.usecase.GetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconShapeUseCase
@@ -17,6 +19,8 @@ import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.feature.settings.appversion.AppUpdateUiState
+import com.hdw.bookmarker.feature.settings.appversion.requestAppUpdateState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -30,6 +34,8 @@ data class SettingsState(
     val selectedThemeMode: String? = null,
     val selectedFolderIconShape: BookmarkFolderIconShape = BookmarkFolderIconShape.FILLED,
     val selectedFolderIconColor: BookmarkFolderIconColor = BookmarkFolderIconColor.DEFAULT,
+    val appUpdateUiState: AppUpdateUiState = AppUpdateUiState.Checking,
+    val appUpdateLaunchRequestNonce: Long = 0L,
 ) : MavericksState
 
 class SettingsViewModel @AssistedInject constructor(
@@ -94,6 +100,39 @@ class SettingsViewModel @AssistedInject constructor(
         viewModelScope.launch {
             setBookmarkFolderIconColorUseCase(color.name)
         }
+    }
+
+    fun fetchAppUpdateState(appUpdateManager: AppUpdateManager, onPendingUpdateInfo: (AppUpdateInfo?) -> Unit) {
+        setState { copy(appUpdateUiState = AppUpdateUiState.Checking) }
+        viewModelScope.launch {
+            val updateStateResult = requestAppUpdateState(appUpdateManager)
+            setState { copy(appUpdateUiState = updateStateResult.uiState) }
+            onPendingUpdateInfo(updateStateResult.pendingUpdateInfo)
+            if (updateStateResult.uiState is AppUpdateUiState.InProgress) {
+                requestAppUpdateLaunch()
+            }
+        }
+    }
+
+    fun onAppUpdateClick() {
+        withState { current ->
+            if (
+                current.appUpdateUiState is AppUpdateUiState.UpdateAvailable ||
+                current.appUpdateUiState is AppUpdateUiState.InProgress
+            ) {
+                requestAppUpdateLaunch()
+            }
+        }
+    }
+
+    fun onAppUpdateLaunchResult(isStarted: Boolean) {
+        setState {
+            copy(appUpdateUiState = if (isStarted) AppUpdateUiState.InProgress else AppUpdateUiState.Unavailable)
+        }
+    }
+
+    private fun requestAppUpdateLaunch() {
+        setState { copy(appUpdateLaunchRequestNonce = appUpdateLaunchRequestNonce + 1) }
     }
 
     private fun observeAppThemeMode() {

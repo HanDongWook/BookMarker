@@ -14,10 +14,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -26,85 +24,27 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.os.LocaleListCompat
-import com.airbnb.mvrx.compose.collectAsState
-import com.airbnb.mvrx.compose.mavericksViewModel
 import com.hdw.bookmarker.core.data.repository.SettingsRepository
 import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.core.ui.url.AppWebUrl
-import com.hdw.bookmarker.core.ui.util.clearTemporaryData
-import com.hdw.bookmarker.core.ui.util.getAppVersionDisplay
-import com.hdw.bookmarker.core.ui.util.getTemporaryDataSizeDisplay
+import com.hdw.bookmarker.feature.settings.appversion.AppUpdateUiState
 import com.hdw.bookmarker.feature.settings.appversion.AppVersionRow
 import com.hdw.bookmarker.feature.settings.defaultbrowser.DefaultBrowserRow
 import com.hdw.bookmarker.feature.settings.folderstyle.FolderStyleRow
 import com.hdw.bookmarker.feature.settings.language.AppLanguageDialog
 import com.hdw.bookmarker.feature.settings.language.AppLanguageRow
 import com.hdw.bookmarker.feature.settings.legal.PrivacyPolicyRow
-import com.hdw.bookmarker.feature.settings.navigation.SettingsNavHost
 import com.hdw.bookmarker.feature.settings.opensource.OpenSourceLicenseRow
 import com.hdw.bookmarker.feature.settings.rateapp.RateAppRow
 import com.hdw.bookmarker.feature.settings.rateapp.requestInAppReview
 import com.hdw.bookmarker.feature.settings.shareapp.ShareAppRow
 import com.hdw.bookmarker.feature.settings.shareapp.requestAppShare
-import com.hdw.bookmarker.feature.settings.temporarydata.ClearTemporaryDataDialog
 import com.hdw.bookmarker.feature.settings.temporarydata.TemporaryDataRow
 import com.hdw.bookmarker.feature.settings.theme.ThemeModeDialog
 import com.hdw.bookmarker.feature.settings.theme.ThemeModeRow
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-
-@Composable
-fun SettingsRoute(onBackClick: () -> Unit) {
-    val viewModel: SettingsViewModel = mavericksViewModel()
-    val state by viewModel.collectAsState()
-
-    val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
-
-    var temporaryDataSize by rememberSaveable { mutableStateOf("0 MB") }
-    var showClearTemporaryDataDialog by rememberSaveable { mutableStateOf(false) }
-
-    LaunchedEffect(context) {
-        viewModel.initialize(
-            appVersion = context.getAppVersionDisplay(),
-        )
-        temporaryDataSize = withContext(Dispatchers.IO) {
-            context.getTemporaryDataSizeDisplay()
-        }
-    }
-
-    SettingsNavHost(
-        state = state,
-        temporaryDataSize = temporaryDataSize,
-        onBackClick = onBackClick,
-        onTemporaryDataClick = { showClearTemporaryDataDialog = true },
-        onThemeModeSelect = viewModel::selectAppThemeMode,
-        onDefaultBrowserSelect = viewModel::selectDefaultBrowser,
-        onFolderShapeSelect = viewModel::selectFolderIconShape,
-        onFolderColorSelect = viewModel::selectFolderIconColor,
-    )
-
-    if (showClearTemporaryDataDialog) {
-        ClearTemporaryDataDialog(
-            onDismiss = { showClearTemporaryDataDialog = false },
-            onDelete = {
-                showClearTemporaryDataDialog = false
-                coroutineScope.launch {
-                    withContext(Dispatchers.IO) {
-                        context.clearTemporaryData()
-                    }
-                    temporaryDataSize = withContext(Dispatchers.IO) {
-                        context.getTemporaryDataSizeDisplay()
-                    }
-                }
-            },
-        )
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -115,12 +55,14 @@ fun SettingsScreen(
     selectedThemeMode: String?,
     selectedBrowserName: String,
     selectedBrowserIcon: Any?,
-    onTemporaryDataClick: () -> Unit,
-    onDefaultBrowserClick: () -> Unit,
     selectedFolderIconShape: BookmarkFolderIconShape,
     selectedFolderIconColor: BookmarkFolderIconColor,
+    onTemporaryDataClick: () -> Unit,
+    onDefaultBrowserClick: () -> Unit,
     onFolderStyleClick: () -> Unit,
     onOpenSourceLicensesClick: () -> Unit,
+    appUpdateUiState: AppUpdateUiState,
+    onAppUpdateClick: () -> Unit,
     onThemeModeSelect: (String) -> Unit,
 ) {
     val context = LocalContext.current
@@ -211,7 +153,11 @@ fun SettingsScreen(
             )
             BookMarkerDivider()
 
-            AppVersionRow(version = appVersion)
+            AppVersionRow(
+                version = appVersion,
+                appUpdateUiState = appUpdateUiState,
+                onUpdateClick = onAppUpdateClick,
+            )
             BookMarkerDivider()
         }
     }
@@ -261,6 +207,8 @@ private fun SettingsScreenPreview() {
         selectedFolderIconColor = BookmarkFolderIconColor.DEFAULT,
         onFolderStyleClick = {},
         onOpenSourceLicensesClick = {},
+        appUpdateUiState = AppUpdateUiState.UpToDate,
+        onAppUpdateClick = {},
         onThemeModeSelect = {},
     )
 }

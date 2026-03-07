@@ -30,6 +30,14 @@
     <string name="default_snapshot_title_prefix">Bookmark</string>
     <string name="rename_bookmark_snapshot">Rename</string>
     <string name="app_version_label">App Version</string>
+    <string name="app_update_status_checking">Checking for updates…</string>
+    <string name="app_update_status_latest">Latest version</string>
+    <string name="app_update_status_available">Update available (v%1$d)</string>
+    <string name="app_update_status_in_progress">Update in progress</string>
+    <string name="app_update_status_unavailable">Unable to check updates</string>
+    <string name="app_update_action_update">Update</string>
+    <string name="app_update_flow_canceled">Update canceled.</string>
+    <string name="app_update_flow_failed">Failed to start update.</string>
     <string name="rate_app_label">Rate this app</string>
     <string name="share_app_label">Share this app</string>
     <string name="share_app_chooser_title">Share app</string>
