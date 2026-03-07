@@ -94,7 +94,6 @@ fun HomeTopAppBar(
     )
 }
 
-
 @Preview(showBackground = true)
 @Composable
 private fun HomeTopAppBarPreview() {
