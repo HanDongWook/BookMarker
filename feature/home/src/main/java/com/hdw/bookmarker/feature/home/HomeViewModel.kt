@@ -7,8 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkColorsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconColorUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconShapeUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconStyleUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
@@ -28,8 +27,6 @@ import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.model.file.error.ContentFileError
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
 import com.hdw.bookmarker.feature.home.contract.HomeState
@@ -57,8 +54,7 @@ class HomeViewModel @Inject constructor(
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
-    private val getBookmarkFolderIconShapeUseCase: GetBookmarkFolderIconShapeUseCase,
-    private val getBookmarkFolderIconColorUseCase: GetBookmarkFolderIconColorUseCase,
+    private val getBookmarkFolderIconStyleUseCase: GetBookmarkFolderIconStyleUseCase,
 ) : ViewModel(),
     ContainerHost<HomeState, HomeSideEffect> {
     private var isObservingSnapshots = false
@@ -66,8 +62,7 @@ class HomeViewModel @Inject constructor(
     private var isObservingColors = false
     private var isObservingDefaultBrowser = false
     private var isObservingBookmarkDisplayType = false
-    private var isObservingFolderIconShape = false
-    private var isObservingFolderIconColor = false
+    private var isObservingFolderIconStyle = false
 
     override val container = container<HomeState, HomeSideEffect>(HomeState()) {
         observeBookmarkSnapshots()
@@ -75,8 +70,7 @@ class HomeViewModel @Inject constructor(
         observeBookmarkColors()
         observeDefaultBrowserPackage()
         observeBookmarkDisplayType()
-        observeFolderIconShape()
-        observeFolderIconColor()
+        observeFolderIconStyle()
         loadInstalledBrowsers()
     }
 
@@ -497,30 +491,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun observeFolderIconShape() = intent {
-        if (isObservingFolderIconShape) return@intent
-        isObservingFolderIconShape = true
-        getBookmarkFolderIconShapeUseCase().collect { shape ->
+    private fun observeFolderIconStyle() = intent {
+        if (isObservingFolderIconStyle) return@intent
+        isObservingFolderIconStyle = true
+        getBookmarkFolderIconStyleUseCase().collect { style ->
             reduce {
-                state.copy(
-                    folderIconStyle = state.folderIconStyle.copy(
-                        shape = BookmarkFolderIconShape.fromPersisted(shape),
-                    ),
-                )
-            }
-        }
-    }
-
-    private fun observeFolderIconColor() = intent {
-        if (isObservingFolderIconColor) return@intent
-        isObservingFolderIconColor = true
-        getBookmarkFolderIconColorUseCase().collect { color ->
-            reduce {
-                state.copy(
-                    folderIconStyle = state.folderIconStyle.copy(
-                        color = BookmarkFolderIconColor.fromPersisted(color),
-                    ),
-                )
+                state.copy(folderIconStyle = style)
             }
         }
     }

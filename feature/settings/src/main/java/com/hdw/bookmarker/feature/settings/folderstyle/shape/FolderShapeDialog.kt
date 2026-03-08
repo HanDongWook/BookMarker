@@ -22,17 +22,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.ui.folderstyle.iconVector
+import com.hdw.bookmarker.core.ui.folderstyle.label
+import com.hdw.bookmarker.core.ui.folderstyle.resolveTint
 
 @Composable
 fun FolderShapeDialog(
-    selectedShape: BookmarkFolderIconShape,
-    selectedColor: BookmarkFolderIconColor,
+    selectedFolderIconStyle: BookmarkFolderIconStyle,
     onDismiss: () -> Unit,
     onShapeSelect: (BookmarkFolderIconShape) -> Unit,
 ) {
+    val selectedShape = selectedFolderIconStyle.shape
     var pendingShape by remember(selectedShape) { mutableStateOf(selectedShape) }
 
     AlertDialog(
@@ -43,7 +46,7 @@ fun FolderShapeDialog(
                 BookmarkFolderIconShape.entries.forEach { shape ->
                     FolderShapeOptionRow(
                         shape = shape,
-                        selectedColor = selectedColor,
+                        selectedFolderIconStyle = selectedFolderIconStyle,
                         isSelected = shape == pendingShape,
                         onClick = { pendingShape = shape },
                     )
@@ -66,7 +69,7 @@ fun FolderShapeDialog(
 @Composable
 private fun FolderShapeOptionRow(
     shape: BookmarkFolderIconShape,
-    selectedColor: BookmarkFolderIconColor,
+    selectedFolderIconStyle: BookmarkFolderIconStyle,
     isSelected: Boolean,
     onClick: () -> Unit,
 ) {
@@ -80,7 +83,7 @@ private fun FolderShapeOptionRow(
         Icon(
             imageVector = shape.iconVector(),
             contentDescription = null,
-            tint = selectedColor.resolveTint(),
+            tint = selectedFolderIconStyle.color.resolveTint(),
             modifier = Modifier
                 .size(22.dp)
                 .padding(end = 8.dp),
@@ -99,8 +102,7 @@ private fun FolderShapeOptionRow(
 private fun FolderShapeDialogPreview() {
     MaterialTheme {
         FolderShapeDialog(
-            selectedShape = BookmarkFolderIconShape.FILLED,
-            selectedColor = BookmarkFolderIconColor.DEFAULT,
+            selectedFolderIconStyle = BookmarkFolderIconStyle(),
             onDismiss = {},
             onShapeSelect = {},
         )
