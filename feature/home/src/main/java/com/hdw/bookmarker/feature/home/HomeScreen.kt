@@ -1,14 +1,12 @@
 package com.hdw.bookmarker.feature.home
 
-import androidx.activity.compose.BackHandler
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,90 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.hdw.bookmarker.core.domain.util.BookmarkColorGenerator
-import com.hdw.bookmarker.core.model.MimeTypes
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
-import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
 import com.hdw.bookmarker.feature.home.contract.HomeState
-import com.hdw.bookmarker.feature.home.dialog.AddBookmarkDialog
-import com.hdw.bookmarker.feature.home.dialog.AddFolderDialog
-import com.hdw.bookmarker.feature.home.dialog.AddItemTypeDialog
-import com.hdw.bookmarker.feature.home.dialog.BookmarkColorPickerDialog
-import com.hdw.bookmarker.feature.home.dialog.DefaultBrowserPickerDialog
-import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkItemDialog
-import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkSnapshotDialog
-import com.hdw.bookmarker.feature.home.dialog.ImportOptionDialog
-import com.hdw.bookmarker.feature.home.dialog.ManageBookmarkItemDialog
-import com.hdw.bookmarker.feature.home.dialog.RenameBookmarkSnapshotDialog
-import com.hdw.bookmarker.feature.home.sharebookmark.ShareBookmarkMethodDialog
-import com.hdw.bookmarker.feature.home.sharebookmark.requestCurrentBookmarkHtmlShare
-import com.hdw.bookmarker.feature.home.sharebookmark.requestCurrentBookmarkTextShare
 import kotlinx.coroutines.flow.distinctUntilChanged
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
-
-@Composable
-fun HomeRoute(
-    onSettingsClick: () -> Unit,
-    onOpenBookmark: (String, String?) -> Boolean,
-    onOpenBookmarkImportGuide: () -> Unit,
-) {
-    val viewModel: HomeViewModel = hiltViewModel()
-    val state by viewModel.collectAsState()
-    val context = LocalContext.current
-    val resources = LocalResources.current
-    val htmlPickerLauncher = rememberLauncherForActivityResult(OpenDocument()) { uri ->
-        if (uri != null) {
-            viewModel.onHtmlFileSelected(uri)
-        }
-    }
-
-    viewModel.collectSideEffect { sideEffect ->
-        when (sideEffect) {
-            is HomeSideEffect.ShowError -> {
-                val message = resources.getString(sideEffect.messageResId)
-                val toastText = if (sideEffect.detail.isNullOrBlank()) {
-                    message
-                } else {
-                    resources.getString(R.string.error_with_detail, message, sideEffect.detail)
-                }
-                context.showShortToast(toastText)
-            }
-
-            is HomeSideEffect.ShowMessage -> {
-                context.showShortToast(resources.getString(sideEffect.messageResId))
-            }
-
-            is HomeSideEffect.OpenFilePicker -> {
-                htmlPickerLauncher.launch(arrayOf(MimeTypes.HTML))
-            }
-        }
-    }
-
-    HomeScreen(
-        state = state,
-        onSettingsClick = onSettingsClick,
-        onOpenBookmark = onOpenBookmark,
-        onOpenBookmarkImportGuide = onOpenBookmarkImportGuide,
-        onSnapshotSelected = viewModel::onSnapshotSelected,
-        onSelectedFolderPathChange = viewModel::onSelectedFolderPathChange,
-        onBookmarkColorSelected = viewModel::onBookmarkColorSelected,
-        onDefaultBrowserSelected = viewModel::onDefaultBrowserSelected,
-        onOpenFilePicker = viewModel::openFilePicker,
-        onDeleteBookmarkSnapshot = viewModel::deleteBookmarkSnapshot,
-        onBookmarkDisplayTypeToggle = viewModel::onBookmarkDisplayTypeToggle,
-        onAddFolder = viewModel::addFolder,
-        onAddBookmark = viewModel::addBookmark,
-        onRenameBookmarkSnapshot = viewModel::renameBookmarkSnapshot,
-        onDeleteBookmarkItem = viewModel::deleteBookmarkItem,
-        onUpdateBookmarkItem = viewModel::updateBookmarkItem,
-        onAddEmptyBookmarkSnapshot = viewModel::addEmptyBookmarkSnapshot,
-    )
-}
 
 @Composable
 fun HomeScreen(
@@ -125,28 +45,30 @@ fun HomeScreen(
     onUpdateBookmarkItem: (List<Int>, String, String?) -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
 ) {
+    val uiState = rememberHomeScreenUiState()
+    var showImportOptionDialog by uiState.showImportOptionDialog
+    var isBrowserEditMode by uiState.isBrowserEditMode
+    var showDefaultBrowserDialog by uiState.showDefaultBrowserDialog
+    var showColorPickerDialog by uiState.showColorPickerDialog
+    var showAddItemTypeDialog by uiState.showAddItemTypeDialog
+    var showShareBookmarkMethodDialog by uiState.showShareBookmarkMethodDialog
+    var showAddFolderDialog by uiState.showAddFolderDialog
+    var showAddBookmarkDialog by uiState.showAddBookmarkDialog
+    var pendingFolderTitle by uiState.pendingFolderTitle
+    var pendingBookmarkTitle by uiState.pendingBookmarkTitle
+    var pendingBookmarkUrl by uiState.pendingBookmarkUrl
+    var pendingDeleteSnapshotId by uiState.pendingDeleteSnapshotId
+    var pendingRenameSnapshotId by uiState.pendingRenameSnapshotId
+    var pendingSnapshotTitle by uiState.pendingSnapshotTitle
+    var pendingEditBookmarkItemPath by uiState.pendingEditBookmarkItemPath
+    var pendingDeleteBookmarkItemPath by uiState.pendingDeleteBookmarkItemPath
+    var pendingEditBookmarkItem by uiState.pendingEditBookmarkItem
+    var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
+    var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
+
     val orderedSnapshotIds = state.orderedSnapshotIds
     val context = LocalContext.current
     val resources = LocalResources.current
-    var showImportOptionDialog by rememberSaveable { mutableStateOf(false) }
-    var isBrowserEditMode by rememberSaveable { mutableStateOf(false) }
-    var showDefaultBrowserDialog by rememberSaveable { mutableStateOf(false) }
-    var showColorPickerDialog by rememberSaveable { mutableStateOf(false) }
-    var showAddItemTypeDialog by rememberSaveable { mutableStateOf(false) }
-    var showShareBookmarkMethodDialog by rememberSaveable { mutableStateOf(false) }
-    var showAddFolderDialog by rememberSaveable { mutableStateOf(false) }
-    var showAddBookmarkDialog by rememberSaveable { mutableStateOf(false) }
-    var pendingFolderTitle by rememberSaveable { mutableStateOf("") }
-    var pendingBookmarkTitle by rememberSaveable { mutableStateOf("") }
-    var pendingBookmarkUrl by rememberSaveable { mutableStateOf("") }
-    var pendingDeleteSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
-    var pendingRenameSnapshotId by rememberSaveable { mutableStateOf<String?>(null) }
-    var pendingSnapshotTitle by rememberSaveable { mutableStateOf("") }
-    var pendingEditBookmarkItemPath by remember { mutableStateOf<List<Int>?>(null) }
-    var pendingDeleteBookmarkItemPath by remember { mutableStateOf<List<Int>?>(null) }
-    var pendingEditBookmarkItem by remember { mutableStateOf<BookmarkItem?>(null) }
-    var pendingEditBookmarkTitle by rememberSaveable { mutableStateOf("") }
-    var pendingEditBookmarkUrl by rememberSaveable { mutableStateOf("") }
 
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -185,225 +107,25 @@ fun HomeScreen(
             }
     }
 
-    BackHandler(enabled = showImportOptionDialog) {
-        showImportOptionDialog = false
-    }
-
-    BackHandler(enabled = isBrowserEditMode) {
-        isBrowserEditMode = false
-    }
-
-    BackHandler(enabled = showColorPickerDialog) {
-        showColorPickerDialog = false
-    }
-
-    BackHandler(enabled = showAddItemTypeDialog) {
-        showAddItemTypeDialog = false
-    }
-    BackHandler(enabled = showShareBookmarkMethodDialog) {
-        showShareBookmarkMethodDialog = false
-    }
-
-    BackHandler(enabled = showAddFolderDialog) {
-        showAddFolderDialog = false
-    }
-
-    BackHandler(enabled = showAddBookmarkDialog) {
-        showAddBookmarkDialog = false
-    }
-
-    BackHandler(enabled = pendingEditBookmarkItemPath != null) {
-        pendingEditBookmarkItemPath = null
-        pendingEditBookmarkItem = null
-    }
-
-    BackHandler(enabled = pendingDeleteBookmarkItemPath != null) {
-        pendingDeleteBookmarkItemPath = null
-    }
-
-    if (showColorPickerDialog && selectedBookmarkId != null) {
-        BookmarkColorPickerDialog(
-            colors = BookmarkColorGenerator.getAllColors(),
-            currentColor = state.bookmarkColors[selectedBookmarkId]
-                ?: BookmarkColorGenerator.generateColorForId(selectedBookmarkId),
-            onColorSelect = { color ->
-                onBookmarkColorSelected(selectedBookmarkId, color)
-                showColorPickerDialog = false
-            },
-            onDismiss = { showColorPickerDialog = false },
-        )
-    }
-
-    if (showDefaultBrowserDialog) {
-        DefaultBrowserPickerDialog(
-            installedBrowsers = state.installedBrowsers,
-            selectedPackage = state.defaultBrowserPackage,
-            onSelect = { packageName ->
-                onDefaultBrowserSelected(packageName)
-                showDefaultBrowserDialog = false
-            },
-            onDismiss = {
-                showDefaultBrowserDialog = false
-            },
-        )
-    }
-
-    if (showImportOptionDialog) {
-        ImportOptionDialog(
-            onDismiss = { showImportOptionDialog = false },
-            onOpenGuide = {
-                showImportOptionDialog = false
-                onOpenBookmarkImportGuide()
-            },
-            onPickFile = {
-                showImportOptionDialog = false
-                onOpenFilePicker()
-            },
-            onAddEmptyBookmarkItem = {
-                showImportOptionDialog = false
-                onAddEmptyBookmarkSnapshot()
-            },
-        )
-    }
-
-    if (pendingDeleteSnapshotId != null) {
-        DeleteBookmarkSnapshotDialog(
-            onDismiss = { pendingDeleteSnapshotId = null },
-            onConfirmDelete = {
-                onDeleteBookmarkSnapshot(pendingDeleteSnapshotId ?: return@DeleteBookmarkSnapshotDialog)
-                pendingDeleteSnapshotId = null
-            },
-        )
-    }
-
-    if (pendingRenameSnapshotId != null) {
-        RenameBookmarkSnapshotDialog(
-            snapshotTitle = pendingSnapshotTitle,
-            onSnapshotTitleChange = { pendingSnapshotTitle = it },
-            onDismiss = { pendingRenameSnapshotId = null },
-            onConfirm = {
-                val snapshotId = pendingRenameSnapshotId ?: return@RenameBookmarkSnapshotDialog
-                onRenameBookmarkSnapshot(snapshotId, pendingSnapshotTitle)
-                pendingRenameSnapshotId = null
-            },
-        )
-    }
-
-    if (pendingEditBookmarkItemPath != null && pendingEditBookmarkItem != null) {
-        val editingItem = pendingEditBookmarkItem!!
-        ManageBookmarkItemDialog(
-            item = editingItem,
-            title = pendingEditBookmarkTitle,
-            url = pendingEditBookmarkUrl,
-            onTitleChange = { pendingEditBookmarkTitle = it },
-            onUrlChange = { pendingEditBookmarkUrl = it },
-            onDismiss = {
-                pendingEditBookmarkItemPath = null
-                pendingEditBookmarkItem = null
-            },
-            onApply = {
-                val path = pendingEditBookmarkItemPath ?: return@ManageBookmarkItemDialog
-                onUpdateBookmarkItem(
-                    path,
-                    pendingEditBookmarkTitle,
-                    pendingEditBookmarkUrl.takeIf { editingItem is BookmarkItem.Bookmark },
-                )
-                pendingEditBookmarkItemPath = null
-                pendingEditBookmarkItem = null
-            },
-            onDelete = {
-                pendingDeleteBookmarkItemPath = pendingEditBookmarkItemPath
-                pendingEditBookmarkItemPath = null
-                pendingEditBookmarkItem = null
-            },
-        )
-    }
-
-    if (pendingDeleteBookmarkItemPath != null) {
-        DeleteBookmarkItemDialog(
-            onDismiss = { pendingDeleteBookmarkItemPath = null },
-            onConfirmDelete = {
-                onDeleteBookmarkItem(pendingDeleteBookmarkItemPath ?: return@DeleteBookmarkItemDialog)
-                pendingDeleteBookmarkItemPath = null
-            },
-        )
-    }
-
-    if (showAddItemTypeDialog) {
-        AddItemTypeDialog(
-            onDismiss = { showAddItemTypeDialog = false },
-            onAddFolderClick = {
-                showAddItemTypeDialog = false
-                pendingFolderTitle = ""
-                showAddFolderDialog = true
-            },
-            onAddBookmarkClick = {
-                showAddItemTypeDialog = false
-                pendingBookmarkTitle = ""
-                pendingBookmarkUrl = ""
-                showAddBookmarkDialog = true
-            },
-        )
-    }
-
-    if (showShareBookmarkMethodDialog) {
-        ShareBookmarkMethodDialog(
-            onDismiss = { showShareBookmarkMethodDialog = false },
-            onShareTextClick = {
-                showShareBookmarkMethodDialog = false
-                val currentDocument = selectedBookmarkDocument
-                if (currentDocument == null || !requestCurrentBookmarkTextShare(context, currentDocument)) {
-                    context.showShortToast(resources.getString(R.string.share_current_bookmarks_empty))
-                }
-            },
-            onShareHtmlClick = {
-                showShareBookmarkMethodDialog = false
-                val currentDocument = selectedBookmarkDocument
-                when {
-                    currentDocument == null -> {
-                        context.showShortToast(resources.getString(R.string.share_current_bookmarks_empty))
-                    }
-
-                    !requestCurrentBookmarkHtmlShare(context, currentDocument) -> {
-                        context.showShortToast(resources.getString(R.string.share_current_bookmarks_html_failed))
-                    }
-                }
-            },
-        )
-    }
-
-    if (showAddFolderDialog) {
-        AddFolderDialog(
-            folderTitle = pendingFolderTitle,
-            onFolderTitleChange = { pendingFolderTitle = it },
-            onDismiss = { showAddFolderDialog = false },
-            onConfirm = {
-                onAddFolder(
-                    pendingFolderTitle,
-                    selectedFolderPath,
-                )
-                showAddFolderDialog = false
-            },
-        )
-    }
-
-    if (showAddBookmarkDialog) {
-        AddBookmarkDialog(
-            bookmarkTitle = pendingBookmarkTitle,
-            bookmarkUrl = pendingBookmarkUrl,
-            onBookmarkTitleChange = { pendingBookmarkTitle = it },
-            onBookmarkUrlChange = { pendingBookmarkUrl = it },
-            onDismiss = { showAddBookmarkDialog = false },
-            onConfirm = {
-                onAddBookmark(
-                    pendingBookmarkTitle,
-                    pendingBookmarkUrl,
-                    selectedFolderPath,
-                )
-                showAddBookmarkDialog = false
-            },
-        )
-    }
+    HomeScreenBackHandler(uiState = uiState)
+    HomeDialogHost(
+        state = state,
+        uiState = uiState,
+        selectedBookmarkId = selectedBookmarkId,
+        selectedBookmarkDocument = selectedBookmarkDocument,
+        selectedFolderPath = selectedFolderPath,
+        onOpenBookmarkImportGuide = onOpenBookmarkImportGuide,
+        onOpenFilePicker = onOpenFilePicker,
+        onAddEmptyBookmarkSnapshot = onAddEmptyBookmarkSnapshot,
+        onDeleteBookmarkSnapshot = onDeleteBookmarkSnapshot,
+        onRenameBookmarkSnapshot = onRenameBookmarkSnapshot,
+        onUpdateBookmarkItem = onUpdateBookmarkItem,
+        onDeleteBookmarkItem = onDeleteBookmarkItem,
+        onAddFolder = onAddFolder,
+        onAddBookmark = onAddBookmark,
+        onDefaultBrowserSelected = onDefaultBrowserSelected,
+        onBookmarkColorSelected = onBookmarkColorSelected,
+    )
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (state.isImporting) {
@@ -459,6 +181,51 @@ fun HomeScreen(
         }
     }
 }
+
+internal class HomeScreenUiState(
+    val showImportOptionDialog: MutableState<Boolean>,
+    val isBrowserEditMode: MutableState<Boolean>,
+    val showDefaultBrowserDialog: MutableState<Boolean>,
+    val showColorPickerDialog: MutableState<Boolean>,
+    val showAddItemTypeDialog: MutableState<Boolean>,
+    val showShareBookmarkMethodDialog: MutableState<Boolean>,
+    val showAddFolderDialog: MutableState<Boolean>,
+    val showAddBookmarkDialog: MutableState<Boolean>,
+    val pendingFolderTitle: MutableState<String>,
+    val pendingBookmarkTitle: MutableState<String>,
+    val pendingBookmarkUrl: MutableState<String>,
+    val pendingDeleteSnapshotId: MutableState<String?>,
+    val pendingRenameSnapshotId: MutableState<String?>,
+    val pendingSnapshotTitle: MutableState<String>,
+    val pendingEditBookmarkItemPath: MutableState<List<Int>?>,
+    val pendingDeleteBookmarkItemPath: MutableState<List<Int>?>,
+    val pendingEditBookmarkItem: MutableState<BookmarkItem?>,
+    val pendingEditBookmarkTitle: MutableState<String>,
+    val pendingEditBookmarkUrl: MutableState<String>,
+)
+
+@Composable
+private fun rememberHomeScreenUiState(): HomeScreenUiState = HomeScreenUiState(
+    showImportOptionDialog = rememberSaveable { mutableStateOf(false) },
+    isBrowserEditMode = rememberSaveable { mutableStateOf(false) },
+    showDefaultBrowserDialog = rememberSaveable { mutableStateOf(false) },
+    showColorPickerDialog = rememberSaveable { mutableStateOf(false) },
+    showAddItemTypeDialog = rememberSaveable { mutableStateOf(false) },
+    showShareBookmarkMethodDialog = rememberSaveable { mutableStateOf(false) },
+    showAddFolderDialog = rememberSaveable { mutableStateOf(false) },
+    showAddBookmarkDialog = rememberSaveable { mutableStateOf(false) },
+    pendingFolderTitle = rememberSaveable { mutableStateOf("") },
+    pendingBookmarkTitle = rememberSaveable { mutableStateOf("") },
+    pendingBookmarkUrl = rememberSaveable { mutableStateOf("") },
+    pendingDeleteSnapshotId = rememberSaveable { mutableStateOf<String?>(null) },
+    pendingRenameSnapshotId = rememberSaveable { mutableStateOf<String?>(null) },
+    pendingSnapshotTitle = rememberSaveable { mutableStateOf("") },
+    pendingEditBookmarkItemPath = remember { mutableStateOf<List<Int>?>(null) },
+    pendingDeleteBookmarkItemPath = remember { mutableStateOf<List<Int>?>(null) },
+    pendingEditBookmarkItem = remember { mutableStateOf<BookmarkItem?>(null) },
+    pendingEditBookmarkTitle = rememberSaveable { mutableStateOf("") },
+    pendingEditBookmarkUrl = rememberSaveable { mutableStateOf("") },
+)
 
 @Preview(showBackground = true)
 @Composable
