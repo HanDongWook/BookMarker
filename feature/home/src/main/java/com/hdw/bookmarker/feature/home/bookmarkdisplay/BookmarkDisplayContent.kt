@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 
 @Composable
@@ -100,7 +100,7 @@ private fun EmptyBookmarks(
         if (!snapshotTitle.isNullOrBlank()) {
             Text(
                 text = snapshotTitle,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 8.dp)
                     .then(

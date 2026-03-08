@@ -19,10 +19,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconColor
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.ui.folderstyle.label
 import com.hdw.bookmarker.feature.settings.SettingsRow
 import com.hdw.bookmarker.feature.settings.folderstyle.color.FolderColorDialog
 import com.hdw.bookmarker.feature.settings.folderstyle.shape.FolderShapeDialog
@@ -30,8 +32,7 @@ import com.hdw.bookmarker.feature.settings.folderstyle.shape.FolderShapeDialog
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FolderStyleScreen(
-    selectedShape: BookmarkFolderIconShape,
-    selectedColor: BookmarkFolderIconColor,
+    selectedFolderIconStyle: BookmarkFolderIconStyle,
     onBackClick: () -> Unit,
     onShapeSelect: (BookmarkFolderIconShape) -> Unit,
     onColorSelect: (BookmarkFolderIconColor) -> Unit,
@@ -62,13 +63,13 @@ fun FolderStyleScreen(
         ) {
             SettingsRow(
                 title = stringResource(R.string.folder_shape_label),
-                value = selectedShape.label(),
+                value = selectedFolderIconStyle.shape.label(),
                 onClick = { showShapeDialog = true },
             )
             BookMarkerDivider()
             SettingsRow(
                 title = stringResource(R.string.folder_color_label),
-                value = selectedColor.label(),
+                value = selectedFolderIconStyle.color.label(),
                 onClick = { showColorDialog = true },
             )
             BookMarkerDivider()
@@ -77,8 +78,7 @@ fun FolderStyleScreen(
 
     if (showShapeDialog) {
         FolderShapeDialog(
-            selectedShape = selectedShape,
-            selectedColor = selectedColor,
+            selectedFolderIconStyle = selectedFolderIconStyle,
             onDismiss = { showShapeDialog = false },
             onShapeSelect = {
                 onShapeSelect(it)
@@ -89,8 +89,7 @@ fun FolderStyleScreen(
 
     if (showColorDialog) {
         FolderColorDialog(
-            selectedShape = selectedShape,
-            selectedColor = selectedColor,
+            selectedFolderIconStyle = selectedFolderIconStyle,
             onDismiss = { showColorDialog = false },
             onColorSelect = {
                 onColorSelect(it)
@@ -104,8 +103,10 @@ fun FolderStyleScreen(
 @Composable
 private fun FolderStyleScreenPreview() {
     FolderStyleScreen(
-        selectedShape = BookmarkFolderIconShape.FILLED,
-        selectedColor = BookmarkFolderIconColor.DEFAULT,
+        selectedFolderIconStyle = BookmarkFolderIconStyle(
+            shape = BookmarkFolderIconShape.FILLED,
+            color = BookmarkFolderIconColor.DEFAULT,
+        ),
         onBackClick = {},
         onShapeSelect = {},
         onColorSelect = {},

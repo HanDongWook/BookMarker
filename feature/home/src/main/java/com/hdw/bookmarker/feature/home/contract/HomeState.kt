@@ -2,7 +2,7 @@ package com.hdw.bookmarker.feature.home.contract
 
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconStyle
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 
 data class HomeState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),

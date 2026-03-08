@@ -8,61 +8,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconColor
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.core.ui.R
 
-data class BookmarkFolderIconStyle(
-    val shape: BookmarkFolderIconShape = BookmarkFolderIconShape.FILLED,
-    val color: BookmarkFolderIconColor = BookmarkFolderIconColor.DEFAULT,
-)
-
-enum class BookmarkFolderIconShape {
-    FILLED,
-    OUTLINED,
-    ;
-
-    fun iconVector(): ImageVector = when (this) {
-        FILLED -> Icons.Filled.Folder
-        OUTLINED -> Icons.Outlined.Folder
-    }
-
-    @Composable
-    fun label(): String = when (this) {
-        FILLED -> stringResource(R.string.folder_shape_filled)
-        OUTLINED -> stringResource(R.string.folder_shape_outlined)
-    }
-
-    companion object {
-        fun fromPersisted(value: String?): BookmarkFolderIconShape = entries.firstOrNull { it.name == value } ?: FILLED
-    }
+fun BookmarkFolderIconShape.iconVector(): ImageVector = when (this) {
+    BookmarkFolderIconShape.FILLED -> Icons.Filled.Folder
+    BookmarkFolderIconShape.OUTLINED -> Icons.Outlined.Folder
 }
 
-enum class BookmarkFolderIconColor {
-    DEFAULT,
-    BLUE,
-    GREEN,
-    ORANGE,
-    PURPLE,
-    ;
+@Composable
+fun BookmarkFolderIconShape.label(): String = when (this) {
+    BookmarkFolderIconShape.FILLED -> stringResource(R.string.folder_shape_filled)
+    BookmarkFolderIconShape.OUTLINED -> stringResource(R.string.folder_shape_outlined)
+}
 
-    @Composable
-    fun resolveTint(): Color = when (this) {
-        DEFAULT -> MaterialTheme.colorScheme.primary
-        BLUE -> Color(0xFF1976D2)
-        GREEN -> Color(0xFF2E7D32)
-        ORANGE -> Color(0xFFEF6C00)
-        PURPLE -> Color(0xFF7B1FA2)
-    }
+@Composable
+fun BookmarkFolderIconColor.resolveTint(): Color = when (this) {
+    BookmarkFolderIconColor.DEFAULT -> MaterialTheme.colorScheme.primary
+    BookmarkFolderIconColor.BLUE -> Color(0xFF1976D2)
+    BookmarkFolderIconColor.GREEN -> Color(0xFF2E7D32)
+    BookmarkFolderIconColor.ORANGE -> Color(0xFFEF6C00)
+    BookmarkFolderIconColor.PURPLE -> Color(0xFF7B1FA2)
+}
 
-    @Composable
-    fun label(): String = when (this) {
-        DEFAULT -> stringResource(R.string.folder_color_default)
-        BLUE -> stringResource(R.string.folder_color_blue)
-        GREEN -> stringResource(R.string.folder_color_green)
-        ORANGE -> stringResource(R.string.folder_color_orange)
-        PURPLE -> stringResource(R.string.folder_color_purple)
-    }
-
-    companion object {
-        fun fromPersisted(value: String?): BookmarkFolderIconColor = entries.firstOrNull { it.name == value } ?: DEFAULT
-    }
+@Composable
+fun BookmarkFolderIconColor.label(): String = when (this) {
+    BookmarkFolderIconColor.DEFAULT -> stringResource(R.string.folder_color_default)
+    BookmarkFolderIconColor.BLUE -> stringResource(R.string.folder_color_blue)
+    BookmarkFolderIconColor.GREEN -> stringResource(R.string.folder_color_green)
+    BookmarkFolderIconColor.ORANGE -> stringResource(R.string.folder_color_orange)
+    BookmarkFolderIconColor.PURPLE -> stringResource(R.string.folder_color_purple)
 }
