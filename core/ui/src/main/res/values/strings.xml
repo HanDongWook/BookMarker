@@ -49,7 +49,7 @@
     <string name="share_current_bookmarks_chooser_title">Share bookmarks</string>
     <string name="share_current_bookmarks_empty">No bookmarks to share.</string>
     <string name="share_current_bookmarks_html_failed">Failed to create bookmark HTML file.</string>
-    <string name="share_bookmark_method_title">Choose share type</string>
+    <string name="share_bookmark_method_title">Share</string>
     <string name="share_bookmark_method_text">Share as text</string>
     <string name="share_bookmark_method_html">Share as HTML</string>
     <string name="privacy_policy_label">Privacy Policy</string>

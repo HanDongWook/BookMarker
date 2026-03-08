@@ -48,7 +48,7 @@
     <string name="share_current_bookmarks_chooser_title">북마크 공유</string>
     <string name="share_current_bookmarks_empty">공유할 북마크가 없어요.</string>
     <string name="share_current_bookmarks_html_failed">북마크 HTML 파일 생성에 실패했어요.</string>
-    <string name="share_bookmark_method_title">공유 방식 선택</string>
+    <string name="share_bookmark_method_title">공유</string>
     <string name="share_bookmark_method_text">텍스트로 공유</string>
     <string name="share_bookmark_method_html">HTML로 공유</string>
     <string name="privacy_policy_label">개인정보 처리방침</string>
