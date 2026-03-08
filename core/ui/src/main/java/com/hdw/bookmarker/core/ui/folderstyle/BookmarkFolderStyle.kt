@@ -10,6 +10,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import com.hdw.bookmarker.core.ui.R
 
+data class BookmarkFolderIconStyle(
+    val shape: BookmarkFolderIconShape = BookmarkFolderIconShape.FILLED,
+    val color: BookmarkFolderIconColor = BookmarkFolderIconColor.DEFAULT,
+)
+
 enum class BookmarkFolderIconShape {
     FILLED,
     OUTLINED,
