@@ -19,9 +19,9 @@
     <string name="sync">Sincronizar</string>
     <string name="add">Agregar</string>
     <string name="action_apply">Aplicar</string>
-    <string name="add_folder">Agregar carpeta</string>
-    <string name="add_bookmark">Agregar marcador</string>
-    <string name="add_bookmark_or_folder">Agregar marcador o carpeta</string>
+    <string name="add_folder">carpeta</string>
+    <string name="add_bookmark">marcador</string>
+    <string name="add_bookmark_or_folder">Agregar</string>
     <string name="folder_name">Nombre de la carpeta</string>
     <string name="bookmark_name">Nombre del marcador</string>
     <string name="bookmark_url">URL del marcador</string>

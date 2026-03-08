@@ -19,9 +19,9 @@
     <string name="sync">ซิงก์</string>
     <string name="add">เพิ่ม</string>
     <string name="action_apply">ใช้</string>
-    <string name="add_folder">เพิ่มโฟลเดอร์</string>
-    <string name="add_bookmark">เพิ่มบุ๊กมาร์ก</string>
-    <string name="add_bookmark_or_folder">เพิ่มบุ๊กมาร์กหรือโฟลเดอร์</string>
+    <string name="add_folder">โฟลเดอร์</string>
+    <string name="add_bookmark">บุ๊กมาร์ก</string>
+    <string name="add_bookmark_or_folder">เพิ่ม</string>
     <string name="folder_name">ชื่อโฟลเดอร์</string>
     <string name="bookmark_name">ชื่อบุ๊กมาร์ก</string>
     <string name="bookmark_url">URL บุ๊กมาร์ก</string>

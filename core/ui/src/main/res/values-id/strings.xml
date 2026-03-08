@@ -19,9 +19,9 @@
     <string name="sync">Sinkronisasi</string>
     <string name="add">Tambah</string>
     <string name="action_apply">Terapkan</string>
-    <string name="add_folder">Tambah folder</string>
-    <string name="add_bookmark">Tambah bookmark</string>
-    <string name="add_bookmark_or_folder">Tambah bookmark atau folder</string>
+    <string name="add_folder">folder</string>
+    <string name="add_bookmark">bookmark</string>
+    <string name="add_bookmark_or_folder">Tambah</string>
     <string name="folder_name">Nama folder</string>
     <string name="bookmark_name">Nama bookmark</string>
     <string name="bookmark_url">URL bookmark</string>
