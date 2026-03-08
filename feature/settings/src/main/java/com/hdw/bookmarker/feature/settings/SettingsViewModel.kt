@@ -1,6 +1,5 @@
 package com.hdw.bookmarker.feature.settings
 
-import com.airbnb.mvrx.MavericksState
 import com.airbnb.mvrx.MavericksViewModel
 import com.airbnb.mvrx.MavericksViewModelFactory
 import com.airbnb.mvrx.hilt.AssistedViewModelFactory
@@ -15,27 +14,16 @@ import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
-import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape
-import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
-import com.hdw.bookmarker.feature.settings.appversion.AppUpdateUiState
-import com.hdw.bookmarker.feature.settings.appversion.requestAppUpdateState
+import com.hdw.bookmarker.feature.settings.model.SettingsState
+import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppUpdateUiState
+import com.hdw.bookmarker.feature.settings.ui.tab.appversion.requestAppUpdateState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
-data class SettingsState(
-    val appVersion: String = "-",
-    val installedBrowsers: List<BrowserInfo> = emptyList(),
-    val selectedBrowserPackage: String? = null,
-    val selectedThemeMode: String? = null,
-    val folderIconStyle: BookmarkFolderIconStyle = BookmarkFolderIconStyle(),
-    val appUpdateUiState: AppUpdateUiState = AppUpdateUiState.Checking,
-    val updateLaunchRequestId: Long = 0L,
-) : MavericksState
 
 class SettingsViewModel @AssistedInject constructor(
     @Assisted initialState: SettingsState,
