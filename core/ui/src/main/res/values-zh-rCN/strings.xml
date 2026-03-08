@@ -19,9 +19,9 @@
     <string name="sync">同步</string>
     <string name="add">添加</string>
     <string name="action_apply">应用</string>
-    <string name="add_folder">添加文件夹</string>
-    <string name="add_bookmark">添加书签</string>
-    <string name="add_bookmark_or_folder">添加书签或文件夹</string>
+    <string name="add_folder">文件夹</string>
+    <string name="add_bookmark">书签</string>
+    <string name="add_bookmark_or_folder">添加</string>
     <string name="folder_name">文件夹名称</string>
     <string name="bookmark_name">书签名称</string>
     <string name="bookmark_url">书签 URL</string>

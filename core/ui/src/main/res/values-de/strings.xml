@@ -19,9 +19,9 @@
     <string name="sync">Synchronisieren</string>
     <string name="add">Hinzufügen</string>
     <string name="action_apply">Anwenden</string>
-    <string name="add_folder">Ordner hinzufügen</string>
-    <string name="add_bookmark">Lesezeichen hinzufügen</string>
-    <string name="add_bookmark_or_folder">Lesezeichen oder Ordner hinzufügen</string>
+    <string name="add_folder">Ordner</string>
+    <string name="add_bookmark">Lesezeichen</string>
+    <string name="add_bookmark_or_folder">Hinzufügen</string>
     <string name="folder_name">Ordnername</string>
     <string name="bookmark_name">Lesezeichenname</string>
     <string name="bookmark_url">Lesezeichen-URL</string>
