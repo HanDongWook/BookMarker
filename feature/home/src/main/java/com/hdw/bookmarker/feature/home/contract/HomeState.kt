@@ -2,8 +2,7 @@ package com.hdw.bookmarker.feature.home.contract
 
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconStyle
 
 data class HomeState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
@@ -14,8 +13,7 @@ data class HomeState(
     val selectedFolderPaths: SnapshotFolderPathState = SnapshotFolderPathState(),
     val defaultBrowserPackage: String? = null,
     val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
-    val folderIconShape: BookmarkFolderIconShape = BookmarkFolderIconShape.FILLED,
-    val folderIconColor: BookmarkFolderIconColor = BookmarkFolderIconColor.DEFAULT,
+    val folderIconStyle: BookmarkFolderIconStyle = BookmarkFolderIconStyle(),
     val isImporting: Boolean = false,
 )
 

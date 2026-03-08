@@ -15,8 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 
 @Composable
@@ -25,8 +24,7 @@ fun BookmarkDisplayContent(
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
     displayType: BookmarkDisplayType,
-    folderIconShape: BookmarkFolderIconShape,
-    folderIconColor: BookmarkFolderIconColor,
+    folderIconStyle: BookmarkFolderIconStyle,
     modifier: Modifier = Modifier,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
     selectedFolderPath: List<Int>? = null,
@@ -51,8 +49,7 @@ fun BookmarkDisplayContent(
                     onBookmarkClick = onBookmarkClick,
                     onItemLongClick = onItemLongClick,
                     onSelectedFolderPathChange = onSelectedFolderPathChange,
-                    folderIconShape = folderIconShape,
-                    folderIconColor = folderIconColor,
+                    folderIconStyle = folderIconStyle,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(top = titleTopPadding),
@@ -64,8 +61,7 @@ fun BookmarkDisplayContent(
                     bookmarkDocument = bookmarkDocument,
                     onBookmarkClick = onBookmarkClick,
                     onItemLongClick = onItemLongClick,
-                    folderIconShape = folderIconShape,
-                    folderIconColor = folderIconColor,
+                    folderIconStyle = folderIconStyle,
                     onSelectedFolderPathChange = onSelectedFolderPathChange,
                     selectedFolderPath = selectedFolderPath,
                     modifier = Modifier
@@ -142,8 +138,7 @@ private fun BookmarkDisplayContentListPreview() {
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
         displayType = BookmarkDisplayType.LIST,
-        folderIconShape = BookmarkFolderIconShape.FILLED,
-        folderIconColor = BookmarkFolderIconColor.DEFAULT,
+        folderIconStyle = BookmarkFolderIconStyle(),
         snapshotTitle = "북마크1",
         onSnapshotTitleClick = {},
     )
@@ -157,8 +152,7 @@ private fun BookmarkDisplayContentIconPreview() {
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
         displayType = BookmarkDisplayType.ICON,
-        folderIconShape = BookmarkFolderIconShape.FILLED,
-        folderIconColor = BookmarkFolderIconColor.DEFAULT,
+        folderIconStyle = BookmarkFolderIconStyle(),
         snapshotTitle = "북마크1",
         onSnapshotTitleClick = {},
     )
