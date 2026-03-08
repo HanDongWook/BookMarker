@@ -28,6 +28,7 @@ fun BookmarkDisplayContent(
     folderIconColor: BookmarkFolderIconColor,
     modifier: Modifier = Modifier,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
+    selectedFolderPath: List<Int>? = null,
     snapshotTitle: String? = null,
     onSnapshotTitleClick: (() -> Unit)? = null,
 ) {
@@ -65,6 +66,7 @@ fun BookmarkDisplayContent(
                     folderIconShape = folderIconShape,
                     folderIconColor = folderIconColor,
                     onSelectedFolderPathChange = onSelectedFolderPathChange,
+                    selectedFolderPath = selectedFolderPath,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(top = titleTopPadding),

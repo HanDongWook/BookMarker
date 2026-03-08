@@ -32,6 +32,7 @@ import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.feature.home.bookmarkdisplay.BookmarkDisplayType
+import com.hdw.bookmarker.feature.home.model.SnapshotFolderPathState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.orbitmvi.orbit.ContainerHost
@@ -45,6 +46,7 @@ data class HomeState(
     val bookmarkDocuments: Map<String, BookmarkDocument> = emptyMap(),
     val bookmarkColors: Map<String, Long> = emptyMap(),
     val selectedBookmarkId: String? = null,
+    val selectedFolderPaths: SnapshotFolderPathState = SnapshotFolderPathState(),
     val defaultBrowserPackage: String? = null,
     val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
     val folderIconShape: BookmarkFolderIconShape = BookmarkFolderIconShape.FILLED,
@@ -119,12 +121,13 @@ class HomeViewModel @Inject constructor(
         if (isObservingSnapshots) return@intent
         isObservingSnapshots = true
         getBookmarkSnapshotsUseCase().collect { snapshots ->
+            val nextSelectedBookmarkId = state.selectedBookmarkId
+                ?.takeIf { snapshots.containsKey(it) }
+                ?: snapshots.keys.firstOrNull()
             reduce {
-                state.copy(
+                state.withSelectedBookmarkId(nextSelectedBookmarkId).copy(
                     bookmarkDocuments = snapshots,
-                    selectedBookmarkId = state.selectedBookmarkId
-                        ?.takeIf { snapshots.containsKey(it) }
-                        ?: snapshots.keys.firstOrNull(),
+                    selectedFolderPaths = state.selectedFolderPaths.retain(snapshots.keys),
                 )
             }
         }
@@ -134,12 +137,13 @@ class HomeViewModel @Inject constructor(
         if (isObservingOrderedIds) return@intent
         isObservingOrderedIds = true
         getOrderedSnapshotIdsUseCase().collect { ids ->
+            val nextSelectedBookmarkId = state.selectedBookmarkId
+                ?.takeIf { ids.contains(it) }
+                ?: ids.firstOrNull()
             reduce {
-                state.copy(
+                state.withSelectedBookmarkId(nextSelectedBookmarkId).copy(
                     orderedSnapshotIds = ids,
-                    selectedBookmarkId = state.selectedBookmarkId
-                        ?.takeIf { ids.contains(it) }
-                        ?: ids.firstOrNull(),
+                    selectedFolderPaths = state.selectedFolderPaths.retain(ids),
                 )
             }
         }
@@ -151,7 +155,15 @@ class HomeViewModel @Inject constructor(
 
     fun onSnapshotSelected(snapshotId: String) = intent {
         if (state.selectedBookmarkId == snapshotId) return@intent
-        reduce { state.copy(selectedBookmarkId = snapshotId) }
+        reduce { state.withSelectedBookmarkId(snapshotId) }
+    }
+
+    fun onSelectedFolderPathChange(snapshotId: String, path: List<Int>?) = intent {
+        reduce {
+            state.copy(
+                selectedFolderPaths = state.selectedFolderPaths.update(snapshotId, path),
+            )
+        }
     }
 
     fun onDefaultBrowserSelected(packageName: String) = intent {
@@ -191,7 +203,7 @@ class HomeViewModel @Inject constructor(
                         document = result.document.copy(title = snapshotTitle),
                         sourceHash = rawFileHash,
                     )
-                    reduce { state.copy(selectedBookmarkId = savedId) }
+                    reduce { state.withSelectedBookmarkId(savedId) }
                 }
 
                 is BookmarkImportResult.Failure -> {
@@ -217,10 +229,12 @@ class HomeViewModel @Inject constructor(
         clearBookmarkSnapshotUseCase(snapshotId)
         val updatedIds = state.orderedSnapshotIds - snapshotId
         reduce {
-            state.copy(
-                selectedBookmarkId = state.selectedBookmarkId
+            state.withSelectedBookmarkId(
+                state.selectedBookmarkId
                     ?.takeIf { it != snapshotId }
                     ?: updatedIds.firstOrNull(),
+            ).copy(
+                selectedFolderPaths = state.selectedFolderPaths.remove(snapshotId),
             )
         }
     }
@@ -236,7 +250,7 @@ class HomeViewModel @Inject constructor(
             ),
             sourceHash = "",
         )
-        reduce { state.copy(selectedBookmarkId = snapshotId) }
+        reduce { state.withSelectedBookmarkId(snapshotId) }
     }
 
     fun addFolder(title: String, parentFolderPath: List<Int>? = null) = intent {
@@ -255,7 +269,7 @@ class HomeViewModel @Inject constructor(
                 children = emptyList(),
             ),
         )
-        reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
+        reduce { state.withSelectedBookmarkId(savedSnapshotId) }
     }
 
     fun addBookmark(title: String, url: String, parentFolderPath: List<Int>? = null) = intent {
@@ -276,7 +290,7 @@ class HomeViewModel @Inject constructor(
                 iconUri = null,
             ),
         )
-        reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
+        reduce { state.withSelectedBookmarkId(savedSnapshotId) }
     }
 
     fun deleteBookmarkItem(path: List<Int>) = intent {
@@ -292,7 +306,7 @@ class HomeViewModel @Inject constructor(
             document = currentDocument.copy(rootItems = updatedRootItems),
             sourceHash = sourceHash,
         )
-        reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
+        reduce { state.withSelectedBookmarkId(savedSnapshotId) }
     }
 
     fun updateBookmarkItem(path: List<Int>, title: String, url: String?) = intent {
@@ -474,6 +488,10 @@ class HomeViewModel @Inject constructor(
             ?: 0
         return "$titlePrefix${maxNumber + 1}"
     }
+
+    private fun HomeState.withSelectedBookmarkId(selectedBookmarkId: String?): HomeState = copy(
+        selectedBookmarkId = selectedBookmarkId,
+    )
 
     private fun observeDefaultBrowserPackage() = intent {
         if (isObservingDefaultBrowser) return@intent

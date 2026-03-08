@@ -21,8 +21,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -45,22 +43,32 @@ internal fun BookmarkIconContent(
     folderIconShape: BookmarkFolderIconShape,
     folderIconColor: BookmarkFolderIconColor,
     modifier: Modifier = Modifier,
+    selectedFolderPath: List<Int>? = null,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
 ) {
-    val folderDepthStack = remember(bookmarkDocument) { mutableStateListOf<BookmarkItem.Folder>() }
-    val folderPathStack = remember(bookmarkDocument) { mutableStateListOf<Int>() }
-    val currentFolder = folderDepthStack.lastOrNull()
-    val currentItems = currentFolder?.children ?: bookmarkDocument.rootItems
-    val currentFolderPath = folderDepthStack.joinToString(separator = "/") { it.title }
-    val selectedFolderPath = folderPathStack.toList().takeIf { it.isNotEmpty() }
+    val currentPath = selectedFolderPath.orEmpty()
+    val traversedFolders = mutableListOf<BookmarkItem.Folder>()
+    var currentItems = bookmarkDocument.rootItems
+    var isPathValid = true
+    for (index in currentPath) {
+        val folder = currentItems.getOrNull(index) as? BookmarkItem.Folder
+        if (folder == null) {
+            isPathValid = false
+            break
+        }
+        traversedFolders += folder
+        currentItems = folder.children
+    }
+    val currentFolderPath = traversedFolders.joinToString(separator = "/") { it.title }
 
-    LaunchedEffect(selectedFolderPath) {
-        onSelectedFolderPathChange(selectedFolderPath)
+    LaunchedEffect(isPathValid, selectedFolderPath) {
+        if (!isPathValid && selectedFolderPath != null) {
+            onSelectedFolderPathChange(null)
+        }
     }
 
-    BackHandler(enabled = folderDepthStack.isNotEmpty()) {
-        folderDepthStack.removeAt(folderDepthStack.lastIndex)
-        folderPathStack.removeAt(folderPathStack.lastIndex)
+    BackHandler(enabled = currentPath.isNotEmpty()) {
+        onSelectedFolderPathChange(currentPath.dropLast(1).takeIf { it.isNotEmpty() })
     }
 
     Column(
@@ -68,15 +76,14 @@ internal fun BookmarkIconContent(
             .fillMaxSize()
             .padding(horizontal = 6.dp),
     ) {
-        if (folderDepthStack.isNotEmpty()) {
+        if (currentPath.isNotEmpty()) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconButton(
                     onClick = {
-                        folderDepthStack.removeAt(folderDepthStack.lastIndex)
-                        folderPathStack.removeAt(folderPathStack.lastIndex)
+                        onSelectedFolderPathChange(currentPath.dropLast(1).takeIf { it.isNotEmpty() })
                     },
                 ) {
                     Icon(
@@ -105,8 +112,8 @@ internal fun BookmarkIconContent(
                 items = currentItems,
                 key = { index, item ->
                     when (item) {
-                        is BookmarkItem.Bookmark -> "bookmark-${folderDepthStack.size}-$index-${item.url}"
-                        is BookmarkItem.Folder -> "folder-${folderDepthStack.size}-$index-${item.title}"
+                        is BookmarkItem.Bookmark -> "bookmark-${currentPath.size}-$index-${item.url}"
+                        is BookmarkItem.Folder -> "folder-${currentPath.size}-$index-${item.title}"
                     }
                 },
             ) { index, item ->
@@ -117,11 +124,10 @@ internal fun BookmarkIconContent(
                             folderIconShape = folderIconShape,
                             folderIconColor = folderIconColor,
                             onClick = {
-                                folderDepthStack.add(item)
-                                folderPathStack.add(index)
+                                onSelectedFolderPathChange(currentPath + index)
                             },
                             onLongClick = {
-                                onItemLongClick(item, folderPathStack.toList() + index)
+                                onItemLongClick(item, currentPath + index)
                             },
                         )
                     }
@@ -131,7 +137,7 @@ internal fun BookmarkIconContent(
                             bookmark = item,
                             onClick = { onBookmarkClick(item.url) },
                             onLongClick = {
-                                onItemLongClick(item, folderPathStack.toList() + index)
+                                onItemLongClick(item, currentPath + index)
                             },
                         )
                     }
