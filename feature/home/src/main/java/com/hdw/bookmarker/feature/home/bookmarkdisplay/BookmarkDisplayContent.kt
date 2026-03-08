@@ -2,7 +2,9 @@ package com.hdw.bookmarker.feature.home.bookmarkdisplay
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -10,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
@@ -40,8 +43,14 @@ fun BookmarkDisplayContent(
         return
     }
 
-    val titleTopPadding = if (snapshotTitle.isNullOrBlank()) 0.dp else 30.dp
-    Box(modifier = modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize()) {
+        if (!snapshotTitle.isNullOrBlank()) {
+            SnapshotTitleText(
+                snapshotTitle = snapshotTitle,
+                onSnapshotTitleClick = onSnapshotTitleClick,
+            )
+        }
+
         when (displayType) {
             BookmarkDisplayType.LIST -> {
                 BookmarkListContent(
@@ -51,8 +60,8 @@ fun BookmarkDisplayContent(
                     onSelectedFolderPathChange = onSelectedFolderPathChange,
                     folderIconStyle = folderIconStyle,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = titleTopPadding),
+                        .fillMaxWidth()
+                        .weight(1f),
                 )
             }
 
@@ -65,26 +74,10 @@ fun BookmarkDisplayContent(
                     onSelectedFolderPathChange = onSelectedFolderPathChange,
                     selectedFolderPath = selectedFolderPath,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = titleTopPadding),
+                        .fillMaxWidth()
+                        .weight(1f),
                 )
             }
-        }
-
-        if (!snapshotTitle.isNullOrBlank()) {
-            Text(
-                text = snapshotTitle,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .then(
-                        if (onSnapshotTitleClick != null) {
-                            Modifier.clickable(onClick = onSnapshotTitleClick)
-                        } else {
-                            Modifier
-                        },
-                    ),
-            )
         }
     }
 }
@@ -95,33 +88,46 @@ private fun EmptyBookmarks(
     snapshotTitle: String? = null,
     onSnapshotTitleClick: (() -> Unit)? = null,
 ) {
-    Box(modifier = modifier.fillMaxSize()) {
-        val titleTopPadding = if (snapshotTitle.isNullOrBlank()) 0.dp else 44.dp
+    Column(modifier = modifier.fillMaxSize()) {
         if (!snapshotTitle.isNullOrBlank()) {
-            Text(
-                text = snapshotTitle,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .then(
-                        if (onSnapshotTitleClick != null) {
-                            Modifier.clickable(onClick = onSnapshotTitleClick)
-                        } else {
-                            Modifier
-                        },
-                    ),
+            SnapshotTitleText(
+                snapshotTitle = snapshotTitle,
+                onSnapshotTitleClick = onSnapshotTitleClick,
             )
         }
 
         Box(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(top = titleTopPadding),
+                .fillMaxWidth()
+                .weight(1f),
             contentAlignment = Alignment.Center,
         ) {
             Text(text = stringResource(R.string.empty_bookmarks))
         }
     }
+}
+
+@Composable
+private fun SnapshotTitleText(
+    snapshotTitle: String,
+    onSnapshotTitleClick: (() -> Unit)?,
+) {
+    Text(
+        text = snapshotTitle,
+        style = MaterialTheme.typography.titleLarge,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .then(
+                if (onSnapshotTitleClick != null) {
+                    Modifier.clickable(onClick = onSnapshotTitleClick)
+                } else {
+                    Modifier
+                },
+            ),
+    )
 }
 
 @Preview(showBackground = true)
