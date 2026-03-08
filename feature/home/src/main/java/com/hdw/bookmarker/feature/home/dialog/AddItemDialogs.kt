@@ -1,7 +1,6 @@
 package com.hdw.bookmarker.feature.home.dialog
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,13 +12,16 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.ui.R
@@ -34,43 +36,65 @@ fun AddItemTypeDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         text = {
-            Box(
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center,
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.Top,
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(20.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    IconButton(onClick = onAddFolderClick) {
-                        Icon(
-                            imageVector = Icons.Default.CreateNewFolder,
-                            contentDescription = stringResource(R.string.add_folder),
-                            modifier = Modifier.size(60.dp),
-                        )
-                    }
-
-                    IconButton(onClick = onAddBookmarkClick) {
-                        Icon(
-                            imageVector = Icons.Default.BookmarkAdd,
-                            contentDescription = stringResource(R.string.add_bookmark),
-                            modifier = Modifier.size(60.dp),
-                        )
-                    }
-
-                    IconButton(onClick = onShareClick) {
-                        Icon(
-                            imageVector = Icons.Default.Share,
-                            contentDescription = stringResource(R.string.share_current_bookmarks_label),
-                            modifier = Modifier.size(60.dp),
-                        )
-                    }
-                }
+                AddItemTypeOption(
+                    modifier = Modifier.weight(1f),
+                    imageVector = Icons.Default.CreateNewFolder,
+                    title = stringResource(R.string.add_folder),
+                    contentDescription = stringResource(R.string.add_folder),
+                    onClick = onAddFolderClick,
+                )
+                AddItemTypeOption(
+                    modifier = Modifier.weight(1f),
+                    imageVector = Icons.Default.BookmarkAdd,
+                    title = stringResource(R.string.add_bookmark),
+                    contentDescription = stringResource(R.string.add_bookmark),
+                    onClick = onAddBookmarkClick,
+                )
+                AddItemTypeOption(
+                    modifier = Modifier.weight(1f),
+                    imageVector = Icons.Default.Share,
+                    title = stringResource(R.string.share_current_bookmarks_label),
+                    contentDescription = stringResource(R.string.share_current_bookmarks_label),
+                    onClick = onShareClick,
+                )
             }
         },
         confirmButton = {},
         dismissButton = {},
     )
+}
+
+@Composable
+private fun AddItemTypeOption(
+    imageVector: ImageVector,
+    title: String,
+    contentDescription: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        IconButton(onClick = onClick) {
+            Icon(
+                imageVector = imageVector,
+                contentDescription = contentDescription,
+                modifier = Modifier.size(40.dp),
+            )
+        }
+        Text(
+            text = title,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center,
+        )
+    }
 }
 
 @Composable
