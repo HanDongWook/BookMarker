@@ -6,9 +6,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.hdw.bookmarker.core.data.repository.SettingsRepository
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconColor
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.settings.SettingsScreen
 import com.hdw.bookmarker.feature.settings.SettingsState
@@ -51,8 +52,7 @@ internal fun SettingsNavHost(
                 onDefaultBrowserClick = {
                     navController.navigate(SettingsNavRoute.DefaultBrowser)
                 },
-                selectedFolderIconShape = state.selectedFolderIconShape,
-                selectedFolderIconColor = state.selectedFolderIconColor,
+                folderIconStyle = state.folderIconStyle,
                 onFolderStyleClick = {
                     navController.navigate(SettingsNavRoute.FolderStyle)
                 },
@@ -76,8 +76,7 @@ internal fun SettingsNavHost(
 
         slideComposable<SettingsNavRoute.FolderStyle> {
             FolderStyleScreen(
-                selectedShape = state.selectedFolderIconShape,
-                selectedColor = state.selectedFolderIconColor,
+                selectedFolderIconStyle = state.folderIconStyle,
                 onBackClick = { navController.popBackStack() },
                 onShapeSelect = onFolderShapeSelect,
                 onColorSelect = onFolderColorSelect,
@@ -99,8 +98,10 @@ private fun SettingsNavHostPreview() {
         state = SettingsState(
             appVersion = "1.2.3 (123)",
             selectedThemeMode = SettingsRepository.APP_THEME_MODE_LIGHT,
-            selectedFolderIconShape = BookmarkFolderIconShape.FILLED,
-            selectedFolderIconColor = BookmarkFolderIconColor.DEFAULT,
+            folderIconStyle = BookmarkFolderIconStyle(
+                shape = BookmarkFolderIconShape.FILLED,
+                color = BookmarkFolderIconColor.DEFAULT,
+            ),
             appUpdateUiState = AppUpdateUiState.UpToDate,
         ),
         temporaryDataSize = "12.3 MB",

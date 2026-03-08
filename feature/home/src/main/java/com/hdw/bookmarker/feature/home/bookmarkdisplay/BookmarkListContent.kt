@@ -37,8 +37,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconStyle
+import com.hdw.bookmarker.core.ui.folderstyle.iconVector
+import com.hdw.bookmarker.core.ui.folderstyle.resolveTint
 import com.hdw.bookmarker.feature.home.bookmarkdisplay.model.VisibleBookmarkNode
 
 private val ExpandedFoldersSaver = Saver<SnapshotStateMap<String, Boolean>, ArrayList<String>>(
