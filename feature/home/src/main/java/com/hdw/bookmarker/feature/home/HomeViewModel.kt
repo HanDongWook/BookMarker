@@ -25,40 +25,20 @@ import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
 import com.hdw.bookmarker.core.model.browser.Browser
-import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.core.model.file.error.ContentFileError
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
-import com.hdw.bookmarker.feature.home.bookmarkdisplay.BookmarkDisplayType
-import com.hdw.bookmarker.feature.home.model.SnapshotFolderPathState
+import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
+import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
+import com.hdw.bookmarker.feature.home.contract.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 import javax.inject.Inject
-
-data class HomeState(
-    val installedBrowsers: List<BrowserInfo> = emptyList(),
-    val orderedSnapshotIds: List<String> = emptyList(),
-    val bookmarkDocuments: Map<String, BookmarkDocument> = emptyMap(),
-    val bookmarkColors: Map<String, Long> = emptyMap(),
-    val selectedBookmarkId: String? = null,
-    val selectedFolderPaths: SnapshotFolderPathState = SnapshotFolderPathState(),
-    val defaultBrowserPackage: String? = null,
-    val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
-    val folderIconShape: BookmarkFolderIconShape = BookmarkFolderIconShape.FILLED,
-    val folderIconColor: BookmarkFolderIconColor = BookmarkFolderIconColor.DEFAULT,
-    val isImporting: Boolean = false,
-)
-
-sealed interface HomeSideEffect {
-    data class ShowMessage(@param:StringRes val messageResId: Int) : HomeSideEffect
-    data class ShowError(@param:StringRes val messageResId: Int, val detail: String? = null) : HomeSideEffect
-    object OpenFilePicker : HomeSideEffect
-}
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(

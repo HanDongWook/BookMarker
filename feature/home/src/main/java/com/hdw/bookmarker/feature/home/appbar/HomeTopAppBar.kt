@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.feature.home.bookmarkdisplay.BookmarkDisplayType
+import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.model
+package com.hdw.bookmarker.feature.home.bookmarkdisplay.model
 
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 
