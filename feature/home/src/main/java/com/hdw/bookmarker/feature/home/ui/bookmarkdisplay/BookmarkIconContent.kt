@@ -1,5 +1,4 @@
-package com.hdw.bookmarker.feature.home.bookmarkdisplay
-
+package com.hdw.bookmarker.feature.home.ui.bookmarkdisplay
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement

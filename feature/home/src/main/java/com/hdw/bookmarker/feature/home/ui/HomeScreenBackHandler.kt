@@ -1,5 +1,4 @@
-package com.hdw.bookmarker.feature.home
-
+package com.hdw.bookmarker.feature.home.ui
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 

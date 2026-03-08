@@ -1,5 +1,4 @@
-package com.hdw.bookmarker.feature.home.appbar
-
+package com.hdw.bookmarker.feature.home.ui.appbar
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row

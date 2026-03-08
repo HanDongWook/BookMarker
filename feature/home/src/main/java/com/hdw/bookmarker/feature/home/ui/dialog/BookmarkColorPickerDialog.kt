@@ -1,5 +1,4 @@
-package com.hdw.bookmarker.feature.home.dialog
-
+package com.hdw.bookmarker.feature.home.ui.dialog
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
