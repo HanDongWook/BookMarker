@@ -27,10 +27,10 @@ import com.hdw.bookmarker.core.ui.util.findActivity
 import com.hdw.bookmarker.core.ui.util.getAppVersionDisplay
 import com.hdw.bookmarker.core.ui.util.getTemporaryDataSizeDisplay
 import com.hdw.bookmarker.core.ui.util.showShortToast
-import com.hdw.bookmarker.feature.settings.appversion.openPlayStoreForUpdate
-import com.hdw.bookmarker.feature.settings.appversion.startImmediateAppUpdate
 import com.hdw.bookmarker.feature.settings.navigation.SettingsNavHost
-import com.hdw.bookmarker.feature.settings.temporarydata.ClearTemporaryDataDialog
+import com.hdw.bookmarker.feature.settings.ui.tab.appversion.openPlayStoreForUpdate
+import com.hdw.bookmarker.feature.settings.ui.tab.appversion.startImmediateAppUpdate
+import com.hdw.bookmarker.feature.settings.ui.tab.temporarydata.ClearTemporaryDataDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
