@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.importguide.detail
+package com.hdw.bookmarker.feature.importguide.ui.detail
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource

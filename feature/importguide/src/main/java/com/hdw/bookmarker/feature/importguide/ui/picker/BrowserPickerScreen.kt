@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.importguide.picker
+package com.hdw.bookmarker.feature.importguide.ui.picker
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
