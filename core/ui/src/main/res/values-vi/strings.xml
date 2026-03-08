@@ -19,9 +19,9 @@
     <string name="sync">Đồng bộ</string>
     <string name="add">Thêm</string>
     <string name="action_apply">Áp dụng</string>
-    <string name="add_folder">Thêm thư mục</string>
-    <string name="add_bookmark">Thêm dấu trang</string>
-    <string name="add_bookmark_or_folder">Thêm dấu trang hoặc thư mục</string>
+    <string name="add_folder">thư mục</string>
+    <string name="add_bookmark">dấu trang</string>
+    <string name="add_bookmark_or_folder">Thêm</string>
     <string name="folder_name">Tên thư mục</string>
     <string name="bookmark_name">Tên dấu trang</string>
     <string name="bookmark_url">URL dấu trang</string>

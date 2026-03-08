@@ -19,9 +19,9 @@
     <string name="sync">सिंक</string>
     <string name="add">जोड़ें</string>
     <string name="action_apply">लागू करें</string>
-    <string name="add_folder">फ़ोल्डर जोड़ें</string>
-    <string name="add_bookmark">बुकमार्क जोड़ें</string>
-    <string name="add_bookmark_or_folder">बुकमार्क या फ़ोल्डर जोड़ें</string>
+    <string name="add_folder">फ़ोल्डर</string>
+    <string name="add_bookmark">बुकमार्क</string>
+    <string name="add_bookmark_or_folder">जोड़ें</string>
     <string name="folder_name">फ़ोल्डर का नाम</string>
     <string name="bookmark_name">बुकमार्क का नाम</string>
     <string name="bookmark_url">बुकमार्क URL</string>

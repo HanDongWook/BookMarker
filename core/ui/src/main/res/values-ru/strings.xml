@@ -19,9 +19,9 @@
     <string name="sync">Синхронизировать</string>
     <string name="add">Добавить</string>
     <string name="action_apply">Применить</string>
-    <string name="add_folder">Добавить папку</string>
-    <string name="add_bookmark">Добавить закладку</string>
-    <string name="add_bookmark_or_folder">Добавить закладку или папку</string>
+    <string name="add_folder">папка</string>
+    <string name="add_bookmark">закладка</string>
+    <string name="add_bookmark_or_folder">Добавить</string>
     <string name="folder_name">Название папки</string>
     <string name="bookmark_name">Название закладки</string>
     <string name="bookmark_url">URL закладки</string>

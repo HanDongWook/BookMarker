@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BookmarkAdd
@@ -14,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -24,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
@@ -33,40 +36,55 @@ fun AddItemTypeDialog(
     onAddBookmarkClick: () -> Unit,
     onShareClick: () -> Unit,
 ) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        text = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalAlignment = Alignment.Top,
+    Dialog(onDismissRequest = onDismiss) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = 6.dp,
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 18.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                AddItemTypeOption(
-                    modifier = Modifier.weight(1f),
-                    imageVector = Icons.Default.CreateNewFolder,
-                    title = stringResource(R.string.add_folder),
-                    contentDescription = stringResource(R.string.add_folder),
-                    onClick = onAddFolderClick,
+                Text(
+                    text = stringResource(R.string.add_bookmark_or_folder),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
-                AddItemTypeOption(
-                    modifier = Modifier.weight(1f),
-                    imageVector = Icons.Default.BookmarkAdd,
-                    title = stringResource(R.string.add_bookmark),
-                    contentDescription = stringResource(R.string.add_bookmark),
-                    onClick = onAddBookmarkClick,
-                )
-                AddItemTypeOption(
-                    modifier = Modifier.weight(1f),
-                    imageVector = Icons.Default.Share,
-                    title = stringResource(R.string.share_current_bookmarks_label),
-                    contentDescription = stringResource(R.string.share_current_bookmarks_label),
-                    onClick = onShareClick,
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.Top,
+                ) {
+                    AddItemTypeOption(
+                        modifier = Modifier.weight(1f),
+                        imageVector = Icons.Default.CreateNewFolder,
+                        title = stringResource(R.string.add_folder),
+                        contentDescription = stringResource(R.string.add_folder),
+                        onClick = onAddFolderClick,
+                    )
+                    AddItemTypeOption(
+                        modifier = Modifier.weight(1f),
+                        imageVector = Icons.Default.BookmarkAdd,
+                        title = stringResource(R.string.add_bookmark),
+                        contentDescription = stringResource(R.string.add_bookmark),
+                        onClick = onAddBookmarkClick,
+                    )
+                    AddItemTypeOption(
+                        modifier = Modifier.weight(1f),
+                        imageVector = Icons.Default.Share,
+                        title = stringResource(R.string.share_current_bookmarks_label),
+                        contentDescription = stringResource(R.string.share_current_bookmarks_label),
+                        onClick = onShareClick,
+                    )
+                }
             }
-        },
-        confirmButton = {},
-        dismissButton = {},
-    )
+        }
+    }
 }
 
 @Composable

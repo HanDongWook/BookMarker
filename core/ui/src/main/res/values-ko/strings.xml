@@ -19,9 +19,9 @@
     <string name="sync">동기화</string>
     <string name="add">추가</string>
     <string name="action_apply">적용</string>
-    <string name="add_folder">폴더 추가</string>
-    <string name="add_bookmark">북마크 추가</string>
-    <string name="add_bookmark_or_folder">북마크 또는 폴더 추가</string>
+    <string name="add_folder">폴더</string>
+    <string name="add_bookmark">북마크</string>
+    <string name="add_bookmark_or_folder">추가</string>
     <string name="folder_name">폴더 이름</string>
     <string name="bookmark_name">북마크 이름</string>
     <string name="bookmark_url">북마크 URL</string>
