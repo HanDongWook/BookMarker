@@ -40,7 +40,7 @@ import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
-import com.hdw.bookmarker.feature.home.model.VisibleBookmarkNode
+import com.hdw.bookmarker.feature.home.bookmarkdisplay.model.VisibleBookmarkNode
 
 private val ExpandedFoldersSaver = Saver<SnapshotStateMap<String, Boolean>, ArrayList<String>>(
     save = { state ->

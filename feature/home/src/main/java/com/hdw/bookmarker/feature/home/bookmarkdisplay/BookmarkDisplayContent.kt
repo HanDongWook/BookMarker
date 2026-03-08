@@ -17,6 +17,7 @@ import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 
 @Composable
 fun BookmarkDisplayContent(
