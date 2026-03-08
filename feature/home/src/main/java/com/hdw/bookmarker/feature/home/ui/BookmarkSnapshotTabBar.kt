@@ -1,5 +1,4 @@
-package com.hdw.bookmarker.feature.home
-
+package com.hdw.bookmarker.feature.home.ui
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
