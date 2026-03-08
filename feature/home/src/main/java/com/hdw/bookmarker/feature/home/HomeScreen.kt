@@ -343,10 +343,6 @@ fun HomeScreen(
                 pendingBookmarkUrl = ""
                 showAddBookmarkDialog = true
             },
-            onShareClick = {
-                showAddItemTypeDialog = false
-                showShareBookmarkMethodDialog = true
-            },
         )
     }
 
@@ -458,6 +454,7 @@ fun HomeScreen(
                         pendingSnapshotTitle = snapshotTitles[selectedBookmarkId].orEmpty()
                     }
                 },
+                onSnapshotShareClick = { showShareBookmarkMethodDialog = true },
             )
         }
     }
