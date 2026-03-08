@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.importguide.detail
+package com.hdw.bookmarker.feature.importguide.ui.detail
 
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
