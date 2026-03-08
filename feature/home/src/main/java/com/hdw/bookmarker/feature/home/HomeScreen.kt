@@ -152,7 +152,7 @@ fun HomeScreen(
         ?.takeIf { id -> orderedSnapshotIds.contains(id) }
         ?: orderedSnapshotIds.getOrNull(pagerState.currentPage)
         ?: orderedSnapshotIds.firstOrNull()
-    var selectedFolderPath by rememberSaveable(selectedBookmarkId) { mutableStateOf<List<Int>?>(null) }
+    var selectedFolderPath by rememberSaveable(selectedBookmarkId) { mutableStateOf<IntArray?>(null) }
     val snapshotTitles = remember(orderedSnapshotIds, state.bookmarkDocuments) {
         orderedSnapshotIds.mapIndexed { index, snapshotId ->
             val defaultTitle = "북마크${index + 1}"
@@ -380,7 +380,7 @@ fun HomeScreen(
             onConfirm = {
                 onAddFolder(
                     pendingFolderTitle,
-                    selectedFolderPath,
+                    selectedFolderPath?.toList(),
                 )
                 showAddFolderDialog = false
             },
@@ -398,7 +398,7 @@ fun HomeScreen(
                 onAddBookmark(
                     pendingBookmarkTitle,
                     pendingBookmarkUrl,
-                    selectedFolderPath,
+                    selectedFolderPath?.toList(),
                 )
                 showAddBookmarkDialog = false
             },
@@ -446,7 +446,7 @@ fun HomeScreen(
                     }
                     pendingEditBookmarkUrl = (item as? BookmarkItem.Bookmark)?.url.orEmpty()
                 },
-                onSelectedFolderPathChange = { path -> selectedFolderPath = path },
+                onSelectedFolderPathChange = { path -> selectedFolderPath = path?.toIntArray() },
                 currentSnapshotTitle = selectedBookmarkId?.let(snapshotTitles::get),
                 onSnapshotTitleClick = {
                     if (selectedBookmarkId != null) {
