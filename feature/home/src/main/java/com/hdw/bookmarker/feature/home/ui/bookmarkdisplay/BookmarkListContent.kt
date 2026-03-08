@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.bookmarkdisplay
+package com.hdw.bookmarker.feature.home.ui.bookmarkdisplay
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -41,7 +41,6 @@ import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
 import com.hdw.bookmarker.core.ui.folderstyle.iconVector
 import com.hdw.bookmarker.core.ui.folderstyle.resolveTint
-import com.hdw.bookmarker.feature.home.bookmarkdisplay.model.VisibleBookmarkNode
 
 private val ExpandedFoldersSaver = Saver<SnapshotStateMap<String, Boolean>, ArrayList<String>>(
     save = { state ->
@@ -319,3 +318,5 @@ private fun previewBookmarkListDocument(): BookmarkDocument = BookmarkDocument(
         ),
     ),
 )
+
+private data class VisibleBookmarkNode(val key: String, val depth: Int, val item: BookmarkItem, val path: List<Int>)

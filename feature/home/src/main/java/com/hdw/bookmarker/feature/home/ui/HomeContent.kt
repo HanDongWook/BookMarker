@@ -1,5 +1,4 @@
-package com.hdw.bookmarker.feature.home
-
+package com.hdw.bookmarker.feature.home.ui
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,10 +26,10 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.designsystem.theme.BookMarkerYellow
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.feature.home.appbar.HomeTopAppBar
-import com.hdw.bookmarker.feature.home.bookmarkdisplay.BookmarkDisplayContent
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeState
+import com.hdw.bookmarker.feature.home.ui.appbar.HomeTopAppBar
+import com.hdw.bookmarker.feature.home.ui.bookmarkdisplay.BookmarkDisplayContent
 import kotlinx.coroutines.launch
 
 @Composable
