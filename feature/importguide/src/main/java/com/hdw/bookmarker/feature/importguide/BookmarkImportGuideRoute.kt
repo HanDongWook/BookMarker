@@ -17,9 +17,9 @@ import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.core.ui.util.showShortToast
-import com.hdw.bookmarker.feature.importguide.FeatureBookmarkImportGuideRoute
-import com.hdw.bookmarker.feature.importguide.detail.BookmarkImportGuideScreen
-import com.hdw.bookmarker.feature.importguide.picker.BrowserPickerScreen
+import com.hdw.bookmarker.feature.importguide.route.FeatureBookmarkImportGuideRoute
+import com.hdw.bookmarker.feature.importguide.ui.detail.BookmarkImportGuideScreen
+import com.hdw.bookmarker.feature.importguide.ui.picker.BrowserPickerScreen
 import org.orbitmvi.orbit.compose.collectAsState
 
 @OptIn(ExperimentalSharedTransitionApi::class)
