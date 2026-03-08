@@ -49,7 +49,7 @@ internal fun HomeContent(
     onDeleteSnapshotRequest: (String) -> Unit,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
-    onSelectedFolderPathChange: (List<Int>?) -> Unit,
+    onSelectedFolderPathChange: (String, List<Int>?) -> Unit,
     currentSnapshotTitle: String?,
     onSnapshotTitleClick: () -> Unit,
 ) {
@@ -112,6 +112,7 @@ internal fun HomeContent(
                 ) { page ->
                     val snapshotId = orderedSnapshotIds[page]
                     val bookmarkDocument = state.bookmarkDocuments[snapshotId]
+                    val snapshotFolderPath = state.selectedFolderPaths.pathOf(snapshotId)
                     if (bookmarkDocument != null) {
                         BookmarkDisplayContent(
                             modifier = Modifier.fillMaxSize(),
@@ -121,7 +122,8 @@ internal fun HomeContent(
                             folderIconColor = state.folderIconColor,
                             onBookmarkClick = onBookmarkClick,
                             onItemLongClick = onItemLongClick,
-                            onSelectedFolderPathChange = onSelectedFolderPathChange,
+                            onSelectedFolderPathChange = { path -> onSelectedFolderPathChange(snapshotId, path) },
+                            selectedFolderPath = snapshotFolderPath,
                             snapshotTitle = currentSnapshotTitle,
                             onSnapshotTitleClick = onSnapshotTitleClick,
                         )
@@ -195,7 +197,7 @@ private fun HomeContentPreview() {
         onDeleteSnapshotRequest = {},
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
-        onSelectedFolderPathChange = {},
+        onSelectedFolderPathChange = { _, _ -> },
         currentSnapshotTitle = "북마크1",
         onSnapshotTitleClick = {},
     )
