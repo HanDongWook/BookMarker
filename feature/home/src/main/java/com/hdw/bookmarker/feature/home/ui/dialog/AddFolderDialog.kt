@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.dialog
+package com.hdw.bookmarker.feature.home.ui.dialog
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.AlertDialog
@@ -12,30 +12,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
-fun RenameBookmarkSnapshotDialog(
-    snapshotTitle: String,
-    onSnapshotTitleChange: (String) -> Unit,
+fun AddFolderDialog(
+    folderTitle: String,
+    onFolderTitleChange: (String) -> Unit,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = stringResource(R.string.rename_bookmark_snapshot)) },
+        title = { Text(text = stringResource(R.string.add_folder)) },
         text = {
             OutlinedTextField(
-                value = snapshotTitle,
-                onValueChange = onSnapshotTitleChange,
+                value = folderTitle,
+                onValueChange = onFolderTitleChange,
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text(text = stringResource(R.string.bookmark_snapshot_name)) },
+                label = { Text(text = stringResource(R.string.folder_name)) },
             )
         },
         confirmButton = {
             TextButton(
                 onClick = onConfirm,
-                enabled = snapshotTitle.isNotBlank(),
+                enabled = folderTitle.isNotBlank(),
             ) {
-                Text(text = stringResource(R.string.edit_mode_done))
+                Text(text = stringResource(R.string.add))
             }
         },
         dismissButton = {
@@ -48,10 +48,10 @@ fun RenameBookmarkSnapshotDialog(
 
 @Preview(showBackground = true)
 @Composable
-private fun RenameBookmarkSnapshotDialogPreview() {
-    RenameBookmarkSnapshotDialog(
-        snapshotTitle = "북마크1",
-        onSnapshotTitleChange = {},
+private fun AddFolderDialogPreview() {
+    AddFolderDialog(
+        folderTitle = "Reading",
+        onFolderTitleChange = {},
         onDismiss = {},
         onConfirm = {},
     )

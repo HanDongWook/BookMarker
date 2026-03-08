@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home
+package com.hdw.bookmarker.feature.home.ui.dialog
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -11,19 +11,10 @@ import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.HomeState
-import com.hdw.bookmarker.feature.home.dialog.AddBookmarkDialog
-import com.hdw.bookmarker.feature.home.dialog.AddFolderDialog
-import com.hdw.bookmarker.feature.home.dialog.AddItemTypeDialog
-import com.hdw.bookmarker.feature.home.dialog.BookmarkColorPickerDialog
-import com.hdw.bookmarker.feature.home.dialog.DefaultBrowserPickerDialog
-import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkItemDialog
-import com.hdw.bookmarker.feature.home.dialog.DeleteBookmarkSnapshotDialog
-import com.hdw.bookmarker.feature.home.dialog.ImportOptionDialog
-import com.hdw.bookmarker.feature.home.dialog.ManageBookmarkItemDialog
-import com.hdw.bookmarker.feature.home.dialog.RenameBookmarkSnapshotDialog
-import com.hdw.bookmarker.feature.home.sharebookmark.ShareBookmarkMethodDialog
-import com.hdw.bookmarker.feature.home.sharebookmark.requestCurrentBookmarkHtmlShare
-import com.hdw.bookmarker.feature.home.sharebookmark.requestCurrentBookmarkTextShare
+import com.hdw.bookmarker.feature.home.ui.HomeScreenUiState
+import com.hdw.bookmarker.feature.home.ui.share.ShareBookmarkMethodDialog
+import com.hdw.bookmarker.feature.home.ui.share.requestCurrentBookmarkHtmlShare
+import com.hdw.bookmarker.feature.home.ui.share.requestCurrentBookmarkTextShare
 
 @Composable
 internal fun HomeDialogHost(

@@ -1,5 +1,4 @@
-package com.hdw.bookmarker.feature.home.sharebookmark
-
+package com.hdw.bookmarker.feature.home.ui.share
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.FileProvider

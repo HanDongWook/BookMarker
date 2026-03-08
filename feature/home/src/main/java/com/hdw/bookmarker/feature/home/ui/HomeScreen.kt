@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home
+package com.hdw.bookmarker.feature.home.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +23,7 @@ import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeState
+import com.hdw.bookmarker.feature.home.ui.dialog.HomeDialogHost
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable

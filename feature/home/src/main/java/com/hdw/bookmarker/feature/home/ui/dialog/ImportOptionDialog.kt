@@ -1,5 +1,4 @@
-package com.hdw.bookmarker.feature.home.dialog
-
+package com.hdw.bookmarker.feature.home.ui.dialog
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
