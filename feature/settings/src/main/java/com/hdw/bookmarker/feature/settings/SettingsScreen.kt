@@ -25,10 +25,9 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.os.LocaleListCompat
 import com.hdw.bookmarker.core.data.repository.SettingsRepository
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.core.ui.url.AppWebUrl
 import com.hdw.bookmarker.feature.settings.appversion.AppUpdateUiState
 import com.hdw.bookmarker.feature.settings.appversion.AppVersionRow
@@ -55,8 +54,7 @@ fun SettingsScreen(
     selectedThemeMode: String?,
     selectedBrowserName: String,
     selectedBrowserIcon: Any?,
-    selectedFolderIconShape: BookmarkFolderIconShape,
-    selectedFolderIconColor: BookmarkFolderIconColor,
+    folderIconStyle: BookmarkFolderIconStyle,
     onTemporaryDataClick: () -> Unit,
     onDefaultBrowserClick: () -> Unit,
     onFolderStyleClick: () -> Unit,
@@ -121,8 +119,7 @@ fun SettingsScreen(
             BookMarkerDivider()
 
             FolderStyleRow(
-                shape = selectedFolderIconShape,
-                color = selectedFolderIconColor,
+                folderIconStyle = folderIconStyle,
                 onClick = onFolderStyleClick,
             )
             BookMarkerDivider()
@@ -203,8 +200,7 @@ private fun SettingsScreenPreview() {
         selectedBrowserIcon = null,
         onTemporaryDataClick = {},
         onDefaultBrowserClick = {},
-        selectedFolderIconShape = BookmarkFolderIconShape.FILLED,
-        selectedFolderIconColor = BookmarkFolderIconColor.DEFAULT,
+        folderIconStyle = BookmarkFolderIconStyle(),
         onFolderStyleClick = {},
         onOpenSourceLicensesClick = {},
         appUpdateUiState = AppUpdateUiState.UpToDate,
