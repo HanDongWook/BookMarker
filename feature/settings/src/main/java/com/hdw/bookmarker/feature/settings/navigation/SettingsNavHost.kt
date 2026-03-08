@@ -1,5 +1,4 @@
 package com.hdw.bookmarker.feature.settings.navigation
-
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -11,12 +10,12 @@ import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
-import com.hdw.bookmarker.feature.settings.SettingsScreen
-import com.hdw.bookmarker.feature.settings.SettingsState
-import com.hdw.bookmarker.feature.settings.appversion.AppUpdateUiState
-import com.hdw.bookmarker.feature.settings.defaultbrowser.DefaultBrowserScreen
-import com.hdw.bookmarker.feature.settings.folderstyle.FolderStyleScreen
-import com.hdw.bookmarker.feature.settings.opensource.OpenSourceLicensesScreen
+import com.hdw.bookmarker.feature.settings.model.SettingsState
+import com.hdw.bookmarker.feature.settings.ui.SettingsScreen
+import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppUpdateUiState
+import com.hdw.bookmarker.feature.settings.ui.tab.defaultbrowser.DefaultBrowserScreen
+import com.hdw.bookmarker.feature.settings.ui.tab.folderstyle.FolderStyleScreen
+import com.hdw.bookmarker.feature.settings.ui.tab.opensource.OpenSourceLicensesScreen
 
 @Composable
 internal fun SettingsNavHost(
