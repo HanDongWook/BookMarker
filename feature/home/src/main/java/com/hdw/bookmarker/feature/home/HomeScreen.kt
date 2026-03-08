@@ -88,6 +88,7 @@ fun HomeRoute(
         onOpenBookmark = onOpenBookmark,
         onOpenBookmarkImportGuide = onOpenBookmarkImportGuide,
         onSnapshotSelected = viewModel::onSnapshotSelected,
+        onSelectedFolderPathChange = viewModel::onSelectedFolderPathChange,
         onBookmarkColorSelected = viewModel::onBookmarkColorSelected,
         onDefaultBrowserSelected = viewModel::onDefaultBrowserSelected,
         onOpenFilePicker = viewModel::openFilePicker,
@@ -109,6 +110,7 @@ fun HomeScreen(
     onOpenBookmark: (String, String?) -> Boolean,
     onOpenBookmarkImportGuide: () -> Unit,
     onSnapshotSelected: (String) -> Unit,
+    onSelectedFolderPathChange: (String, List<Int>?) -> Unit,
     onBookmarkColorSelected: (String, Long) -> Unit,
     onDefaultBrowserSelected: (String) -> Unit,
     onOpenFilePicker: () -> Unit,
@@ -152,7 +154,7 @@ fun HomeScreen(
         ?.takeIf { id -> orderedSnapshotIds.contains(id) }
         ?: orderedSnapshotIds.getOrNull(pagerState.currentPage)
         ?: orderedSnapshotIds.firstOrNull()
-    var selectedFolderPath by rememberSaveable(selectedBookmarkId) { mutableStateOf<IntArray?>(null) }
+    val selectedFolderPath = state.selectedFolderPaths.pathOf(selectedBookmarkId)
     val snapshotTitles = remember(orderedSnapshotIds, state.bookmarkDocuments) {
         orderedSnapshotIds.mapIndexed { index, snapshotId ->
             val defaultTitle = "북마크${index + 1}"
@@ -380,7 +382,7 @@ fun HomeScreen(
             onConfirm = {
                 onAddFolder(
                     pendingFolderTitle,
-                    selectedFolderPath?.toList(),
+                    selectedFolderPath,
                 )
                 showAddFolderDialog = false
             },
@@ -398,7 +400,7 @@ fun HomeScreen(
                 onAddBookmark(
                     pendingBookmarkTitle,
                     pendingBookmarkUrl,
-                    selectedFolderPath?.toList(),
+                    selectedFolderPath,
                 )
                 showAddBookmarkDialog = false
             },
@@ -446,7 +448,7 @@ fun HomeScreen(
                     }
                     pendingEditBookmarkUrl = (item as? BookmarkItem.Bookmark)?.url.orEmpty()
                 },
-                onSelectedFolderPathChange = { path -> selectedFolderPath = path?.toIntArray() },
+                onSelectedFolderPathChange = onSelectedFolderPathChange,
                 currentSnapshotTitle = selectedBookmarkId?.let(snapshotTitles::get),
                 onSnapshotTitleClick = {
                     if (selectedBookmarkId != null) {
@@ -471,6 +473,7 @@ private fun HomeScreenPreview() {
         onOpenBookmark = { _, _ -> true },
         onOpenBookmarkImportGuide = {},
         onSnapshotSelected = {},
+        onSelectedFolderPathChange = { _, _ -> },
         onBookmarkColorSelected = { _, _ -> },
         onDefaultBrowserSelected = {},
         onOpenFilePicker = {},
