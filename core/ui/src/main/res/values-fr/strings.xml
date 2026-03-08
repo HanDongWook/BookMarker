@@ -19,9 +19,9 @@
     <string name="sync">Synchroniser</string>
     <string name="add">Ajouter</string>
     <string name="action_apply">Appliquer</string>
-    <string name="add_folder">Ajouter un dossier</string>
-    <string name="add_bookmark">Ajouter un signet</string>
-    <string name="add_bookmark_or_folder">Ajouter un signet ou un dossier</string>
+    <string name="add_folder">dossier</string>
+    <string name="add_bookmark">signet</string>
+    <string name="add_bookmark_or_folder">Ajouter</string>
     <string name="folder_name">Nom du dossier</string>
     <string name="bookmark_name">Nom du signet</string>
     <string name="bookmark_url">URL du signet</string>

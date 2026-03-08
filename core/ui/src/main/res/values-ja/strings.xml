@@ -19,9 +19,9 @@
     <string name="sync">同期</string>
     <string name="add">追加</string>
     <string name="action_apply">適用</string>
-    <string name="add_folder">フォルダを追加</string>
-    <string name="add_bookmark">ブックマークを追加</string>
-    <string name="add_bookmark_or_folder">ブックマークまたはフォルダを追加</string>
+    <string name="add_folder">フォルダ</string>
+    <string name="add_bookmark">ブックマーク</string>
+    <string name="add_bookmark_or_folder">追加</string>
     <string name="folder_name">フォルダ名</string>
     <string name="bookmark_name">ブックマーク名</string>
     <string name="bookmark_url">ブックマークURL</string>
