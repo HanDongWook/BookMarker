@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.importguide
+package com.hdw.bookmarker.feature.importguide.route
 
 import kotlinx.serialization.Serializable
 
