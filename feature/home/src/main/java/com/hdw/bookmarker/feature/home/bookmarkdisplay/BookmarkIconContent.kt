@@ -32,16 +32,14 @@ import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconStyle
 
 @Composable
 internal fun BookmarkIconContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
-    folderIconShape: BookmarkFolderIconShape,
-    folderIconColor: BookmarkFolderIconColor,
+    folderIconStyle: BookmarkFolderIconStyle,
     modifier: Modifier = Modifier,
     selectedFolderPath: List<Int>? = null,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
@@ -121,8 +119,7 @@ internal fun BookmarkIconContent(
                     is BookmarkItem.Folder -> {
                         BookmarkFolderIconItem(
                             folder = item,
-                            folderIconShape = folderIconShape,
-                            folderIconColor = folderIconColor,
+                            folderIconStyle = folderIconStyle,
                             onClick = {
                                 onSelectedFolderPathChange(currentPath + index)
                             },
@@ -150,8 +147,7 @@ internal fun BookmarkIconContent(
 @Composable
 private fun BookmarkFolderIconItem(
     folder: BookmarkItem.Folder,
-    folderIconShape: BookmarkFolderIconShape,
-    folderIconColor: BookmarkFolderIconColor,
+    folderIconStyle: BookmarkFolderIconStyle,
     onClick: () -> Unit,
     onLongClick: () -> Unit,
 ) {
@@ -166,9 +162,9 @@ private fun BookmarkFolderIconItem(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
-            imageVector = folderIconShape.iconVector(),
+            imageVector = folderIconStyle.shape.iconVector(),
             contentDescription = null,
-            tint = folderIconColor.resolveTint(),
+            tint = folderIconStyle.color.resolveTint(),
             modifier = Modifier.size(36.dp),
         )
         Text(
@@ -223,8 +219,7 @@ private fun BookmarkIconContentPreview() {
         bookmarkDocument = previewBookmarkIconDocument(),
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
-        folderIconShape = BookmarkFolderIconShape.FILLED,
-        folderIconColor = BookmarkFolderIconColor.DEFAULT,
+        folderIconStyle = BookmarkFolderIconStyle(),
     )
 }
 
@@ -238,8 +233,7 @@ private fun BookmarkFolderIconItemPreview() {
             lastModified = null,
             children = emptyList(),
         ),
-        folderIconShape = BookmarkFolderIconShape.FILLED,
-        folderIconColor = BookmarkFolderIconColor.DEFAULT,
+        folderIconStyle = BookmarkFolderIconStyle(),
         onClick = {},
         onLongClick = {},
     )

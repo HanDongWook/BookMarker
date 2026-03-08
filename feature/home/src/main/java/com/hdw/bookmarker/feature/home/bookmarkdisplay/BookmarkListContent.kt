@@ -38,8 +38,7 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconColor
-import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.ui.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.feature.home.bookmarkdisplay.model.VisibleBookmarkNode
 
 private val ExpandedFoldersSaver = Saver<SnapshotStateMap<String, Boolean>, ArrayList<String>>(
@@ -64,8 +63,7 @@ internal fun BookmarkListContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
-    folderIconShape: BookmarkFolderIconShape,
-    folderIconColor: BookmarkFolderIconColor,
+    folderIconStyle: BookmarkFolderIconStyle,
     modifier: Modifier = Modifier,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
 ) {
@@ -94,8 +92,7 @@ internal fun BookmarkListContent(
                         depth = node.depth,
                         isExpanded = expandedFolders[node.key] == true,
                         isSelected = selectedFolderKey == node.key,
-                        folderIconShape = folderIconShape,
-                        folderIconColor = folderIconColor,
+                        folderIconStyle = folderIconStyle,
                         onLongClick = { onItemLongClick(item, node.path) },
                         onToggle = {
                             val isSelected = selectedFolderKey == node.key
@@ -129,8 +126,7 @@ private fun BookmarkFolderRow(
     depth: Int,
     isExpanded: Boolean,
     isSelected: Boolean,
-    folderIconShape: BookmarkFolderIconShape,
-    folderIconColor: BookmarkFolderIconColor,
+    folderIconStyle: BookmarkFolderIconStyle,
     onLongClick: () -> Unit,
     onToggle: () -> Unit,
 ) {
@@ -142,7 +138,7 @@ private fun BookmarkFolderRow(
             .clip(RoundedCornerShape(8.dp))
             .background(
                 if (isSelected) {
-                    folderIconColor.resolveTint().copy(alpha = 0.25f)
+                    folderIconStyle.color.resolveTint().copy(alpha = 0.25f)
                 } else {
                     Color.Transparent
                 },
@@ -155,9 +151,9 @@ private fun BookmarkFolderRow(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            imageVector = folderIconShape.iconVector(),
+            imageVector = folderIconStyle.shape.iconVector(),
             contentDescription = null,
-            tint = folderIconColor.resolveTint(),
+            tint = folderIconStyle.color.resolveTint(),
         )
         Text(
             text = "${folder.title} ($directChildCount)",
@@ -246,8 +242,7 @@ private fun BookmarkListContentPreview() {
         bookmarkDocument = previewBookmarkListDocument(),
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
-        folderIconShape = BookmarkFolderIconShape.FILLED,
-        folderIconColor = BookmarkFolderIconColor.DEFAULT,
+        folderIconStyle = BookmarkFolderIconStyle(),
     )
 }
 
@@ -272,8 +267,7 @@ private fun BookmarkFolderRowPreview() {
         depth = 0,
         isExpanded = true,
         isSelected = true,
-        folderIconShape = BookmarkFolderIconShape.FILLED,
-        folderIconColor = BookmarkFolderIconColor.DEFAULT,
+        folderIconStyle = BookmarkFolderIconStyle(),
         onLongClick = {},
         onToggle = {},
     )

@@ -503,7 +503,9 @@ class HomeViewModel @Inject constructor(
         getBookmarkFolderIconShapeUseCase().collect { shape ->
             reduce {
                 state.copy(
-                    folderIconShape = BookmarkFolderIconShape.fromPersisted(shape),
+                    folderIconStyle = state.folderIconStyle.copy(
+                        shape = BookmarkFolderIconShape.fromPersisted(shape),
+                    ),
                 )
             }
         }
@@ -515,7 +517,9 @@ class HomeViewModel @Inject constructor(
         getBookmarkFolderIconColorUseCase().collect { color ->
             reduce {
                 state.copy(
-                    folderIconColor = BookmarkFolderIconColor.fromPersisted(color),
+                    folderIconStyle = state.folderIconStyle.copy(
+                        color = BookmarkFolderIconColor.fromPersisted(color),
+                    ),
                 )
             }
         }
