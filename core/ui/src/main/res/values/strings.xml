@@ -164,6 +164,13 @@
     <string name="bookmark_preview_open_externally">Open externally</string>
     <string name="bookmark_preview_close">Close preview</string>
     <string name="bookmark_preview_failed">Could not load preview</string>
+    <string name="bookmark_search_open">Search bookmarks</string>
+    <string name="bookmark_search_hint">Search folders and bookmarks</string>
+    <string name="bookmark_search_empty">Search folders and bookmarks across all snapshots.</string>
+    <string name="bookmark_search_loading">Searching…</string>
+    <string name="bookmark_search_no_results">No matching folders or bookmarks.</string>
+    <string name="bookmark_search_close">Close search</string>
+    <string name="bookmark_search_clear">Clear search text</string>
     <string name="folder_show_description_label">Show description</string>
     <string name="folder_scroll_long_description_label">Scroll long description</string>
     <string name="folder_description">Description</string>
