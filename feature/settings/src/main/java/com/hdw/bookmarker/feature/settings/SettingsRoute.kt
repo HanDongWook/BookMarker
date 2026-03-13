@@ -126,6 +126,7 @@ fun SettingsRoute(onBackClick: () -> Unit) {
         onTemporaryDataClick = { showClearTemporaryDataDialog = true },
         onAppUpdateClick = viewModel::onAppUpdateClick,
         onThemeModeSelect = viewModel::selectAppThemeMode,
+        onShowBookmarkUrlChange = viewModel::setShowBookmarkUrl,
         onDefaultBrowserSelect = viewModel::selectDefaultBrowser,
         onFolderShapeSelect = viewModel::selectFolderIconShape,
         onFolderColorSelect = viewModel::selectFolderIconColor,

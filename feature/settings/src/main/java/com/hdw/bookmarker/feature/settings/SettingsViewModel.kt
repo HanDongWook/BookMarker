@@ -11,11 +11,13 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconStyleUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetShowBookmarkUrlUseCase
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.feature.settings.model.SettingsState
@@ -33,8 +35,10 @@ class SettingsViewModel @AssistedInject constructor(
     private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
     private val getDefaultBrowserPackageUseCase: GetDefaultBrowserPackageUseCase,
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
+    private val getShowBookmarkUrlUseCase: GetShowBookmarkUrlUseCase,
     private val setAppThemeModeUseCase: SetAppThemeModeUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
+    private val setShowBookmarkUrlUseCase: SetShowBookmarkUrlUseCase,
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val getBookmarkFolderIconStyleUseCase: GetBookmarkFolderIconStyleUseCase,
     private val setBookmarkFolderIconShapeUseCase: SetBookmarkFolderIconShapeUseCase,
@@ -42,6 +46,7 @@ class SettingsViewModel @AssistedInject constructor(
 ) : MavericksViewModel<SettingsState>(initialState) {
     private var observingAppTheme = false
     private var observingBookmarkDisplayType = false
+    private var observingShowBookmarkUrl = false
     private var observingDefaultBrowser = false
     private var observingFolderIconStyle = false
 
@@ -60,6 +65,7 @@ class SettingsViewModel @AssistedInject constructor(
         }
         observeAppThemeMode()
         observeBookmarkDisplayType()
+        observeShowBookmarkUrl()
         observeDefaultBrowser()
         observeFolderIconStyle()
     }
@@ -75,6 +81,13 @@ class SettingsViewModel @AssistedInject constructor(
         setState { copy(bookmarkDisplayType = displayType) }
         viewModelScope.launch {
             setBookmarkDisplayTypeUseCase(displayType)
+        }
+    }
+
+    fun setShowBookmarkUrl(show: Boolean) {
+        setState { copy(showBookmarkUrl = show) }
+        viewModelScope.launch {
+            setShowBookmarkUrlUseCase(show)
         }
     }
 
@@ -170,6 +183,19 @@ class SettingsViewModel @AssistedInject constructor(
                 withState { current ->
                     if (persistedDisplayType == current.bookmarkDisplayType) return@withState
                     setState { copy(bookmarkDisplayType = persistedDisplayType) }
+                }
+            }
+        }
+    }
+
+    private fun observeShowBookmarkUrl() {
+        if (observingShowBookmarkUrl) return
+        observingShowBookmarkUrl = true
+        viewModelScope.launch {
+            getShowBookmarkUrlUseCase().collectLatest { showBookmarkUrl ->
+                withState { current ->
+                    if (showBookmarkUrl == current.showBookmarkUrl) return@withState
+                    setState { copy(showBookmarkUrl = showBookmarkUrl) }
                 }
             }
         }
