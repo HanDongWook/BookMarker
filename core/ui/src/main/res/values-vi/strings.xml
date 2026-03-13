@@ -142,6 +142,8 @@
     <string name="export_current_bookmarks_saved">Đã lưu bản xuất.</string>
     <string name="export_current_bookmarks_save_failed">Không thể lưu bản xuất.</string>
     <string name="export_bookmark_method_title">Xuất</string>
+    <string name="export_bookmark_method_share_section">Chia sẻ</string>
+    <string name="export_bookmark_method_save_section">Lưu</string>
     <string name="export_bookmark_method_share_text">Chia sẻ dưới dạng văn bản</string>
     <string name="export_bookmark_method_share_html">Chia sẻ dưới dạng HTML</string>
     <string name="export_bookmark_method_save_text">Lưu tệp văn bản</string>
