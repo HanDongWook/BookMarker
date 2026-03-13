@@ -25,8 +25,10 @@ import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
 fun BookmarkAppearanceScreen(
     scrollLongBookmarkUrl: Boolean,
     showBookmarkUrl: Boolean,
+    openBookmarkAdjacentOnLargeScreen: Boolean,
     onScrollLongBookmarkUrlChange: (Boolean) -> Unit,
     onShowBookmarkUrlChange: (Boolean) -> Unit,
+    onOpenBookmarkAdjacentOnLargeScreenChange: (Boolean) -> Unit,
     onBackClick: () -> Unit,
 ) {
     Scaffold(
@@ -72,6 +74,19 @@ fun BookmarkAppearanceScreen(
                 },
             )
             BookMarkerDivider()
+            SettingsRow(
+                title = stringResource(R.string.bookmark_open_beside_app_on_large_screens_label),
+                onClick = {
+                    onOpenBookmarkAdjacentOnLargeScreenChange(!openBookmarkAdjacentOnLargeScreen)
+                },
+                trailingContent = {
+                    Switch(
+                        checked = openBookmarkAdjacentOnLargeScreen,
+                        onCheckedChange = onOpenBookmarkAdjacentOnLargeScreenChange,
+                    )
+                },
+            )
+            BookMarkerDivider()
         }
     }
 }
@@ -82,8 +97,10 @@ private fun BookmarkAppearanceScreenPreview() {
     BookmarkAppearanceScreen(
         scrollLongBookmarkUrl = true,
         showBookmarkUrl = true,
+        openBookmarkAdjacentOnLargeScreen = false,
         onScrollLongBookmarkUrlChange = {},
         onShowBookmarkUrlChange = {},
+        onOpenBookmarkAdjacentOnLargeScreenChange = {},
         onBackClick = {},
     )
 }

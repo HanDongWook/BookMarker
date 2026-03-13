@@ -153,6 +153,7 @@
     <string name="appearance_label">모양</string>
     <string name="bookmark_show_url_label">URL 표시</string>
     <string name="bookmark_scroll_long_url_label">긴 URL 스크롤</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">큰 화면에서 앱 옆으로 열기</string>
     <string name="folder_show_description_label">설명 표시</string>
     <string name="folder_scroll_long_description_label">긴 설명 스크롤</string>
     <string name="folder_description">설명</string>
