@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,9 +30,18 @@ fun BookmarkPreviewPane(
     onRefresh: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var pageTitle by remember(url) { mutableStateOf<String?>(null) }
-    var isLoading by remember(url, refreshToken) { mutableStateOf(url != null) }
-    var hasError by remember(url, refreshToken) { mutableStateOf(false) }
+    var pageTitle by remember { mutableStateOf<String?>(null) }
+    var isLoading by remember { mutableStateOf(false) }
+    var hasError by remember { mutableStateOf(false) }
+
+    LaunchedEffect(url) {
+        pageTitle = null
+    }
+
+    LaunchedEffect(url, refreshToken) {
+        isLoading = url != null
+        hasError = false
+    }
 
     BookmarkPreviewPaneContent(
         title = pageTitle,
