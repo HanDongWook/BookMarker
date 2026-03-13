@@ -139,9 +139,13 @@
     <string name="app_update_flow_failed">アップデートの開始に失敗しました。</string>
     <string name="rate_app_review_requested_hint">ポップアップが表示されない場合は、Play ストアで評価してください。</string>
     <string name="export_current_bookmarks_html_failed">ブックマークの HTML ファイルを作成できませんでした。</string>
+    <string name="export_current_bookmarks_saved">書き出しを保存しました。</string>
+    <string name="export_current_bookmarks_save_failed">書き出しの保存に失敗しました。</string>
     <string name="export_bookmark_method_title">書き出し</string>
-    <string name="export_bookmark_method_text">テキストとして書き出す</string>
-    <string name="export_bookmark_method_html">HTMLとして書き出す</string>
+    <string name="export_bookmark_method_share_text">テキストで共有</string>
+    <string name="export_bookmark_method_share_html">HTMLで共有</string>
+    <string name="export_bookmark_method_save_text">テキストファイルを保存</string>
+    <string name="export_bookmark_method_save_html">HTMLファイルを保存</string>
     <string name="rate_app_open_store_failed">Play ストアを開けませんでした。</string>
     <string name="appearance_label">外観</string>
     <string name="bookmark_show_url_label">URLを表示</string>

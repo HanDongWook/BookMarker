@@ -139,9 +139,13 @@
     <string name="app_update_flow_failed">เริ่มการอัปเดตไม่สำเร็จ</string>
     <string name="rate_app_review_requested_hint">หากไม่มีป๊อปอัป โปรดให้คะแนนใน Play Store</string>
     <string name="export_current_bookmarks_html_failed">สร้างไฟล์ HTML ของบุ๊กมาร์กไม่สำเร็จ</string>
+    <string name="export_current_bookmarks_saved">บันทึกการส่งออกแล้ว</string>
+    <string name="export_current_bookmarks_save_failed">บันทึกการส่งออกไม่สำเร็จ</string>
     <string name="export_bookmark_method_title">ส่งออก</string>
-    <string name="export_bookmark_method_text">ส่งออกเป็นข้อความ</string>
-    <string name="export_bookmark_method_html">ส่งออกเป็น HTML</string>
+    <string name="export_bookmark_method_share_text">แชร์เป็นข้อความ</string>
+    <string name="export_bookmark_method_share_html">แชร์เป็น HTML</string>
+    <string name="export_bookmark_method_save_text">บันทึกไฟล์ข้อความ</string>
+    <string name="export_bookmark_method_save_html">บันทึกไฟล์ HTML</string>
     <string name="rate_app_open_store_failed">ไม่สามารถเปิด Play Store ได้</string>
     <string name="appearance_label">รูปลักษณ์</string>
     <string name="bookmark_show_url_label">แสดง URL</string>

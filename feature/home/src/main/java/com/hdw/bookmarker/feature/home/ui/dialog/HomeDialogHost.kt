@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.hdw.bookmarker.core.domain.util.BookmarkColorGenerator
-import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.HomeState
@@ -18,7 +17,6 @@ internal fun HomeDialogHost(
     state: HomeState,
     uiState: HomeScreenUiState,
     selectedBookmarkId: String?,
-    selectedBookmarkDocument: BookmarkDocument?,
     selectedFolderPath: List<Int>?,
     onOpenBookmarkImportGuide: () -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
@@ -186,13 +184,21 @@ internal fun HomeDialogHost(
     if (showExportBookmarkMethodDialog) {
         ExportBookmarkMethodDialog(
             onDismiss = { showExportBookmarkMethodDialog = false },
-            onExportTextClick = {
+            onShareTextClick = {
                 showExportBookmarkMethodDialog = false
                 pendingBookmarkExportAction = BookmarkExportAction.ShareText
             },
-            onExportHtmlClick = {
+            onShareHtmlClick = {
                 showExportBookmarkMethodDialog = false
                 pendingBookmarkExportAction = BookmarkExportAction.ShareHtml
+            },
+            onSaveTextClick = {
+                showExportBookmarkMethodDialog = false
+                pendingBookmarkExportAction = BookmarkExportAction.SaveText
+            },
+            onSaveHtmlClick = {
+                showExportBookmarkMethodDialog = false
+                pendingBookmarkExportAction = BookmarkExportAction.SaveHtml
             },
         )
     }

@@ -44,9 +44,13 @@
     <string name="export_current_bookmarks_chooser_title">Export bookmarks</string>
     <string name="export_current_bookmarks_empty">No bookmarks to export.</string>
     <string name="export_current_bookmarks_html_failed">Failed to create bookmark HTML file.</string>
+    <string name="export_current_bookmarks_saved">Export saved.</string>
+    <string name="export_current_bookmarks_save_failed">Failed to save export.</string>
     <string name="export_bookmark_method_title">Export</string>
-    <string name="export_bookmark_method_text">Export as text</string>
-    <string name="export_bookmark_method_html">Export as HTML</string>
+    <string name="export_bookmark_method_share_text">Share as text</string>
+    <string name="export_bookmark_method_share_html">Share as HTML</string>
+    <string name="export_bookmark_method_save_text">Save text file</string>
+    <string name="export_bookmark_method_save_html">Save HTML file</string>
     <string name="privacy_policy_label">Privacy Policy</string>
     <string name="temporary_data_label">Temporary Data</string>
     <string name="open_source_licenses_label">Open Source Licenses</string>

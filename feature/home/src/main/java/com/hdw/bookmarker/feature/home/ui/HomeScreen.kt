@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
@@ -46,7 +47,7 @@ fun HomeScreen(
     onDeleteBookmarkItem: (List<Int>) -> Unit,
     onUpdateBookmarkItem: (UpdateBookmarkItemRequest) -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
-    onBookmarkExportRequest: (BookmarkExportAction, com.hdw.bookmarker.core.model.bookmark.BookmarkDocument) -> Unit,
+    onBookmarkExportRequest: (BookmarkExportAction, BookmarkDocument) -> Unit,
 ) {
     val uiState = rememberHomeScreenUiState()
     var showImportOptionDialog by uiState.showImportOptionDialog
@@ -127,7 +128,6 @@ fun HomeScreen(
         state = state,
         uiState = uiState,
         selectedBookmarkId = selectedBookmarkId,
-        selectedBookmarkDocument = selectedBookmarkDocument,
         selectedFolderPath = selectedFolderPath,
         onOpenBookmarkImportGuide = onOpenBookmarkImportGuide,
         onAddEmptyBookmarkSnapshot = onAddEmptyBookmarkSnapshot,

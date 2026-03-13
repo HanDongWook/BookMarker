@@ -139,9 +139,13 @@
     <string name="app_update_flow_failed">Gagal memulai pembaruan.</string>
     <string name="rate_app_review_requested_hint">Jika tidak ada popup, beri nilai aplikasi di Play Store.</string>
     <string name="export_current_bookmarks_html_failed">Gagal membuat file HTML bookmark.</string>
+    <string name="export_current_bookmarks_saved">Ekspor tersimpan.</string>
+    <string name="export_current_bookmarks_save_failed">Gagal menyimpan ekspor.</string>
     <string name="export_bookmark_method_title">Ekspor</string>
-    <string name="export_bookmark_method_text">Ekspor sebagai teks</string>
-    <string name="export_bookmark_method_html">Ekspor sebagai HTML</string>
+    <string name="export_bookmark_method_share_text">Bagikan sebagai teks</string>
+    <string name="export_bookmark_method_share_html">Bagikan sebagai HTML</string>
+    <string name="export_bookmark_method_save_text">Simpan file teks</string>
+    <string name="export_bookmark_method_save_html">Simpan file HTML</string>
     <string name="rate_app_open_store_failed">Tidak dapat membuka Play Store.</string>
     <string name="appearance_label">Tampilan</string>
     <string name="bookmark_show_url_label">Tampilkan URL</string>
