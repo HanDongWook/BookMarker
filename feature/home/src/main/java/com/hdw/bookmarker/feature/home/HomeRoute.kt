@@ -9,10 +9,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.hdw.bookmarker.core.model.MimeTypes
+import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
 import com.hdw.bookmarker.feature.home.ui.HomeScreen
+import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportAction
+import com.hdw.bookmarker.feature.home.ui.share.shareCurrentBookmarkHtmlExport
+import com.hdw.bookmarker.feature.home.ui.share.shareCurrentBookmarkTextExport
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -59,6 +63,28 @@ fun HomeRoute(
         }
     }
 
+    val onBookmarkExportRequest: (BookmarkExportAction, BookmarkDocument) -> Unit = { action, document ->
+        when (action) {
+            BookmarkExportAction.ShareText -> {
+                if (!shareCurrentBookmarkTextExport(context, document)) {
+                    context.showShortToast(resources.getString(R.string.export_current_bookmarks_empty))
+                }
+            }
+
+            BookmarkExportAction.ShareHtml -> {
+                when {
+                    !shareCurrentBookmarkHtmlExport(context, document) -> {
+                        context.showShortToast(resources.getString(R.string.export_current_bookmarks_html_failed))
+                    }
+                }
+            }
+
+            BookmarkExportAction.SaveText,
+            BookmarkExportAction.SaveHtml,
+            -> Unit
+        }
+    }
+
     HomeScreen(
         state = state,
         onSettingsClick = onSettingsClick,
@@ -75,5 +101,6 @@ fun HomeRoute(
         onDeleteBookmarkItem = viewModel::deleteBookmarkItem,
         onUpdateBookmarkItem = viewModel::updateBookmarkItem,
         onAddEmptyBookmarkSnapshot = viewModel::addEmptyBookmarkSnapshot,
+        onBookmarkExportRequest = onBookmarkExportRequest,
     )
 }
