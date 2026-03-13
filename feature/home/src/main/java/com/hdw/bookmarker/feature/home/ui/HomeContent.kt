@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.designsystem.theme.BookMarkerYellow
+import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.home.contract.HomeState
@@ -89,6 +90,9 @@ internal fun HomeContent(
         Column(modifier = Modifier.padding(innerPadding)) {
             BookmarkSnapshotTabBar(
                 orderedSnapshotIds = orderedSnapshotIds,
+                inboxSnapshotIds = state.bookmarkDocuments
+                    .filterValues { document -> document.isInboxSnapshot() }
+                    .keys,
                 bookmarkColors = state.bookmarkColors,
                 selectedBookmarkId = selectedBookmarkId,
                 isEditMode = isBrowserEditMode,
@@ -215,6 +219,7 @@ private fun BookmarkDocumentsPager(
             BookmarkDisplayContent(
                 modifier = Modifier.fillMaxSize(),
                 bookmarkDocument = bookmarkDocument,
+                isInboxSnapshot = bookmarkDocument.isInboxSnapshot(),
                 displayType = state.bookmarkDisplayType,
                 scrollLongBookmarkUrl = state.scrollLongBookmarkUrl,
                 showBookmarkUrl = state.showBookmarkUrl,
