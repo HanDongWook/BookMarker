@@ -16,7 +16,7 @@ import com.hdw.bookmarker.core.ui.R
 @Composable
 fun ImportOptionDialog(
     onDismiss: () -> Unit,
-    onOpenGuide: () -> Unit,
+    onOpenImportBookmarks: () -> Unit,
     onPickFile: () -> Unit,
     onAddEmptyBookmarkItem: () -> Unit,
 ) {
@@ -28,10 +28,10 @@ fun ImportOptionDialog(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Button(
-                    onClick = onOpenGuide,
+                    onClick = onOpenImportBookmarks,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text(text = stringResource(R.string.import_option_dialog_open_guide))
+                    Text(text = stringResource(R.string.import_bookmarks))
                 }
 
                 OutlinedButton(
@@ -59,7 +59,7 @@ fun ImportOptionDialog(
 private fun ImportOptionDialogPreview() {
     ImportOptionDialog(
         onDismiss = {},
-        onOpenGuide = {},
+        onOpenImportBookmarks = {},
         onPickFile = {},
         onAddEmptyBookmarkItem = {},
     )

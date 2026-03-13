@@ -109,7 +109,6 @@
     <string name="import_guide_step1_body_desktop_generic">Bilgisayarınızdaki %1$s’te Bookmark/Favorites manager’ı bulun ve HTML’ye dışa aktarın.</string>
     <string name="import_guide_step2_title">2. HTML dosyasını telefona kaydedin</string>
     <string name="import_guide_open_guide_failed">Kılavuz sayfası açılamadı.</string>
-    <string name="import_guide_exit">Çıkış</string>
     <string name="open_bookmark_failed">Yer imi bağlantısı açılamadı.</string>
     <string name="delete_bookmark_dialog_title">Yer imleri silinsin mi?</string>
     <string name="delete_bookmark_dialog_message">Bu yer imlerini silmek istiyor musunuz?</string>
@@ -119,7 +118,6 @@
     <string name="delete_bookmark_item_dialog_message">Seçili klasör veya yer imi silinsin mi?</string>
     <string name="delete_bookmark_item_dialog_confirm">Sil</string>
     <string name="delete_bookmark_item_dialog_cancel">İptal</string>
-    <string name="import_option_dialog_open_guide">Yer imi HTML içe aktarma kılavuzunu görüntüle</string>
     <string name="import_option_dialog_pick_file">Yer imi HTML dosyasını içe aktar</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Boş yer imi öğesi ekle</string>
     <string name="bookmark_color_picker_dialog_title">Yer imi rengini seç</string>

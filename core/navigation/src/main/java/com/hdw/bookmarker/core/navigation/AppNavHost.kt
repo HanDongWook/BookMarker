@@ -12,11 +12,12 @@ import com.hdw.bookmarker.feature.settings.SettingsRoute
 @Composable
 fun AppNavHost(navController: NavHostController) {
     val context = LocalContext.current
+    val importHtmlRequestKey = "import_html_request_token"
     NavHost(
         navController = navController,
         startDestination = AppRoute.Home,
     ) {
-        slideComposable<AppRoute.Home> {
+        slideComposable<AppRoute.Home> { entry ->
             HomeRoute(
                 onSettingsClick = {
                     navController.navigate(AppRoute.Settings)
@@ -31,11 +32,20 @@ fun AppNavHost(navController: NavHostController) {
                 onOpenBookmarkImportGuide = {
                     navController.navigate(AppRoute.BookmarkImportGuide)
                 },
+                pendingImportHtmlRequestToken = entry.savedStateHandle.get<Long?>(importHtmlRequestKey),
+                onImportHtmlRequestHandled = {
+                    entry.savedStateHandle[importHtmlRequestKey] = null
+                },
             )
         }
         slideComposable<AppRoute.BookmarkImportGuide> {
             BookmarkImportGuideRoute(
                 onBackClick = {
+                    navController.popBackStack()
+                },
+                onImportHtmlFile = {
+                    navController.getBackStackEntry(AppRoute.Home)
+                        .savedStateHandle[importHtmlRequestKey] = System.currentTimeMillis()
                     navController.popBackStack()
                 },
                 onOpenDesktopGuide = { browser, selectedBrowserPackage ->

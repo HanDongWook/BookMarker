@@ -109,7 +109,6 @@
     <string name="import_guide_step1_body_desktop_generic">На компьютере в %1$s найдите Bookmark/Favorites manager и экспортируйте в HTML.</string>
     <string name="import_guide_step2_title">2. Сохраните HTML-файл на телефон</string>
     <string name="import_guide_open_guide_failed">Не удалось открыть страницу руководства.</string>
-    <string name="import_guide_exit">Выход</string>
     <string name="open_bookmark_failed">Не удалось открыть ссылку закладки.</string>
     <string name="delete_bookmark_dialog_title">Удалить закладки?</string>
     <string name="delete_bookmark_dialog_message">Вы хотите удалить эти закладки?</string>
@@ -119,7 +118,6 @@
     <string name="delete_bookmark_item_dialog_message">Вы хотите удалить выбранную папку или закладку?</string>
     <string name="delete_bookmark_item_dialog_confirm">Удалить</string>
     <string name="delete_bookmark_item_dialog_cancel">Отмена</string>
-    <string name="import_option_dialog_open_guide">Открыть руководство по импорту HTML-закладок</string>
     <string name="import_option_dialog_pick_file">Импортировать HTML-файл закладок</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Добавить пустой элемент закладки</string>
     <string name="bookmark_color_picker_dialog_title">Выберите цвет закладки</string>
