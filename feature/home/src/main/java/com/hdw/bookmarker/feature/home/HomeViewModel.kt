@@ -13,6 +13,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseC
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetOpenBookmarkAdjacentOnLargeScreenUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongFolderDescriptionUseCase
@@ -59,6 +60,7 @@ class HomeViewModel @Inject constructor(
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
     private val getScrollLongBookmarkUrlUseCase: GetScrollLongBookmarkUrlUseCase,
+    private val getOpenBookmarkAdjacentOnLargeScreenUseCase: GetOpenBookmarkAdjacentOnLargeScreenUseCase,
     private val getScrollLongFolderDescriptionUseCase: GetScrollLongFolderDescriptionUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
     private val getShowBookmarkUrlUseCase: GetShowBookmarkUrlUseCase,
@@ -72,6 +74,7 @@ class HomeViewModel @Inject constructor(
     private var isObservingDefaultBrowser = false
     private var isObservingBookmarkDisplayType = false
     private var isObservingScrollLongBookmarkUrl = false
+    private var isObservingOpenBookmarkAdjacentOnLargeScreen = false
     private var isObservingShowBookmarkUrl = false
     private var isObservingShowFolderDescription = false
     private var isObservingScrollLongFolderDescription = false
@@ -84,6 +87,7 @@ class HomeViewModel @Inject constructor(
         observeDefaultBrowserPackage()
         observeBookmarkDisplayType()
         observeScrollLongBookmarkUrl()
+        observeOpenBookmarkAdjacentOnLargeScreen()
         observeShowBookmarkUrl()
         observeShowFolderDescription()
         observeScrollLongFolderDescription()
@@ -530,6 +534,16 @@ class HomeViewModel @Inject constructor(
         getShowBookmarkUrlUseCase().collect { showBookmarkUrl ->
             reduce {
                 state.copy(showBookmarkUrl = showBookmarkUrl)
+            }
+        }
+    }
+
+    private fun observeOpenBookmarkAdjacentOnLargeScreen() = intent {
+        if (isObservingOpenBookmarkAdjacentOnLargeScreen) return@intent
+        isObservingOpenBookmarkAdjacentOnLargeScreen = true
+        getOpenBookmarkAdjacentOnLargeScreenUseCase().collect { enabled ->
+            reduce {
+                state.copy(openBookmarkAdjacentOnLargeScreen = enabled)
             }
         }
     }
