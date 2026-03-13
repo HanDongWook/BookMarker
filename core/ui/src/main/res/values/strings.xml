@@ -70,10 +70,6 @@
     <string name="bookmark_mode_icon">Bookmark icon view</string>
     <string name="import_bookmarks">Import bookmarks</string>
     <string name="import_source_html_file_title">HTML file</string>
-    <string name="import_source_html_file_description">Import bookmarks directly from an exported HTML file.</string>
-    <string name="import_source_browser_guides_description">Find export steps for popular browsers.</string>
-    <string name="import_source_badge_recommended">Recommended</string>
-    <string name="import_source_badge_direct_import">Direct import</string>
     <string name="browser_generic_name">browser</string>
     <string name="import_guide_title">Import Chrome bookmarks</string>
     <string name="import_guide_title_for_browser">Import %1$s bookmarks</string>
