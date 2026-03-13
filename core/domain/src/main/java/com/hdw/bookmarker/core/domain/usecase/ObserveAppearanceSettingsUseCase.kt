@@ -9,6 +9,7 @@ class ObserveAppearanceSettingsUseCase @Inject constructor(
     private val getAppThemeModeUseCase: GetAppThemeModeUseCase,
     private val getShowBookmarkUrlUseCase: GetShowBookmarkUrlUseCase,
     private val getScrollLongBookmarkUrlUseCase: GetScrollLongBookmarkUrlUseCase,
+    private val getOpenBookmarkSidePreviewOnLargeScreenUseCase: GetOpenBookmarkSidePreviewOnLargeScreenUseCase,
     private val getShowFolderDescriptionUseCase: GetShowFolderDescriptionUseCase,
     private val getScrollLongFolderDescriptionUseCase: GetScrollLongFolderDescriptionUseCase,
     private val getBookmarkFolderIconStyleUseCase: GetBookmarkFolderIconStyleUseCase,
@@ -17,8 +18,9 @@ class ObserveAppearanceSettingsUseCase @Inject constructor(
         val bookmarkAppearance = combine(
             getShowBookmarkUrlUseCase(),
             getScrollLongBookmarkUrlUseCase(),
-        ) { showBookmarkUrl, scrollLongBookmarkUrl ->
-            showBookmarkUrl to scrollLongBookmarkUrl
+            getOpenBookmarkSidePreviewOnLargeScreenUseCase(),
+        ) { showBookmarkUrl, scrollLongBookmarkUrl, openBookmarkSidePreviewOnLargeScreen ->
+            Triple(showBookmarkUrl, scrollLongBookmarkUrl, openBookmarkSidePreviewOnLargeScreen)
         }
 
         val folderAppearance = combine(
@@ -38,6 +40,7 @@ class ObserveAppearanceSettingsUseCase @Inject constructor(
                 selectedThemeMode = selectedThemeMode,
                 showBookmarkUrl = bookmarkAppearanceState.first,
                 scrollLongBookmarkUrl = bookmarkAppearanceState.second,
+                openBookmarkSidePreviewOnLargeScreen = bookmarkAppearanceState.third,
                 showFolderDescription = folderAppearanceState.first,
                 scrollLongFolderDescription = folderAppearanceState.second,
                 folderIconStyle = folderAppearanceState.third,

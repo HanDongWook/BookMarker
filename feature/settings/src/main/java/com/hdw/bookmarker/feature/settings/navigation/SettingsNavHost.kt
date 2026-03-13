@@ -73,11 +73,8 @@ internal fun SettingsNavHost(
             val behaviorState by behaviorViewModel.collectAsState()
             BehaviorScreen(
                 openBookmarkAdjacentOnLargeScreen = behaviorState.openBookmarkAdjacentOnLargeScreen,
-                openBookmarkSidePreviewOnLargeScreen = behaviorState.openBookmarkSidePreviewOnLargeScreen,
                 onOpenBookmarkAdjacentOnLargeScreenChange =
                     behaviorViewModel::setOpenBookmarkAdjacentOnLargeScreen,
-                onOpenBookmarkSidePreviewOnLargeScreenChange =
-                    behaviorViewModel::setOpenBookmarkSidePreviewOnLargeScreen,
                 onBackClick = { navController.popBackStack() },
             )
         }

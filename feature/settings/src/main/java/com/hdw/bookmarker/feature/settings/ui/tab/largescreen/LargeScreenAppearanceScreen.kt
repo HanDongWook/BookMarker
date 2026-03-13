@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.settings.ui.tab.behavior
+package com.hdw.bookmarker.feature.settings.ui.tab.largescreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,16 +22,16 @@ import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BehaviorScreen(
-    openBookmarkAdjacentOnLargeScreen: Boolean,
-    onOpenBookmarkAdjacentOnLargeScreenChange: (Boolean) -> Unit,
+fun LargeScreenAppearanceScreen(
+    openBookmarkSidePreviewOnLargeScreen: Boolean,
+    onOpenBookmarkSidePreviewOnLargeScreenChange: (Boolean) -> Unit,
     onBackClick: () -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.behavior_label)) },
+                title = { Text(text = stringResource(R.string.large_screen_label)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
@@ -49,14 +49,14 @@ fun BehaviorScreen(
                 .padding(innerPadding),
         ) {
             SettingsRow(
-                title = stringResource(R.string.bookmark_open_beside_app_on_large_screens_label),
+                title = stringResource(R.string.bookmark_open_side_preview_label),
                 onClick = {
-                    onOpenBookmarkAdjacentOnLargeScreenChange(!openBookmarkAdjacentOnLargeScreen)
+                    onOpenBookmarkSidePreviewOnLargeScreenChange(!openBookmarkSidePreviewOnLargeScreen)
                 },
                 trailingContent = {
                     Switch(
-                        checked = openBookmarkAdjacentOnLargeScreen,
-                        onCheckedChange = onOpenBookmarkAdjacentOnLargeScreenChange,
+                        checked = openBookmarkSidePreviewOnLargeScreen,
+                        onCheckedChange = onOpenBookmarkSidePreviewOnLargeScreenChange,
                     )
                 },
             )
@@ -67,10 +67,10 @@ fun BehaviorScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun BehaviorScreenPreview() {
-    BehaviorScreen(
-        openBookmarkAdjacentOnLargeScreen = false,
-        onOpenBookmarkAdjacentOnLargeScreenChange = {},
+private fun LargeScreenAppearanceScreenPreview() {
+    LargeScreenAppearanceScreen(
+        openBookmarkSidePreviewOnLargeScreen = false,
+        onOpenBookmarkSidePreviewOnLargeScreenChange = {},
         onBackClick = {},
     )
 }
