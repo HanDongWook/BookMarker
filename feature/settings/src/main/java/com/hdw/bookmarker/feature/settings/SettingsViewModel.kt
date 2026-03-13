@@ -7,10 +7,12 @@ import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.hdw.bookmarker.core.domain.usecase.GetAppThemeModeUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconStyleUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
@@ -28,15 +30,18 @@ import kotlinx.coroutines.launch
 class SettingsViewModel @AssistedInject constructor(
     @Assisted initialState: SettingsState,
     private val getAppThemeModeUseCase: GetAppThemeModeUseCase,
+    private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
     private val getDefaultBrowserPackageUseCase: GetDefaultBrowserPackageUseCase,
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
     private val setAppThemeModeUseCase: SetAppThemeModeUseCase,
+    private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val getBookmarkFolderIconStyleUseCase: GetBookmarkFolderIconStyleUseCase,
     private val setBookmarkFolderIconShapeUseCase: SetBookmarkFolderIconShapeUseCase,
     private val setBookmarkFolderIconColorUseCase: SetBookmarkFolderIconColorUseCase,
 ) : MavericksViewModel<SettingsState>(initialState) {
     private var observingAppTheme = false
+    private var observingBookmarkDisplayType = false
     private var observingDefaultBrowser = false
     private var observingFolderIconStyle = false
 
@@ -54,6 +59,7 @@ class SettingsViewModel @AssistedInject constructor(
             }
         }
         observeAppThemeMode()
+        observeBookmarkDisplayType()
         observeDefaultBrowser()
         observeFolderIconStyle()
     }
@@ -62,6 +68,13 @@ class SettingsViewModel @AssistedInject constructor(
         setState { copy(selectedThemeMode = mode) }
         viewModelScope.launch {
             setAppThemeModeUseCase(mode)
+        }
+    }
+
+    fun selectBookmarkDisplayType(displayType: String) {
+        setState { copy(bookmarkDisplayType = displayType) }
+        viewModelScope.launch {
+            setBookmarkDisplayTypeUseCase(displayType)
         }
     }
 
@@ -144,6 +157,19 @@ class SettingsViewModel @AssistedInject constructor(
                         ?: current.installedBrowsers.firstOrNull()?.packageName
                     if (nextSelection == current.selectedBrowserPackage) return@withState
                     setState { copy(selectedBrowserPackage = nextSelection) }
+                }
+            }
+        }
+    }
+
+    private fun observeBookmarkDisplayType() {
+        if (observingBookmarkDisplayType) return
+        observingBookmarkDisplayType = true
+        viewModelScope.launch {
+            getBookmarkDisplayTypeUseCase().collectLatest { persistedDisplayType ->
+                withState { current ->
+                    if (persistedDisplayType == current.bookmarkDisplayType) return@withState
+                    setState { copy(bookmarkDisplayType = persistedDisplayType) }
                 }
             }
         }

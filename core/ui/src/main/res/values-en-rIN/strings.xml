@@ -162,4 +162,8 @@
     <string name="share_bookmark_method_text">Share as text</string>
     <string name="share_bookmark_method_html">Share as HTML</string>
     <string name="rate_app_open_store_failed">Could not open Play Store.</string>
+    <string name="appearance_label">Appearance</string>
+    <string name="bookmark_display_mode_label">Display mode</string>
+    <string name="bookmark_display_type_list">List</string>
+    <string name="bookmark_display_type_icon">Icon</string>
 </resources>

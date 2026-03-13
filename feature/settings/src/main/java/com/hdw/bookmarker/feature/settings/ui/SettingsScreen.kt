@@ -1,6 +1,5 @@
 package com.hdw.bookmarker.feature.settings.ui
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,17 +20,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.os.LocaleListCompat
-import com.hdw.bookmarker.core.data.repository.SettingsRepository
-import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.url.AppWebUrl
+import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
 import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppUpdateUiState
 import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppVersionRow
 import com.hdw.bookmarker.feature.settings.ui.tab.defaultbrowser.DefaultBrowserRow
-import com.hdw.bookmarker.feature.settings.ui.tab.folderstyle.FolderStyleRow
 import com.hdw.bookmarker.feature.settings.ui.tab.language.AppLanguageDialog
 import com.hdw.bookmarker.feature.settings.ui.tab.language.AppLanguageRow
 import com.hdw.bookmarker.feature.settings.ui.tab.legal.PrivacyPolicyRow
@@ -41,8 +39,6 @@ import com.hdw.bookmarker.feature.settings.ui.tab.rateapp.requestInAppReview
 import com.hdw.bookmarker.feature.settings.ui.tab.shareapp.ShareAppRow
 import com.hdw.bookmarker.feature.settings.ui.tab.shareapp.requestAppShare
 import com.hdw.bookmarker.feature.settings.ui.tab.temporarydata.TemporaryDataRow
-import com.hdw.bookmarker.feature.settings.ui.tab.theme.ThemeModeDialog
-import com.hdw.bookmarker.feature.settings.ui.tab.theme.ThemeModeRow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,31 +46,21 @@ fun SettingsScreen(
     onBackClick: () -> Unit,
     appVersion: String,
     temporaryDataSize: String,
-    selectedThemeMode: String?,
     selectedBrowserName: String,
     selectedBrowserIcon: Any?,
-    folderIconStyle: BookmarkFolderIconStyle,
     onTemporaryDataClick: () -> Unit,
     onDefaultBrowserClick: () -> Unit,
-    onFolderStyleClick: () -> Unit,
+    onAppearanceClick: () -> Unit,
     onOpenSourceLicensesClick: () -> Unit,
     appUpdateUiState: AppUpdateUiState,
     onAppUpdateClick: () -> Unit,
-    onThemeModeSelect: (String) -> Unit,
 ) {
     val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
     val resources = LocalResources.current
-    val isSystemDarkTheme = isSystemInDarkTheme()
-    val effectiveThemeMode = selectedThemeMode ?: if (isSystemDarkTheme) {
-        SettingsRepository.APP_THEME_MODE_DARK
-    } else {
-        SettingsRepository.APP_THEME_MODE_LIGHT
-    }
     var selectedLanguageTag by rememberSaveable {
         mutableStateOf(AppCompatDelegate.getApplicationLocales().toLanguageTags().substringBefore(","))
     }
-    var showThemeDialog by rememberSaveable { mutableStateOf(false) }
     var showAppLanguageDialog by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
@@ -105,21 +91,15 @@ fun SettingsScreen(
             )
             BookMarkerDivider()
 
-            ThemeModeRow(
-                selectedThemeMode = effectiveThemeMode,
-                onClick = { showThemeDialog = true },
+            SettingsRow(
+                title = stringResource(R.string.appearance_label),
+                onClick = onAppearanceClick,
             )
             BookMarkerDivider()
 
             AppLanguageRow(
                 languageTag = selectedLanguageTag,
                 onClick = { showAppLanguageDialog = true },
-            )
-            BookMarkerDivider()
-
-            FolderStyleRow(
-                folderIconStyle = folderIconStyle,
-                onClick = onFolderStyleClick,
             )
             BookMarkerDivider()
 
@@ -158,17 +138,6 @@ fun SettingsScreen(
         }
     }
 
-    if (showThemeDialog) {
-        ThemeModeDialog(
-            selectedThemeMode = effectiveThemeMode,
-            onDismiss = { showThemeDialog = false },
-            onThemeModeSelect = { mode ->
-                onThemeModeSelect(mode)
-                showThemeDialog = false
-            },
-        )
-    }
-
     if (showAppLanguageDialog) {
         AppLanguageDialog(
             selectedLanguageTag = selectedLanguageTag,
@@ -194,16 +163,13 @@ private fun SettingsScreenPreview() {
         onBackClick = {},
         appVersion = "1.0.0",
         temporaryDataSize = "12.3 MB",
-        selectedThemeMode = SettingsRepository.APP_THEME_MODE_LIGHT,
         selectedBrowserName = "Chrome",
         selectedBrowserIcon = null,
         onTemporaryDataClick = {},
         onDefaultBrowserClick = {},
-        folderIconStyle = BookmarkFolderIconStyle(),
-        onFolderStyleClick = {},
+        onAppearanceClick = {},
         onOpenSourceLicensesClick = {},
         appUpdateUiState = AppUpdateUiState.UpToDate,
         onAppUpdateClick = {},
-        onThemeModeSelect = {},
     )
 }

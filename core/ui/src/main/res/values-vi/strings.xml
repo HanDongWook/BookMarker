@@ -162,4 +162,8 @@
     <string name="share_bookmark_method_text">Chia sẻ dưới dạng văn bản</string>
     <string name="share_bookmark_method_html">Chia sẻ dưới dạng HTML</string>
     <string name="rate_app_open_store_failed">Không thể mở Play Store.</string>
+    <string name="appearance_label">Giao diện</string>
+    <string name="bookmark_display_mode_label">Chế độ hiển thị</string>
+    <string name="bookmark_display_type_list">Danh sách</string>
+    <string name="bookmark_display_type_icon">Biểu tượng</string>
 </resources>

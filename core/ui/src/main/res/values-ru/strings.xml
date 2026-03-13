@@ -162,4 +162,8 @@
     <string name="share_bookmark_method_text">Поделиться как текстом</string>
     <string name="share_bookmark_method_html">Поделиться как HTML</string>
     <string name="rate_app_open_store_failed">Не удалось открыть Play Маркет.</string>
+    <string name="appearance_label">Внешний вид</string>
+    <string name="bookmark_display_mode_label">Режим отображения</string>
+    <string name="bookmark_display_type_list">Список</string>
+    <string name="bookmark_display_type_icon">Значки</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.settings.ui.tab.folderstyle.shape
+package com.hdw.bookmarker.feature.settings.ui.tab.folder.color
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.iconVector
@@ -30,31 +30,31 @@ import com.hdw.bookmarker.core.ui.folderstyle.label
 import com.hdw.bookmarker.core.ui.folderstyle.resolveTint
 
 @Composable
-fun FolderShapeDialog(
+fun FolderColorDialog(
     selectedFolderIconStyle: BookmarkFolderIconStyle,
     onDismiss: () -> Unit,
-    onShapeSelect: (BookmarkFolderIconShape) -> Unit,
+    onColorSelect: (BookmarkFolderIconColor) -> Unit,
 ) {
-    val selectedShape = selectedFolderIconStyle.shape
-    var pendingShape by remember(selectedShape) { mutableStateOf(selectedShape) }
+    val selectedColor = selectedFolderIconStyle.color
+    var pendingColor by remember(selectedColor) { mutableStateOf(selectedColor) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = stringResource(R.string.folder_shape_label)) },
+        title = { Text(text = stringResource(R.string.folder_color_label)) },
         text = {
             Column {
-                BookmarkFolderIconShape.entries.forEach { shape ->
-                    FolderShapeOptionRow(
-                        shape = shape,
+                BookmarkFolderIconColor.entries.forEach { color ->
+                    FolderColorOptionRow(
+                        color = color,
                         selectedFolderIconStyle = selectedFolderIconStyle,
-                        isSelected = shape == pendingShape,
-                        onClick = { pendingShape = shape },
+                        isSelected = color == pendingColor,
+                        onClick = { pendingColor = color },
                     )
                 }
             }
         },
         confirmButton = {
-            TextButton(onClick = { onShapeSelect(pendingShape) }) {
+            TextButton(onClick = { onColorSelect(pendingColor) }) {
                 Text(text = stringResource(android.R.string.ok))
             }
         },
@@ -67,8 +67,8 @@ fun FolderShapeDialog(
 }
 
 @Composable
-private fun FolderShapeOptionRow(
-    shape: BookmarkFolderIconShape,
+private fun FolderColorOptionRow(
+    color: BookmarkFolderIconColor,
     selectedFolderIconStyle: BookmarkFolderIconStyle,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -81,15 +81,15 @@ private fun FolderShapeOptionRow(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            imageVector = shape.iconVector(),
+            imageVector = selectedFolderIconStyle.shape.iconVector(),
             contentDescription = null,
-            tint = selectedFolderIconStyle.color.resolveTint(),
+            tint = color.resolveTint(),
             modifier = Modifier
                 .size(22.dp)
                 .padding(end = 8.dp),
         )
         Text(
-            text = shape.label(),
+            text = color.label(),
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.weight(1f),
         )
@@ -99,12 +99,12 @@ private fun FolderShapeOptionRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun FolderShapeDialogPreview() {
+private fun FolderColorDialogPreview() {
     MaterialTheme {
-        FolderShapeDialog(
+        FolderColorDialog(
             selectedFolderIconStyle = BookmarkFolderIconStyle(),
             onDismiss = {},
-            onShapeSelect = {},
+            onColorSelect = {},
         )
     }
 }

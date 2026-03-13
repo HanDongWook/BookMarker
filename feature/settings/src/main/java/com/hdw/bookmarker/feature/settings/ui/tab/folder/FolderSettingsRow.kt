@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.settings.ui.tab.folderstyle
+package com.hdw.bookmarker.feature.settings.ui.tab.folder
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -20,7 +20,7 @@ import com.hdw.bookmarker.core.ui.folderstyle.resolveTint
 import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
 
 @Composable
-fun FolderStyleRow(folderIconStyle: BookmarkFolderIconStyle, onClick: () -> Unit) {
+fun FolderSettingsRow(folderIconStyle: BookmarkFolderIconStyle, onClick: () -> Unit) {
     SettingsRow(
         title = stringResource(R.string.folder_style_label),
         onClick = onClick,
@@ -46,9 +46,9 @@ fun FolderStyleRow(folderIconStyle: BookmarkFolderIconStyle, onClick: () -> Unit
 
 @Preview(showBackground = true)
 @Composable
-private fun FolderStyleRowPreview() {
+private fun FolderSettingsRowPreview() {
     MaterialTheme {
-        FolderStyleRow(
+        FolderSettingsRow(
             folderIconStyle = BookmarkFolderIconStyle(),
             onClick = {},
         )
