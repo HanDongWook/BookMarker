@@ -33,9 +33,9 @@
     <string name="share_app_label">इस ऐप को साझा करें</string>
     <string name="share_app_chooser_title">ऐप साझा करें</string>
     <string name="share_app_message">BookMarker आज़माएँ: %1$s</string>
-    <string name="share_current_bookmarks_label">बुकमार्क साझा करें</string>
-    <string name="share_current_bookmarks_chooser_title">बुकमार्क साझा करें</string>
-    <string name="share_current_bookmarks_empty">साझा करने के लिए कोई बुकमार्क नहीं है।</string>
+    <string name="export_current_bookmarks_label">बुकमार्क निर्यात करें</string>
+    <string name="export_current_bookmarks_chooser_title">बुकमार्क निर्यात करें</string>
+    <string name="export_current_bookmarks_empty">निर्यात करने के लिए कोई बुकमार्क नहीं है।</string>
     <string name="privacy_policy_label">गोपनीयता नीति</string>
     <string name="temporary_data_label">अस्थायी डेटा</string>
     <string name="open_source_licenses_label">ओपन सोर्स लाइसेंस</string>
@@ -138,10 +138,10 @@
     <string name="app_update_flow_canceled">अपडेट रद्द कर दिया गया।</string>
     <string name="app_update_flow_failed">अपडेट शुरू नहीं हो सका।</string>
     <string name="rate_app_review_requested_hint">अगर कोई पॉपअप नहीं दिखे, तो कृपया Play Store में रेटिंग दें।</string>
-    <string name="share_current_bookmarks_html_failed">बुकमार्क HTML फ़ाइल बनाई नहीं जा सकी।</string>
-    <string name="share_bookmark_method_title">शेयर प्रकार चुनें</string>
-    <string name="share_bookmark_method_text">टेक्स्ट के रूप में शेयर करें</string>
-    <string name="share_bookmark_method_html">HTML के रूप में शेयर करें</string>
+    <string name="export_current_bookmarks_html_failed">बुकमार्क HTML फ़ाइल बनाने में विफल।</string>
+    <string name="export_bookmark_method_title">निर्यात करें</string>
+    <string name="export_bookmark_method_text">पाठ के रूप में निर्यात करें</string>
+    <string name="export_bookmark_method_html">HTML के रूप में निर्यात करें</string>
     <string name="rate_app_open_store_failed">Play Store नहीं खोला जा सका।</string>
     <string name="appearance_label">दिखावट</string>
     <string name="bookmark_show_url_label">URL दिखाएं</string>

@@ -15,7 +15,7 @@ internal fun requestCurrentBookmarkTextShare(context: Context, bookmarkDocument:
     val subject = bookmarkDocument.title
         ?.trim()
         ?.takeIf { it.isNotBlank() }
-        ?: context.getString(R.string.share_current_bookmarks_label)
+        ?: context.getString(R.string.export_current_bookmarks_label)
 
     val shareText = buildString {
         append(subject)
@@ -37,7 +37,7 @@ internal fun requestCurrentBookmarkTextShare(context: Context, bookmarkDocument:
 
     val chooser = Intent.createChooser(
         shareIntent,
-        context.getString(R.string.share_current_bookmarks_chooser_title),
+        context.getString(R.string.export_current_bookmarks_chooser_title),
     )
     context.findActivity()?.startActivity(chooser)
     return true
@@ -66,7 +66,7 @@ internal fun requestCurrentBookmarkHtmlShare(context: Context, bookmarkDocument:
         }
         val chooser = Intent.createChooser(
             shareIntent,
-            context.getString(R.string.share_current_bookmarks_chooser_title),
+            context.getString(R.string.export_current_bookmarks_chooser_title),
         )
         context.findActivity()?.startActivity(chooser)
         true

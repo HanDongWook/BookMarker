@@ -8,7 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.IosShare
+import androidx.compose.material.icons.filled.SaveAlt
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -42,14 +43,14 @@ fun BookmarkDisplayContent(
     selectedFolderPath: List<Int>? = null,
     snapshotTitle: String? = null,
     onSnapshotTitleClick: (() -> Unit)? = null,
-    onSnapshotShareClick: (() -> Unit)? = null,
+    onSnapshotExportClick: (() -> Unit)? = null,
 ) {
     if (bookmarkDocument.rootItems.isEmpty()) {
         EmptyBookmarks(
             modifier = modifier,
             snapshotTitle = snapshotTitle,
             onSnapshotTitleClick = onSnapshotTitleClick,
-            onSnapshotShareClick = onSnapshotShareClick,
+            onSnapshotExportClick = onSnapshotExportClick,
         )
         return
     }
@@ -59,7 +60,7 @@ fun BookmarkDisplayContent(
             SnapshotTitleText(
                 snapshotTitle = snapshotTitle,
                 onSnapshotTitleClick = onSnapshotTitleClick,
-                onSnapshotShareClick = onSnapshotShareClick,
+                onSnapshotExportClick = onSnapshotExportClick,
             )
         }
 
@@ -103,14 +104,14 @@ private fun EmptyBookmarks(
     modifier: Modifier = Modifier,
     snapshotTitle: String? = null,
     onSnapshotTitleClick: (() -> Unit)? = null,
-    onSnapshotShareClick: (() -> Unit)? = null,
+    onSnapshotExportClick: (() -> Unit)? = null,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         if (!snapshotTitle.isNullOrBlank()) {
             SnapshotTitleText(
                 snapshotTitle = snapshotTitle,
                 onSnapshotTitleClick = onSnapshotTitleClick,
-                onSnapshotShareClick = onSnapshotShareClick,
+                onSnapshotExportClick = onSnapshotExportClick,
             )
         }
 
@@ -129,7 +130,7 @@ private fun EmptyBookmarks(
 private fun SnapshotTitleText(
     snapshotTitle: String,
     onSnapshotTitleClick: (() -> Unit)?,
-    onSnapshotShareClick: (() -> Unit)?,
+    onSnapshotExportClick: (() -> Unit)?,
 ) {
     Row(
         modifier = Modifier
@@ -154,13 +155,13 @@ private fun SnapshotTitleText(
                 ),
         )
         IconButton(
-            onClick = { onSnapshotShareClick?.invoke() },
-            enabled = onSnapshotShareClick != null,
+            onClick = { onSnapshotExportClick?.invoke() },
+            enabled = onSnapshotExportClick != null,
             modifier = Modifier.size(40.dp),
         ) {
             Icon(
-                imageVector = Icons.Default.Share,
-                contentDescription = stringResource(R.string.share_current_bookmarks_label),
+                imageVector = Icons.Default.IosShare,
+                contentDescription = stringResource(R.string.export_current_bookmarks_label),
             )
         }
     }
@@ -187,7 +188,7 @@ private fun BookmarkDisplayContentListPreview() {
         folderIconStyle = BookmarkFolderIconStyle(),
         snapshotTitle = "북마크1",
         onSnapshotTitleClick = {},
-        onSnapshotShareClick = {},
+        onSnapshotExportClick = {},
     )
 }
 
@@ -206,7 +207,7 @@ private fun BookmarkDisplayContentIconPreview() {
         folderIconStyle = BookmarkFolderIconStyle(),
         snapshotTitle = "북마크1",
         onSnapshotTitleClick = {},
-        onSnapshotShareClick = {},
+        onSnapshotExportClick = {},
     )
 }
 

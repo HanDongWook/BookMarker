@@ -33,9 +33,9 @@
     <string name="share_app_label">分享此應用程式</string>
     <string name="share_app_chooser_title">分享應用程式</string>
     <string name="share_app_message">試試 BookMarker：%1$s</string>
-    <string name="share_current_bookmarks_label">分享書籤</string>
-    <string name="share_current_bookmarks_chooser_title">分享書籤</string>
-    <string name="share_current_bookmarks_empty">沒有可分享的書籤。</string>
+    <string name="export_current_bookmarks_label">匯出書籤</string>
+    <string name="export_current_bookmarks_chooser_title">匯出書籤</string>
+    <string name="export_current_bookmarks_empty">沒有可匯出的書籤。</string>
     <string name="privacy_policy_label">隱私權政策</string>
     <string name="temporary_data_label">暫存資料</string>
     <string name="open_source_licenses_label">開源授權</string>
@@ -138,10 +138,10 @@
     <string name="app_update_flow_canceled">更新已取消。</string>
     <string name="app_update_flow_failed">無法啟動更新。</string>
     <string name="rate_app_review_requested_hint">如果沒有彈出視窗，請到 Play 商店評分。</string>
-    <string name="share_current_bookmarks_html_failed">無法建立書籤 HTML 檔案。</string>
-    <string name="share_bookmark_method_title">選擇分享方式</string>
-    <string name="share_bookmark_method_text">以文字分享</string>
-    <string name="share_bookmark_method_html">以 HTML 分享</string>
+    <string name="export_current_bookmarks_html_failed">無法建立書籤 HTML 檔案。</string>
+    <string name="export_bookmark_method_title">匯出</string>
+    <string name="export_bookmark_method_text">匯出為文字</string>
+    <string name="export_bookmark_method_html">匯出為 HTML</string>
     <string name="rate_app_open_store_failed">無法開啟 Play 商店。</string>
     <string name="appearance_label">外觀</string>
     <string name="bookmark_show_url_label">顯示 URL</string>

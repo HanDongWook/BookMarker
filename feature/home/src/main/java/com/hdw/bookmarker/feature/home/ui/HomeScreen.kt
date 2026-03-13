@@ -52,7 +52,7 @@ fun HomeScreen(
     var showDefaultBrowserDialog by uiState.showDefaultBrowserDialog
     var showColorPickerDialog by uiState.showColorPickerDialog
     var showAddItemTypeDialog by uiState.showAddItemTypeDialog
-    var showShareBookmarkMethodDialog by uiState.showShareBookmarkMethodDialog
+    var showExportBookmarkMethodDialog by uiState.showExportBookmarkMethodDialog
     var showAddFolderDialog by uiState.showAddFolderDialog
     var showAddBookmarkDialog by uiState.showAddBookmarkDialog
     var pendingFolderTitle by uiState.pendingFolderTitle
@@ -179,7 +179,7 @@ fun HomeScreen(
                         pendingSnapshotTitle = snapshotTitles[selectedBookmarkId].orEmpty()
                     }
                 },
-                onSnapshotShareClick = { showShareBookmarkMethodDialog = true },
+                onSnapshotExportClick = { showExportBookmarkMethodDialog = true },
             )
         }
     }
@@ -191,7 +191,7 @@ internal class HomeScreenUiState(
     val showDefaultBrowserDialog: MutableState<Boolean>,
     val showColorPickerDialog: MutableState<Boolean>,
     val showAddItemTypeDialog: MutableState<Boolean>,
-    val showShareBookmarkMethodDialog: MutableState<Boolean>,
+    val showExportBookmarkMethodDialog: MutableState<Boolean>,
     val showAddFolderDialog: MutableState<Boolean>,
     val showAddBookmarkDialog: MutableState<Boolean>,
     val pendingFolderTitle: MutableState<String>,
@@ -216,7 +216,7 @@ private fun rememberHomeScreenUiState(): HomeScreenUiState = HomeScreenUiState(
     showDefaultBrowserDialog = rememberSaveable { mutableStateOf(false) },
     showColorPickerDialog = rememberSaveable { mutableStateOf(false) },
     showAddItemTypeDialog = rememberSaveable { mutableStateOf(false) },
-    showShareBookmarkMethodDialog = rememberSaveable { mutableStateOf(false) },
+    showExportBookmarkMethodDialog = rememberSaveable { mutableStateOf(false) },
     showAddFolderDialog = rememberSaveable { mutableStateOf(false) },
     showAddBookmarkDialog = rememberSaveable { mutableStateOf(false) },
     pendingFolderTitle = rememberSaveable { mutableStateOf("") },

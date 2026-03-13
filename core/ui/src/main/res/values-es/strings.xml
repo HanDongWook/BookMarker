@@ -33,9 +33,9 @@
     <string name="share_app_label">Compartir esta app</string>
     <string name="share_app_chooser_title">Compartir aplicación</string>
     <string name="share_app_message">Prueba BookMarker: %1$s</string>
-    <string name="share_current_bookmarks_label">Compartir marcadores</string>
-    <string name="share_current_bookmarks_chooser_title">Compartir marcadores</string>
-    <string name="share_current_bookmarks_empty">No hay marcadores para compartir.</string>
+    <string name="export_current_bookmarks_label">Exportar marcadores</string>
+    <string name="export_current_bookmarks_chooser_title">Exportar marcadores</string>
+    <string name="export_current_bookmarks_empty">No hay marcadores para exportar.</string>
     <string name="privacy_policy_label">Política de privacidad</string>
     <string name="temporary_data_label">Datos temporales</string>
     <string name="open_source_licenses_label">Licencias de código abierto</string>
@@ -138,10 +138,10 @@
     <string name="app_update_flow_canceled">Actualización cancelada.</string>
     <string name="app_update_flow_failed">No se pudo iniciar la actualización.</string>
     <string name="rate_app_review_requested_hint">Si no aparece ninguna ventana emergente, valora la app en Play Store.</string>
-    <string name="share_current_bookmarks_html_failed">No se pudo crear el archivo HTML de marcadores.</string>
-    <string name="share_bookmark_method_title">Elegir tipo de uso compartido</string>
-    <string name="share_bookmark_method_text">Compartir como texto</string>
-    <string name="share_bookmark_method_html">Compartir como HTML</string>
+    <string name="export_current_bookmarks_html_failed">No se pudo crear el archivo HTML de marcadores.</string>
+    <string name="export_bookmark_method_title">Exportar</string>
+    <string name="export_bookmark_method_text">Exportar como texto</string>
+    <string name="export_bookmark_method_html">Exportar como HTML</string>
     <string name="rate_app_open_store_failed">No se pudo abrir Play Store.</string>
     <string name="appearance_label">Apariencia</string>
     <string name="bookmark_show_url_label">Mostrar URL</string>
