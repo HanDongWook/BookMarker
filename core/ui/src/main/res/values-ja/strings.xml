@@ -118,7 +118,7 @@
     <string name="delete_bookmark_item_dialog_message">選択したフォルダまたはブックマークを削除しますか？</string>
     <string name="delete_bookmark_item_dialog_confirm">削除</string>
     <string name="delete_bookmark_item_dialog_cancel">キャンセル</string>
-    <string name="import_option_dialog_pick_file">ブックマークHTMLファイルをインポート</string>
+    <string name="import_option_dialog_pick_file">HTMLからブックマークをインポート</string>
     <string name="import_option_dialog_add_empty_bookmark_item">空のブックマーク項目を追加</string>
     <string name="bookmark_color_picker_dialog_title">ブックマークの色を選択</string>
     <string name="bookmark_color_picker_dialog_close">閉じる</string>
