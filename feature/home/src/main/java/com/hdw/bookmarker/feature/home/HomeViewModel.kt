@@ -11,7 +11,6 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconStyleUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
@@ -19,6 +18,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetShowFolderDescriptionUseCase
+import com.hdw.bookmarker.core.domain.usecase.ImportBookmarksFromHtmlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
@@ -27,7 +27,6 @@ import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
-import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.model.file.error.ContentFileError
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import com.hdw.bookmarker.core.ui.R
@@ -47,7 +46,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
-    private val getBookmarksUseCase: GetBookmarksUseCase,
+    private val importBookmarksFromHtmlUseCase: ImportBookmarksFromHtmlUseCase,
     private val getBookmarkRawFileHashUseCase: GetBookmarkRawFileHashUseCase,
     private val getBookmarkSnapshotRawFileHashUseCase: GetBookmarkSnapshotRawFileHashUseCase,
     private val getBookmarkSnapshotsUseCase: GetBookmarkSnapshotsUseCase,
@@ -187,7 +186,7 @@ class HomeViewModel @Inject constructor(
                 }
             }
 
-            when (val result = getBookmarksUseCase(browser = Browser.CHROME, uri = uri)) {
+            when (val result = importBookmarksFromHtmlUseCase(uri = uri)) {
                 is BookmarkImportResult.Success -> {
                     val snapshotTitle = state.nextDefaultSnapshotTitle(context)
                     val savedId = saveBookmarkSnapshotUseCase(

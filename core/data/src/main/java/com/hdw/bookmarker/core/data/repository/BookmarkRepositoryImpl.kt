@@ -5,13 +5,10 @@ import com.hdw.bookmarker.core.data.bookmark.importer.BookmarkHtmlImportManager
 import com.hdw.bookmarker.core.data.file.ContentFileManager
 import com.hdw.bookmarker.core.datastore.bookmark.BookMarkerBookmarkSnapshotDatastore
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
-import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
 import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
-import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import timber.log.Timber
 import javax.inject.Inject
 
 class BookmarkRepositoryImpl @Inject constructor(
@@ -19,19 +16,7 @@ class BookmarkRepositoryImpl @Inject constructor(
     private val contentFileManager: ContentFileManager,
     private val bookmarkSnapshotDatastore: BookMarkerBookmarkSnapshotDatastore,
 ) : BookmarkRepository {
-
-    override suspend fun getBookmarks(browser: Browser, uri: Uri): BookmarkImportResult {
-        Timber.d("getBookmarks browser:$browser")
-        return when (browser) {
-            Browser.CHROME -> handleChromeBookmark(uri)
-
-            else -> BookmarkImportResult.Failure(
-                error = BookmarkImportError.UNSUPPORTED_BROWSER,
-            )
-        }
-    }
-
-    private suspend fun handleChromeBookmark(uri: Uri): BookmarkImportResult = bookmarkHtmlImportManager.parseHtml(uri)
+    override suspend fun importBookmarksFromHtml(uri: Uri): BookmarkImportResult = bookmarkHtmlImportManager.parseHtml(uri)
 
     override suspend fun getRawFileHash(uri: Uri): ContentFileResult<String> = contentFileManager.getRawFileHash(uri)
 
