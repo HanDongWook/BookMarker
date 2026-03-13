@@ -15,8 +15,8 @@ import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.ui.HomeScreenUiState
 import com.hdw.bookmarker.feature.home.ui.share.ExportBookmarkMethodDialog
-import com.hdw.bookmarker.feature.home.ui.share.requestCurrentBookmarkHtmlShare
-import com.hdw.bookmarker.feature.home.ui.share.requestCurrentBookmarkTextShare
+import com.hdw.bookmarker.feature.home.ui.share.shareCurrentBookmarkHtmlExport
+import com.hdw.bookmarker.feature.home.ui.share.shareCurrentBookmarkTextExport
 
 @Composable
 internal fun HomeDialogHost(
@@ -195,7 +195,7 @@ internal fun HomeDialogHost(
             onExportTextClick = {
                 showExportBookmarkMethodDialog = false
                 val currentDocument = selectedBookmarkDocument
-                if (currentDocument == null || !requestCurrentBookmarkTextShare(context, currentDocument)) {
+                if (currentDocument == null || !shareCurrentBookmarkTextExport(context, currentDocument)) {
                     context.showShortToast(resources.getString(R.string.export_current_bookmarks_empty))
                 }
             },
@@ -207,7 +207,7 @@ internal fun HomeDialogHost(
                         context.showShortToast(resources.getString(R.string.export_current_bookmarks_empty))
                     }
 
-                    !requestCurrentBookmarkHtmlShare(context, currentDocument) -> {
+                    !shareCurrentBookmarkHtmlExport(context, currentDocument) -> {
                         context.showShortToast(resources.getString(R.string.export_current_bookmarks_html_failed))
                     }
                 }
