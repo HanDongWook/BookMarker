@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">Navegadores instalados</string>
-    <string name="menu_description">Menu</string>
     <string name="menu">Menu</string>
     <string name="menu_settings">Configurações</string>
     <string name="settings">Configurações</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">Falha ao analisar o formato dos favoritos.</string>
     <string name="error_unsupported_browser">Navegador não compatível.</string>
     <string name="error_unknown">Ocorreu um erro desconhecido.</string>
-    <string name="no_bookmarks_imported">Nenhum favorito importado ainda.</string>
     <string name="empty_bookmarks">Não há favoritos nesta visualização.</string>
     <string name="bookmark_icon_back">Voltar para a pasta anterior</string>
     <string name="bookmark_mode_list">Visualização em lista de favoritos</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">No %1$s para celular, a exportação de favoritos pode não estar disponível.</string>
     <string name="import_guide_step1_body_desktop_generic">No %1$s do seu computador, encontre o Gerenciador de Favoritos/Marcadores e exporte para HTML.</string>
     <string name="import_guide_step2_title">2. Salvar o arquivo HTML no telefone</string>
-    <string name="import_guide_step3_title">3. Importar arquivo HTML</string>
-    <string name="import_guide_step3_body">Toque no botão abaixo e selecione o arquivo HTML exportado para importar os favoritos para o app.</string>
-    <string name="import_guide_step3_button">Selecionar arquivo HTML</string>
     <string name="import_guide_open_guide_failed">Não foi possível abrir a página do guia.</string>
-    <string name="import_guide_open_downloads_failed">Não foi possível abrir Downloads.</string>
     <string name="import_guide_exit">Sair</string>
     <string name="open_bookmark_failed">Não foi possível abrir o link do favorito.</string>
-    <string name="import_skipped_same_file">O mesmo arquivo já foi importado. Ignorado.</string>
-    <string name="import_overwrite_dialog_title">Substituir favoritos importados?</string>
-    <string name="import_overwrite_dialog_message">Um arquivo de favoritos diferente foi detectado. Se continuar, os favoritos importados existentes serão removidos e substituídos.</string>
-    <string name="import_overwrite_dialog_confirm">Substituir</string>
-    <string name="import_overwrite_dialog_cancel">Cancelar</string>
     <string name="delete_bookmark_dialog_title">Excluir favoritos?</string>
     <string name="delete_bookmark_dialog_message">Deseja excluir estes favoritos?</string>
     <string name="delete_bookmark_dialog_confirm">Excluir</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">Selecionar cor do favorito</string>
     <string name="bookmark_color_picker_dialog_close">Fechar</string>
     <string name="folder_style_label">Estilo da pasta</string>
-    <string name="folder_style_title">Estilo da pasta</string>
     <string name="app_language_label">Idioma do app</string>
     <string name="app_language_system_default">Padrão do sistema</string>
     <string name="folder_shape_label">Formato</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">Verde</string>
     <string name="folder_color_orange">Laranja</string>
     <string name="folder_color_purple">Roxo</string>
-    <string name="app_update_status_checking">Verificando atualizações…</string>
     <string name="app_update_status_latest">Versão mais recente</string>
     <string name="app_update_status_available">Atualização disponível (v%1$d)</string>
-    <string name="app_update_status_in_progress">Atualização em andamento</string>
-    <string name="app_update_status_unavailable">Não foi possível verificar atualizações</string>
-    <string name="app_update_action_update">Atualizar</string>
     <string name="app_update_flow_canceled">Atualização cancelada.</string>
     <string name="app_update_flow_failed">Falha ao iniciar a atualização.</string>
-    <string name="rate_app_fallback_opening_store">Não foi possível mostrar a avaliação no app. Abrindo a Play Store.</string>
     <string name="rate_app_review_requested_hint">Se nenhum pop-up aparecer, avalie o app na Play Store.</string>
     <string name="share_current_bookmarks_html_failed">Falha ao criar o arquivo HTML de favoritos.</string>
     <string name="share_bookmark_method_title">Escolher tipo de compartilhamento</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">Compartilhar como HTML</string>
     <string name="rate_app_open_store_failed">Não foi possível abrir a Play Store.</string>
     <string name="appearance_label">Aparência</string>
-    <string name="bookmark_display_mode_label">Modo de exibição</string>
-    <string name="bookmark_display_type_list">Lista</string>
-    <string name="bookmark_display_type_icon">Ícone</string>
     <string name="bookmark_show_url_label">Mostrar URL</string>
     <string name="bookmark_scroll_long_url_label">Rolar URL longa</string>
     <string name="folder_show_description_label">Mostrar descrição</string>
     <string name="folder_scroll_long_description_label">Rolar descrição longa</string>
     <string name="folder_description">Descrição</string>
+    <string name="display_value_loading">Carregando</string>
 </resources>

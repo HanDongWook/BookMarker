@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">已安裝的瀏覽器</string>
-    <string name="menu_description">選單</string>
     <string name="menu">選單</string>
     <string name="menu_settings">設定</string>
     <string name="settings">設定</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">無法解析書籤格式。</string>
     <string name="error_unsupported_browser">不支援的瀏覽器。</string>
     <string name="error_unknown">發生未知錯誤。</string>
-    <string name="no_bookmarks_imported">尚未匯入任何書籤。</string>
     <string name="empty_bookmarks">此檢視中沒有書籤。</string>
     <string name="bookmark_icon_back">返回上一層資料夾</string>
     <string name="bookmark_mode_list">書籤清單檢視</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">手機版 %1$s 可能不支援匯出書籤。</string>
     <string name="import_guide_step1_body_desktop_generic">在電腦版 %1$s 中找到 Bookmark/Favorites manager，並匯出為 HTML。</string>
     <string name="import_guide_step2_title">2. 將 HTML 檔案儲存到手機</string>
-    <string name="import_guide_step3_title">3. 匯入 HTML 檔案</string>
-    <string name="import_guide_step3_body">點擊下方按鈕並選擇已匯出的 HTML 檔案，即可將書籤匯入 App。</string>
-    <string name="import_guide_step3_button">選擇 HTML 檔案</string>
     <string name="import_guide_open_guide_failed">無法開啟教學頁面。</string>
-    <string name="import_guide_open_downloads_failed">無法開啟 Downloads。</string>
     <string name="import_guide_exit">離開</string>
     <string name="open_bookmark_failed">無法開啟書籤連結。</string>
-    <string name="import_skipped_same_file">相同檔案已匯入，已略過。</string>
-    <string name="import_overwrite_dialog_title">要覆蓋已匯入的書籤嗎？</string>
-    <string name="import_overwrite_dialog_message">偵測到不同的書籤檔案。若繼續，現有已匯入書籤將被移除並替換。</string>
-    <string name="import_overwrite_dialog_confirm">覆蓋</string>
-    <string name="import_overwrite_dialog_cancel">取消</string>
     <string name="delete_bookmark_dialog_title">刪除書籤？</string>
     <string name="delete_bookmark_dialog_message">確定要刪除這些書籤嗎？</string>
     <string name="delete_bookmark_dialog_confirm">刪除</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">選擇書籤顏色</string>
     <string name="bookmark_color_picker_dialog_close">關閉</string>
     <string name="folder_style_label">資料夾樣式</string>
-    <string name="folder_style_title">資料夾樣式</string>
     <string name="app_language_label">應用程式語言</string>
     <string name="app_language_system_default">系統預設</string>
     <string name="folder_shape_label">形狀</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">綠色</string>
     <string name="folder_color_orange">橘色</string>
     <string name="folder_color_purple">紫色</string>
-    <string name="app_update_status_checking">正在檢查更新…</string>
     <string name="app_update_status_latest">最新版本</string>
     <string name="app_update_status_available">有可用更新 (v%1$d)</string>
-    <string name="app_update_status_in_progress">更新進行中</string>
-    <string name="app_update_status_unavailable">無法檢查更新</string>
-    <string name="app_update_action_update">更新</string>
     <string name="app_update_flow_canceled">更新已取消。</string>
     <string name="app_update_flow_failed">無法啟動更新。</string>
-    <string name="rate_app_fallback_opening_store">無法顯示應用程式內評價，正在開啟 Play 商店。</string>
     <string name="rate_app_review_requested_hint">如果沒有彈出視窗，請到 Play 商店評分。</string>
     <string name="share_current_bookmarks_html_failed">無法建立書籤 HTML 檔案。</string>
     <string name="share_bookmark_method_title">選擇分享方式</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">以 HTML 分享</string>
     <string name="rate_app_open_store_failed">無法開啟 Play 商店。</string>
     <string name="appearance_label">外觀</string>
-    <string name="bookmark_display_mode_label">顯示模式</string>
-    <string name="bookmark_display_type_list">清單</string>
-    <string name="bookmark_display_type_icon">圖示</string>
     <string name="bookmark_show_url_label">顯示 URL</string>
     <string name="bookmark_scroll_long_url_label">捲動長 URL</string>
     <string name="folder_show_description_label">顯示描述</string>
     <string name="folder_scroll_long_description_label">捲動長描述</string>
     <string name="folder_description">描述</string>
+    <string name="display_value_loading">載入中</string>
 </resources>

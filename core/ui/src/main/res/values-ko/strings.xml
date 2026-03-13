@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">설치된 브라우저</string>
-    <string name="menu_description">메뉴</string>
     <string name="menu">메뉴</string>
     <string name="menu_settings">설정</string>
     <string name="settings">설정</string>
@@ -29,16 +28,11 @@
     <string name="default_snapshot_title_prefix">북마크</string>
     <string name="rename_bookmark_snapshot">이름 변경</string>
     <string name="app_version_label">앱 버전</string>
-    <string name="app_update_status_checking">업데이트 확인 중…</string>
     <string name="app_update_status_latest">최신 버전</string>
     <string name="app_update_status_available">업데이트 가능 (v%1$d)</string>
-    <string name="app_update_status_in_progress">업데이트 진행 중</string>
-    <string name="app_update_status_unavailable">업데이트를 확인할 수 없어요</string>
-    <string name="app_update_action_update">업데이트</string>
     <string name="app_update_flow_canceled">업데이트가 취소되었어요.</string>
     <string name="app_update_flow_failed">업데이트 시작에 실패했어요.</string>
     <string name="rate_app_label">앱 평가하기</string>
-    <string name="rate_app_fallback_opening_store">인앱 평가를 표시할 수 없어 Play 스토어를 열어요.</string>
     <string name="rate_app_review_requested_hint">평가 팝업이 보이지 않으면 Play 스토어에서 평가해주세요.</string>
     <string name="rate_app_open_store_failed">Play 스토어를 열 수 없어요.</string>
     <string name="share_app_label">앱 공유하기</string>
@@ -68,7 +62,6 @@
     <string name="error_parse">북마크 형식을 해석하지 못했어요.</string>
     <string name="error_unsupported_browser">지원하지 않는 브라우저예요.</string>
     <string name="error_unknown">알 수 없는 오류가 발생했어요.</string>
-    <string name="no_bookmarks_imported">아직 가져온 북마크가 없어요.</string>
     <string name="empty_bookmarks">북마크가 비어있습니다.</string>
     <string name="bookmark_icon_back">이전 폴더로 돌아가기</string>
     <string name="bookmark_mode_list">북마크 리스트 보기</string>
@@ -124,18 +117,9 @@
     <string name="import_guide_step1_body_notice_generic">모바일 %1$s에서는 북마크 내보내기를 지원하지 않을 수 있습니다.</string>
     <string name="import_guide_step1_body_desktop_generic">PC %1$s에서 북마크/즐겨찾기 관리 화면으로 이동해 HTML로 내보내기를 진행하세요.</string>
     <string name="import_guide_step2_title">2. HTML 파일을 휴대폰에 저장</string>
-    <string name="import_guide_step3_title">3. HTML 파일 가져오기</string>
-    <string name="import_guide_step3_body">아래 버튼을 눌러 내보낸 HTML 파일을 선택하면 앱으로 북마크를 가져올 수 있습니다.</string>
-    <string name="import_guide_step3_button">HTML 파일 선택</string>
     <string name="import_guide_open_guide_failed">가이드 페이지를 열 수 없어요.</string>
-    <string name="import_guide_open_downloads_failed">다운로드를 열 수 없어요.</string>
     <string name="import_guide_exit">나가기</string>
     <string name="open_bookmark_failed">북마크 링크를 열 수 없어요.</string>
-    <string name="import_skipped_same_file">이미 같은 파일을 가져왔어요. 작업을 건너뛰었습니다.</string>
-    <string name="import_overwrite_dialog_title">기존 북마크를 덮어쓸까요?</string>
-    <string name="import_overwrite_dialog_message">다른 북마크 파일이 감지되었습니다. 계속하면 기존에 가져온 북마크 내용은 사라지고 새 파일 내용으로 교체됩니다.</string>
-    <string name="import_overwrite_dialog_confirm">덮어쓰기</string>
-    <string name="import_overwrite_dialog_cancel">취소</string>
     <string name="delete_bookmark_dialog_title">북마크 삭제</string>
     <string name="delete_bookmark_dialog_message">북마크를 삭제하시겠습니까?</string>
     <string name="delete_bookmark_dialog_confirm">삭제</string>
@@ -150,7 +134,6 @@
     <string name="bookmark_color_picker_dialog_title">북마크 색상 선택</string>
     <string name="bookmark_color_picker_dialog_close">닫기</string>
     <string name="folder_style_label">폴더 스타일</string>
-    <string name="folder_style_title">폴더 스타일</string>
     <string name="app_language_label">앱 언어</string>
     <string name="app_language_system_default">시스템 기본값</string>
     <string name="folder_shape_label">모양</string>
@@ -163,12 +146,10 @@
     <string name="folder_color_orange">주황</string>
     <string name="folder_color_purple">보라</string>
     <string name="appearance_label">모양</string>
-    <string name="bookmark_display_mode_label">표시 방식</string>
-    <string name="bookmark_display_type_list">목록</string>
-    <string name="bookmark_display_type_icon">아이콘</string>
     <string name="bookmark_show_url_label">URL 표시</string>
     <string name="bookmark_scroll_long_url_label">긴 URL 스크롤</string>
     <string name="folder_show_description_label">설명 표시</string>
     <string name="folder_scroll_long_description_label">긴 설명 스크롤</string>
     <string name="folder_description">설명</string>
+    <string name="display_value_loading">불러오는 중</string>
 </resources>

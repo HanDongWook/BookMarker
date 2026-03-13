@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">Browser installati</string>
-    <string name="menu_description">Menu</string>
     <string name="menu">Menu</string>
     <string name="menu_settings">Impostazioni</string>
     <string name="settings">Impostazioni</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">Impossibile analizzare il formato dei segnalibri.</string>
     <string name="error_unsupported_browser">Browser non supportato.</string>
     <string name="error_unknown">Si è verificato un errore sconosciuto.</string>
-    <string name="no_bookmarks_imported">Nessun segnalibro importato.</string>
     <string name="empty_bookmarks">Nessun segnalibro in questa vista.</string>
     <string name="bookmark_icon_back">Torna alla cartella precedente</string>
     <string name="bookmark_mode_list">Vista elenco segnalibri</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">Su mobile %1$s, l’esportazione dei segnalibri potrebbe non essere disponibile.</string>
     <string name="import_guide_step1_body_desktop_generic">Sul tuo computer con %1$s, trova Bookmark/Favorites manager ed esporta in HTML.</string>
     <string name="import_guide_step2_title">2. Salva il file HTML sul telefono</string>
-    <string name="import_guide_step3_title">3. Importa file HTML</string>
-    <string name="import_guide_step3_body">Tocca il pulsante qui sotto e scegli il file HTML esportato per importare i segnalibri nell’app.</string>
-    <string name="import_guide_step3_button">Seleziona file HTML</string>
     <string name="import_guide_open_guide_failed">Impossibile aprire la pagina guida.</string>
-    <string name="import_guide_open_downloads_failed">Impossibile aprire Downloads.</string>
     <string name="import_guide_exit">Esci</string>
     <string name="open_bookmark_failed">Impossibile aprire il link del segnalibro.</string>
-    <string name="import_skipped_same_file">Lo stesso file è già stato importato. Ignorato.</string>
-    <string name="import_overwrite_dialog_title">Sovrascrivere i segnalibri importati?</string>
-    <string name="import_overwrite_dialog_message">È stato rilevato un file di segnalibri diverso. Se continui, i segnalibri importati esistenti verranno rimossi e sostituiti.</string>
-    <string name="import_overwrite_dialog_confirm">Sovrascrivi</string>
-    <string name="import_overwrite_dialog_cancel">Annulla</string>
     <string name="delete_bookmark_dialog_title">Eliminare i segnalibri?</string>
     <string name="delete_bookmark_dialog_message">Vuoi eliminare questi segnalibri?</string>
     <string name="delete_bookmark_dialog_confirm">Elimina</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">Seleziona colore segnalibro</string>
     <string name="bookmark_color_picker_dialog_close">Chiudi</string>
     <string name="folder_style_label">Stile cartella</string>
-    <string name="folder_style_title">Stile cartella</string>
     <string name="app_language_label">Lingua dell’app</string>
     <string name="app_language_system_default">Predefinita di sistema</string>
     <string name="folder_shape_label">Forma</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">Verde</string>
     <string name="folder_color_orange">Arancione</string>
     <string name="folder_color_purple">Viola</string>
-    <string name="app_update_status_checking">Verifica aggiornamenti…</string>
     <string name="app_update_status_latest">Versione più recente</string>
     <string name="app_update_status_available">Aggiornamento disponibile (v%1$d)</string>
-    <string name="app_update_status_in_progress">Aggiornamento in corso</string>
-    <string name="app_update_status_unavailable">Impossibile verificare gli aggiornamenti</string>
-    <string name="app_update_action_update">Aggiorna</string>
     <string name="app_update_flow_canceled">Aggiornamento annullato.</string>
     <string name="app_update_flow_failed">Avvio dell’aggiornamento non riuscito.</string>
-    <string name="rate_app_fallback_opening_store">Impossibile mostrare la recensione in-app. Apertura del Play Store.</string>
     <string name="rate_app_review_requested_hint">Se non compare alcun popup, valuta l’app nel Play Store.</string>
     <string name="share_current_bookmarks_html_failed">Impossibile creare il file HTML dei segnalibri.</string>
     <string name="share_bookmark_method_title">Scegli tipo di condivisione</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">Condividi come HTML</string>
     <string name="rate_app_open_store_failed">Impossibile aprire il Play Store.</string>
     <string name="appearance_label">Aspetto</string>
-    <string name="bookmark_display_mode_label">Modalità di visualizzazione</string>
-    <string name="bookmark_display_type_list">Elenco</string>
-    <string name="bookmark_display_type_icon">Icona</string>
     <string name="bookmark_show_url_label">Mostra URL</string>
     <string name="bookmark_scroll_long_url_label">Scorri URL lungo</string>
     <string name="folder_show_description_label">Mostra descrizione</string>
     <string name="folder_scroll_long_description_label">Scorri descrizione lunga</string>
     <string name="folder_description">Descrizione</string>
+    <string name="display_value_loading">Caricamento in corso</string>
 </resources>

@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">Installierte Browser</string>
-    <string name="menu_description">Menü</string>
     <string name="menu">Menü</string>
     <string name="menu_settings">Einstellungen</string>
     <string name="settings">Einstellungen</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">Das Lesezeichenformat konnte nicht geparst werden.</string>
     <string name="error_unsupported_browser">Nicht unterstützter Browser.</string>
     <string name="error_unknown">Ein unbekannter Fehler ist aufgetreten.</string>
-    <string name="no_bookmarks_imported">Noch keine Lesezeichen importiert.</string>
     <string name="empty_bookmarks">Keine Lesezeichen in dieser Ansicht.</string>
     <string name="bookmark_icon_back">Zum vorherigen Ordner zurück</string>
     <string name="bookmark_mode_list">Lesezeichenlistenansicht</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">Auf mobilem %1$s ist der Lesezeichenexport möglicherweise nicht verfügbar.</string>
     <string name="import_guide_step1_body_desktop_generic">Suchen Sie auf Ihrem Computer in %1$s den Bookmark/Favorites manager und exportieren Sie nach HTML.</string>
     <string name="import_guide_step2_title">2. HTML-Datei auf dem Telefon speichern</string>
-    <string name="import_guide_step3_title">3. HTML-Datei importieren</string>
-    <string name="import_guide_step3_body">Tippen Sie auf die Schaltfläche unten und wählen Sie die exportierte HTML-Datei aus, um Lesezeichen in die App zu importieren.</string>
-    <string name="import_guide_step3_button">HTML-Datei auswählen</string>
     <string name="import_guide_open_guide_failed">Anleitungsseite konnte nicht geöffnet werden.</string>
-    <string name="import_guide_open_downloads_failed">Downloads konnte nicht geöffnet werden.</string>
     <string name="import_guide_exit">Beenden</string>
     <string name="open_bookmark_failed">Lesezeichenlink konnte nicht geöffnet werden.</string>
-    <string name="import_skipped_same_file">Dieselbe Datei wurde bereits importiert. Übersprungen.</string>
-    <string name="import_overwrite_dialog_title">Importierte Lesezeichen überschreiben?</string>
-    <string name="import_overwrite_dialog_message">Eine andere Lesezeichendatei wurde erkannt. Wenn Sie fortfahren, werden die vorhandenen importierten Lesezeichen entfernt und ersetzt.</string>
-    <string name="import_overwrite_dialog_confirm">Überschreiben</string>
-    <string name="import_overwrite_dialog_cancel">Abbrechen</string>
     <string name="delete_bookmark_dialog_title">Lesezeichen löschen?</string>
     <string name="delete_bookmark_dialog_message">Möchten Sie diese Lesezeichen löschen?</string>
     <string name="delete_bookmark_dialog_confirm">Löschen</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">Lesezeichenfarbe auswählen</string>
     <string name="bookmark_color_picker_dialog_close">Schließen</string>
     <string name="folder_style_label">Ordnerstil</string>
-    <string name="folder_style_title">Ordnerstil</string>
     <string name="app_language_label">App-Sprache</string>
     <string name="app_language_system_default">Systemstandard</string>
     <string name="folder_shape_label">Form</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">Grün</string>
     <string name="folder_color_orange">Orange</string>
     <string name="folder_color_purple">Lila</string>
-    <string name="app_update_status_checking">Suche nach Updates…</string>
     <string name="app_update_status_latest">Neueste Version</string>
     <string name="app_update_status_available">Update verfügbar (v%1$d)</string>
-    <string name="app_update_status_in_progress">Update wird durchgeführt</string>
-    <string name="app_update_status_unavailable">Updates können nicht geprüft werden</string>
-    <string name="app_update_action_update">Aktualisieren</string>
     <string name="app_update_flow_canceled">Update abgebrochen.</string>
     <string name="app_update_flow_failed">Update konnte nicht gestartet werden.</string>
-    <string name="rate_app_fallback_opening_store">In-App-Bewertung kann nicht angezeigt werden. Play Store wird geöffnet.</string>
     <string name="rate_app_review_requested_hint">Wenn kein Popup erscheint, bewerten Sie bitte im Play Store.</string>
     <string name="share_current_bookmarks_html_failed">HTML-Datei für Lesezeichen konnte nicht erstellt werden.</string>
     <string name="share_bookmark_method_title">Freigabetyp wählen</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">Als HTML teilen</string>
     <string name="rate_app_open_store_failed">Play Store konnte nicht geöffnet werden.</string>
     <string name="appearance_label">Erscheinungsbild</string>
-    <string name="bookmark_display_mode_label">Anzeigemodus</string>
-    <string name="bookmark_display_type_list">Liste</string>
-    <string name="bookmark_display_type_icon">Symbol</string>
     <string name="bookmark_show_url_label">URL anzeigen</string>
     <string name="bookmark_scroll_long_url_label">Lange URL scrollen</string>
     <string name="folder_show_description_label">Beschreibung anzeigen</string>
     <string name="folder_scroll_long_description_label">Lange Beschreibung scrollen</string>
     <string name="folder_description">Beschreibung</string>
+    <string name="display_value_loading">Wird geladen</string>
 </resources>
