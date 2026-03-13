@@ -235,9 +235,10 @@ class HomeViewModel @Inject constructor(
         reduce { state.withSelectedBookmarkId(snapshotId) }
     }
 
-    fun addFolder(title: String, parentFolderPath: List<Int>? = null) = intent {
+    fun addFolder(title: String, description: String, parentFolderPath: List<Int>? = null) = intent {
         val trimmedTitle = title.trim()
         if (trimmedTitle.isBlank()) return@intent
+        val trimmedDescription = description.trim().takeIf { it.isNotBlank() }
 
         val now = currentEpochSecondsString()
         val currentState = state
@@ -246,6 +247,7 @@ class HomeViewModel @Inject constructor(
             parentFolderPath = parentFolderPath,
             item = BookmarkItem.Folder(
                 title = trimmedTitle,
+                description = trimmedDescription,
                 addDate = now,
                 lastModified = now,
                 children = emptyList(),
@@ -291,7 +293,7 @@ class HomeViewModel @Inject constructor(
         reduce { state.withSelectedBookmarkId(savedSnapshotId) }
     }
 
-    fun updateBookmarkItem(path: List<Int>, title: String, url: String?) = intent {
+    fun updateBookmarkItem(path: List<Int>, title: String, url: String?, description: String?) = intent {
         if (path.isEmpty()) return@intent
         val trimmedTitle = title.trim()
         if (trimmedTitle.isBlank()) return@intent
@@ -303,6 +305,7 @@ class HomeViewModel @Inject constructor(
             path = path,
             title = trimmedTitle,
             url = url,
+            description = description,
         ) ?: return@intent
         val sourceHash = getBookmarkSnapshotRawFileHashUseCase(currentSnapshotId).orEmpty()
 
@@ -412,6 +415,7 @@ class HomeViewModel @Inject constructor(
         path: List<Int>,
         title: String,
         url: String?,
+        description: String?,
     ): List<BookmarkItem>? {
         val targetIndex = path.firstOrNull() ?: return null
         if (targetIndex !in items.indices) return null
@@ -422,6 +426,7 @@ class HomeViewModel @Inject constructor(
             val updatedItem = when (target) {
                 is BookmarkItem.Folder -> target.copy(
                     title = title,
+                    description = description?.trim()?.takeIf { it.isNotBlank() },
                     lastModified = now,
                 )
 
@@ -447,6 +452,7 @@ class HomeViewModel @Inject constructor(
             path = path.drop(1),
             title = title,
             url = url,
+            description = description,
         ) ?: return null
 
         return items.toMutableList().apply {

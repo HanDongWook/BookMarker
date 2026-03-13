@@ -19,8 +19,10 @@ fun ManageBookmarkItemDialog(
     item: BookmarkItem,
     title: String,
     url: String,
+    description: String,
     onTitleChange: (String) -> Unit,
     onUrlChange: (String) -> Unit,
+    onDescriptionChange: (String) -> Unit,
     onDismiss: () -> Unit,
     onApply: () -> Unit,
     onDelete: () -> Unit,
@@ -59,6 +61,18 @@ fun ManageBookmarkItemDialog(
                             .padding(top = 8.dp),
                         label = { Text(text = stringResource(R.string.bookmark_url)) },
                     )
+                } else {
+                    OutlinedTextField(
+                        value = description,
+                        onValueChange = onDescriptionChange,
+                        singleLine = false,
+                        minLines = 2,
+                        maxLines = 5,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp),
+                        label = { Text(text = stringResource(R.string.folder_description)) },
+                    )
                 }
             }
         },
@@ -81,14 +95,17 @@ private fun ManageFolderDialogPreview() {
     ManageBookmarkItemDialog(
         item = BookmarkItem.Folder(
             title = "개발",
+            description = "개발 관련 링크 모음",
             addDate = null,
             lastModified = null,
             children = emptyList(),
         ),
         title = "개발",
         url = "",
+        description = "개발 관련 링크 모음",
         onTitleChange = {},
         onUrlChange = {},
+        onDescriptionChange = {},
         onDismiss = {},
         onApply = {},
         onDelete = {},
@@ -108,8 +125,10 @@ private fun ManageBookmarkDialogPreview() {
         ),
         title = "OpenAI",
         url = "https://openai.com",
+        description = "",
         onTitleChange = {},
         onUrlChange = {},
+        onDescriptionChange = {},
         onDismiss = {},
         onApply = {},
         onDelete = {},

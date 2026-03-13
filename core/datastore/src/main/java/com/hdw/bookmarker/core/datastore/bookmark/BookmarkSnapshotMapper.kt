@@ -36,6 +36,7 @@ private fun BookmarkItem.toNodeProto(): BookmarkNodeProto = when (this) {
             addDate = addDate.orEmpty(),
             lastModified = lastModified.orEmpty(),
             children = children.map { it.toNodeProto() },
+            description = description.orEmpty(),
         ),
     )
 }
@@ -48,6 +49,7 @@ private fun BookmarkNodeProto.toModel(): BookmarkItem? = when {
 
 private fun BookmarkFolderProto.toModel(): BookmarkItem.Folder = BookmarkItem.Folder(
     title = title,
+    description = description.ifBlank { null },
     addDate = addDate.ifBlank { null },
     lastModified = lastModified.ifBlank { null },
     children = children.mapNotNull { it.toModel() },
