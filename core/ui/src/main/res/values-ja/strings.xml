@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">ブックマークの色を選択</string>
     <string name="bookmark_color_picker_dialog_close">閉じる</string>
     <string name="folder_style_label">フォルダスタイル</string>
-    <string name="app_language_label">アプリの言語</string>
+    <string name="app_language_label">言語</string>
     <string name="app_language_system_default">システムのデフォルト</string>
     <string name="folder_shape_label">形状</string>
     <string name="folder_color_label">色</string>

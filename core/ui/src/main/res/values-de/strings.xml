@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">Lesezeichenfarbe auswählen</string>
     <string name="bookmark_color_picker_dialog_close">Schließen</string>
     <string name="folder_style_label">Ordnerstil</string>
-    <string name="app_language_label">App-Sprache</string>
+    <string name="app_language_label">Sprache</string>
     <string name="app_language_system_default">Systemstandard</string>
     <string name="folder_shape_label">Form</string>
     <string name="folder_color_label">Farbe</string>

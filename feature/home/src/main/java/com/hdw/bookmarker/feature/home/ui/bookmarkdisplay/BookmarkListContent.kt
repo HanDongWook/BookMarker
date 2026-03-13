@@ -5,8 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -182,23 +185,11 @@ private fun BookmarkFolderRow(
                     fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(0.4f),
+                    modifier = Modifier.weight(1f),
                 )
-                Text(
+                RightAlignedSecondaryText(
                     text = folder.description.orEmpty(),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
-                    overflow = if (scrollLongFolderDescription) TextOverflow.Visible else TextOverflow.Ellipsis,
-                    modifier = Modifier
-                        .weight(0.6f)
-                        .then(
-                            if (scrollLongFolderDescription) {
-                                Modifier.basicMarquee()
-                            } else {
-                                Modifier
-                            },
-                        ),
+                    scrollLongText = scrollLongFolderDescription,
                 )
             }
         } else {
@@ -259,23 +250,11 @@ private fun BookmarkLeafRow(
                     style = MaterialTheme.typography.bodyMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(0.4f),
+                    modifier = Modifier.weight(1f),
                 )
-                Text(
+                RightAlignedSecondaryText(
                     text = bookmark.url,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
-                    overflow = if (scrollLongBookmarkUrl) TextOverflow.Visible else TextOverflow.Ellipsis,
-                    modifier = Modifier
-                        .weight(0.6f)
-                        .then(
-                            if (scrollLongBookmarkUrl) {
-                                Modifier.basicMarquee()
-                            } else {
-                                Modifier
-                            },
-                        ),
+                    scrollLongText = scrollLongBookmarkUrl,
                 )
             }
         } else {
@@ -289,6 +268,35 @@ private fun BookmarkLeafRow(
                     .weight(1f),
             )
         }
+    }
+}
+
+@Composable
+private fun RowScope.RightAlignedSecondaryText(
+    text: String,
+    scrollLongText: Boolean,
+) {
+    Box(
+        modifier = Modifier.weight(1f),
+        contentAlignment = Alignment.CenterEnd,
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.End,
+            maxLines = 1,
+            overflow = if (scrollLongText) TextOverflow.Visible else TextOverflow.Ellipsis,
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(
+                    if (scrollLongText) {
+                        Modifier.basicMarquee()
+                    } else {
+                        Modifier
+                    },
+                ),
+        )
     }
 }
 

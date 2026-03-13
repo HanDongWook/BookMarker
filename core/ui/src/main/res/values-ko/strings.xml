@@ -139,7 +139,7 @@
     <string name="bookmark_color_picker_dialog_title">북마크 색상 선택</string>
     <string name="bookmark_color_picker_dialog_close">닫기</string>
     <string name="folder_style_label">폴더 스타일</string>
-    <string name="app_language_label">앱 언어</string>
+    <string name="app_language_label">언어</string>
     <string name="app_language_system_default">시스템 기본값</string>
     <string name="folder_shape_label">모양</string>
     <string name="folder_color_label">색상</string>

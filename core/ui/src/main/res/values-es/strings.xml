@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">Seleccionar color de marcador</string>
     <string name="bookmark_color_picker_dialog_close">Cerrar</string>
     <string name="folder_style_label">Estilo de carpeta</string>
-    <string name="app_language_label">Idioma de la app</string>
+    <string name="app_language_label">Idioma</string>
     <string name="app_language_system_default">Predeterminado del sistema</string>
     <string name="folder_shape_label">Forma</string>
     <string name="folder_color_label">Color</string>
