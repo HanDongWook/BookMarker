@@ -13,6 +13,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOpenBookmarkAdjacentOnLargeScreenUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetOpenBookmarkSidePreviewOnLargeScreenUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongFolderDescriptionUseCase
@@ -27,6 +28,7 @@ import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetOpenBookmarkAdjacentOnLargeScreenUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetOpenBookmarkSidePreviewOnLargeScreenUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetShowBookmarkUrlUseCase
@@ -134,6 +136,13 @@ object DomainModule {
 
     @Provides
     @Singleton
+    fun provideGetOpenBookmarkSidePreviewOnLargeScreenUseCase(
+        settingsRepository: SettingsRepository,
+    ): GetOpenBookmarkSidePreviewOnLargeScreenUseCase =
+        GetOpenBookmarkSidePreviewOnLargeScreenUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
     fun provideGetShowFolderDescriptionUseCase(
         settingsRepository: SettingsRepository,
     ): GetShowFolderDescriptionUseCase = GetShowFolderDescriptionUseCase(settingsRepository)
@@ -161,6 +170,13 @@ object DomainModule {
         settingsRepository: SettingsRepository,
     ): SetOpenBookmarkAdjacentOnLargeScreenUseCase =
         SetOpenBookmarkAdjacentOnLargeScreenUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetOpenBookmarkSidePreviewOnLargeScreenUseCase(
+        settingsRepository: SettingsRepository,
+    ): SetOpenBookmarkSidePreviewOnLargeScreenUseCase =
+        SetOpenBookmarkSidePreviewOnLargeScreenUseCase(settingsRepository)
 
     @Provides
     @Singleton
