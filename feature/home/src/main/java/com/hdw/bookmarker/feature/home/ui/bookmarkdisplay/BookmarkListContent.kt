@@ -1,6 +1,8 @@
 package com.hdw.bookmarker.feature.home.ui.bookmarkdisplay
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -175,6 +177,7 @@ private fun BookmarkFolderRow(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun BookmarkLeafRow(
     bookmark: BookmarkItem.Bookmark,
@@ -219,8 +222,10 @@ private fun BookmarkLeafRow(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(0.6f),
+                    overflow = TextOverflow.Visible,
+                    modifier = Modifier
+                        .weight(0.6f)
+                        .basicMarquee(),
                 )
             }
         } else {
