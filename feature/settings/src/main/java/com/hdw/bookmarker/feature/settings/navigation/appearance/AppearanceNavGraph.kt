@@ -41,8 +41,11 @@ internal fun NavGraphBuilder.appearanceGraph(navController: NavHostController) {
                 BookmarkAppearanceScreen(
                     scrollLongBookmarkUrl = appearanceState.scrollLongBookmarkUrl,
                     showBookmarkUrl = appearanceState.showBookmarkUrl,
+                    openBookmarkAdjacentOnLargeScreen = appearanceState.openBookmarkAdjacentOnLargeScreen,
                     onScrollLongBookmarkUrlChange = appearanceViewModel::setScrollLongBookmarkUrl,
                     onShowBookmarkUrlChange = appearanceViewModel::setShowBookmarkUrl,
+                    onOpenBookmarkAdjacentOnLargeScreenChange =
+                        appearanceViewModel::setOpenBookmarkAdjacentOnLargeScreen,
                     onBackClick = { navController.popBackStack() },
                 )
             }
