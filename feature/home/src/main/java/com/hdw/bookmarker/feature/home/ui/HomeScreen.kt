@@ -83,9 +83,10 @@ fun HomeScreen(
         ?: orderedSnapshotIds.getOrNull(pagerState.currentPage)
         ?: orderedSnapshotIds.firstOrNull()
     val selectedFolderPath = state.selectedFolderPaths.pathOf(selectedBookmarkId)
-    val snapshotTitles = remember(orderedSnapshotIds, state.bookmarkDocuments) {
+    val defaultSnapshotTitlePrefix = resources.getString(R.string.default_snapshot_title_prefix)
+    val snapshotTitles = remember(orderedSnapshotIds, state.bookmarkDocuments, defaultSnapshotTitlePrefix) {
         orderedSnapshotIds.mapIndexed { index, snapshotId ->
-            val defaultTitle = "북마크${index + 1}"
+            val defaultTitle = "$defaultSnapshotTitlePrefix${index + 1}"
             snapshotId to (
                 state.bookmarkDocuments[snapshotId]
                     ?.title
