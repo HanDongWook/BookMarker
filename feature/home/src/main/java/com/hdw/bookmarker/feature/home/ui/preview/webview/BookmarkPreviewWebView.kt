@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.webkit.WebView
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
@@ -22,6 +23,11 @@ internal fun BookmarkPreviewWebView(
 ) {
     val context = LocalContext.current
     val requestState = remember { BookmarkPreviewWebViewRequestState(refreshToken) }
+    val currentOnPageStarted = rememberUpdatedState(onPageStarted)
+    val currentOnPageFinished = rememberUpdatedState(onPageFinished)
+    val currentOnPageTitleChange = rememberUpdatedState(onPageTitleChange)
+    val currentOnOpenExternally = rememberUpdatedState(onOpenExternally)
+    val currentOnPageError = rememberUpdatedState(onPageError)
     requestState.syncRefreshToken(refreshToken)
     AndroidView(
         modifier = modifier,
@@ -29,15 +35,15 @@ internal fun BookmarkPreviewWebView(
             WebView(context).apply {
                 configureBookmarkPreviewWebView()
                 webChromeClient = BookmarkPreviewWebChromeClient(
-                    onPageTitleChange = onPageTitleChange,
-                    onPageFinished = onPageFinished,
+                    onPageTitleChange = { title -> currentOnPageTitleChange.value(title) },
+                    onPageFinished = { currentOnPageFinished.value() },
                 )
                 webViewClient = BookmarkPreviewWebViewClient(
                     requestState = requestState,
-                    onPageStarted = onPageStarted,
-                    onPageFinished = onPageFinished,
-                    onOpenExternally = onOpenExternally,
-                    onPageError = onPageError,
+                    onPageStarted = { currentOnPageStarted.value() },
+                    onPageFinished = { currentOnPageFinished.value() },
+                    onOpenExternally = { urlToOpen -> currentOnOpenExternally.value(urlToOpen) },
+                    onPageError = { currentOnPageError.value() },
                 )
                 requestState.markRequested(url)
                 loadUrl(url)
