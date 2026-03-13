@@ -153,7 +153,6 @@
     <string name="behavior_label">行为</string>
     <string name="bookmark_show_url_label">显示 URL</string>
     <string name="bookmark_scroll_long_url_label">滚动长 URL</string>
-    <string name="bookmark_open_side_preview_on_large_screens_label">在大屏幕上打开侧边预览</string>
     <string name="bookmark_preview_title">预览</string>
     <string name="bookmark_preview_placeholder">选择书签以预览</string>
     <string name="bookmark_preview_refresh">刷新预览</string>

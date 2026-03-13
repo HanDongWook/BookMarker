@@ -153,7 +153,6 @@
     <string name="behavior_label">Hành vi</string>
     <string name="bookmark_show_url_label">Hiển thị URL</string>
     <string name="bookmark_scroll_long_url_label">Cuộn URL dài</string>
-    <string name="bookmark_open_side_preview_on_large_screens_label">Mở xem trước bên cạnh trên màn hình lớn</string>
     <string name="bookmark_preview_title">Xem trước</string>
     <string name="bookmark_preview_placeholder">Chọn dấu trang để xem trước</string>
     <string name="bookmark_preview_refresh">Làm mới phần xem trước</string>

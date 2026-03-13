@@ -153,7 +153,6 @@
     <string name="behavior_label">動作</string>
     <string name="bookmark_show_url_label">URLを表示</string>
     <string name="bookmark_scroll_long_url_label">長いURLをスクロール</string>
-    <string name="bookmark_open_side_preview_on_large_screens_label">大きい画面でサイドプレビューを開く</string>
     <string name="bookmark_preview_title">プレビュー</string>
     <string name="bookmark_preview_placeholder">プレビューするブックマークを選択</string>
     <string name="bookmark_preview_refresh">プレビューを更新</string>
