@@ -139,9 +139,13 @@
     <string name="app_update_flow_failed">Không thể bắt đầu cập nhật.</string>
     <string name="rate_app_review_requested_hint">Nếu không thấy cửa sổ bật lên, vui lòng đánh giá trên Play Store.</string>
     <string name="export_current_bookmarks_html_failed">Không thể tạo tệp HTML dấu trang.</string>
+    <string name="export_current_bookmarks_saved">Đã lưu bản xuất.</string>
+    <string name="export_current_bookmarks_save_failed">Không thể lưu bản xuất.</string>
     <string name="export_bookmark_method_title">Xuất</string>
-    <string name="export_bookmark_method_text">Xuất dưới dạng văn bản</string>
-    <string name="export_bookmark_method_html">Xuất dưới dạng HTML</string>
+    <string name="export_bookmark_method_share_text">Chia sẻ dưới dạng văn bản</string>
+    <string name="export_bookmark_method_share_html">Chia sẻ dưới dạng HTML</string>
+    <string name="export_bookmark_method_save_text">Lưu tệp văn bản</string>
+    <string name="export_bookmark_method_save_html">Lưu tệp HTML</string>
     <string name="rate_app_open_store_failed">Không thể mở Play Store.</string>
     <string name="appearance_label">Giao diện</string>
     <string name="bookmark_show_url_label">Hiển thị URL</string>

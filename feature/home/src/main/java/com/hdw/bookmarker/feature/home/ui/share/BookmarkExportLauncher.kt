@@ -2,6 +2,7 @@ package com.hdw.bookmarker.feature.home.ui.share
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.core.content.FileProvider
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.ui.R
@@ -53,3 +54,11 @@ internal fun shareCurrentBookmarkHtmlExport(context: Context, bookmarkDocument: 
         true
     }.getOrDefault(false)
 }
+
+internal fun saveBookmarkExportContent(context: Context, uri: Uri, content: String): Boolean = runCatching {
+    val outputStream = context.contentResolver.openOutputStream(uri) ?: return false
+    outputStream.bufferedWriter(Charsets.UTF_8).use { writer ->
+        writer.write(content)
+    }
+    true
+}.getOrDefault(false)
