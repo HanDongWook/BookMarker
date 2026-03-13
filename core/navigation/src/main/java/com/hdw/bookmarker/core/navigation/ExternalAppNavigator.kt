@@ -6,12 +6,14 @@ import android.content.Intent
 import androidx.core.net.toUri
 import com.hdw.bookmarker.core.common.uri.AppUri
 import com.hdw.bookmarker.core.model.browser.Browser
+import com.hdw.bookmarker.core.model.browser.BookmarkOpenRequest
 
 object ExternalAppNavigator {
-    fun openBookmarkUrl(context: Context, url: String, preferredBrowserPackage: String?): Boolean = openUri(
+    fun openBookmarkUrl(context: Context, request: BookmarkOpenRequest): Boolean = openUri(
         context = context,
-        url = url,
-        preferredBrowserPackage = preferredBrowserPackage,
+        url = request.url,
+        preferredBrowserPackage = request.preferredBrowserPackage,
+        launchAdjacent = request.openAdjacent,
     )
 
     fun openBrowserBookmarkGuide(context: Context, browser: Browser, preferredBrowserPackage: String?): Boolean {
@@ -59,27 +61,42 @@ object ExternalAppNavigator {
         url: String,
         preferredBrowserPackage: String?,
         allowFallback: Boolean = true,
+        launchAdjacent: Boolean = false,
     ): Boolean {
         val uri = url.toUri()
-        if (!preferredBrowserPackage.isNullOrBlank()) {
-            val preferredResult = runCatching {
-                context.startActivity(
-                    Intent(Intent.ACTION_VIEW, uri).apply {
-                        `package` = preferredBrowserPackage
-                    },
-                )
+        val intents = buildList {
+            if (!preferredBrowserPackage.isNullOrBlank()) {
+                add(createViewIntent(uri, preferredBrowserPackage, launchAdjacent))
+                if (launchAdjacent) {
+                    add(createViewIntent(uri, preferredBrowserPackage, launchAdjacent = false))
+                }
             }
-            if (preferredResult.isSuccess) return true
+            if (allowFallback) {
+                add(createViewIntent(uri, packageName = null, launchAdjacent = launchAdjacent))
+                if (launchAdjacent) {
+                    add(createViewIntent(uri, packageName = null, launchAdjacent = false))
+                }
+            }
         }
-        if (!allowFallback) return false
-        return runCatching {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    uri,
-                ),
-            )
-        }.isSuccess
+
+        return intents.any { intent ->
+            runCatching { context.startActivity(intent) }.isSuccess
+        }
+    }
+
+    private fun createViewIntent(
+        uri: android.net.Uri,
+        packageName: String?,
+        launchAdjacent: Boolean,
+    ): Intent = Intent(Intent.ACTION_VIEW, uri).apply {
+        if (!packageName.isNullOrBlank()) {
+            `package` = packageName
+        }
+        if (launchAdjacent) {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT)
+        }
     }
 
     private fun Browser.toBookmarkGuideUrl(): String? = when (this) {

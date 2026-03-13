@@ -9,11 +9,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.hdw.bookmarker.core.model.MimeTypes
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
+import com.hdw.bookmarker.core.model.browser.BookmarkOpenRequest
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
@@ -34,6 +36,8 @@ private data class PendingBookmarkFileExport(
     val fileName: String,
     val content: String,
 )
+
+private const val OPEN_BOOKMARK_ADJACENT_MIN_WIDTH_DP = 840
 
 private fun handleShareBookmarkExport(
     format: BookmarkExportFormat,
@@ -84,13 +88,14 @@ private fun buildPendingBookmarkFileExport(
 @Composable
 fun HomeRoute(
     onSettingsClick: () -> Unit,
-    onOpenBookmark: (String, String?) -> Boolean,
+    onOpenBookmark: (BookmarkOpenRequest) -> Boolean,
     onOpenBookmarkImportGuide: () -> Unit,
     pendingImportHtmlRequestToken: Long? = null,
     onImportHtmlRequestHandled: () -> Unit = {},
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val state by viewModel.collectAsState()
+    val configuration = LocalConfiguration.current
     val context = LocalContext.current
     val resources = LocalResources.current
     var pendingTextFileExport by remember { mutableStateOf<PendingBookmarkFileExport?>(null) }
@@ -129,6 +134,8 @@ fun HomeRoute(
             htmlPickerLauncher.launch(arrayOf(MimeTypes.HTML))
         }
     }
+    val shouldOpenBookmarkAdjacent = state.openBookmarkAdjacentOnLargeScreen &&
+        configuration.screenWidthDp >= OPEN_BOOKMARK_ADJACENT_MIN_WIDTH_DP
 
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
@@ -187,7 +194,15 @@ fun HomeRoute(
     HomeScreen(
         state = state,
         onSettingsClick = onSettingsClick,
-        onOpenBookmark = onOpenBookmark,
+        onOpenBookmark = { url, preferredBrowserPackage ->
+            onOpenBookmark(
+                BookmarkOpenRequest(
+                    url = url,
+                    preferredBrowserPackage = preferredBrowserPackage,
+                    openAdjacent = shouldOpenBookmarkAdjacent,
+                ),
+            )
+        },
         onOpenBookmarkImportGuide = onOpenBookmarkImportGuide,
         onSnapshotSelected = viewModel::onSnapshotSelected,
         onSelectedFolderPathChange = viewModel::onSelectedFolderPathChange,
