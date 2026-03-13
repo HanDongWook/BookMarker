@@ -17,5 +17,4 @@ data class SettingsState(
     val scrollLongFolderDescription: Boolean = true,
     val folderIconStyle: BookmarkFolderIconStyle = BookmarkFolderIconStyle(),
     val appUpdateUiState: AppUpdateUiState = AppUpdateUiState.Checking,
-    val updateLaunchRequestId: Long = 0L,
 ) : MavericksState
