@@ -1,5 +1,6 @@
 package com.hdw.bookmarker.feature.home.ui.preview
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
@@ -76,7 +77,11 @@ internal fun BookmarkPreviewPaneContent(
     modifier: Modifier = Modifier,
     body: @Composable BoxScope.() -> Unit = {},
 ) {
-    Column(modifier = modifier.fillMaxSize()) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surface),
+    ) {
         BookmarkPreviewTopBar(
             title = title,
             currentUrl = currentUrl,
@@ -97,7 +102,8 @@ internal fun BookmarkPreviewPaneContent(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f),
+                        .weight(1f)
+                        .background(MaterialTheme.colorScheme.surface),
                 ) {
                     body()
 
