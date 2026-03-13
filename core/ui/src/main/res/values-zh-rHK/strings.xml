@@ -142,6 +142,8 @@
     <string name="export_current_bookmarks_saved">已儲存匯出內容。</string>
     <string name="export_current_bookmarks_save_failed">無法儲存匯出內容。</string>
     <string name="export_bookmark_method_title">匯出</string>
+    <string name="export_bookmark_method_share_section">分享</string>
+    <string name="export_bookmark_method_save_section">儲存</string>
     <string name="export_bookmark_method_share_text">以文字分享</string>
     <string name="export_bookmark_method_share_html">以 HTML 分享</string>
     <string name="export_bookmark_method_save_text">儲存文字檔</string>

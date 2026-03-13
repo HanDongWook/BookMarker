@@ -10,6 +10,8 @@ import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.ui.HomeScreenUiState
 import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportAction
+import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportFormat
+import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportMethod
 import com.hdw.bookmarker.feature.home.ui.share.ExportBookmarkMethodDialog
 
 @Composable
@@ -186,19 +188,31 @@ internal fun HomeDialogHost(
             onDismiss = { showExportBookmarkMethodDialog = false },
             onShareTextClick = {
                 showExportBookmarkMethodDialog = false
-                pendingBookmarkExportAction = BookmarkExportAction.ShareText
+                pendingBookmarkExportAction = BookmarkExportAction(
+                    method = BookmarkExportMethod.SHARE,
+                    format = BookmarkExportFormat.TEXT,
+                )
             },
             onShareHtmlClick = {
                 showExportBookmarkMethodDialog = false
-                pendingBookmarkExportAction = BookmarkExportAction.ShareHtml
+                pendingBookmarkExportAction = BookmarkExportAction(
+                    method = BookmarkExportMethod.SHARE,
+                    format = BookmarkExportFormat.HTML,
+                )
             },
             onSaveTextClick = {
                 showExportBookmarkMethodDialog = false
-                pendingBookmarkExportAction = BookmarkExportAction.SaveText
+                pendingBookmarkExportAction = BookmarkExportAction(
+                    method = BookmarkExportMethod.SAVE,
+                    format = BookmarkExportFormat.TEXT,
+                )
             },
             onSaveHtmlClick = {
                 showExportBookmarkMethodDialog = false
-                pendingBookmarkExportAction = BookmarkExportAction.SaveHtml
+                pendingBookmarkExportAction = BookmarkExportAction(
+                    method = BookmarkExportMethod.SAVE,
+                    format = BookmarkExportFormat.HTML,
+                )
             },
         )
     }

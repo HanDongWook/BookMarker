@@ -1,8 +1,16 @@
 package com.hdw.bookmarker.feature.home.ui.share
 
-sealed interface BookmarkExportAction {
-    data object ShareText : BookmarkExportAction
-    data object ShareHtml : BookmarkExportAction
-    data object SaveText : BookmarkExportAction
-    data object SaveHtml : BookmarkExportAction
+enum class BookmarkExportMethod {
+    SHARE,
+    SAVE,
 }
+
+enum class BookmarkExportFormat {
+    TEXT,
+    HTML,
+}
+
+data class BookmarkExportAction(
+    val method: BookmarkExportMethod,
+    val format: BookmarkExportFormat,
+)

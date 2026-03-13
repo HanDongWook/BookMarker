@@ -19,6 +19,8 @@ import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
 import com.hdw.bookmarker.feature.home.ui.HomeScreen
 import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportAction
+import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportFormat
+import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportMethod
 import com.hdw.bookmarker.feature.home.ui.share.buildBookmarkExportFileName
 import com.hdw.bookmarker.feature.home.ui.share.buildBookmarkExportHtmlContent
 import com.hdw.bookmarker.feature.home.ui.share.buildBookmarkExportTextContent
@@ -32,6 +34,52 @@ private data class PendingBookmarkFileExport(
     val fileName: String,
     val content: String,
 )
+
+private fun handleShareBookmarkExport(
+    format: BookmarkExportFormat,
+    document: BookmarkDocument,
+    context: android.content.Context,
+    resources: android.content.res.Resources,
+) {
+    when (format) {
+        BookmarkExportFormat.TEXT -> {
+            if (!shareCurrentBookmarkTextExport(context, document)) {
+                context.showShortToast(resources.getString(R.string.export_current_bookmarks_empty))
+            }
+        }
+
+        BookmarkExportFormat.HTML -> {
+            if (!shareCurrentBookmarkHtmlExport(context, document)) {
+                context.showShortToast(resources.getString(R.string.export_current_bookmarks_html_failed))
+            }
+        }
+    }
+}
+
+private fun buildPendingBookmarkFileExport(
+    format: BookmarkExportFormat,
+    document: BookmarkDocument,
+    resources: android.content.res.Resources,
+): PendingBookmarkFileExport? = when (format) {
+    BookmarkExportFormat.TEXT -> {
+        val textContent = buildBookmarkExportTextContent(
+            bookmarkDocument = document,
+            fallbackTitle = resources.getString(R.string.export_current_bookmarks_label),
+        ) ?: return null
+        PendingBookmarkFileExport(
+            fileName = buildBookmarkExportFileName(document, extension = "txt"),
+            content = textContent,
+        )
+    }
+
+    BookmarkExportFormat.HTML -> {
+        val htmlContent = buildBookmarkExportHtmlContent(document) ?: return null
+        PendingBookmarkFileExport(
+            fileName = buildBookmarkExportFileName(document, extension = "html"),
+            content = htmlContent,
+        )
+    }
+}
 
 @Composable
 fun HomeRoute(
@@ -101,49 +149,36 @@ fun HomeRoute(
     }
 
     val onBookmarkExportRequest: (BookmarkExportAction, BookmarkDocument) -> Unit = { action, document ->
-        when (action) {
-            BookmarkExportAction.ShareText -> {
-                if (!shareCurrentBookmarkTextExport(context, document)) {
-                    context.showShortToast(resources.getString(R.string.export_current_bookmarks_empty))
-                }
-            }
-
-            BookmarkExportAction.ShareHtml -> {
-                when {
-                    !shareCurrentBookmarkHtmlExport(context, document) -> {
-                        context.showShortToast(resources.getString(R.string.export_current_bookmarks_html_failed))
-                    }
-                }
-            }
-
-            BookmarkExportAction.SaveText -> {
-                val textContent = buildBookmarkExportTextContent(
-                    bookmarkDocument = document,
-                    fallbackTitle = resources.getString(R.string.export_current_bookmarks_label),
+        when (action.method) {
+            BookmarkExportMethod.SHARE -> {
+                handleShareBookmarkExport(
+                    format = action.format,
+                    document = document,
+                    context = context,
+                    resources = resources,
                 )
-                if (textContent == null) {
-                    context.showShortToast(resources.getString(R.string.export_current_bookmarks_empty))
-                } else {
-                    val pendingExport = PendingBookmarkFileExport(
-                        fileName = buildBookmarkExportFileName(document, extension = "txt"),
-                        content = textContent,
-                    )
-                    pendingTextFileExport = pendingExport
-                    textFileSaverLauncher.launch(pendingExport.fileName)
-                }
             }
 
-            BookmarkExportAction.SaveHtml -> {
-                val htmlContent = buildBookmarkExportHtmlContent(document)
-                if (htmlContent == null) {
+            BookmarkExportMethod.SAVE -> {
+                val pendingExport = buildPendingBookmarkFileExport(
+                    format = action.format,
+                    document = document,
+                    resources = resources,
+                )
+                if (pendingExport == null) {
                     context.showShortToast(resources.getString(R.string.export_current_bookmarks_empty))
                 } else {
-                    val pendingExport = PendingBookmarkFileExport(
-                        fileName = buildBookmarkExportFileName(document, extension = "html"),
-                        content = htmlContent,
-                    )
-                    pendingHtmlFileExport = pendingExport
-                    htmlFileSaverLauncher.launch(pendingExport.fileName)
+                    when (action.format) {
+                        BookmarkExportFormat.TEXT -> {
+                            pendingTextFileExport = pendingExport
+                            textFileSaverLauncher.launch(pendingExport.fileName)
+                        }
+
+                        BookmarkExportFormat.HTML -> {
+                            pendingHtmlFileExport = pendingExport
+                            htmlFileSaverLauncher.launch(pendingExport.fileName)
+                        }
+                    }
                 }
             }
         }
