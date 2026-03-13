@@ -120,10 +120,7 @@ fun AppearanceScreen(
 }
 
 @Composable
-private fun FolderAppearanceValue(
-    folderIconStyle: BookmarkFolderIconStyle,
-    text: String,
-) {
+private fun FolderAppearanceValue(folderIconStyle: BookmarkFolderIconStyle, text: String) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,

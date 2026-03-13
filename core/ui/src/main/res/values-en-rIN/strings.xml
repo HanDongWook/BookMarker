@@ -167,4 +167,5 @@
     <string name="bookmark_display_type_list">List</string>
     <string name="bookmark_display_type_icon">Icon</string>
     <string name="bookmark_show_url_label">Show URL</string>
+    <string name="bookmark_scroll_long_url_label">Scroll long URL</string>
 </resources>

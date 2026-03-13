@@ -1,11 +1,11 @@
 package com.hdw.bookmarker.feature.settings.ui.tab.folder
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -124,9 +124,7 @@ fun FolderAppearanceScreen(
 }
 
 @Composable
-private fun FolderSettingValue(
-    text: String,
-) {
+private fun FolderSettingValue(text: String) {
     Text(
         text = text,
         style = MaterialTheme.typography.bodyMedium,
@@ -134,9 +132,7 @@ private fun FolderSettingValue(
 }
 
 @Composable
-private fun FolderSettingIcon(
-    selectedFolderIconStyle: BookmarkFolderIconStyle,
-) {
+private fun FolderSettingIcon(selectedFolderIconStyle: BookmarkFolderIconStyle) {
     Icon(
         imageVector = selectedFolderIconStyle.shape.iconVector(),
         contentDescription = null,

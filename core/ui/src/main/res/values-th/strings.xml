@@ -167,4 +167,5 @@
     <string name="bookmark_display_type_list">รายการ</string>
     <string name="bookmark_display_type_icon">ไอคอน</string>
     <string name="bookmark_show_url_label">แสดง URL</string>
+    <string name="bookmark_scroll_long_url_label">เลื่อน URL ยาว</string>
 </resources>
