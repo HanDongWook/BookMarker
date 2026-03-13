@@ -75,6 +75,7 @@ internal fun BookmarkListContent(
     scrollLongFolderDescription: Boolean,
     folderIconStyle: BookmarkFolderIconStyle,
     modifier: Modifier = Modifier,
+    selectedFolderPath: List<Int>? = null,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
 ) {
     val expandedFolders = rememberSaveable(saver = ExpandedFoldersSaver) {
@@ -86,6 +87,16 @@ internal fun BookmarkListContent(
             items = bookmarkDocument.rootItems,
             expandedFolders = expandedFolders,
         )
+    }
+
+    androidx.compose.runtime.LaunchedEffect(selectedFolderPath) {
+        selectedFolderKey = selectedFolderPath?.joinToString(separator = "/")
+        selectedFolderPath
+            ?.runningFold(emptyList<Int>()) { acc, index -> acc + index }
+            ?.drop(1)
+            ?.forEach { folderPath ->
+                expandedFolders[folderPath.joinToString(separator = "/")] = true
+            }
     }
 
     LazyColumn(
@@ -342,6 +353,7 @@ private fun BookmarkListContentPreview() {
         showFolderDescription = true,
         scrollLongFolderDescription = true,
         folderIconStyle = BookmarkFolderIconStyle(),
+        selectedFolderPath = listOf(0),
     )
 }
 

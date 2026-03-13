@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ViewList
 import androidx.compose.material.icons.filled.Apps
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -33,6 +34,7 @@ fun HomeTopAppBar(
     isEditMode: Boolean,
     bookmarkDisplayType: BookmarkDisplayType,
     defaultBrowserIcon: Drawable?,
+    onSearchClick: () -> Unit,
     onBookmarkDisplayTypeClick: () -> Unit,
     onDefaultBrowserIconClick: () -> Unit,
     onSettingsClick: () -> Unit,
@@ -61,6 +63,12 @@ fun HomeTopAppBar(
                     }
                 }
             } else {
+                IconButton(onClick = onSearchClick) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = stringResource(R.string.bookmark_search_open),
+                    )
+                }
                 IconButton(onClick = onBookmarkDisplayTypeClick) {
                     Icon(
                         imageVector = when (bookmarkDisplayType) {
@@ -101,6 +109,7 @@ private fun HomeTopAppBarPreview() {
             isEditMode = false,
             bookmarkDisplayType = BookmarkDisplayType.LIST,
             defaultBrowserIcon = null,
+            onSearchClick = {},
             onBookmarkDisplayTypeClick = {},
             onDefaultBrowserIconClick = {},
             onSettingsClick = {},
