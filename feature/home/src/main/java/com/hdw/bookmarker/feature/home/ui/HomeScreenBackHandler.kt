@@ -24,7 +24,10 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
                 uiState.pendingEditBookmarkItem.value = null
             }
 
-            uiState.showAddBookmarkDialog.value -> uiState.showAddBookmarkDialog.value = false
+            uiState.showAddBookmarkDialog.value -> {
+                uiState.showAddBookmarkDialog.value = false
+                uiState.addBookmarkToInbox.value = false
+            }
 
             uiState.showAddFolderDialog.value -> uiState.showAddFolderDialog.value = false
 

@@ -26,6 +26,7 @@ import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeState
+import com.hdw.bookmarker.feature.home.contract.QuickSaveBookmarkSeed
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchItemType
 import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchResult
@@ -41,6 +42,9 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 fun HomeScreen(
     state: HomeState,
     enableLargeScreenSidePreview: Boolean,
+    pendingQuickSaveRequestToken: Long? = null,
+    pendingQuickSaveRequest: QuickSaveBookmarkSeed? = null,
+    onQuickSaveRequestHandled: () -> Unit = {},
     onSettingsClick: () -> Unit,
     onOpenBookmark: (String, String?) -> Boolean,
     onOpenBookmarkImportGuide: () -> Unit,
@@ -71,6 +75,9 @@ fun HomeScreen(
     var pendingFolderDescription by uiState.pendingFolderDescription
     var pendingBookmarkTitle by uiState.pendingBookmarkTitle
     var pendingBookmarkUrl by uiState.pendingBookmarkUrl
+    var pendingBookmarkNote by uiState.pendingBookmarkNote
+    var pendingBookmarkTags by uiState.pendingBookmarkTags
+    var addBookmarkToInbox by uiState.addBookmarkToInbox
     var pendingDeleteSnapshotId by uiState.pendingDeleteSnapshotId
     var pendingRenameSnapshotId by uiState.pendingRenameSnapshotId
     var pendingSnapshotTitle by uiState.pendingSnapshotTitle
@@ -81,6 +88,8 @@ fun HomeScreen(
     var pendingEditBookmarkItem by uiState.pendingEditBookmarkItem
     var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
+    var pendingEditBookmarkNote by uiState.pendingEditBookmarkNote
+    var pendingEditBookmarkTags by uiState.pendingEditBookmarkTags
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
     val orderedSnapshotIds = state.orderedSnapshotIds
     val context = LocalContext.current
@@ -118,6 +127,18 @@ fun HomeScreen(
     val dismissSearchDialog = {
         showSearchDialog = false
         searchQuery = ""
+    }
+
+    LaunchedEffect(pendingQuickSaveRequestToken) {
+        val quickSaveRequest = pendingQuickSaveRequest ?: return@LaunchedEffect
+        if (pendingQuickSaveRequestToken == null) return@LaunchedEffect
+        pendingBookmarkTitle = quickSaveRequest.title
+        pendingBookmarkUrl = quickSaveRequest.url
+        pendingBookmarkNote = quickSaveRequest.note
+        pendingBookmarkTags = quickSaveRequest.tags.joinToString(separator = ", ")
+        addBookmarkToInbox = true
+        showAddBookmarkDialog = true
+        onQuickSaveRequestHandled()
     }
 
     val onSearchResultClick: (BookmarkSearchResult) -> Unit = { result ->
@@ -219,6 +240,10 @@ fun HomeScreen(
                         is BookmarkItem.Bookmark -> item.title
                     }
                     pendingEditBookmarkUrl = (item as? BookmarkItem.Bookmark)?.url.orEmpty()
+                    pendingEditBookmarkNote = (item as? BookmarkItem.Bookmark)?.note.orEmpty()
+                    pendingEditBookmarkTags = (item as? BookmarkItem.Bookmark)?.tags
+                        ?.joinToString(separator = ", ")
+                        .orEmpty()
                     pendingEditBookmarkDescription = (item as? BookmarkItem.Folder)?.description.orEmpty()
                 },
                 onSelectedFolderPathChange = onSelectedFolderPathChange,
@@ -268,6 +293,9 @@ internal class HomeScreenUiState(
     val pendingFolderDescription: MutableState<String>,
     val pendingBookmarkTitle: MutableState<String>,
     val pendingBookmarkUrl: MutableState<String>,
+    val pendingBookmarkNote: MutableState<String>,
+    val pendingBookmarkTags: MutableState<String>,
+    val addBookmarkToInbox: MutableState<Boolean>,
     val pendingDeleteSnapshotId: MutableState<String?>,
     val pendingRenameSnapshotId: MutableState<String?>,
     val pendingSnapshotTitle: MutableState<String>,
@@ -278,6 +306,8 @@ internal class HomeScreenUiState(
     val pendingEditBookmarkItem: MutableState<BookmarkItem?>,
     val pendingEditBookmarkTitle: MutableState<String>,
     val pendingEditBookmarkUrl: MutableState<String>,
+    val pendingEditBookmarkNote: MutableState<String>,
+    val pendingEditBookmarkTags: MutableState<String>,
     val pendingEditBookmarkDescription: MutableState<String>,
     val previewPaneState: BookmarkPreviewPaneState,
 )
@@ -297,6 +327,9 @@ private fun rememberHomeScreenUiState(): HomeScreenUiState = HomeScreenUiState(
     pendingFolderDescription = rememberSaveable { mutableStateOf("") },
     pendingBookmarkTitle = rememberSaveable { mutableStateOf("") },
     pendingBookmarkUrl = rememberSaveable { mutableStateOf("") },
+    pendingBookmarkNote = rememberSaveable { mutableStateOf("") },
+    pendingBookmarkTags = rememberSaveable { mutableStateOf("") },
+    addBookmarkToInbox = rememberSaveable { mutableStateOf(false) },
     pendingDeleteSnapshotId = rememberSaveable { mutableStateOf<String?>(null) },
     pendingRenameSnapshotId = rememberSaveable { mutableStateOf<String?>(null) },
     pendingSnapshotTitle = rememberSaveable { mutableStateOf("") },
@@ -307,6 +340,8 @@ private fun rememberHomeScreenUiState(): HomeScreenUiState = HomeScreenUiState(
     pendingEditBookmarkItem = remember { mutableStateOf<BookmarkItem?>(null) },
     pendingEditBookmarkTitle = rememberSaveable { mutableStateOf("") },
     pendingEditBookmarkUrl = rememberSaveable { mutableStateOf("") },
+    pendingEditBookmarkNote = rememberSaveable { mutableStateOf("") },
+    pendingEditBookmarkTags = rememberSaveable { mutableStateOf("") },
     pendingEditBookmarkDescription = rememberSaveable { mutableStateOf("") },
     previewPaneState = rememberBookmarkPreviewPaneState(),
 )
@@ -320,6 +355,9 @@ private fun HomeScreenPreview() {
             bookmarkDisplayType = BookmarkDisplayType.LIST,
         ),
         enableLargeScreenSidePreview = false,
+        pendingQuickSaveRequestToken = null,
+        pendingQuickSaveRequest = null,
+        onQuickSaveRequestHandled = {},
         onSettingsClick = {},
         onOpenBookmark = { _, _ -> true },
         onOpenBookmarkImportGuide = {},

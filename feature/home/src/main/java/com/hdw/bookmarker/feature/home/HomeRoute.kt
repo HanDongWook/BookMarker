@@ -19,6 +19,7 @@ import com.hdw.bookmarker.core.model.browser.BookmarkOpenRequest
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
+import com.hdw.bookmarker.feature.home.contract.QuickSaveBookmarkSeed
 import com.hdw.bookmarker.feature.home.ui.HomeScreen
 import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportAction
 import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportFormat
@@ -88,6 +89,9 @@ fun HomeRoute(
     onSettingsClick: () -> Unit,
     onOpenBookmark: (BookmarkOpenRequest) -> Boolean,
     onOpenBookmarkImportGuide: () -> Unit,
+    pendingQuickSaveRequestToken: Long? = null,
+    pendingQuickSaveRequest: QuickSaveBookmarkSeed? = null,
+    onQuickSaveRequestHandled: () -> Unit = {},
     pendingImportHtmlRequestToken: Long? = null,
     onImportHtmlRequestHandled: () -> Unit = {},
 ) {
@@ -194,6 +198,9 @@ fun HomeRoute(
     HomeScreen(
         state = state,
         enableLargeScreenSidePreview = shouldOpenBookmarkSidePreview,
+        pendingQuickSaveRequestToken = pendingQuickSaveRequestToken,
+        pendingQuickSaveRequest = pendingQuickSaveRequest,
+        onQuickSaveRequestHandled = onQuickSaveRequestHandled,
         onSettingsClick = onSettingsClick,
         onOpenBookmark = { url, preferredBrowserPackage ->
             onOpenBookmark(
