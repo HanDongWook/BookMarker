@@ -197,7 +197,7 @@ private fun BookmarkFolderRow(
                                 Modifier.basicMarquee()
                             } else {
                                 Modifier
-                            }
+                            },
                         ),
                 )
             }

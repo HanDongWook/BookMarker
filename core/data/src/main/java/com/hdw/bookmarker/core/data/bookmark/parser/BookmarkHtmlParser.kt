@@ -67,8 +67,9 @@ class BookmarkHtmlParser {
                             ?.takeIf { it.tagName().equals(HtmlTag.DEFINITION_LIST, ignoreCase = true) }
                     }
 
-                    else -> nextSibling
-                        ?.takeIf { it.tagName().equals(HtmlTag.DEFINITION_LIST, ignoreCase = true) }
+                    else ->
+                        nextSibling
+                            ?.takeIf { it.tagName().equals(HtmlTag.DEFINITION_LIST, ignoreCase = true) }
                 }
                 ?: node.nextElementSiblings()
                     .firstOrNull { it.tagName().equals(HtmlTag.DEFINITION_LIST, ignoreCase = true) }
