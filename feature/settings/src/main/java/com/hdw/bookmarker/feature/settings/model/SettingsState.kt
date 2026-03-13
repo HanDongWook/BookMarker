@@ -10,6 +10,7 @@ data class SettingsState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
     val selectedBrowserPackage: String? = null,
     val selectedThemeMode: String? = null,
+    val bookmarkDisplayType: String? = null,
     val folderIconStyle: BookmarkFolderIconStyle = BookmarkFolderIconStyle(),
     val appUpdateUiState: AppUpdateUiState = AppUpdateUiState.Checking,
     val updateLaunchRequestId: Long = 0L,
