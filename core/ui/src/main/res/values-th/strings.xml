@@ -142,6 +142,8 @@
     <string name="export_current_bookmarks_saved">บันทึกการส่งออกแล้ว</string>
     <string name="export_current_bookmarks_save_failed">บันทึกการส่งออกไม่สำเร็จ</string>
     <string name="export_bookmark_method_title">ส่งออก</string>
+    <string name="export_bookmark_method_share_section">แชร์</string>
+    <string name="export_bookmark_method_save_section">บันทึก</string>
     <string name="export_bookmark_method_share_text">แชร์เป็นข้อความ</string>
     <string name="export_bookmark_method_share_html">แชร์เป็น HTML</string>
     <string name="export_bookmark_method_save_text">บันทึกไฟล์ข้อความ</string>

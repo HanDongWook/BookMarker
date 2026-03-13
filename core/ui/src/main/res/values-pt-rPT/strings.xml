@@ -142,6 +142,8 @@
     <string name="export_current_bookmarks_saved">Exportação guardada.</string>
     <string name="export_current_bookmarks_save_failed">Falha ao guardar a exportação.</string>
     <string name="export_bookmark_method_title">Exportar</string>
+    <string name="export_bookmark_method_share_section">Partilhar</string>
+    <string name="export_bookmark_method_save_section">Guardar</string>
     <string name="export_bookmark_method_share_text">Partilhar como texto</string>
     <string name="export_bookmark_method_share_html">Partilhar como HTML</string>
     <string name="export_bookmark_method_save_text">Guardar ficheiro de texto</string>

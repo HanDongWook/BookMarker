@@ -142,6 +142,8 @@
     <string name="export_current_bookmarks_saved">Экспорт сохранен.</string>
     <string name="export_current_bookmarks_save_failed">Не удалось сохранить экспорт.</string>
     <string name="export_bookmark_method_title">Экспорт</string>
+    <string name="export_bookmark_method_share_section">Поделиться</string>
+    <string name="export_bookmark_method_save_section">Сохранить</string>
     <string name="export_bookmark_method_share_text">Поделиться как текстом</string>
     <string name="export_bookmark_method_share_html">Поделиться как HTML</string>
     <string name="export_bookmark_method_save_text">Сохранить текстовый файл</string>
