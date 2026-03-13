@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">बुकमार्क रंग चुनें</string>
     <string name="bookmark_color_picker_dialog_close">बंद करें</string>
     <string name="folder_style_label">फ़ोल्डर शैली</string>
-    <string name="app_language_label">ऐप भाषा</string>
+    <string name="app_language_label">भाषा</string>
     <string name="app_language_system_default">सिस्टम डिफ़ॉल्ट</string>
     <string name="folder_shape_label">आकार</string>
     <string name="folder_color_label">रंग</string>

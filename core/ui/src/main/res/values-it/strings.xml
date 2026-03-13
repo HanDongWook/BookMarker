@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">Seleziona colore segnalibro</string>
     <string name="bookmark_color_picker_dialog_close">Chiudi</string>
     <string name="folder_style_label">Stile cartella</string>
-    <string name="app_language_label">Lingua dell’app</string>
+    <string name="app_language_label">Lingua</string>
     <string name="app_language_system_default">Predefinita di sistema</string>
     <string name="folder_shape_label">Forma</string>
     <string name="folder_color_label">Colore</string>

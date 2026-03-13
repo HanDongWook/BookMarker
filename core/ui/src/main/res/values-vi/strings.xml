@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">Chọn màu dấu trang</string>
     <string name="bookmark_color_picker_dialog_close">Đóng</string>
     <string name="folder_style_label">Kiểu thư mục</string>
-    <string name="app_language_label">Ngôn ngữ ứng dụng</string>
+    <string name="app_language_label">Ngôn ngữ</string>
     <string name="app_language_system_default">Mặc định hệ thống</string>
     <string name="folder_shape_label">Hình dạng</string>
     <string name="folder_color_label">Màu</string>
