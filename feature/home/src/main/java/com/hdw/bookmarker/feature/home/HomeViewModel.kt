@@ -26,6 +26,7 @@ import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
+import com.hdw.bookmarker.feature.home.editor.BookmarkTreeEditor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.orbitmvi.orbit.ContainerHost
@@ -46,6 +47,7 @@ class HomeViewModel @Inject constructor(
     private val clearBookmarkSnapshotUseCase: ClearBookmarkSnapshotUseCase,
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
+    private val bookmarkTreeEditor: BookmarkTreeEditor,
 ) : ViewModel(),
     ContainerHost<HomeState, HomeSideEffect> {
     override val container = container<HomeState, HomeSideEffect>(HomeState()) {
@@ -241,7 +243,10 @@ class HomeViewModel @Inject constructor(
 
         val currentSnapshotId = state.selectedBookmarkId ?: return@intent
         val currentDocument = state.bookmarkDocuments[currentSnapshotId] ?: return@intent
-        val updatedRootItems = removeItemByPath(currentDocument.rootItems, path) ?: return@intent
+        val updatedRootItems = bookmarkTreeEditor.removeItemByPath(
+            items = currentDocument.rootItems,
+            path = path,
+        ) ?: return@intent
         val sourceHash = getBookmarkSnapshotRawFileHashUseCase(currentSnapshotId).orEmpty()
 
         val savedSnapshotId = saveBookmarkSnapshotUseCase(
@@ -263,7 +268,7 @@ class HomeViewModel @Inject constructor(
 
         val currentSnapshotId = state.selectedBookmarkId ?: return@intent
         val currentDocument = state.bookmarkDocuments[currentSnapshotId] ?: return@intent
-        val updatedRootItems = updateItemByPath(
+        val updatedRootItems = bookmarkTreeEditor.updateItemByPath(
             items = currentDocument.rootItems,
             path = normalizedRequest.path,
             request = normalizedRequest,
@@ -310,7 +315,11 @@ class HomeViewModel @Inject constructor(
         val updatedRootItems = if (parentFolderPath.isNullOrEmpty()) {
             currentDocument.rootItems + item
         } else {
-            addItemToFolderByPath(currentDocument.rootItems, parentFolderPath, item)
+            bookmarkTreeEditor.addItemToFolderByPath(
+                items = currentDocument.rootItems,
+                path = parentFolderPath,
+                item = item,
+            )
                 ?: (currentDocument.rootItems + item)
         }
 
@@ -332,91 +341,6 @@ class HomeViewModel @Inject constructor(
     private fun normalizeUrl(url: String): String {
         val trimmedUrl = url.trim()
         return if (trimmedUrl.contains("://")) trimmedUrl else "https://$trimmedUrl"
-    }
-
-    private fun removeItemByPath(items: List<BookmarkItem>, path: List<Int>): List<BookmarkItem>? {
-        val targetIndex = path.firstOrNull() ?: return null
-        if (targetIndex !in items.indices) return null
-
-        if (path.size == 1) {
-            return items.toMutableList().apply { removeAt(targetIndex) }
-        }
-
-        val targetFolder = items[targetIndex] as? BookmarkItem.Folder ?: return null
-        val updatedChildren = removeItemByPath(targetFolder.children, path.drop(1)) ?: return null
-
-        return items.toMutableList().apply {
-            this[targetIndex] = targetFolder.copy(children = updatedChildren)
-        }
-    }
-
-    private fun addItemToFolderByPath(
-        items: List<BookmarkItem>,
-        path: List<Int>,
-        item: BookmarkItem,
-    ): List<BookmarkItem>? {
-        val targetIndex = path.firstOrNull() ?: return null
-        if (targetIndex !in items.indices) return null
-
-        val targetFolder = items[targetIndex] as? BookmarkItem.Folder ?: return null
-        val updatedFolder = if (path.size == 1) {
-            targetFolder.copy(children = targetFolder.children + item)
-        } else {
-            val updatedChildren = addItemToFolderByPath(targetFolder.children, path.drop(1), item) ?: return null
-            targetFolder.copy(children = updatedChildren)
-        }
-
-        return items.toMutableList().apply {
-            this[targetIndex] = updatedFolder
-        }
-    }
-
-    private fun updateItemByPath(
-        items: List<BookmarkItem>,
-        path: List<Int>,
-        request: UpdateBookmarkItemRequest,
-    ): List<BookmarkItem>? {
-        val targetIndex = path.firstOrNull() ?: return null
-        if (targetIndex !in items.indices) return null
-
-        if (path.size == 1) {
-            val now = currentEpochSecondsString()
-            val target = items[targetIndex]
-            val updatedItem = when {
-                target is BookmarkItem.Folder && request is UpdateBookmarkItemRequest.Folder -> target.copy(
-                    title = request.title,
-                    description = request.description.trim().takeIf { it.isNotBlank() },
-                    lastModified = now,
-                )
-
-                target is BookmarkItem.Bookmark && request is UpdateBookmarkItemRequest.Bookmark -> {
-                    val trimmedUrl = request.url.trim()
-                    if (trimmedUrl.isBlank()) return null
-                    target.copy(
-                        title = request.title,
-                        url = normalizeUrl(trimmedUrl),
-                        lastModified = now,
-                    )
-                }
-
-                else -> return null
-            }
-
-            return items.toMutableList().apply {
-                this[targetIndex] = updatedItem
-            }
-        }
-
-        val targetFolder = items[targetIndex] as? BookmarkItem.Folder ?: return null
-        val updatedChildren = updateItemByPath(
-            items = targetFolder.children,
-            path = path.drop(1),
-            request = request,
-        ) ?: return null
-
-        return items.toMutableList().apply {
-            this[targetIndex] = targetFolder.copy(children = updatedChildren)
-        }
     }
 
     private fun currentEpochSecondsString(): String = (System.currentTimeMillis() / 1000L).toString()
