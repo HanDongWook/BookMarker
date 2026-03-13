@@ -21,6 +21,9 @@ sealed interface SettingsNavRoute {
         data object Main : Appearance
 
         @Serializable
+        data object LargeScreen : Appearance
+
+        @Serializable
         data object Bookmark : Appearance
 
         @Serializable

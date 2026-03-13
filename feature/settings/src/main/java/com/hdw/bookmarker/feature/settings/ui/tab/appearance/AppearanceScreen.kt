@@ -49,6 +49,7 @@ fun AppearanceScreen(
     folderIconStyle: BookmarkFolderIconStyle,
     onBackClick: () -> Unit,
     onThemeModeSelect: (String) -> Unit,
+    onLargeScreenClick: () -> Unit,
     onFolderClick: () -> Unit,
     onBookmarkClick: () -> Unit,
 ) {
@@ -98,6 +99,12 @@ fun AppearanceScreen(
             AppLanguageRow(
                 languageTag = selectedLanguageTag,
                 onClick = { showAppLanguageDialog = true },
+            )
+            BookMarkerDivider()
+
+            SettingsRow(
+                title = stringResource(R.string.large_screen_label),
+                onClick = onLargeScreenClick,
             )
             BookMarkerDivider()
 
@@ -180,6 +187,7 @@ private fun AppearanceScreenPreview() {
         ),
         onBackClick = {},
         onThemeModeSelect = {},
+        onLargeScreenClick = {},
         onFolderClick = {},
         onBookmarkClick = {},
     )

@@ -8,6 +8,7 @@ import com.hdw.bookmarker.feature.settings.navigation.SettingsNavRoute
 import com.hdw.bookmarker.feature.settings.ui.tab.appearance.AppearanceScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.bookmark.BookmarkAppearanceScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.folder.FolderAppearanceScreen
+import com.hdw.bookmarker.feature.settings.ui.tab.largescreen.LargeScreenAppearanceScreen
 
 internal fun NavGraphBuilder.appearanceGraph(navController: NavHostController) {
     navigation<SettingsNavRoute.AppearanceGraph>(
@@ -23,12 +24,30 @@ internal fun NavGraphBuilder.appearanceGraph(navController: NavHostController) {
                     folderIconStyle = appearanceState.folderIconStyle,
                     onBackClick = { navController.popBackStack() },
                     onThemeModeSelect = appearanceViewModel::selectAppThemeMode,
+                    onLargeScreenClick = {
+                        navController.navigate(SettingsNavRoute.Appearance.LargeScreen)
+                    },
                     onFolderClick = {
                         navController.navigate(SettingsNavRoute.Appearance.Folder)
                     },
                     onBookmarkClick = {
                         navController.navigate(SettingsNavRoute.Appearance.Bookmark)
                     },
+                )
+            }
+        }
+
+        slideComposable<SettingsNavRoute.Appearance.LargeScreen> { entry ->
+            AppearanceGraphRoute(
+                navController = navController,
+                currentEntry = entry,
+            ) { appearanceState, appearanceViewModel ->
+                LargeScreenAppearanceScreen(
+                    openBookmarkSidePreviewOnLargeScreen =
+                    appearanceState.openBookmarkSidePreviewOnLargeScreen,
+                    onOpenBookmarkSidePreviewOnLargeScreenChange =
+                    appearanceViewModel::setOpenBookmarkSidePreviewOnLargeScreen,
+                    onBackClick = { navController.popBackStack() },
                 )
             }
         }
