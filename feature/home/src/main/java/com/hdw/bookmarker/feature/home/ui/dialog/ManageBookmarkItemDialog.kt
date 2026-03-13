@@ -19,9 +19,13 @@ fun ManageBookmarkItemDialog(
     item: BookmarkItem,
     title: String,
     url: String,
+    note: String,
+    tags: String,
     description: String,
     onTitleChange: (String) -> Unit,
     onUrlChange: (String) -> Unit,
+    onNoteChange: (String) -> Unit,
+    onTagsChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
     onDismiss: () -> Unit,
     onApply: () -> Unit,
@@ -60,6 +64,26 @@ fun ManageBookmarkItemDialog(
                             .fillMaxWidth()
                             .padding(top = 8.dp),
                         label = { Text(text = stringResource(R.string.bookmark_url)) },
+                    )
+                    OutlinedTextField(
+                        value = tags,
+                        onValueChange = onTagsChange,
+                        singleLine = true,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp),
+                        label = { Text(text = stringResource(R.string.bookmark_tags)) },
+                    )
+                    OutlinedTextField(
+                        value = note,
+                        onValueChange = onNoteChange,
+                        singleLine = false,
+                        minLines = 2,
+                        maxLines = 5,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp),
+                        label = { Text(text = stringResource(R.string.bookmark_note)) },
                     )
                 } else {
                     OutlinedTextField(
@@ -102,9 +126,13 @@ private fun ManageFolderDialogPreview() {
         ),
         title = "개발",
         url = "",
+        note = "",
+        tags = "",
         description = "개발 관련 링크 모음",
         onTitleChange = {},
         onUrlChange = {},
+        onNoteChange = {},
+        onTagsChange = {},
         onDescriptionChange = {},
         onDismiss = {},
         onApply = {},
@@ -125,9 +153,13 @@ private fun ManageBookmarkDialogPreview() {
         ),
         title = "OpenAI",
         url = "https://openai.com",
+        note = "LLM docs",
+        tags = "ai, docs",
         description = "",
         onTitleChange = {},
         onUrlChange = {},
+        onNoteChange = {},
+        onTagsChange = {},
         onDescriptionChange = {},
         onDismiss = {},
         onApply = {},

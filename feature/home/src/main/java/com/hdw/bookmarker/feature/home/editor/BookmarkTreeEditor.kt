@@ -66,6 +66,8 @@ class BookmarkTreeEditor @Inject constructor() {
                     target.copy(
                         title = request.title,
                         url = normalizeUrl(trimmedUrl),
+                        note = request.note.trim().takeIf { it.isNotBlank() },
+                        tags = normalizeTags(request.tags),
                         lastModified = now,
                     )
                 }
@@ -94,6 +96,11 @@ class BookmarkTreeEditor @Inject constructor() {
         val trimmedUrl = url.trim()
         return if (trimmedUrl.contains("://")) trimmedUrl else "https://$trimmedUrl"
     }
+
+    private fun normalizeTags(tags: List<String>): List<String> = tags
+        .map(String::trim)
+        .filter(String::isNotBlank)
+        .distinct()
 
     private fun currentEpochSecondsString(): String = (System.currentTimeMillis() / 1000L).toString()
 }

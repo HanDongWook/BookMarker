@@ -14,6 +14,12 @@ import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportFormat
 import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportMethod
 import com.hdw.bookmarker.feature.home.ui.export.ExportBookmarkMethodDialog
 
+private fun parseBookmarkTags(rawValue: String): List<String> = rawValue
+    .split(",")
+    .map(String::trim)
+    .filter(String::isNotBlank)
+    .distinct()
+
 @Composable
 internal fun HomeDialogHost(
     state: HomeState,
@@ -42,6 +48,9 @@ internal fun HomeDialogHost(
     var pendingFolderDescription by uiState.pendingFolderDescription
     var pendingBookmarkTitle by uiState.pendingBookmarkTitle
     var pendingBookmarkUrl by uiState.pendingBookmarkUrl
+    var pendingBookmarkNote by uiState.pendingBookmarkNote
+    var pendingBookmarkTags by uiState.pendingBookmarkTags
+    var addBookmarkToInbox by uiState.addBookmarkToInbox
     var pendingDeleteSnapshotId by uiState.pendingDeleteSnapshotId
     var pendingRenameSnapshotId by uiState.pendingRenameSnapshotId
     var pendingSnapshotTitle by uiState.pendingSnapshotTitle
@@ -50,6 +59,8 @@ internal fun HomeDialogHost(
     var pendingEditBookmarkItem by uiState.pendingEditBookmarkItem
     var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
+    var pendingEditBookmarkNote by uiState.pendingEditBookmarkNote
+    var pendingEditBookmarkTags by uiState.pendingEditBookmarkTags
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
 
     if (showColorPickerDialog && selectedBookmarkId != null) {
@@ -120,9 +131,13 @@ internal fun HomeDialogHost(
             item = editingItem,
             title = pendingEditBookmarkTitle,
             url = pendingEditBookmarkUrl,
+            note = pendingEditBookmarkNote,
+            tags = pendingEditBookmarkTags,
             description = pendingEditBookmarkDescription,
             onTitleChange = { pendingEditBookmarkTitle = it },
             onUrlChange = { pendingEditBookmarkUrl = it },
+            onNoteChange = { pendingEditBookmarkNote = it },
+            onTagsChange = { pendingEditBookmarkTags = it },
             onDescriptionChange = { pendingEditBookmarkDescription = it },
             onDismiss = {
                 pendingEditBookmarkItemPath = null
@@ -135,6 +150,8 @@ internal fun HomeDialogHost(
                         path = path,
                         title = pendingEditBookmarkTitle,
                         url = pendingEditBookmarkUrl,
+                        note = pendingEditBookmarkNote,
+                        tags = parseBookmarkTags(pendingEditBookmarkTags),
                     )
 
                     is BookmarkItem.Folder -> UpdateBookmarkItemRequest.Folder(
@@ -178,6 +195,9 @@ internal fun HomeDialogHost(
                 showAddItemTypeDialog = false
                 pendingBookmarkTitle = ""
                 pendingBookmarkUrl = ""
+                pendingBookmarkNote = ""
+                pendingBookmarkTags = ""
+                addBookmarkToInbox = false
                 showAddBookmarkDialog = true
             },
         )
@@ -241,18 +261,30 @@ internal fun HomeDialogHost(
         AddBookmarkDialog(
             bookmarkTitle = pendingBookmarkTitle,
             bookmarkUrl = pendingBookmarkUrl,
+            bookmarkNote = pendingBookmarkNote,
+            bookmarkTags = pendingBookmarkTags,
+            saveToInbox = addBookmarkToInbox,
             onBookmarkTitleChange = { pendingBookmarkTitle = it },
             onBookmarkUrlChange = { pendingBookmarkUrl = it },
-            onDismiss = { showAddBookmarkDialog = false },
+            onBookmarkNoteChange = { pendingBookmarkNote = it },
+            onBookmarkTagsChange = { pendingBookmarkTags = it },
+            onDismiss = {
+                showAddBookmarkDialog = false
+                addBookmarkToInbox = false
+            },
             onConfirm = {
                 onAddBookmarkItem(
                     AddBookmarkItemRequest.Bookmark(
-                        parentFolderPath = selectedFolderPath,
+                        parentFolderPath = selectedFolderPath.takeUnless { addBookmarkToInbox },
                         title = pendingBookmarkTitle,
                         url = pendingBookmarkUrl,
+                        note = pendingBookmarkNote,
+                        tags = parseBookmarkTags(pendingBookmarkTags),
+                        saveToInbox = addBookmarkToInbox,
                     ),
                 )
                 showAddBookmarkDialog = false
+                addBookmarkToInbox = false
             },
         )
     }
