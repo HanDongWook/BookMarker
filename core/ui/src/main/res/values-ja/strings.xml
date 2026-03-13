@@ -167,4 +167,5 @@
     <string name="bookmark_display_type_list">リスト</string>
     <string name="bookmark_display_type_icon">アイコン</string>
     <string name="bookmark_show_url_label">URLを表示</string>
+    <string name="bookmark_scroll_long_url_label">長いURLをスクロール</string>
 </resources>

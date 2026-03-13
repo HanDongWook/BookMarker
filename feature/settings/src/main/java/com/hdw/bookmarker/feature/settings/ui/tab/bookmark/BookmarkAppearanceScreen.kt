@@ -23,7 +23,9 @@ import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookmarkAppearanceScreen(
+    scrollLongBookmarkUrl: Boolean,
     showBookmarkUrl: Boolean,
+    onScrollLongBookmarkUrlChange: (Boolean) -> Unit,
     onShowBookmarkUrlChange: (Boolean) -> Unit,
     onBackClick: () -> Unit,
 ) {
@@ -59,6 +61,17 @@ fun BookmarkAppearanceScreen(
                 },
             )
             BookMarkerDivider()
+            SettingsRow(
+                title = stringResource(R.string.bookmark_scroll_long_url_label),
+                onClick = { onScrollLongBookmarkUrlChange(!scrollLongBookmarkUrl) },
+                trailingContent = {
+                    Switch(
+                        checked = scrollLongBookmarkUrl,
+                        onCheckedChange = onScrollLongBookmarkUrlChange,
+                    )
+                },
+            )
+            BookMarkerDivider()
         }
     }
 }
@@ -67,7 +80,9 @@ fun BookmarkAppearanceScreen(
 @Composable
 private fun BookmarkAppearanceScreenPreview() {
     BookmarkAppearanceScreen(
+        scrollLongBookmarkUrl = true,
         showBookmarkUrl = true,
+        onScrollLongBookmarkUrlChange = {},
         onShowBookmarkUrlChange = {},
         onBackClick = {},
     )

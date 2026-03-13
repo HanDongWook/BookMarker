@@ -14,6 +14,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
@@ -22,6 +23,7 @@ import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetShowBookmarkUrlUseCase
 import dagger.Module
 import dagger.Provides
@@ -112,8 +114,20 @@ object DomainModule {
 
     @Provides
     @Singleton
+    fun provideGetScrollLongBookmarkUrlUseCase(
+        settingsRepository: SettingsRepository,
+    ): GetScrollLongBookmarkUrlUseCase = GetScrollLongBookmarkUrlUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
     fun provideSetShowBookmarkUrlUseCase(settingsRepository: SettingsRepository): SetShowBookmarkUrlUseCase =
         SetShowBookmarkUrlUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetScrollLongBookmarkUrlUseCase(
+        settingsRepository: SettingsRepository,
+    ): SetScrollLongBookmarkUrlUseCase = SetScrollLongBookmarkUrlUseCase(settingsRepository)
 
     @Provides
     @Singleton

@@ -15,6 +15,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
@@ -54,6 +55,7 @@ class HomeViewModel @Inject constructor(
     private val getDefaultBrowserPackageUseCase: GetDefaultBrowserPackageUseCase,
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
+    private val getScrollLongBookmarkUrlUseCase: GetScrollLongBookmarkUrlUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
     private val getShowBookmarkUrlUseCase: GetShowBookmarkUrlUseCase,
     private val getBookmarkFolderIconStyleUseCase: GetBookmarkFolderIconStyleUseCase,
@@ -64,6 +66,7 @@ class HomeViewModel @Inject constructor(
     private var isObservingColors = false
     private var isObservingDefaultBrowser = false
     private var isObservingBookmarkDisplayType = false
+    private var isObservingScrollLongBookmarkUrl = false
     private var isObservingShowBookmarkUrl = false
     private var isObservingFolderIconStyle = false
 
@@ -73,6 +76,7 @@ class HomeViewModel @Inject constructor(
         observeBookmarkColors()
         observeDefaultBrowserPackage()
         observeBookmarkDisplayType()
+        observeScrollLongBookmarkUrl()
         observeShowBookmarkUrl()
         observeFolderIconStyle()
         loadInstalledBrowsers()
@@ -501,6 +505,16 @@ class HomeViewModel @Inject constructor(
         getBookmarkFolderIconStyleUseCase().collect { style ->
             reduce {
                 state.copy(folderIconStyle = style)
+            }
+        }
+    }
+
+    private fun observeScrollLongBookmarkUrl() = intent {
+        if (isObservingScrollLongBookmarkUrl) return@intent
+        isObservingScrollLongBookmarkUrl = true
+        getScrollLongBookmarkUrlUseCase().collect { scrollLongBookmarkUrl ->
+            reduce {
+                state.copy(scrollLongBookmarkUrl = scrollLongBookmarkUrl)
             }
         }
     }

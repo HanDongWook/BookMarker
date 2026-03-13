@@ -13,6 +13,7 @@ data class HomeState(
     val selectedFolderPaths: SnapshotFolderPathState = SnapshotFolderPathState(),
     val defaultBrowserPackage: String? = null,
     val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
+    val scrollLongBookmarkUrl: Boolean = true,
     val showBookmarkUrl: Boolean = true,
     val folderIconStyle: BookmarkFolderIconStyle = BookmarkFolderIconStyle(),
     val isImporting: Boolean = false,

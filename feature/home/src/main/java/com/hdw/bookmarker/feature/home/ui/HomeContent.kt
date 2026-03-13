@@ -123,6 +123,7 @@ internal fun HomeContent(
                             modifier = Modifier.fillMaxSize(),
                             bookmarkDocument = bookmarkDocument,
                             displayType = state.bookmarkDisplayType,
+                            scrollLongBookmarkUrl = state.scrollLongBookmarkUrl,
                             showBookmarkUrl = state.showBookmarkUrl,
                             folderIconStyle = state.folderIconStyle,
                             onBookmarkClick = onBookmarkClick,
@@ -183,6 +184,7 @@ private fun HomeContentPreview() {
         state = HomeState(
             orderedSnapshotIds = emptyList(),
             bookmarkDisplayType = BookmarkDisplayType.LIST,
+            scrollLongBookmarkUrl = true,
             showBookmarkUrl = true,
         ),
         orderedSnapshotIds = emptyList(),
