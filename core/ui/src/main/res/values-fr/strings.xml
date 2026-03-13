@@ -138,8 +138,8 @@
     <string name="folder_style_title">Style de dossier</string>
     <string name="app_language_label">Langue de l’application</string>
     <string name="app_language_system_default">Par défaut du système</string>
-    <string name="folder_shape_label">Forme du dossier</string>
-    <string name="folder_color_label">Couleur du dossier</string>
+    <string name="folder_shape_label">Forme</string>
+    <string name="folder_color_label">Couleur</string>
     <string name="folder_shape_filled">Plein</string>
     <string name="folder_shape_outlined">Contour</string>
     <string name="folder_color_default">Par défaut</string>

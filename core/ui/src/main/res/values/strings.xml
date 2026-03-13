@@ -154,8 +154,8 @@
     <string name="folder_style_title">Folder style</string>
     <string name="app_language_label">App language</string>
     <string name="app_language_system_default">System default</string>
-    <string name="folder_shape_label">Folder shape</string>
-    <string name="folder_color_label">Folder color</string>
+    <string name="folder_shape_label">Shape</string>
+    <string name="folder_color_label">Color</string>
     <string name="folder_shape_filled">Filled</string>
     <string name="folder_shape_outlined">Outlined</string>
     <string name="folder_color_default">Default</string>
