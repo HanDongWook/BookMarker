@@ -118,7 +118,6 @@
     <string name="delete_bookmark_item_dialog_message">Vuoi eliminare la cartella o il segnalibro selezionato?</string>
     <string name="delete_bookmark_item_dialog_confirm">Elimina</string>
     <string name="delete_bookmark_item_dialog_cancel">Annulla</string>
-    <string name="import_option_dialog_pick_file">Importa segnalibri da HTML</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Aggiungi elemento segnalibro vuoto</string>
     <string name="bookmark_color_picker_dialog_title">Seleziona colore segnalibro</string>
     <string name="bookmark_color_picker_dialog_close">Chiudi</string>
