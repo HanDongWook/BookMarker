@@ -138,8 +138,8 @@
     <string name="folder_style_title">Стиль папки</string>
     <string name="app_language_label">Язык приложения</string>
     <string name="app_language_system_default">Системный по умолчанию</string>
-    <string name="folder_shape_label">Форма папки</string>
-    <string name="folder_color_label">Цвет папки</string>
+    <string name="folder_shape_label">Форма</string>
+    <string name="folder_color_label">Цвет</string>
     <string name="folder_shape_filled">Заполненная</string>
     <string name="folder_shape_outlined">Контурная</string>
     <string name="folder_color_default">По умолчанию</string>

@@ -138,8 +138,8 @@
     <string name="folder_style_title">Kiểu thư mục</string>
     <string name="app_language_label">Ngôn ngữ ứng dụng</string>
     <string name="app_language_system_default">Mặc định hệ thống</string>
-    <string name="folder_shape_label">Hình dạng thư mục</string>
-    <string name="folder_color_label">Màu thư mục</string>
+    <string name="folder_shape_label">Hình dạng</string>
+    <string name="folder_color_label">Màu</string>
     <string name="folder_shape_filled">Đổ đầy</string>
     <string name="folder_shape_outlined">Viền</string>
     <string name="folder_color_default">Mặc định</string>

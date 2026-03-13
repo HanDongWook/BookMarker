@@ -138,8 +138,8 @@
     <string name="folder_style_title">Estilo de carpeta</string>
     <string name="app_language_label">Idioma de la app</string>
     <string name="app_language_system_default">Predeterminado del sistema</string>
-    <string name="folder_shape_label">Forma de carpeta</string>
-    <string name="folder_color_label">Color de carpeta</string>
+    <string name="folder_shape_label">Forma</string>
+    <string name="folder_color_label">Color</string>
     <string name="folder_shape_filled">Relleno</string>
     <string name="folder_shape_outlined">Contorno</string>
     <string name="folder_color_default">Predeterminado</string>

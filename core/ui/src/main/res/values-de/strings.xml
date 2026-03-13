@@ -138,8 +138,8 @@
     <string name="folder_style_title">Ordnerstil</string>
     <string name="app_language_label">App-Sprache</string>
     <string name="app_language_system_default">Systemstandard</string>
-    <string name="folder_shape_label">Ordnerform</string>
-    <string name="folder_color_label">Ordnerfarbe</string>
+    <string name="folder_shape_label">Form</string>
+    <string name="folder_color_label">Farbe</string>
     <string name="folder_shape_filled">Gefüllt</string>
     <string name="folder_shape_outlined">Umriss</string>
     <string name="folder_color_default">Standard</string>
