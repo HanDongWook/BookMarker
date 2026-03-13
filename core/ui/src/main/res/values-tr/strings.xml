@@ -166,4 +166,5 @@
     <string name="bookmark_display_mode_label">Görüntüleme modu</string>
     <string name="bookmark_display_type_list">Liste</string>
     <string name="bookmark_display_type_icon">Simge</string>
+    <string name="bookmark_show_url_label">URL’yi göster</string>
 </resources>

@@ -14,6 +14,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
@@ -21,6 +22,7 @@ import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetShowBookmarkUrlUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -102,6 +104,16 @@ object DomainModule {
     @Singleton
     fun provideSetBookmarkDisplayTypeUseCase(settingsRepository: SettingsRepository): SetBookmarkDisplayTypeUseCase =
         SetBookmarkDisplayTypeUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetShowBookmarkUrlUseCase(settingsRepository: SettingsRepository): GetShowBookmarkUrlUseCase =
+        GetShowBookmarkUrlUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetShowBookmarkUrlUseCase(settingsRepository: SettingsRepository): SetShowBookmarkUrlUseCase =
+        SetShowBookmarkUrlUseCase(settingsRepository)
 
     @Provides
     @Singleton

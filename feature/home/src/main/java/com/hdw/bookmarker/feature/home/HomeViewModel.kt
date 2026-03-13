@@ -15,6 +15,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
@@ -54,6 +55,7 @@ class HomeViewModel @Inject constructor(
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
+    private val getShowBookmarkUrlUseCase: GetShowBookmarkUrlUseCase,
     private val getBookmarkFolderIconStyleUseCase: GetBookmarkFolderIconStyleUseCase,
 ) : ViewModel(),
     ContainerHost<HomeState, HomeSideEffect> {
@@ -62,6 +64,7 @@ class HomeViewModel @Inject constructor(
     private var isObservingColors = false
     private var isObservingDefaultBrowser = false
     private var isObservingBookmarkDisplayType = false
+    private var isObservingShowBookmarkUrl = false
     private var isObservingFolderIconStyle = false
 
     override val container = container<HomeState, HomeSideEffect>(HomeState()) {
@@ -70,6 +73,7 @@ class HomeViewModel @Inject constructor(
         observeBookmarkColors()
         observeDefaultBrowserPackage()
         observeBookmarkDisplayType()
+        observeShowBookmarkUrl()
         observeFolderIconStyle()
         loadInstalledBrowsers()
     }
@@ -497,6 +501,16 @@ class HomeViewModel @Inject constructor(
         getBookmarkFolderIconStyleUseCase().collect { style ->
             reduce {
                 state.copy(folderIconStyle = style)
+            }
+        }
+    }
+
+    private fun observeShowBookmarkUrl() = intent {
+        if (isObservingShowBookmarkUrl) return@intent
+        isObservingShowBookmarkUrl = true
+        getShowBookmarkUrlUseCase().collect { showBookmarkUrl ->
+            reduce {
+                state.copy(showBookmarkUrl = showBookmarkUrl)
             }
         }
     }
