@@ -8,6 +8,7 @@ import com.hdw.bookmarker.core.domain.usecase.ObserveAppearanceSettingsUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetOpenBookmarkSidePreviewOnLargeScreenUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetShowBookmarkUrlUseCase
@@ -27,6 +28,7 @@ class AppearanceViewModel @AssistedInject constructor(
     private val setAppThemeModeUseCase: SetAppThemeModeUseCase,
     private val setScrollLongBookmarkUrlUseCase: SetScrollLongBookmarkUrlUseCase,
     private val setShowBookmarkUrlUseCase: SetShowBookmarkUrlUseCase,
+    private val setOpenBookmarkSidePreviewOnLargeScreenUseCase: SetOpenBookmarkSidePreviewOnLargeScreenUseCase,
     private val setScrollLongFolderDescriptionUseCase: SetScrollLongFolderDescriptionUseCase,
     private val setShowFolderDescriptionUseCase: SetShowFolderDescriptionUseCase,
     private val setBookmarkFolderIconShapeUseCase: SetBookmarkFolderIconShapeUseCase,
@@ -54,6 +56,13 @@ class AppearanceViewModel @AssistedInject constructor(
         setState { copy(scrollLongBookmarkUrl = enabled) }
         viewModelScope.launch {
             setScrollLongBookmarkUrlUseCase(enabled)
+        }
+    }
+
+    fun setOpenBookmarkSidePreviewOnLargeScreen(enabled: Boolean) {
+        setState { copy(openBookmarkSidePreviewOnLargeScreen = enabled) }
+        viewModelScope.launch {
+            setOpenBookmarkSidePreviewOnLargeScreenUseCase(enabled)
         }
     }
 
@@ -93,6 +102,8 @@ class AppearanceViewModel @AssistedInject constructor(
                         selectedThemeMode = appearanceSettings.selectedThemeMode,
                         showBookmarkUrl = appearanceSettings.showBookmarkUrl,
                         scrollLongBookmarkUrl = appearanceSettings.scrollLongBookmarkUrl,
+                        openBookmarkSidePreviewOnLargeScreen =
+                        appearanceSettings.openBookmarkSidePreviewOnLargeScreen,
                         showFolderDescription = appearanceSettings.showFolderDescription,
                         scrollLongFolderDescription = appearanceSettings.scrollLongFolderDescription,
                         folderIconStyle = appearanceSettings.folderIconStyle,
