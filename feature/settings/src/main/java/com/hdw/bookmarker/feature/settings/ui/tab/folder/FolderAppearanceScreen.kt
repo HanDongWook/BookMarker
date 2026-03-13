@@ -13,6 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -41,9 +42,13 @@ import com.hdw.bookmarker.feature.settings.ui.tab.folder.shape.FolderShapeDialog
 @Composable
 fun FolderAppearanceScreen(
     selectedFolderIconStyle: BookmarkFolderIconStyle,
+    showFolderDescription: Boolean,
+    scrollLongFolderDescription: Boolean,
     onBackClick: () -> Unit,
     onShapeSelect: (BookmarkFolderIconShape) -> Unit,
     onColorSelect: (BookmarkFolderIconColor) -> Unit,
+    onShowFolderDescriptionChange: (Boolean) -> Unit,
+    onScrollLongFolderDescriptionChange: (Boolean) -> Unit,
 ) {
     var showShapeDialog by rememberSaveable { mutableStateOf(false) }
     var showColorDialog by rememberSaveable { mutableStateOf(false) }
@@ -93,6 +98,28 @@ fun FolderAppearanceScreen(
                 trailingContent = {
                     FolderSettingValue(
                         text = selectedFolderIconStyle.color.label(),
+                    )
+                },
+            )
+            BookMarkerDivider()
+            SettingsRow(
+                title = stringResource(R.string.folder_show_description_label),
+                onClick = { onShowFolderDescriptionChange(!showFolderDescription) },
+                trailingContent = {
+                    Switch(
+                        checked = showFolderDescription,
+                        onCheckedChange = onShowFolderDescriptionChange,
+                    )
+                },
+            )
+            BookMarkerDivider()
+            SettingsRow(
+                title = stringResource(R.string.folder_scroll_long_description_label),
+                onClick = { onScrollLongFolderDescriptionChange(!scrollLongFolderDescription) },
+                trailingContent = {
+                    Switch(
+                        checked = scrollLongFolderDescription,
+                        onCheckedChange = onScrollLongFolderDescriptionChange,
                     )
                 },
             )
@@ -149,8 +176,12 @@ private fun FolderAppearanceScreenPreview() {
             shape = BookmarkFolderIconShape.FILLED,
             color = BookmarkFolderIconColor.DEFAULT,
         ),
+        showFolderDescription = true,
+        scrollLongFolderDescription = true,
         onBackClick = {},
         onShapeSelect = {},
         onColorSelect = {},
+        onShowFolderDescriptionChange = {},
+        onScrollLongFolderDescriptionChange = {},
     )
 }
