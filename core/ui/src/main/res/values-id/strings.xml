@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">Pilih warna bookmark</string>
     <string name="bookmark_color_picker_dialog_close">Tutup</string>
     <string name="folder_style_label">Gaya folder</string>
-    <string name="app_language_label">Bahasa aplikasi</string>
+    <string name="app_language_label">Bahasa</string>
     <string name="app_language_system_default">Bawaan sistem</string>
     <string name="folder_shape_label">Bentuk</string>
     <string name="folder_color_label">Warna</string>

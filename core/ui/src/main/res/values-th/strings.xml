@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">เลือกสีบุ๊กมาร์ก</string>
     <string name="bookmark_color_picker_dialog_close">ปิด</string>
     <string name="folder_style_label">สไตล์โฟลเดอร์</string>
-    <string name="app_language_label">ภาษาของแอป</string>
+    <string name="app_language_label">ภาษา</string>
     <string name="app_language_system_default">ค่าเริ่มต้นของระบบ</string>
     <string name="folder_shape_label">รูปทรง</string>
     <string name="folder_color_label">สี</string>
