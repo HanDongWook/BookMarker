@@ -186,17 +186,26 @@ class HomeViewModel @Inject constructor(
                     addDate = now,
                     lastModified = now,
                     iconUri = null,
+                    note = request.note.trim().takeIf { it.isNotBlank() },
+                    tags = normalizeTags(request.tags),
                 )
             }
         }
 
         val currentState = state
-        val savedSnapshotId = bookmarkSnapshotEditor.addItem(
-            currentSnapshotId = currentState.selectedBookmarkId,
-            bookmarkDocuments = currentState.bookmarkDocuments,
-            parentFolderPath = request.parentFolderPath,
-            item = item,
-        )
+        val savedSnapshotId = if (request is AddBookmarkItemRequest.Bookmark && request.saveToInbox) {
+            bookmarkSnapshotEditor.addItemToInbox(
+                bookmarkDocuments = currentState.bookmarkDocuments,
+                item = item,
+            )
+        } else {
+            bookmarkSnapshotEditor.addItem(
+                currentSnapshotId = currentState.selectedBookmarkId,
+                bookmarkDocuments = currentState.bookmarkDocuments,
+                parentFolderPath = request.parentFolderPath,
+                item = item,
+            )
+        }
         reduce { state.withSelectedBookmarkId(savedSnapshotId) }
     }
 
@@ -218,7 +227,11 @@ class HomeViewModel @Inject constructor(
         val trimmedTitle = request.title.trim()
         if (trimmedTitle.isBlank()) return@intent
         val normalizedRequest = when (request) {
-            is UpdateBookmarkItemRequest.Bookmark -> request.copy(title = trimmedTitle)
+            is UpdateBookmarkItemRequest.Bookmark -> request.copy(
+                title = trimmedTitle,
+                note = request.note.trim(),
+                tags = normalizeTags(request.tags),
+            )
             is UpdateBookmarkItemRequest.Folder -> request.copy(title = trimmedTitle)
         }
 
@@ -249,6 +262,11 @@ class HomeViewModel @Inject constructor(
         val trimmedUrl = url.trim()
         return if (trimmedUrl.contains("://")) trimmedUrl else "https://$trimmedUrl"
     }
+
+    private fun normalizeTags(tags: List<String>): List<String> = tags
+        .map(String::trim)
+        .filter(String::isNotBlank)
+        .distinct()
 
     private fun currentEpochSecondsString(): String = (System.currentTimeMillis() / 1000L).toString()
 

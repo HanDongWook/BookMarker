@@ -18,8 +18,13 @@ import com.hdw.bookmarker.core.ui.R
 fun AddBookmarkDialog(
     bookmarkTitle: String,
     bookmarkUrl: String,
+    bookmarkNote: String,
+    bookmarkTags: String,
+    saveToInbox: Boolean,
     onBookmarkTitleChange: (String) -> Unit,
     onBookmarkUrlChange: (String) -> Unit,
+    onBookmarkNoteChange: (String) -> Unit,
+    onBookmarkTagsChange: (String) -> Unit,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit,
 ) {
@@ -47,6 +52,27 @@ fun AddBookmarkDialog(
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(text = stringResource(R.string.bookmark_url)) },
                 )
+                OutlinedTextField(
+                    value = bookmarkTags,
+                    onValueChange = onBookmarkTagsChange,
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text(text = stringResource(R.string.bookmark_tags)) },
+                    supportingText = {
+                        if (saveToInbox) {
+                            Text(text = stringResource(R.string.save_to_inbox))
+                        }
+                    },
+                )
+                OutlinedTextField(
+                    value = bookmarkNote,
+                    onValueChange = onBookmarkNoteChange,
+                    singleLine = false,
+                    minLines = 2,
+                    maxLines = 5,
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text(text = stringResource(R.string.bookmark_note)) },
+                )
             }
         },
         confirmButton = {
@@ -71,8 +97,13 @@ private fun AddBookmarkDialogPreview() {
     AddBookmarkDialog(
         bookmarkTitle = "GitHub",
         bookmarkUrl = "https://github.com",
+        bookmarkNote = "Android samples",
+        bookmarkTags = "android, samples",
+        saveToInbox = true,
         onBookmarkTitleChange = {},
         onBookmarkUrlChange = {},
+        onBookmarkNoteChange = {},
+        onBookmarkTagsChange = {},
         onDismiss = {},
         onConfirm = {},
     )

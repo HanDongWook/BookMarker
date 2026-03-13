@@ -5,12 +5,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
+import com.hdw.bookmarker.feature.home.contract.QuickSaveBookmarkSeed
 import com.hdw.bookmarker.feature.home.HomeRoute
 import com.hdw.bookmarker.feature.importguide.BookmarkImportGuideRoute
 import com.hdw.bookmarker.feature.settings.SettingsRoute
 
 @Composable
-fun AppNavHost(navController: NavHostController) {
+fun AppNavHost(
+    navController: NavHostController,
+    pendingQuickSaveRequestToken: Long? = null,
+    pendingQuickSaveRequest: QuickSaveBookmarkSeed? = null,
+    onQuickSaveRequestHandled: () -> Unit = {},
+) {
     val context = LocalContext.current
     val importHtmlRequestKey = "import_html_request_token"
     NavHost(
@@ -31,6 +37,9 @@ fun AppNavHost(navController: NavHostController) {
                 onOpenBookmarkImportGuide = {
                     navController.navigate(AppRoute.BookmarkImportGuide)
                 },
+                pendingQuickSaveRequestToken = pendingQuickSaveRequestToken,
+                pendingQuickSaveRequest = pendingQuickSaveRequest,
+                onQuickSaveRequestHandled = onQuickSaveRequestHandled,
                 pendingImportHtmlRequestToken = entry.savedStateHandle.get<Long?>(importHtmlRequestKey),
                 onImportHtmlRequestHandled = {
                     entry.savedStateHandle[importHtmlRequestKey] = null

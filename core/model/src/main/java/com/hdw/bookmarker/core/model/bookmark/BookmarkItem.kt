@@ -7,6 +7,8 @@ sealed class BookmarkItem {
         val addDate: String?,
         val lastModified: String?,
         val iconUri: String?,
+        val note: String? = null,
+        val tags: List<String> = emptyList(),
     ) : BookmarkItem()
 
     data class Folder(
