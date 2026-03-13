@@ -8,8 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Inventory2
 import androidx.compose.material.icons.filled.IosShare
-import androidx.compose.material.icons.filled.SaveAlt
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +31,7 @@ import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 @Composable
 fun BookmarkDisplayContent(
     bookmarkDocument: BookmarkDocument,
+    isInboxSnapshot: Boolean,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
     displayType: BookmarkDisplayType,
@@ -48,6 +50,7 @@ fun BookmarkDisplayContent(
     if (bookmarkDocument.rootItems.isEmpty()) {
         EmptyBookmarks(
             modifier = modifier,
+            isInboxSnapshot = isInboxSnapshot,
             snapshotTitle = snapshotTitle,
             onSnapshotTitleClick = onSnapshotTitleClick,
             onSnapshotExportClick = onSnapshotExportClick,
@@ -59,6 +62,7 @@ fun BookmarkDisplayContent(
         if (!snapshotTitle.isNullOrBlank()) {
             SnapshotTitleText(
                 snapshotTitle = snapshotTitle,
+                isInboxSnapshot = isInboxSnapshot,
                 onSnapshotTitleClick = onSnapshotTitleClick,
                 onSnapshotExportClick = onSnapshotExportClick,
             )
@@ -103,6 +107,7 @@ fun BookmarkDisplayContent(
 @Composable
 private fun EmptyBookmarks(
     modifier: Modifier = Modifier,
+    isInboxSnapshot: Boolean = false,
     snapshotTitle: String? = null,
     onSnapshotTitleClick: (() -> Unit)? = null,
     onSnapshotExportClick: (() -> Unit)? = null,
@@ -111,6 +116,7 @@ private fun EmptyBookmarks(
         if (!snapshotTitle.isNullOrBlank()) {
             SnapshotTitleText(
                 snapshotTitle = snapshotTitle,
+                isInboxSnapshot = isInboxSnapshot,
                 onSnapshotTitleClick = onSnapshotTitleClick,
                 onSnapshotExportClick = onSnapshotExportClick,
             )
@@ -122,7 +128,15 @@ private fun EmptyBookmarks(
                 .weight(1f),
             contentAlignment = Alignment.Center,
         ) {
-            Text(text = stringResource(R.string.empty_bookmarks))
+            Text(
+                text = stringResource(
+                    if (isInboxSnapshot) {
+                        R.string.bookmark_inbox_empty
+                    } else {
+                        R.string.empty_bookmarks
+                    },
+                ),
+            )
         }
     }
 }
@@ -130,6 +144,7 @@ private fun EmptyBookmarks(
 @Composable
 private fun SnapshotTitleText(
     snapshotTitle: String,
+    isInboxSnapshot: Boolean = false,
     onSnapshotTitleClick: (() -> Unit)?,
     onSnapshotExportClick: (() -> Unit)?,
 ) {
@@ -155,6 +170,21 @@ private fun SnapshotTitleText(
                     },
                 ),
         )
+        if (isInboxSnapshot) {
+            AssistChip(
+                onClick = {},
+                enabled = false,
+                label = { Text(text = stringResource(R.string.bookmark_inbox_badge)) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Inventory2,
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp),
+                    )
+                },
+                modifier = Modifier.padding(end = 4.dp),
+            )
+        }
         IconButton(
             onClick = { onSnapshotExportClick?.invoke() },
             enabled = onSnapshotExportClick != null,
@@ -179,6 +209,7 @@ private fun EmptyBookmarksPreview() {
 private fun BookmarkDisplayContentListPreview() {
     BookmarkDisplayContent(
         bookmarkDocument = previewBookmarkDocument(),
+        isInboxSnapshot = false,
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
         displayType = BookmarkDisplayType.LIST,
@@ -198,6 +229,7 @@ private fun BookmarkDisplayContentListPreview() {
 private fun BookmarkDisplayContentIconPreview() {
     BookmarkDisplayContent(
         bookmarkDocument = previewBookmarkDocument(),
+        isInboxSnapshot = false,
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
         displayType = BookmarkDisplayType.ICON,
