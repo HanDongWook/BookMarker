@@ -3,20 +3,15 @@ package com.hdw.bookmarker.feature.home.ui.dialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalResources
 import com.hdw.bookmarker.core.domain.util.BookmarkColorGenerator
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
-import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.ui.HomeScreenUiState
+import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportAction
 import com.hdw.bookmarker.feature.home.ui.share.ExportBookmarkMethodDialog
-import com.hdw.bookmarker.feature.home.ui.share.shareCurrentBookmarkHtmlExport
-import com.hdw.bookmarker.feature.home.ui.share.shareCurrentBookmarkTextExport
 
 @Composable
 internal fun HomeDialogHost(
@@ -35,13 +30,12 @@ internal fun HomeDialogHost(
     onDefaultBrowserSelected: (String) -> Unit,
     onBookmarkColorSelected: (String, Long) -> Unit,
 ) {
-    val context = LocalContext.current
-    val resources = LocalResources.current
     var showImportOptionDialog by uiState.showImportOptionDialog
     var showDefaultBrowserDialog by uiState.showDefaultBrowserDialog
     var showColorPickerDialog by uiState.showColorPickerDialog
     var showAddItemTypeDialog by uiState.showAddItemTypeDialog
     var showExportBookmarkMethodDialog by uiState.showExportBookmarkMethodDialog
+    var pendingBookmarkExportAction by uiState.pendingBookmarkExportAction
     var showAddFolderDialog by uiState.showAddFolderDialog
     var showAddBookmarkDialog by uiState.showAddBookmarkDialog
     var pendingFolderTitle by uiState.pendingFolderTitle
@@ -194,23 +188,11 @@ internal fun HomeDialogHost(
             onDismiss = { showExportBookmarkMethodDialog = false },
             onExportTextClick = {
                 showExportBookmarkMethodDialog = false
-                val currentDocument = selectedBookmarkDocument
-                if (currentDocument == null || !shareCurrentBookmarkTextExport(context, currentDocument)) {
-                    context.showShortToast(resources.getString(R.string.export_current_bookmarks_empty))
-                }
+                pendingBookmarkExportAction = BookmarkExportAction.ShareText
             },
             onExportHtmlClick = {
                 showExportBookmarkMethodDialog = false
-                val currentDocument = selectedBookmarkDocument
-                when {
-                    currentDocument == null -> {
-                        context.showShortToast(resources.getString(R.string.export_current_bookmarks_empty))
-                    }
-
-                    !shareCurrentBookmarkHtmlExport(context, currentDocument) -> {
-                        context.showShortToast(resources.getString(R.string.export_current_bookmarks_html_failed))
-                    }
-                }
+                pendingBookmarkExportAction = BookmarkExportAction.ShareHtml
             },
         )
     }
