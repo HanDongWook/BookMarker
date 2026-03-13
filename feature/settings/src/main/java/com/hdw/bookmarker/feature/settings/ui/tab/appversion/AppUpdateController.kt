@@ -115,10 +115,11 @@ internal fun rememberAppUpdateController(
                     latestAppUpdateUiState is AppUpdateUiState.InProgress
                 ) {
                     coroutineScope.launch {
-                        val updateInfo = pendingAppUpdateInfo ?: requestAppUpdateState(appUpdateManager).also { result ->
-                            pendingAppUpdateInfo = result.pendingUpdateInfo
-                            latestOnUiStateChange(result.uiState)
-                        }.pendingUpdateInfo
+                        val updateInfo =
+                            pendingAppUpdateInfo ?: requestAppUpdateState(appUpdateManager).also { result ->
+                                pendingAppUpdateInfo = result.pendingUpdateInfo
+                                latestOnUiStateChange(result.uiState)
+                            }.pendingUpdateInfo
                         launchImmediateUpdate(updateInfo)
                     }
                 }
