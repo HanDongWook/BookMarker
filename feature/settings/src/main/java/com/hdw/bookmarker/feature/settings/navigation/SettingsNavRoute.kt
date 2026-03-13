@@ -9,8 +9,17 @@ sealed interface SettingsNavRoute {
     @Serializable
     data object DefaultBrowser : SettingsNavRoute
 
-    @Serializable
-    data object FolderStyle : SettingsNavRoute
+    sealed interface Appearance : SettingsNavRoute {
+
+        @Serializable
+        data object Main : Appearance
+
+        @Serializable
+        data object Bookmark : Appearance
+
+        @Serializable
+        data object Folder : Appearance
+    }
 
     @Serializable
     data object OpenSourceLicenses : SettingsNavRoute

@@ -1,5 +1,6 @@
-package com.hdw.bookmarker.feature.settings.ui.tab.folderstyle
+package com.hdw.bookmarker.feature.settings.ui.tab.appearance
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -19,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.hdw.bookmarker.core.data.repository.SettingsRepository
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
@@ -26,25 +28,30 @@ import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.label
 import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
-import com.hdw.bookmarker.feature.settings.ui.tab.folderstyle.color.FolderColorDialog
-import com.hdw.bookmarker.feature.settings.ui.tab.folderstyle.shape.FolderShapeDialog
+import com.hdw.bookmarker.feature.settings.ui.tab.theme.ThemeModeDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FolderStyleScreen(
-    selectedFolderIconStyle: BookmarkFolderIconStyle,
+fun AppearanceScreen(
+    selectedThemeMode: String?,
+    folderIconStyle: BookmarkFolderIconStyle,
     onBackClick: () -> Unit,
-    onShapeSelect: (BookmarkFolderIconShape) -> Unit,
-    onColorSelect: (BookmarkFolderIconColor) -> Unit,
+    onThemeModeSelect: (String) -> Unit,
+    onFolderClick: () -> Unit,
+    onBookmarkClick: () -> Unit,
 ) {
-    var showShapeDialog by rememberSaveable { mutableStateOf(false) }
-    var showColorDialog by rememberSaveable { mutableStateOf(false) }
+    val effectiveThemeMode = selectedThemeMode ?: if (isSystemInDarkTheme()) {
+        SettingsRepository.APP_THEME_MODE_DARK
+    } else {
+        SettingsRepository.APP_THEME_MODE_LIGHT
+    }
+    var showThemeDialog by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.folder_style_title)) },
+                title = { Text(text = stringResource(R.string.appearance_label)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
@@ -62,38 +69,38 @@ fun FolderStyleScreen(
                 .padding(innerPadding),
         ) {
             SettingsRow(
-                title = stringResource(R.string.folder_shape_label),
-                value = selectedFolderIconStyle.shape.label(),
-                onClick = { showShapeDialog = true },
+                title = stringResource(R.string.theme_label),
+                value = if (effectiveThemeMode == SettingsRepository.APP_THEME_MODE_DARK) {
+                    stringResource(R.string.theme_dark)
+                } else {
+                    stringResource(R.string.theme_light)
+                },
+                onClick = { showThemeDialog = true },
             )
             BookMarkerDivider()
+
             SettingsRow(
-                title = stringResource(R.string.folder_color_label),
-                value = selectedFolderIconStyle.color.label(),
-                onClick = { showColorDialog = true },
+                title = stringResource(R.string.add_folder),
+                value = "${folderIconStyle.shape.label()} / ${folderIconStyle.color.label()}",
+                onClick = onFolderClick,
+            )
+            BookMarkerDivider()
+
+            SettingsRow(
+                title = stringResource(R.string.add_bookmark),
+                onClick = onBookmarkClick,
             )
             BookMarkerDivider()
         }
     }
 
-    if (showShapeDialog) {
-        FolderShapeDialog(
-            selectedFolderIconStyle = selectedFolderIconStyle,
-            onDismiss = { showShapeDialog = false },
-            onShapeSelect = {
-                onShapeSelect(it)
-                showShapeDialog = false
-            },
-        )
-    }
-
-    if (showColorDialog) {
-        FolderColorDialog(
-            selectedFolderIconStyle = selectedFolderIconStyle,
-            onDismiss = { showColorDialog = false },
-            onColorSelect = {
-                onColorSelect(it)
-                showColorDialog = false
+    if (showThemeDialog) {
+        ThemeModeDialog(
+            selectedThemeMode = effectiveThemeMode,
+            onDismiss = { showThemeDialog = false },
+            onThemeModeSelect = { themeMode ->
+                onThemeModeSelect(themeMode)
+                showThemeDialog = false
             },
         )
     }
@@ -101,14 +108,16 @@ fun FolderStyleScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun FolderStyleScreenPreview() {
-    FolderStyleScreen(
-        selectedFolderIconStyle = BookmarkFolderIconStyle(
+private fun AppearanceScreenPreview() {
+    AppearanceScreen(
+        selectedThemeMode = SettingsRepository.APP_THEME_MODE_LIGHT,
+        folderIconStyle = BookmarkFolderIconStyle(
             shape = BookmarkFolderIconShape.FILLED,
             color = BookmarkFolderIconColor.DEFAULT,
         ),
         onBackClick = {},
-        onShapeSelect = {},
-        onColorSelect = {},
+        onThemeModeSelect = {},
+        onFolderClick = {},
+        onBookmarkClick = {},
     )
 }

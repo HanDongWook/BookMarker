@@ -12,9 +12,11 @@ import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.settings.model.SettingsState
 import com.hdw.bookmarker.feature.settings.ui.SettingsScreen
+import com.hdw.bookmarker.feature.settings.ui.tab.appearance.AppearanceScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppUpdateUiState
+import com.hdw.bookmarker.feature.settings.ui.tab.bookmark.BookmarkSettingsScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.defaultbrowser.DefaultBrowserScreen
-import com.hdw.bookmarker.feature.settings.ui.tab.folderstyle.FolderStyleScreen
+import com.hdw.bookmarker.feature.settings.ui.tab.folder.FolderSettingsScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.opensource.OpenSourceLicensesScreen
 
 @Composable
@@ -40,7 +42,6 @@ internal fun SettingsNavHost(
                 onBackClick = onBackClick,
                 appVersion = state.appVersion,
                 temporaryDataSize = temporaryDataSize,
-                selectedThemeMode = state.selectedThemeMode,
                 selectedBrowserName =
                 state.installedBrowsers.firstOrNull { it.packageName == state.selectedBrowserPackage }?.appName
                     ?: stringResource(R.string.bookmarker_not_selected),
@@ -51,16 +52,35 @@ internal fun SettingsNavHost(
                 onDefaultBrowserClick = {
                     navController.navigate(SettingsNavRoute.DefaultBrowser)
                 },
-                folderIconStyle = state.folderIconStyle,
-                onFolderStyleClick = {
-                    navController.navigate(SettingsNavRoute.FolderStyle)
+                onAppearanceClick = {
+                    navController.navigate(SettingsNavRoute.Appearance.Main)
                 },
                 onOpenSourceLicensesClick = {
                     navController.navigate(SettingsNavRoute.OpenSourceLicenses)
                 },
                 appUpdateUiState = state.appUpdateUiState,
                 onAppUpdateClick = onAppUpdateClick,
+            )
+        }
+
+        slideComposable<SettingsNavRoute.Appearance.Main> {
+            AppearanceScreen(
+                selectedThemeMode = state.selectedThemeMode,
+                folderIconStyle = state.folderIconStyle,
+                onBackClick = { navController.popBackStack() },
                 onThemeModeSelect = onThemeModeSelect,
+                onFolderClick = {
+                    navController.navigate(SettingsNavRoute.Appearance.Folder)
+                },
+                onBookmarkClick = {
+                    navController.navigate(SettingsNavRoute.Appearance.Bookmark)
+                },
+            )
+        }
+
+        slideComposable<SettingsNavRoute.Appearance.Bookmark> {
+            BookmarkSettingsScreen(
+                onBackClick = { navController.popBackStack() },
             )
         }
 
@@ -73,8 +93,8 @@ internal fun SettingsNavHost(
             )
         }
 
-        slideComposable<SettingsNavRoute.FolderStyle> {
-            FolderStyleScreen(
+        slideComposable<SettingsNavRoute.Appearance.Folder> {
+            FolderSettingsScreen(
                 selectedFolderIconStyle = state.folderIconStyle,
                 onBackClick = { navController.popBackStack() },
                 onShapeSelect = onFolderShapeSelect,
@@ -97,6 +117,7 @@ private fun SettingsNavHostPreview() {
         state = SettingsState(
             appVersion = "1.2.3 (123)",
             selectedThemeMode = SettingsRepository.APP_THEME_MODE_LIGHT,
+            bookmarkDisplayType = SettingsRepository.BOOKMARK_DISPLAY_TYPE_LIST,
             folderIconStyle = BookmarkFolderIconStyle(
                 shape = BookmarkFolderIconShape.FILLED,
                 color = BookmarkFolderIconColor.DEFAULT,

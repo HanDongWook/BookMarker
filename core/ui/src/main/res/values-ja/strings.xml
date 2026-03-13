@@ -162,4 +162,8 @@
     <string name="share_bookmark_method_text">テキストで共有</string>
     <string name="share_bookmark_method_html">HTMLで共有</string>
     <string name="rate_app_open_store_failed">Play ストアを開けませんでした。</string>
+    <string name="appearance_label">外観</string>
+    <string name="bookmark_display_mode_label">表示モード</string>
+    <string name="bookmark_display_type_list">リスト</string>
+    <string name="bookmark_display_type_icon">アイコン</string>
 </resources>
