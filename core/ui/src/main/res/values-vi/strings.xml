@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">Trình duyệt đã cài đặt</string>
-    <string name="menu_description">Menu</string>
     <string name="menu">Menu</string>
     <string name="menu_settings">Cài đặt</string>
     <string name="settings">Cài đặt</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">Không thể phân tích định dạng dấu trang.</string>
     <string name="error_unsupported_browser">Trình duyệt không được hỗ trợ.</string>
     <string name="error_unknown">Đã xảy ra lỗi không xác định.</string>
-    <string name="no_bookmarks_imported">Chưa có dấu trang nào được nhập.</string>
     <string name="empty_bookmarks">Không có dấu trang trong chế độ xem này.</string>
     <string name="bookmark_icon_back">Quay lại thư mục trước</string>
     <string name="bookmark_mode_list">Chế độ xem danh sách dấu trang</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">Trên %1$s di động, có thể không hỗ trợ xuất dấu trang.</string>
     <string name="import_guide_step1_body_desktop_generic">Trên máy tính với %1$s, tìm Bookmark/Favorites manager và xuất sang HTML.</string>
     <string name="import_guide_step2_title">2. Lưu tệp HTML vào điện thoại</string>
-    <string name="import_guide_step3_title">3. Nhập tệp HTML</string>
-    <string name="import_guide_step3_body">Nhấn nút bên dưới và chọn tệp HTML đã xuất để nhập dấu trang vào ứng dụng.</string>
-    <string name="import_guide_step3_button">Chọn tệp HTML</string>
     <string name="import_guide_open_guide_failed">Không thể mở trang hướng dẫn.</string>
-    <string name="import_guide_open_downloads_failed">Không thể mở Downloads.</string>
     <string name="import_guide_exit">Thoát</string>
     <string name="open_bookmark_failed">Không thể mở liên kết dấu trang.</string>
-    <string name="import_skipped_same_file">Tệp này đã được nhập trước đó. Đã bỏ qua.</string>
-    <string name="import_overwrite_dialog_title">Ghi đè dấu trang đã nhập?</string>
-    <string name="import_overwrite_dialog_message">Đã phát hiện tệp dấu trang khác. Nếu tiếp tục, dấu trang đã nhập hiện có sẽ bị xóa và thay thế.</string>
-    <string name="import_overwrite_dialog_confirm">Ghi đè</string>
-    <string name="import_overwrite_dialog_cancel">Hủy</string>
     <string name="delete_bookmark_dialog_title">Xóa dấu trang?</string>
     <string name="delete_bookmark_dialog_message">Bạn có muốn xóa các dấu trang này không?</string>
     <string name="delete_bookmark_dialog_confirm">Xóa</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">Chọn màu dấu trang</string>
     <string name="bookmark_color_picker_dialog_close">Đóng</string>
     <string name="folder_style_label">Kiểu thư mục</string>
-    <string name="folder_style_title">Kiểu thư mục</string>
     <string name="app_language_label">Ngôn ngữ ứng dụng</string>
     <string name="app_language_system_default">Mặc định hệ thống</string>
     <string name="folder_shape_label">Hình dạng</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">Xanh lá</string>
     <string name="folder_color_orange">Cam</string>
     <string name="folder_color_purple">Tím</string>
-    <string name="app_update_status_checking">Đang kiểm tra bản cập nhật…</string>
     <string name="app_update_status_latest">Phiên bản mới nhất</string>
     <string name="app_update_status_available">Có bản cập nhật (v%1$d)</string>
-    <string name="app_update_status_in_progress">Đang cập nhật</string>
-    <string name="app_update_status_unavailable">Không thể kiểm tra bản cập nhật</string>
-    <string name="app_update_action_update">Cập nhật</string>
     <string name="app_update_flow_canceled">Đã hủy cập nhật.</string>
     <string name="app_update_flow_failed">Không thể bắt đầu cập nhật.</string>
-    <string name="rate_app_fallback_opening_store">Không thể hiển thị đánh giá trong ứng dụng. Đang mở Play Store.</string>
     <string name="rate_app_review_requested_hint">Nếu không thấy cửa sổ bật lên, vui lòng đánh giá trên Play Store.</string>
     <string name="share_current_bookmarks_html_failed">Không thể tạo tệp HTML dấu trang.</string>
     <string name="share_bookmark_method_title">Chọn kiểu chia sẻ</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">Chia sẻ dưới dạng HTML</string>
     <string name="rate_app_open_store_failed">Không thể mở Play Store.</string>
     <string name="appearance_label">Giao diện</string>
-    <string name="bookmark_display_mode_label">Chế độ hiển thị</string>
-    <string name="bookmark_display_type_list">Danh sách</string>
-    <string name="bookmark_display_type_icon">Biểu tượng</string>
     <string name="bookmark_show_url_label">Hiển thị URL</string>
     <string name="bookmark_scroll_long_url_label">Cuộn URL dài</string>
     <string name="folder_show_description_label">Hiển thị mô tả</string>
     <string name="folder_scroll_long_description_label">Cuộn mô tả dài</string>
     <string name="folder_description">Mô tả</string>
+    <string name="display_value_loading">Đang tải</string>
 </resources>

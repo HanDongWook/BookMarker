@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -12,10 +13,11 @@ import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
 import com.hdw.bookmarker.core.ui.util.clearTemporaryData
 import com.hdw.bookmarker.core.ui.util.getAppVersionDisplay
-import com.hdw.bookmarker.core.ui.util.getTemporaryDataSizeDisplay
+import com.hdw.bookmarker.feature.settings.model.DisplayValueState
 import com.hdw.bookmarker.feature.settings.navigation.SettingsNavHost
 import com.hdw.bookmarker.feature.settings.ui.tab.appversion.rememberAppUpdateController
 import com.hdw.bookmarker.feature.settings.ui.tab.temporarydata.ClearTemporaryDataDialog
+import com.hdw.bookmarker.feature.settings.ui.tab.temporarydata.loadTemporaryDataSize
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,16 +34,14 @@ fun SettingsRoute(onBackClick: () -> Unit) {
         onUiStateChange = settingsViewModel::setAppUpdateUiState,
     )
 
-    var temporaryDataSize by rememberSaveable { mutableStateOf("0 MB") }
+    var temporaryDataSize by remember { mutableStateOf<DisplayValueState>(DisplayValueState.Loading) }
     var showClearTemporaryDataDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(context) {
         settingsViewModel.initialize(
             appVersion = context.getAppVersionDisplay(),
         )
-        temporaryDataSize = withContext(Dispatchers.IO) {
-            context.getTemporaryDataSizeDisplay()
-        }
+        temporaryDataSize = loadTemporaryDataSize(context)
         appUpdateController.refresh(resumeInProgress = true)
     }
 
@@ -63,9 +63,7 @@ fun SettingsRoute(onBackClick: () -> Unit) {
                     withContext(Dispatchers.IO) {
                         context.clearTemporaryData()
                     }
-                    temporaryDataSize = withContext(Dispatchers.IO) {
-                        context.getTemporaryDataSizeDisplay()
-                    }
+                    temporaryDataSize = loadTemporaryDataSize(context)
                 }
             },
         )

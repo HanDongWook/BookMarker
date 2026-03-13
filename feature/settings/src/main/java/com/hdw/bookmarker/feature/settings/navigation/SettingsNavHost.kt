@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
+import com.hdw.bookmarker.feature.settings.model.DisplayValueState
 import com.hdw.bookmarker.feature.settings.model.SettingsState
 import com.hdw.bookmarker.feature.settings.navigation.appearance.appearanceGraph
 import com.hdw.bookmarker.feature.settings.ui.SettingsScreen
@@ -17,7 +18,7 @@ import com.hdw.bookmarker.feature.settings.ui.tab.opensource.OpenSourceLicensesS
 @Composable
 internal fun SettingsNavHost(
     settingsState: SettingsState,
-    temporaryDataSize: String,
+    temporaryDataSize: DisplayValueState,
     onBackClick: () -> Unit,
     onTemporaryDataClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
@@ -81,10 +82,10 @@ internal fun SettingsNavHost(
 private fun SettingsNavHostPreview() {
     SettingsNavHost(
         settingsState = SettingsState(
-            appVersion = "1.2.3 (123)",
+            appVersion = DisplayValueState.Loaded("1.2.3 (123)"),
             appUpdateUiState = AppUpdateUiState.UpToDate,
         ),
-        temporaryDataSize = "12.3 MB",
+        temporaryDataSize = DisplayValueState.Loaded("12.3 MB"),
         onBackClick = {},
         onTemporaryDataClick = {},
         onAppUpdateClick = {},

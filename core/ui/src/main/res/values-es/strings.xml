@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">Navegadores instalados</string>
-    <string name="menu_description">Menú</string>
     <string name="menu">Menú</string>
     <string name="menu_settings">Ajustes</string>
     <string name="settings">Ajustes</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">No se pudo analizar el formato de marcadores.</string>
     <string name="error_unsupported_browser">Navegador no compatible.</string>
     <string name="error_unknown">Se produjo un error desconocido.</string>
-    <string name="no_bookmarks_imported">Aún no se han importado marcadores.</string>
     <string name="empty_bookmarks">No hay marcadores en esta vista.</string>
     <string name="bookmark_icon_back">Volver a la carpeta anterior</string>
     <string name="bookmark_mode_list">Vista de lista de marcadores</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">En %1$s móvil, la exportación de marcadores puede no estar disponible.</string>
     <string name="import_guide_step1_body_desktop_generic">En tu %1$s de computadora, busca el Administrador de marcadores/favoritos y exporta a HTML.</string>
     <string name="import_guide_step2_title">2. Guardar el archivo HTML en el teléfono</string>
-    <string name="import_guide_step3_title">3. Importar archivo HTML</string>
-    <string name="import_guide_step3_body">Toca el botón de abajo y selecciona el archivo HTML exportado para importar los marcadores a la app.</string>
-    <string name="import_guide_step3_button">Seleccionar archivo HTML</string>
     <string name="import_guide_open_guide_failed">No se pudo abrir la página de guía.</string>
-    <string name="import_guide_open_downloads_failed">No se pudo abrir Descargas.</string>
     <string name="import_guide_exit">Salir</string>
     <string name="open_bookmark_failed">No se pudo abrir el enlace del marcador.</string>
-    <string name="import_skipped_same_file">Ya se importó el mismo archivo. Omitido.</string>
-    <string name="import_overwrite_dialog_title">¿Sobrescribir marcadores importados?</string>
-    <string name="import_overwrite_dialog_message">Se detectó un archivo de marcadores diferente. Si continúas, los marcadores importados existentes se eliminarán y se reemplazarán.</string>
-    <string name="import_overwrite_dialog_confirm">Sobrescribir</string>
-    <string name="import_overwrite_dialog_cancel">Cancelar</string>
     <string name="delete_bookmark_dialog_title">¿Eliminar marcadores?</string>
     <string name="delete_bookmark_dialog_message">¿Deseas eliminar estos marcadores?</string>
     <string name="delete_bookmark_dialog_confirm">Eliminar</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">Seleccionar color de marcador</string>
     <string name="bookmark_color_picker_dialog_close">Cerrar</string>
     <string name="folder_style_label">Estilo de carpeta</string>
-    <string name="folder_style_title">Estilo de carpeta</string>
     <string name="app_language_label">Idioma de la app</string>
     <string name="app_language_system_default">Predeterminado del sistema</string>
     <string name="folder_shape_label">Forma</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">Verde</string>
     <string name="folder_color_orange">Naranja</string>
     <string name="folder_color_purple">Morado</string>
-    <string name="app_update_status_checking">Comprobando actualizaciones…</string>
     <string name="app_update_status_latest">Versión más reciente</string>
     <string name="app_update_status_available">Actualización disponible (v%1$d)</string>
-    <string name="app_update_status_in_progress">Actualización en curso</string>
-    <string name="app_update_status_unavailable">No se pueden comprobar las actualizaciones</string>
-    <string name="app_update_action_update">Actualizar</string>
     <string name="app_update_flow_canceled">Actualización cancelada.</string>
     <string name="app_update_flow_failed">No se pudo iniciar la actualización.</string>
-    <string name="rate_app_fallback_opening_store">No se puede mostrar la reseña en la app. Abriendo Play Store.</string>
     <string name="rate_app_review_requested_hint">Si no aparece ninguna ventana emergente, valora la app en Play Store.</string>
     <string name="share_current_bookmarks_html_failed">No se pudo crear el archivo HTML de marcadores.</string>
     <string name="share_bookmark_method_title">Elegir tipo de uso compartido</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">Compartir como HTML</string>
     <string name="rate_app_open_store_failed">No se pudo abrir Play Store.</string>
     <string name="appearance_label">Apariencia</string>
-    <string name="bookmark_display_mode_label">Modo de visualización</string>
-    <string name="bookmark_display_type_list">Lista</string>
-    <string name="bookmark_display_type_icon">Icono</string>
     <string name="bookmark_show_url_label">Mostrar URL</string>
     <string name="bookmark_scroll_long_url_label">Desplazar URL larga</string>
     <string name="folder_show_description_label">Mostrar descripción</string>
     <string name="folder_scroll_long_description_label">Desplazar descripción larga</string>
     <string name="folder_description">Descripción</string>
+    <string name="display_value_loading">Cargando</string>
 </resources>

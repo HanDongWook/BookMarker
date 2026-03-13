@@ -26,6 +26,7 @@ import androidx.core.os.LocaleListCompat
 import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.url.AppWebUrl
+import com.hdw.bookmarker.feature.settings.model.DisplayValueState
 import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
 import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppUpdateUiState
 import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppVersionRow
@@ -44,8 +45,8 @@ import com.hdw.bookmarker.feature.settings.ui.tab.temporarydata.TemporaryDataRow
 @Composable
 fun SettingsScreen(
     onBackClick: () -> Unit,
-    appVersion: String,
-    temporaryDataSize: String,
+    appVersion: DisplayValueState,
+    temporaryDataSize: DisplayValueState,
     selectedBrowserName: String,
     selectedBrowserIcon: Any?,
     onTemporaryDataClick: () -> Unit,
@@ -161,8 +162,8 @@ fun SettingsScreen(
 private fun SettingsScreenPreview() {
     SettingsScreen(
         onBackClick = {},
-        appVersion = "1.0.0",
-        temporaryDataSize = "12.3 MB",
+        appVersion = DisplayValueState.Loaded("1.0.0"),
+        temporaryDataSize = DisplayValueState.Loaded("12.3 MB"),
         selectedBrowserName = "Chrome",
         selectedBrowserIcon = null,
         onTemporaryDataClick = {},
