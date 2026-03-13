@@ -1,7 +1,6 @@
 package com.hdw.bookmarker.feature.importguide.ui.detail
 
 import android.graphics.drawable.Drawable
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
@@ -24,13 +22,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.feature.importguide.ui.component.BrowserGuideIcon
 
 @Composable
 fun BookmarkImportGuideScreen(
@@ -59,9 +58,10 @@ fun BookmarkImportGuideScreen(
                 .verticalScroll(rememberScrollState()),
         ) {
             GuideTitle(
+                browser = browser,
                 icon = icon,
                 iconModifier = iconModifier,
-                browserName = browserName,
+                browserName = resolvedBrowserName,
                 browserNameModifier = browserNameModifier,
                 onDismiss = onDismiss,
             )
@@ -103,25 +103,29 @@ fun BookmarkImportGuideScreen(
 
 @Composable
 private fun GuideTitle(
+    browser: Browser,
     icon: Drawable?,
     iconModifier: Modifier = Modifier,
     browserName: String? = null,
     browserNameModifier: Modifier = Modifier,
     onDismiss: () -> Unit,
 ) {
-    Row(modifier = Modifier.fillMaxWidth()) {
-        if (icon != null) {
-            Image(
-                modifier = iconModifier.size(56.dp),
-                painter = rememberDrawablePainter(drawable = icon),
-                contentDescription = null,
-            )
-        }
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        BrowserGuideIcon(
+            browser = browser,
+            displayName = browserName.orEmpty(),
+            installedIcon = icon,
+            modifier = iconModifier,
+            size = 56.dp,
+        )
         if (!browserName.isNullOrBlank()) {
             Text(
                 text = browserName,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = browserNameModifier.padding(start = 12.dp, top = 12.dp),
+                modifier = browserNameModifier.padding(start = 12.dp),
             )
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -166,6 +170,7 @@ private fun GuideSection(
 @Composable
 private fun GuideTitlePreview() {
     GuideTitle(
+        browser = Browser.CHROME,
         icon = null,
         browserName = "Chrome",
         onDismiss = {},
