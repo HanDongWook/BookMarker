@@ -150,6 +150,7 @@
     <string name="export_bookmark_method_save_html">Save HTML file</string>
     <string name="rate_app_open_store_failed">Could not open Play Store.</string>
     <string name="appearance_label">Appearance</string>
+    <string name="behavior_label">Behavior</string>
     <string name="bookmark_show_url_label">Show URL</string>
     <string name="bookmark_scroll_long_url_label">Scroll long URL</string>
     <string name="folder_show_description_label">Show description</string>

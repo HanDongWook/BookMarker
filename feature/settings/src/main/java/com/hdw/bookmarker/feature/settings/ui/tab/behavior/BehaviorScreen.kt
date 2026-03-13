@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.settings.ui.tab.bookmark
+package com.hdw.bookmarker.feature.settings.ui.tab.behavior
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,18 +22,16 @@ import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookmarkAppearanceScreen(
-    scrollLongBookmarkUrl: Boolean,
-    showBookmarkUrl: Boolean,
-    onScrollLongBookmarkUrlChange: (Boolean) -> Unit,
-    onShowBookmarkUrlChange: (Boolean) -> Unit,
+fun BehaviorScreen(
+    openBookmarkAdjacentOnLargeScreen: Boolean,
+    onOpenBookmarkAdjacentOnLargeScreenChange: (Boolean) -> Unit,
     onBackClick: () -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.add_bookmark)) },
+                title = { Text(text = stringResource(R.string.behavior_label)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
@@ -51,23 +49,14 @@ fun BookmarkAppearanceScreen(
                 .padding(innerPadding),
         ) {
             SettingsRow(
-                title = stringResource(R.string.bookmark_show_url_label),
-                onClick = { onShowBookmarkUrlChange(!showBookmarkUrl) },
-                trailingContent = {
-                    Switch(
-                        checked = showBookmarkUrl,
-                        onCheckedChange = onShowBookmarkUrlChange,
-                    )
+                title = stringResource(R.string.bookmark_open_beside_app_on_large_screens_label),
+                onClick = {
+                    onOpenBookmarkAdjacentOnLargeScreenChange(!openBookmarkAdjacentOnLargeScreen)
                 },
-            )
-            BookMarkerDivider()
-            SettingsRow(
-                title = stringResource(R.string.bookmark_scroll_long_url_label),
-                onClick = { onScrollLongBookmarkUrlChange(!scrollLongBookmarkUrl) },
                 trailingContent = {
                     Switch(
-                        checked = scrollLongBookmarkUrl,
-                        onCheckedChange = onScrollLongBookmarkUrlChange,
+                        checked = openBookmarkAdjacentOnLargeScreen,
+                        onCheckedChange = onOpenBookmarkAdjacentOnLargeScreenChange,
                     )
                 },
             )
@@ -78,12 +67,10 @@ fun BookmarkAppearanceScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkAppearanceScreenPreview() {
-    BookmarkAppearanceScreen(
-        scrollLongBookmarkUrl = true,
-        showBookmarkUrl = true,
-        onScrollLongBookmarkUrlChange = {},
-        onShowBookmarkUrlChange = {},
+private fun BehaviorScreenPreview() {
+    BehaviorScreen(
+        openBookmarkAdjacentOnLargeScreen = false,
+        onOpenBookmarkAdjacentOnLargeScreenChange = {},
         onBackClick = {},
     )
 }

@@ -150,6 +150,7 @@
     <string name="export_bookmark_method_save_html">儲存 HTML 檔</string>
     <string name="rate_app_open_store_failed">無法開啟 Play 商店。</string>
     <string name="appearance_label">外觀</string>
+    <string name="behavior_label">行為</string>
     <string name="bookmark_show_url_label">顯示 URL</string>
     <string name="bookmark_scroll_long_url_label">捲動長 URL</string>
     <string name="folder_show_description_label">顯示描述</string>
