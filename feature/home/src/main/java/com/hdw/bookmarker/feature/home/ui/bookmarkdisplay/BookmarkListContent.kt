@@ -300,6 +300,7 @@ private fun BookmarkFolderRowPreview() {
     BookmarkFolderRow(
         folder = BookmarkItem.Folder(
             title = "Development",
+            description = "Development resources",
             addDate = null,
             lastModified = null,
             children = listOf(
@@ -346,6 +347,7 @@ private fun previewBookmarkListDocument(): BookmarkDocument = BookmarkDocument(
     rootItems = listOf(
         BookmarkItem.Folder(
             title = "Engineering",
+            description = "Engineering references",
             addDate = null,
             lastModified = null,
             children = listOf(

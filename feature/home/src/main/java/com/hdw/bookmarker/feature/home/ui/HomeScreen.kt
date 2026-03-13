@@ -39,11 +39,11 @@ fun HomeScreen(
     onOpenFilePicker: () -> Unit,
     onDeleteBookmarkSnapshot: (String) -> Unit,
     onBookmarkDisplayTypeToggle: () -> Unit,
-    onAddFolder: (String, List<Int>?) -> Unit,
+    onAddFolder: (String, String, List<Int>?) -> Unit,
     onAddBookmark: (String, String, List<Int>?) -> Unit,
     onRenameBookmarkSnapshot: (String, String) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
-    onUpdateBookmarkItem: (List<Int>, String, String?) -> Unit,
+    onUpdateBookmarkItem: (List<Int>, String, String?, String?) -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
 ) {
     val uiState = rememberHomeScreenUiState()
@@ -56,6 +56,7 @@ fun HomeScreen(
     var showAddFolderDialog by uiState.showAddFolderDialog
     var showAddBookmarkDialog by uiState.showAddBookmarkDialog
     var pendingFolderTitle by uiState.pendingFolderTitle
+    var pendingFolderDescription by uiState.pendingFolderDescription
     var pendingBookmarkTitle by uiState.pendingBookmarkTitle
     var pendingBookmarkUrl by uiState.pendingBookmarkUrl
     var pendingDeleteSnapshotId by uiState.pendingDeleteSnapshotId
@@ -66,6 +67,7 @@ fun HomeScreen(
     var pendingEditBookmarkItem by uiState.pendingEditBookmarkItem
     var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
+    var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
 
     val orderedSnapshotIds = state.orderedSnapshotIds
     val context = LocalContext.current
@@ -168,6 +170,7 @@ fun HomeScreen(
                         is BookmarkItem.Bookmark -> item.title
                     }
                     pendingEditBookmarkUrl = (item as? BookmarkItem.Bookmark)?.url.orEmpty()
+                    pendingEditBookmarkDescription = (item as? BookmarkItem.Folder)?.description.orEmpty()
                 },
                 onSelectedFolderPathChange = onSelectedFolderPathChange,
                 currentSnapshotTitle = selectedBookmarkId?.let(snapshotTitles::get),
@@ -193,6 +196,7 @@ internal class HomeScreenUiState(
     val showAddFolderDialog: MutableState<Boolean>,
     val showAddBookmarkDialog: MutableState<Boolean>,
     val pendingFolderTitle: MutableState<String>,
+    val pendingFolderDescription: MutableState<String>,
     val pendingBookmarkTitle: MutableState<String>,
     val pendingBookmarkUrl: MutableState<String>,
     val pendingDeleteSnapshotId: MutableState<String?>,
@@ -203,6 +207,7 @@ internal class HomeScreenUiState(
     val pendingEditBookmarkItem: MutableState<BookmarkItem?>,
     val pendingEditBookmarkTitle: MutableState<String>,
     val pendingEditBookmarkUrl: MutableState<String>,
+    val pendingEditBookmarkDescription: MutableState<String>,
 )
 
 @Composable
@@ -216,6 +221,7 @@ private fun rememberHomeScreenUiState(): HomeScreenUiState = HomeScreenUiState(
     showAddFolderDialog = rememberSaveable { mutableStateOf(false) },
     showAddBookmarkDialog = rememberSaveable { mutableStateOf(false) },
     pendingFolderTitle = rememberSaveable { mutableStateOf("") },
+    pendingFolderDescription = rememberSaveable { mutableStateOf("") },
     pendingBookmarkTitle = rememberSaveable { mutableStateOf("") },
     pendingBookmarkUrl = rememberSaveable { mutableStateOf("") },
     pendingDeleteSnapshotId = rememberSaveable { mutableStateOf<String?>(null) },
@@ -226,6 +232,7 @@ private fun rememberHomeScreenUiState(): HomeScreenUiState = HomeScreenUiState(
     pendingEditBookmarkItem = remember { mutableStateOf<BookmarkItem?>(null) },
     pendingEditBookmarkTitle = rememberSaveable { mutableStateOf("") },
     pendingEditBookmarkUrl = rememberSaveable { mutableStateOf("") },
+    pendingEditBookmarkDescription = rememberSaveable { mutableStateOf("") },
 )
 
 @Preview(showBackground = true)
@@ -246,11 +253,11 @@ private fun HomeScreenPreview() {
         onOpenFilePicker = {},
         onDeleteBookmarkSnapshot = {},
         onBookmarkDisplayTypeToggle = {},
-        onAddFolder = { _, _ -> },
+        onAddFolder = { _, _, _ -> },
         onAddBookmark = { _, _, _ -> },
         onRenameBookmarkSnapshot = { _, _ -> },
         onDeleteBookmarkItem = {},
-        onUpdateBookmarkItem = { _, _, _ -> },
+        onUpdateBookmarkItem = { _, _, _, _ -> },
         onAddEmptyBookmarkSnapshot = {},
     )
 }

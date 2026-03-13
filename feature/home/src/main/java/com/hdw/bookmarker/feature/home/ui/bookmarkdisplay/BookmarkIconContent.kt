@@ -230,6 +230,7 @@ private fun BookmarkFolderIconItemPreview() {
     BookmarkFolderIconItem(
         folder = BookmarkItem.Folder(
             title = "Favorites",
+            description = "Pinned links",
             addDate = null,
             lastModified = null,
             children = emptyList(),
@@ -262,6 +263,7 @@ private fun previewBookmarkIconDocument(): BookmarkDocument = BookmarkDocument(
     rootItems = listOf(
         BookmarkItem.Folder(
             title = "AI",
+            description = "AI resources",
             addDate = null,
             lastModified = null,
             children = listOf(
