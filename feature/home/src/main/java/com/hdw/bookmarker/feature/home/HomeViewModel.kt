@@ -16,7 +16,9 @@ import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetScrollLongFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetShowFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
@@ -58,8 +60,10 @@ class HomeViewModel @Inject constructor(
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
     private val getScrollLongBookmarkUrlUseCase: GetScrollLongBookmarkUrlUseCase,
+    private val getScrollLongFolderDescriptionUseCase: GetScrollLongFolderDescriptionUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
     private val getShowBookmarkUrlUseCase: GetShowBookmarkUrlUseCase,
+    private val getShowFolderDescriptionUseCase: GetShowFolderDescriptionUseCase,
     private val getBookmarkFolderIconStyleUseCase: GetBookmarkFolderIconStyleUseCase,
 ) : ViewModel(),
     ContainerHost<HomeState, HomeSideEffect> {
@@ -70,6 +74,8 @@ class HomeViewModel @Inject constructor(
     private var isObservingBookmarkDisplayType = false
     private var isObservingScrollLongBookmarkUrl = false
     private var isObservingShowBookmarkUrl = false
+    private var isObservingShowFolderDescription = false
+    private var isObservingScrollLongFolderDescription = false
     private var isObservingFolderIconStyle = false
 
     override val container = container<HomeState, HomeSideEffect>(HomeState()) {
@@ -80,6 +86,8 @@ class HomeViewModel @Inject constructor(
         observeBookmarkDisplayType()
         observeScrollLongBookmarkUrl()
         observeShowBookmarkUrl()
+        observeShowFolderDescription()
+        observeScrollLongFolderDescription()
         observeFolderIconStyle()
         loadInstalledBrowsers()
     }
@@ -527,6 +535,26 @@ class HomeViewModel @Inject constructor(
         getShowBookmarkUrlUseCase().collect { showBookmarkUrl ->
             reduce {
                 state.copy(showBookmarkUrl = showBookmarkUrl)
+            }
+        }
+    }
+
+    private fun observeShowFolderDescription() = intent {
+        if (isObservingShowFolderDescription) return@intent
+        isObservingShowFolderDescription = true
+        getShowFolderDescriptionUseCase().collect { showFolderDescription ->
+            reduce {
+                state.copy(showFolderDescription = showFolderDescription)
+            }
+        }
+    }
+
+    private fun observeScrollLongFolderDescription() = intent {
+        if (isObservingScrollLongFolderDescription) return@intent
+        isObservingScrollLongFolderDescription = true
+        getScrollLongFolderDescriptionUseCase().collect { scrollLongFolderDescription ->
+            reduce {
+                state.copy(scrollLongFolderDescription = scrollLongFolderDescription)
             }
         }
     }

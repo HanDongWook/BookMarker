@@ -13,6 +13,8 @@ data class SettingsState(
     val bookmarkDisplayType: String? = null,
     val showBookmarkUrl: Boolean = true,
     val scrollLongBookmarkUrl: Boolean = true,
+    val showFolderDescription: Boolean = true,
+    val scrollLongFolderDescription: Boolean = true,
     val folderIconStyle: BookmarkFolderIconStyle = BookmarkFolderIconStyle(),
     val appUpdateUiState: AppUpdateUiState = AppUpdateUiState.Checking,
     val updateLaunchRequestId: Long = 0L,

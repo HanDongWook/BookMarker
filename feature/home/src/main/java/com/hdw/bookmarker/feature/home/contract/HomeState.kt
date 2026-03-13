@@ -15,6 +15,8 @@ data class HomeState(
     val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
     val scrollLongBookmarkUrl: Boolean = true,
     val showBookmarkUrl: Boolean = true,
+    val showFolderDescription: Boolean = true,
+    val scrollLongFolderDescription: Boolean = true,
     val folderIconStyle: BookmarkFolderIconStyle = BookmarkFolderIconStyle(),
     val isImporting: Boolean = false,
 )

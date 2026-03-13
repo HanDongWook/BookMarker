@@ -168,5 +168,7 @@
     <string name="bookmark_display_type_icon">Значки</string>
     <string name="bookmark_show_url_label">Показывать URL</string>
     <string name="bookmark_scroll_long_url_label">Прокручивать длинный URL</string>
+    <string name="folder_show_description_label">Показывать описание</string>
+    <string name="folder_scroll_long_description_label">Прокручивать длинное описание</string>
     <string name="folder_description">Описание</string>
 </resources>

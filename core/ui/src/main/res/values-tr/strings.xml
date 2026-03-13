@@ -168,5 +168,7 @@
     <string name="bookmark_display_type_icon">Simge</string>
     <string name="bookmark_show_url_label">URL’yi göster</string>
     <string name="bookmark_scroll_long_url_label">Uzun URL’yi kaydır</string>
+    <string name="folder_show_description_label">Açıklamayı göster</string>
+    <string name="folder_scroll_long_description_label">Uzun açıklamayı kaydır</string>
     <string name="folder_description">Açıklama</string>
 </resources>
