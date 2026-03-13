@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
-    <string name="installed_browser">इंस्टॉल किए गए ब्राउज़र</string>
+    <string name="browser_guides_title">ब्राउज़र गाइड</string>
+    <string name="import_guide_installed_badge">इंस्टॉल है</string>
     <string name="menu">मेनू</string>
     <string name="menu_settings">सेटिंग्स</string>
     <string name="settings">सेटिंग्स</string>

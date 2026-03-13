@@ -116,7 +116,7 @@ internal object BrowserGuideCatalog {
 
             BrowserGuideItem(
                 browser = entry.browser,
-                displayName = installedBrowser?.appName ?: entry.displayName,
+                displayName = entry.displayName,
                 installedBrowser = installedBrowser,
             )
         }
