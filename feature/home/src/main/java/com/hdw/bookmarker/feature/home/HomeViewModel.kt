@@ -29,9 +29,11 @@ import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.model.file.error.ContentFileError
 import com.hdw.bookmarker.core.model.file.result.ContentFileResult
 import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
 import com.hdw.bookmarker.feature.home.contract.HomeState
+import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.orbitmvi.orbit.ContainerHost
@@ -235,44 +237,38 @@ class HomeViewModel @Inject constructor(
         reduce { state.withSelectedBookmarkId(snapshotId) }
     }
 
-    fun addFolder(title: String, description: String, parentFolderPath: List<Int>? = null) = intent {
-        val trimmedTitle = title.trim()
+    fun addBookmarkItem(request: AddBookmarkItemRequest) = intent {
+        val trimmedTitle = request.title.trim()
         if (trimmedTitle.isBlank()) return@intent
-        val trimmedDescription = description.trim().takeIf { it.isNotBlank() }
 
         val now = currentEpochSecondsString()
-        val currentState = state
-        val savedSnapshotId = saveAddedItem(
-            currentState = currentState,
-            parentFolderPath = parentFolderPath,
-            item = BookmarkItem.Folder(
+        val item = when (request) {
+            is AddBookmarkItemRequest.Folder -> BookmarkItem.Folder(
                 title = trimmedTitle,
-                description = trimmedDescription,
+                description = request.description.trim().takeIf { it.isNotBlank() },
                 addDate = now,
                 lastModified = now,
                 children = emptyList(),
-            ),
-        )
-        reduce { state.withSelectedBookmarkId(savedSnapshotId) }
-    }
+            )
 
-    fun addBookmark(title: String, url: String, parentFolderPath: List<Int>? = null) = intent {
-        val trimmedTitle = title.trim()
-        val trimmedUrl = url.trim()
-        if (trimmedTitle.isBlank() || trimmedUrl.isBlank()) return@intent
+            is AddBookmarkItemRequest.Bookmark -> {
+                val trimmedUrl = request.url.trim()
+                if (trimmedUrl.isBlank()) return@intent
+                BookmarkItem.Bookmark(
+                    title = trimmedTitle,
+                    url = normalizeUrl(trimmedUrl),
+                    addDate = now,
+                    lastModified = now,
+                    iconUri = null,
+                )
+            }
+        }
 
-        val now = currentEpochSecondsString()
         val currentState = state
         val savedSnapshotId = saveAddedItem(
             currentState = currentState,
-            parentFolderPath = parentFolderPath,
-            item = BookmarkItem.Bookmark(
-                title = trimmedTitle,
-                url = normalizeUrl(trimmedUrl),
-                addDate = now,
-                lastModified = now,
-                iconUri = null,
-            ),
+            parentFolderPath = request.parentFolderPath,
+            item = item,
         )
         reduce { state.withSelectedBookmarkId(savedSnapshotId) }
     }
@@ -293,19 +289,21 @@ class HomeViewModel @Inject constructor(
         reduce { state.withSelectedBookmarkId(savedSnapshotId) }
     }
 
-    fun updateBookmarkItem(path: List<Int>, title: String, url: String?, description: String?) = intent {
-        if (path.isEmpty()) return@intent
-        val trimmedTitle = title.trim()
+    fun updateBookmarkItem(request: UpdateBookmarkItemRequest) = intent {
+        if (request.path.isEmpty()) return@intent
+        val trimmedTitle = request.title.trim()
         if (trimmedTitle.isBlank()) return@intent
+        val normalizedRequest = when (request) {
+            is UpdateBookmarkItemRequest.Bookmark -> request.copy(title = trimmedTitle)
+            is UpdateBookmarkItemRequest.Folder -> request.copy(title = trimmedTitle)
+        }
 
         val currentSnapshotId = state.selectedBookmarkId ?: return@intent
         val currentDocument = state.bookmarkDocuments[currentSnapshotId] ?: return@intent
         val updatedRootItems = updateItemByPath(
             items = currentDocument.rootItems,
-            path = path,
-            title = trimmedTitle,
-            url = url,
-            description = description,
+            path = normalizedRequest.path,
+            request = normalizedRequest,
         ) ?: return@intent
         val sourceHash = getBookmarkSnapshotRawFileHashUseCase(currentSnapshotId).orEmpty()
 
@@ -413,9 +411,7 @@ class HomeViewModel @Inject constructor(
     private fun updateItemByPath(
         items: List<BookmarkItem>,
         path: List<Int>,
-        title: String,
-        url: String?,
-        description: String?,
+        request: UpdateBookmarkItemRequest,
     ): List<BookmarkItem>? {
         val targetIndex = path.firstOrNull() ?: return null
         if (targetIndex !in items.indices) return null
@@ -423,22 +419,24 @@ class HomeViewModel @Inject constructor(
         if (path.size == 1) {
             val now = currentEpochSecondsString()
             val target = items[targetIndex]
-            val updatedItem = when (target) {
-                is BookmarkItem.Folder -> target.copy(
-                    title = title,
-                    description = description?.trim()?.takeIf { it.isNotBlank() },
+            val updatedItem = when {
+                target is BookmarkItem.Folder && request is UpdateBookmarkItemRequest.Folder -> target.copy(
+                    title = request.title,
+                    description = request.description.trim().takeIf { it.isNotBlank() },
                     lastModified = now,
                 )
 
-                is BookmarkItem.Bookmark -> {
-                    val trimmedUrl = url?.trim().orEmpty()
+                target is BookmarkItem.Bookmark && request is UpdateBookmarkItemRequest.Bookmark -> {
+                    val trimmedUrl = request.url.trim()
                     if (trimmedUrl.isBlank()) return null
                     target.copy(
-                        title = title,
+                        title = request.title,
                         url = normalizeUrl(trimmedUrl),
                         lastModified = now,
                     )
                 }
+
+                else -> return null
             }
 
             return items.toMutableList().apply {
@@ -450,9 +448,7 @@ class HomeViewModel @Inject constructor(
         val updatedChildren = updateItemByPath(
             items = targetFolder.children,
             path = path.drop(1),
-            title = title,
-            url = url,
-            description = description,
+            request = request,
         ) ?: return null
 
         return items.toMutableList().apply {
