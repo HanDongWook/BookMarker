@@ -102,6 +102,10 @@ private fun BrowserItem(
             style = MaterialTheme.typography.bodyLarge,
             modifier = textModifier.weight(1f),
         )
+        if (guideItem.isInstalled) {
+            InstalledBadge()
+            Spacer(modifier = Modifier.width(12.dp))
+        }
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowRight,
             contentDescription = stringResource(R.string.sync),
@@ -181,5 +185,20 @@ private fun BrowserItemAvatar(guideItem: BrowserGuideItem, modifier: Modifier = 
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
+    }
+}
+
+@Composable
+private fun InstalledBadge() {
+    Surface(
+        shape = MaterialTheme.shapes.small,
+        color = MaterialTheme.colorScheme.secondaryContainer,
+        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+    ) {
+        Text(
+            text = stringResource(R.string.import_guide_installed_badge),
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+        )
     }
 }
