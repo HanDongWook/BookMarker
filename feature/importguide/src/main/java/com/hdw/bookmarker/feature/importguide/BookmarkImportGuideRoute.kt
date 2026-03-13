@@ -54,9 +54,7 @@ fun BookmarkImportGuideRoute(
 
             slideComposable<FeatureBookmarkImportGuideRoute.BrowserGuides> {
                 BrowserPickerScreen(
-                    guideItems = state.filteredGuideItems,
-                    selectedFilter = state.selectedFilter,
-                    onFilterSelected = viewModel::onGuideFilterSelected,
+                    guideItems = state.guideItems,
                     onOpenDesktopGuide = { browser ->
                         navController.navigate(
                             FeatureBookmarkImportGuideRoute.BrowserGuideDetail(browser.name),
