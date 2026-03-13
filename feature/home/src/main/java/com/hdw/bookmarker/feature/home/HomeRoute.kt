@@ -9,10 +9,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.hdw.bookmarker.core.designsystem.window.LocalWindowContext
 import com.hdw.bookmarker.core.model.MimeTypes
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.browser.BookmarkOpenRequest
@@ -36,8 +36,6 @@ private data class PendingBookmarkFileExport(
     val fileName: String,
     val content: String,
 )
-
-private const val OPEN_BOOKMARK_ADJACENT_MIN_WIDTH_DP = 840
 
 private fun handleShareBookmarkExport(
     format: BookmarkExportFormat,
@@ -95,7 +93,7 @@ fun HomeRoute(
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val state by viewModel.collectAsState()
-    val configuration = LocalConfiguration.current
+    val windowContext = LocalWindowContext.current
     val context = LocalContext.current
     val resources = LocalResources.current
     var pendingTextFileExport by remember { mutableStateOf<PendingBookmarkFileExport?>(null) }
@@ -135,9 +133,9 @@ fun HomeRoute(
         }
     }
     val shouldOpenBookmarkSidePreview = state.openBookmarkSidePreviewOnLargeScreen &&
-        configuration.screenWidthDp >= OPEN_BOOKMARK_ADJACENT_MIN_WIDTH_DP
+        windowContext.isLargeWidth
     val shouldOpenBookmarkAdjacent = state.openBookmarkAdjacentOnLargeScreen &&
-        configuration.screenWidthDp >= OPEN_BOOKMARK_ADJACENT_MIN_WIDTH_DP
+        windowContext.isLargeWidth
 
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
