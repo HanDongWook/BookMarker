@@ -51,7 +51,9 @@ fun ManageBookmarkItemDialog(
                     OutlinedTextField(
                         value = url,
                         onValueChange = onUrlChange,
-                        singleLine = true,
+                        singleLine = false,
+                        minLines = 2,
+                        maxLines = 10,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 8.dp),

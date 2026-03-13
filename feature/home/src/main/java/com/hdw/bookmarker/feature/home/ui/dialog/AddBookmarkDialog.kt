@@ -41,7 +41,9 @@ fun AddBookmarkDialog(
                 OutlinedTextField(
                     value = bookmarkUrl,
                     onValueChange = onBookmarkUrlChange,
-                    singleLine = true,
+                    singleLine = false,
+                    minLines = 2,
+                    maxLines = 10,
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(text = stringResource(R.string.bookmark_url)) },
                 )
