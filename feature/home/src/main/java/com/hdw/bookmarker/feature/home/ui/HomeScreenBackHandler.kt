@@ -12,7 +12,8 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
         uiState.showAddItemTypeDialog.value ||
         uiState.showColorPickerDialog.value ||
         uiState.isBrowserEditMode.value ||
-        uiState.showImportOptionDialog.value
+        uiState.showImportOptionDialog.value ||
+        uiState.previewBookmarkUrl.value != null
 
     BackHandler(enabled = shouldHandleBack) {
         when {
@@ -36,6 +37,11 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
             uiState.isBrowserEditMode.value -> uiState.isBrowserEditMode.value = false
 
             uiState.showImportOptionDialog.value -> uiState.showImportOptionDialog.value = false
+
+            uiState.previewBookmarkUrl.value != null -> {
+                uiState.previewBookmarkUrl.value = null
+                uiState.previewRefreshToken.value = 0
+            }
         }
     }
 }
