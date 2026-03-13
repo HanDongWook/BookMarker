@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">インストール済みブラウザ</string>
-    <string name="menu_description">メニュー</string>
     <string name="menu">メニュー</string>
     <string name="menu_settings">設定</string>
     <string name="settings">設定</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">ブックマーク形式の解析に失敗しました。</string>
     <string name="error_unsupported_browser">未対応のブラウザです。</string>
     <string name="error_unknown">不明なエラーが発生しました。</string>
-    <string name="no_bookmarks_imported">まだブックマークがインポートされていません。</string>
     <string name="empty_bookmarks">このビューにはブックマークがありません。</string>
     <string name="bookmark_icon_back">前のフォルダに戻る</string>
     <string name="bookmark_mode_list">ブックマークリスト表示</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">モバイル版%1$sではブックマークのエクスポートが利用できない場合があります。</string>
     <string name="import_guide_step1_body_desktop_generic">PC版%1$sで Bookmark/Favorites manager を探し、HTMLへエクスポートします。</string>
     <string name="import_guide_step2_title">2. HTMLファイルをスマホに保存</string>
-    <string name="import_guide_step3_title">3. HTMLファイルをインポート</string>
-    <string name="import_guide_step3_body">下のボタンをタップし、エクスポートしたHTMLファイルを選択してアプリにブックマークを取り込みます。</string>
-    <string name="import_guide_step3_button">HTMLファイルを選択</string>
     <string name="import_guide_open_guide_failed">ガイドページを開けませんでした。</string>
-    <string name="import_guide_open_downloads_failed">Downloadsを開けませんでした。</string>
     <string name="import_guide_exit">終了</string>
     <string name="open_bookmark_failed">ブックマークリンクを開けませんでした。</string>
-    <string name="import_skipped_same_file">同じファイルは既にインポート済みです。スキップしました。</string>
-    <string name="import_overwrite_dialog_title">インポート済みブックマークを上書きしますか？</string>
-    <string name="import_overwrite_dialog_message">別のブックマークファイルが検出されました。続行すると既存のインポート済みブックマークは削除され、置き換えられます。</string>
-    <string name="import_overwrite_dialog_confirm">上書き</string>
-    <string name="import_overwrite_dialog_cancel">キャンセル</string>
     <string name="delete_bookmark_dialog_title">ブックマークを削除しますか？</string>
     <string name="delete_bookmark_dialog_message">これらのブックマークを削除しますか？</string>
     <string name="delete_bookmark_dialog_confirm">削除</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">ブックマークの色を選択</string>
     <string name="bookmark_color_picker_dialog_close">閉じる</string>
     <string name="folder_style_label">フォルダスタイル</string>
-    <string name="folder_style_title">フォルダスタイル</string>
     <string name="app_language_label">アプリの言語</string>
     <string name="app_language_system_default">システムのデフォルト</string>
     <string name="folder_shape_label">形状</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">緑</string>
     <string name="folder_color_orange">オレンジ</string>
     <string name="folder_color_purple">紫</string>
-    <string name="app_update_status_checking">更新を確認中…</string>
     <string name="app_update_status_latest">最新バージョン</string>
     <string name="app_update_status_available">アップデートあり (v%1$d)</string>
-    <string name="app_update_status_in_progress">アップデート進行中</string>
-    <string name="app_update_status_unavailable">アップデートを確認できません</string>
-    <string name="app_update_action_update">アップデート</string>
     <string name="app_update_flow_canceled">アップデートはキャンセルされました。</string>
     <string name="app_update_flow_failed">アップデートの開始に失敗しました。</string>
-    <string name="rate_app_fallback_opening_store">アプリ内レビューを表示できません。Play ストアを開きます。</string>
     <string name="rate_app_review_requested_hint">ポップアップが表示されない場合は、Play ストアで評価してください。</string>
     <string name="share_current_bookmarks_html_failed">ブックマークHTMLファイルの作成に失敗しました。</string>
     <string name="share_bookmark_method_title">共有方法を選択</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">HTMLで共有</string>
     <string name="rate_app_open_store_failed">Play ストアを開けませんでした。</string>
     <string name="appearance_label">外観</string>
-    <string name="bookmark_display_mode_label">表示モード</string>
-    <string name="bookmark_display_type_list">リスト</string>
-    <string name="bookmark_display_type_icon">アイコン</string>
     <string name="bookmark_show_url_label">URLを表示</string>
     <string name="bookmark_scroll_long_url_label">長いURLをスクロール</string>
     <string name="folder_show_description_label">説明を表示</string>
     <string name="folder_scroll_long_description_label">長い説明をスクロール</string>
     <string name="folder_description">説明</string>
+    <string name="display_value_loading">読み込み中</string>
 </resources>

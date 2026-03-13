@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">Browser terpasang</string>
-    <string name="menu_description">Menu</string>
     <string name="menu">Menu</string>
     <string name="menu_settings">Pengaturan</string>
     <string name="settings">Pengaturan</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">Gagal memproses format bookmark.</string>
     <string name="error_unsupported_browser">Browser tidak didukung.</string>
     <string name="error_unknown">Terjadi kesalahan yang tidak diketahui.</string>
-    <string name="no_bookmarks_imported">Belum ada bookmark yang diimpor.</string>
     <string name="empty_bookmarks">Tidak ada bookmark pada tampilan ini.</string>
     <string name="bookmark_icon_back">Kembali ke folder sebelumnya</string>
     <string name="bookmark_mode_list">Tampilan daftar bookmark</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">Di %1$s seluler, ekspor bookmark mungkin tidak tersedia.</string>
     <string name="import_guide_step1_body_desktop_generic">Di %1$s komputer Anda, cari Bookmark/Favorites manager lalu ekspor ke HTML.</string>
     <string name="import_guide_step2_title">2. Simpan file HTML ke ponsel</string>
-    <string name="import_guide_step3_title">3. Impor file HTML</string>
-    <string name="import_guide_step3_body">Ketuk tombol di bawah ini lalu pilih file HTML hasil ekspor untuk mengimpor bookmark ke aplikasi.</string>
-    <string name="import_guide_step3_button">Pilih file HTML</string>
     <string name="import_guide_open_guide_failed">Tidak dapat membuka halaman panduan.</string>
-    <string name="import_guide_open_downloads_failed">Tidak dapat membuka Downloads.</string>
     <string name="import_guide_exit">Keluar</string>
     <string name="open_bookmark_failed">Tidak dapat membuka tautan bookmark.</string>
-    <string name="import_skipped_same_file">File yang sama sudah pernah diimpor. Dilewati.</string>
-    <string name="import_overwrite_dialog_title">Timpa bookmark yang diimpor?</string>
-    <string name="import_overwrite_dialog_message">File bookmark berbeda terdeteksi. Jika melanjutkan, bookmark impor yang ada akan dihapus dan diganti.</string>
-    <string name="import_overwrite_dialog_confirm">Timpa</string>
-    <string name="import_overwrite_dialog_cancel">Batal</string>
     <string name="delete_bookmark_dialog_title">Hapus bookmark?</string>
     <string name="delete_bookmark_dialog_message">Apakah Anda ingin menghapus bookmark ini?</string>
     <string name="delete_bookmark_dialog_confirm">Hapus</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">Pilih warna bookmark</string>
     <string name="bookmark_color_picker_dialog_close">Tutup</string>
     <string name="folder_style_label">Gaya folder</string>
-    <string name="folder_style_title">Gaya folder</string>
     <string name="app_language_label">Bahasa aplikasi</string>
     <string name="app_language_system_default">Bawaan sistem</string>
     <string name="folder_shape_label">Bentuk</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">Hijau</string>
     <string name="folder_color_orange">Oranye</string>
     <string name="folder_color_purple">Ungu</string>
-    <string name="app_update_status_checking">Memeriksa pembaruan…</string>
     <string name="app_update_status_latest">Versi terbaru</string>
     <string name="app_update_status_available">Pembaruan tersedia (v%1$d)</string>
-    <string name="app_update_status_in_progress">Pembaruan sedang berlangsung</string>
-    <string name="app_update_status_unavailable">Tidak dapat memeriksa pembaruan</string>
-    <string name="app_update_action_update">Perbarui</string>
     <string name="app_update_flow_canceled">Pembaruan dibatalkan.</string>
     <string name="app_update_flow_failed">Gagal memulai pembaruan.</string>
-    <string name="rate_app_fallback_opening_store">Ulasan dalam aplikasi tidak dapat ditampilkan. Membuka Play Store.</string>
     <string name="rate_app_review_requested_hint">Jika tidak ada popup, beri nilai aplikasi di Play Store.</string>
     <string name="share_current_bookmarks_html_failed">Gagal membuat file HTML bookmark.</string>
     <string name="share_bookmark_method_title">Pilih jenis berbagi</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">Bagikan sebagai HTML</string>
     <string name="rate_app_open_store_failed">Tidak dapat membuka Play Store.</string>
     <string name="appearance_label">Tampilan</string>
-    <string name="bookmark_display_mode_label">Mode tampilan</string>
-    <string name="bookmark_display_type_list">Daftar</string>
-    <string name="bookmark_display_type_icon">Ikon</string>
     <string name="bookmark_show_url_label">Tampilkan URL</string>
     <string name="bookmark_scroll_long_url_label">Gulir URL panjang</string>
     <string name="folder_show_description_label">Tampilkan deskripsi</string>
     <string name="folder_scroll_long_description_label">Gulir deskripsi panjang</string>
     <string name="folder_description">Deskripsi</string>
+    <string name="display_value_loading">Memuat</string>
 </resources>

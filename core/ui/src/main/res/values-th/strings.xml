@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">เบราว์เซอร์ที่ติดตั้ง</string>
-    <string name="menu_description">เมนู</string>
     <string name="menu">เมนู</string>
     <string name="menu_settings">การตั้งค่า</string>
     <string name="settings">การตั้งค่า</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">ไม่สามารถแยกวิเคราะห์รูปแบบบุ๊กมาร์กได้</string>
     <string name="error_unsupported_browser">เบราว์เซอร์ไม่รองรับ</string>
     <string name="error_unknown">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
-    <string name="no_bookmarks_imported">ยังไม่มีการนำเข้าบุ๊กมาร์ก</string>
     <string name="empty_bookmarks">ไม่มีบุ๊กมาร์กในมุมมองนี้</string>
     <string name="bookmark_icon_back">กลับไปโฟลเดอร์ก่อนหน้า</string>
     <string name="bookmark_mode_list">มุมมองรายการบุ๊กมาร์ก</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">บน %1$s มือถือ อาจไม่รองรับการส่งออกบุ๊กมาร์ก</string>
     <string name="import_guide_step1_body_desktop_generic">บนคอมพิวเตอร์ของคุณใน %1$s ให้ค้นหา Bookmark/Favorites manager แล้วส่งออกเป็น HTML</string>
     <string name="import_guide_step2_title">2. บันทึกไฟล์ HTML ลงในโทรศัพท์</string>
-    <string name="import_guide_step3_title">3. นำเข้าไฟล์ HTML</string>
-    <string name="import_guide_step3_body">แตะปุ่มด้านล่าง แล้วเลือกไฟล์ HTML ที่ส่งออกไว้ เพื่อนำเข้าบุ๊กมาร์กเข้าสู่แอป</string>
-    <string name="import_guide_step3_button">เลือกไฟล์ HTML</string>
     <string name="import_guide_open_guide_failed">ไม่สามารถเปิดหน้าคู่มือได้</string>
-    <string name="import_guide_open_downloads_failed">ไม่สามารถเปิด Downloads ได้</string>
     <string name="import_guide_exit">ออก</string>
     <string name="open_bookmark_failed">ไม่สามารถเปิดลิงก์บุ๊กมาร์กได้</string>
-    <string name="import_skipped_same_file">ไฟล์เดียวกันถูกนำเข้าแล้ว ข้ามรายการนี้</string>
-    <string name="import_overwrite_dialog_title">เขียนทับบุ๊กมาร์กที่นำเข้าไว้หรือไม่?</string>
-    <string name="import_overwrite_dialog_message">ตรวจพบไฟล์บุ๊กมาร์กอื่น หากดำเนินการต่อ บุ๊กมาร์กที่นำเข้าไว้เดิมจะถูกลบและแทนที่</string>
-    <string name="import_overwrite_dialog_confirm">เขียนทับ</string>
-    <string name="import_overwrite_dialog_cancel">ยกเลิก</string>
     <string name="delete_bookmark_dialog_title">ลบบุ๊กมาร์ก?</string>
     <string name="delete_bookmark_dialog_message">คุณต้องการลบบุ๊กมาร์กเหล่านี้หรือไม่?</string>
     <string name="delete_bookmark_dialog_confirm">ลบ</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">เลือกสีบุ๊กมาร์ก</string>
     <string name="bookmark_color_picker_dialog_close">ปิด</string>
     <string name="folder_style_label">สไตล์โฟลเดอร์</string>
-    <string name="folder_style_title">สไตล์โฟลเดอร์</string>
     <string name="app_language_label">ภาษาของแอป</string>
     <string name="app_language_system_default">ค่าเริ่มต้นของระบบ</string>
     <string name="folder_shape_label">รูปทรง</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">สีเขียว</string>
     <string name="folder_color_orange">สีส้ม</string>
     <string name="folder_color_purple">สีม่วง</string>
-    <string name="app_update_status_checking">กำลังตรวจสอบการอัปเดต…</string>
     <string name="app_update_status_latest">เวอร์ชันล่าสุด</string>
     <string name="app_update_status_available">มีการอัปเดต (v%1$d)</string>
-    <string name="app_update_status_in_progress">กำลังอัปเดต</string>
-    <string name="app_update_status_unavailable">ไม่สามารถตรวจสอบการอัปเดตได้</string>
-    <string name="app_update_action_update">อัปเดต</string>
     <string name="app_update_flow_canceled">ยกเลิกการอัปเดตแล้ว</string>
     <string name="app_update_flow_failed">เริ่มการอัปเดตไม่สำเร็จ</string>
-    <string name="rate_app_fallback_opening_store">ไม่สามารถแสดงรีวิวในแอปได้ กำลังเปิด Play Store</string>
     <string name="rate_app_review_requested_hint">หากไม่มีป๊อปอัป โปรดให้คะแนนใน Play Store</string>
     <string name="share_current_bookmarks_html_failed">สร้างไฟล์ HTML ของบุ๊กมาร์กไม่สำเร็จ</string>
     <string name="share_bookmark_method_title">เลือกประเภทการแชร์</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">แชร์เป็น HTML</string>
     <string name="rate_app_open_store_failed">ไม่สามารถเปิด Play Store ได้</string>
     <string name="appearance_label">รูปลักษณ์</string>
-    <string name="bookmark_display_mode_label">โหมดการแสดงผล</string>
-    <string name="bookmark_display_type_list">รายการ</string>
-    <string name="bookmark_display_type_icon">ไอคอน</string>
     <string name="bookmark_show_url_label">แสดง URL</string>
     <string name="bookmark_scroll_long_url_label">เลื่อน URL ยาว</string>
     <string name="folder_show_description_label">แสดงคำอธิบาย</string>
     <string name="folder_scroll_long_description_label">เลื่อนคำอธิบายยาว</string>
     <string name="folder_description">คำอธิบาย</string>
+    <string name="display_value_loading">กำลังโหลด</string>
 </resources>

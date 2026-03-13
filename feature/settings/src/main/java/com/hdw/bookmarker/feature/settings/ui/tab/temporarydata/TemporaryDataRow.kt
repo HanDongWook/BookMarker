@@ -5,13 +5,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.feature.settings.model.DisplayValueState
 import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
 
 @Composable
-fun TemporaryDataRow(size: String, onClick: () -> Unit) {
+fun TemporaryDataRow(size: DisplayValueState, onClick: () -> Unit) {
     SettingsRow(
         title = stringResource(R.string.temporary_data_label),
-        value = size,
+        value = when (size) {
+            DisplayValueState.Loading -> stringResource(R.string.display_value_loading)
+            is DisplayValueState.Loaded -> size.value
+            DisplayValueState.Unavailable -> null
+        },
         onClick = onClick,
     )
 }
@@ -21,7 +26,7 @@ fun TemporaryDataRow(size: String, onClick: () -> Unit) {
 private fun TemporaryDataRowPreview() {
     MaterialTheme {
         TemporaryDataRow(
-            size = "12.3 MB",
+            size = DisplayValueState.Loaded("12.3 MB"),
             onClick = {},
         )
     }

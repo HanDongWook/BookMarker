@@ -7,6 +7,7 @@ import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
+import com.hdw.bookmarker.feature.settings.model.DisplayValueState
 import com.hdw.bookmarker.feature.settings.model.SettingsState
 import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppUpdateUiState
 import dagger.assisted.Assisted
@@ -23,12 +24,15 @@ class SettingsViewModel @AssistedInject constructor(
 ) : MavericksViewModel<SettingsState>(initialState) {
     private var observingDefaultBrowser = false
 
-    suspend fun initialize(appVersion: String) {
+    suspend fun initialize(appVersion: String?) {
         val installedBrowsers = getInstalledBrowsersUseCase()
         withState { _ ->
             setState {
                 copy(
-                    appVersion = appVersion,
+                    appVersion = appVersion
+                        ?.takeIf { it.isNotBlank() }
+                        ?.let(DisplayValueState::Loaded)
+                        ?: DisplayValueState.Unavailable,
                     installedBrowsers = installedBrowsers,
                     selectedBrowserPackage = selectedBrowserPackage
                         ?.takeIf { selected -> installedBrowsers.any { it.packageName == selected } }
