@@ -118,7 +118,7 @@
     <string name="delete_bookmark_item_dialog_message">Voulez-vous supprimer le dossier ou le signet sélectionné ?</string>
     <string name="delete_bookmark_item_dialog_confirm">Supprimer</string>
     <string name="delete_bookmark_item_dialog_cancel">Annuler</string>
-    <string name="import_option_dialog_pick_file">Importer un fichier HTML de signets</string>
+    <string name="import_option_dialog_pick_file">Importer des signets depuis HTML</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Ajouter un élément de signet vide</string>
     <string name="bookmark_color_picker_dialog_title">Sélectionner la couleur du signet</string>
     <string name="bookmark_color_picker_dialog_close">Fermer</string>

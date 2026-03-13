@@ -118,7 +118,7 @@
     <string name="delete_bookmark_item_dialog_message">Deseja excluir a pasta ou o favorito selecionado?</string>
     <string name="delete_bookmark_item_dialog_confirm">Excluir</string>
     <string name="delete_bookmark_item_dialog_cancel">Cancelar</string>
-    <string name="import_option_dialog_pick_file">Importar arquivo HTML de favoritos</string>
+    <string name="import_option_dialog_pick_file">Importar favoritos de HTML</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Adicionar item de favorito vazio</string>
     <string name="bookmark_color_picker_dialog_title">Selecionar cor do favorito</string>
     <string name="bookmark_color_picker_dialog_close">Fechar</string>
