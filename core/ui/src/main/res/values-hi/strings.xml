@@ -118,7 +118,7 @@
     <string name="delete_bookmark_item_dialog_message">क्या आप चयनित फ़ोल्डर या बुकमार्क हटाना चाहते हैं?</string>
     <string name="delete_bookmark_item_dialog_confirm">हटाएँ</string>
     <string name="delete_bookmark_item_dialog_cancel">रद्द करें</string>
-    <string name="import_option_dialog_pick_file">बुकमार्क HTML फ़ाइल आयात करें</string>
+    <string name="import_option_dialog_pick_file">HTML से बुकमार्क आयात करें</string>
     <string name="import_option_dialog_add_empty_bookmark_item">खाली बुकमार्क आइटम जोड़ें</string>
     <string name="bookmark_color_picker_dialog_title">बुकमार्क रंग चुनें</string>
     <string name="bookmark_color_picker_dialog_close">बंद करें</string>

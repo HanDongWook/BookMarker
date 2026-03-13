@@ -118,7 +118,7 @@
     <string name="delete_bookmark_item_dialog_message">Bạn có muốn xóa thư mục hoặc dấu trang đã chọn không?</string>
     <string name="delete_bookmark_item_dialog_confirm">Xóa</string>
     <string name="delete_bookmark_item_dialog_cancel">Hủy</string>
-    <string name="import_option_dialog_pick_file">Nhập tệp HTML dấu trang</string>
+    <string name="import_option_dialog_pick_file">Nhập dấu trang từ HTML</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Thêm mục dấu trang trống</string>
     <string name="bookmark_color_picker_dialog_title">Chọn màu dấu trang</string>
     <string name="bookmark_color_picker_dialog_close">Đóng</string>
