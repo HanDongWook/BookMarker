@@ -26,6 +26,7 @@ import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.ui.dialog.HomeDialogHost
+import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportAction
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
@@ -45,6 +46,7 @@ fun HomeScreen(
     onDeleteBookmarkItem: (List<Int>) -> Unit,
     onUpdateBookmarkItem: (UpdateBookmarkItemRequest) -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
+    onBookmarkExportRequest: (BookmarkExportAction, com.hdw.bookmarker.core.model.bookmark.BookmarkDocument) -> Unit,
 ) {
     val uiState = rememberHomeScreenUiState()
     var showImportOptionDialog by uiState.showImportOptionDialog
@@ -53,6 +55,7 @@ fun HomeScreen(
     var showColorPickerDialog by uiState.showColorPickerDialog
     var showAddItemTypeDialog by uiState.showAddItemTypeDialog
     var showExportBookmarkMethodDialog by uiState.showExportBookmarkMethodDialog
+    var pendingBookmarkExportAction by uiState.pendingBookmarkExportAction
     var showAddFolderDialog by uiState.showAddFolderDialog
     var showAddBookmarkDialog by uiState.showAddBookmarkDialog
     var pendingFolderTitle by uiState.pendingFolderTitle
@@ -109,6 +112,14 @@ fun HomeScreen(
             .collect { page ->
                 orderedSnapshotIds.getOrNull(page)?.let(onSnapshotSelected)
             }
+    }
+
+    LaunchedEffect(pendingBookmarkExportAction, selectedBookmarkDocument) {
+        val exportAction = pendingBookmarkExportAction ?: return@LaunchedEffect
+        selectedBookmarkDocument?.let { document ->
+            onBookmarkExportRequest(exportAction, document)
+        }
+        pendingBookmarkExportAction = null
     }
 
     HomeScreenBackHandler(uiState = uiState)
@@ -192,6 +203,7 @@ internal class HomeScreenUiState(
     val showColorPickerDialog: MutableState<Boolean>,
     val showAddItemTypeDialog: MutableState<Boolean>,
     val showExportBookmarkMethodDialog: MutableState<Boolean>,
+    val pendingBookmarkExportAction: MutableState<BookmarkExportAction?>,
     val showAddFolderDialog: MutableState<Boolean>,
     val showAddBookmarkDialog: MutableState<Boolean>,
     val pendingFolderTitle: MutableState<String>,
@@ -217,6 +229,7 @@ private fun rememberHomeScreenUiState(): HomeScreenUiState = HomeScreenUiState(
     showColorPickerDialog = rememberSaveable { mutableStateOf(false) },
     showAddItemTypeDialog = rememberSaveable { mutableStateOf(false) },
     showExportBookmarkMethodDialog = rememberSaveable { mutableStateOf(false) },
+    pendingBookmarkExportAction = remember { mutableStateOf<BookmarkExportAction?>(null) },
     showAddFolderDialog = rememberSaveable { mutableStateOf(false) },
     showAddBookmarkDialog = rememberSaveable { mutableStateOf(false) },
     pendingFolderTitle = rememberSaveable { mutableStateOf("") },
@@ -256,5 +269,6 @@ private fun HomeScreenPreview() {
         onDeleteBookmarkItem = {},
         onUpdateBookmarkItem = { _ -> },
         onAddEmptyBookmarkSnapshot = {},
+        onBookmarkExportRequest = { _, _ -> },
     )
 }
