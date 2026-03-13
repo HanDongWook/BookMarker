@@ -124,12 +124,6 @@
     <string name="import_guide_step1_body_desktop_generic">PC %1$s에서 북마크/즐겨찾기 관리 화면으로 이동해 HTML로 내보내기를 진행하세요.</string>
     <string name="import_guide_step2_title">2. HTML 파일을 휴대폰에 저장</string>
     <string name="import_guide_open_guide_failed">가이드 페이지를 열 수 없어요.</string>
-    <string name="browser_guide_badge_guide">가이드</string>
-    <string name="browser_guide_badge_desktop">데스크톱</string>
-    <string name="browser_guide_filter_all">전체</string>
-    <string name="browser_guide_filter_installed">설치됨</string>
-    <string name="browser_guide_filter_guide">가이드</string>
-    <string name="browser_guide_filter_desktop">데스크톱</string>
     <string name="open_bookmark_failed">북마크 링크를 열 수 없어요.</string>
     <string name="delete_bookmark_dialog_title">북마크 삭제</string>
     <string name="delete_bookmark_dialog_message">북마크를 삭제하시겠습니까?</string>
