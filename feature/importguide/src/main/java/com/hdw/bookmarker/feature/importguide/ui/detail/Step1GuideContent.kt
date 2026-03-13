@@ -12,7 +12,10 @@ data class Step1GuideContent(
 )
 
 @Composable
-fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent = when (this) {
+fun Browser.toStep1GuideContent(
+    resolvedBrowserName: String,
+    showDesktopGuideButton: Boolean,
+): Step1GuideContent = when (this) {
     Browser.CHROME -> {
         Step1GuideContent(
             step1Title = stringResource(R.string.import_guide_step1_title),
@@ -20,7 +23,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice),
                 stringResource(R.string.import_guide_step1_body_desktop),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -30,7 +33,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
             step1Descriptions = arrayOf(
                 stringResource(R.string.import_guide_step1_body_notice_brave),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -41,7 +44,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_edge),
                 stringResource(R.string.import_guide_step1_body_desktop_edge),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -52,7 +55,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_naver_whale),
                 stringResource(R.string.import_guide_step1_body_desktop_naver_whale),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -63,7 +66,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_samsung_internet),
                 stringResource(R.string.import_guide_step1_body_desktop_samsung_internet),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -74,7 +77,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_firefox),
                 stringResource(R.string.import_guide_step1_body_desktop_firefox),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -85,7 +88,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_safari),
                 stringResource(R.string.import_guide_step1_body_desktop_safari),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -96,7 +99,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_opera),
                 stringResource(R.string.import_guide_step1_body_desktop_opera),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -107,7 +110,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_vivaldi),
                 stringResource(R.string.import_guide_step1_body_desktop_vivaldi),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -118,7 +121,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_duckduckgo),
                 stringResource(R.string.import_guide_step1_body_desktop_duckduckgo),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -129,7 +132,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_kiwi),
                 stringResource(R.string.import_guide_step1_body_desktop_kiwi),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -140,7 +143,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_yandex),
                 stringResource(R.string.import_guide_step1_body_desktop_yandex),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -151,7 +154,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_arc),
                 stringResource(R.string.import_guide_step1_body_desktop_arc),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -162,7 +165,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_ie),
                 stringResource(R.string.import_guide_step1_body_desktop_ie),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 
@@ -173,7 +176,7 @@ fun Browser.toStep1GuideContent(resolvedBrowserName: String): Step1GuideContent 
                 stringResource(R.string.import_guide_step1_body_notice_generic, resolvedBrowserName),
                 stringResource(R.string.import_guide_step1_body_desktop_generic, resolvedBrowserName),
             ),
-            showDesktopGuideButton = hasBookmarkGuideLink(),
+            showDesktopGuideButton = showDesktopGuideButton,
         )
     }
 }

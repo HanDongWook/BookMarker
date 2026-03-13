@@ -3,6 +3,7 @@ package com.hdw.bookmarker.feature.home
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
@@ -20,6 +21,8 @@ fun HomeRoute(
     onSettingsClick: () -> Unit,
     onOpenBookmark: (String, String?) -> Boolean,
     onOpenBookmarkImportGuide: () -> Unit,
+    pendingImportHtmlRequestToken: Long? = null,
+    onImportHtmlRequestHandled: () -> Unit = {},
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val state by viewModel.collectAsState()
@@ -28,6 +31,13 @@ fun HomeRoute(
     val htmlPickerLauncher = rememberLauncherForActivityResult(OpenDocument()) { uri ->
         if (uri != null) {
             viewModel.onHtmlFileSelected(uri)
+        }
+    }
+
+    LaunchedEffect(pendingImportHtmlRequestToken) {
+        if (pendingImportHtmlRequestToken != null) {
+            onImportHtmlRequestHandled()
+            htmlPickerLauncher.launch(arrayOf(MimeTypes.HTML))
         }
     }
 

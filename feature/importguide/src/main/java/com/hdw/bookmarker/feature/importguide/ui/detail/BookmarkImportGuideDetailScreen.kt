@@ -14,12 +14,15 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -36,6 +39,7 @@ fun BookmarkImportGuideScreen(
     icon: Drawable?,
     browser: Browser,
     browserName: String,
+    showGuideButton: Boolean,
     onDismiss: () -> Unit,
     onOpenDesktopGuide: () -> Unit,
     iconModifier: Modifier = Modifier,
@@ -44,7 +48,10 @@ fun BookmarkImportGuideScreen(
     val resolvedBrowserName = browserName.ifBlank { stringResource(R.string.browser_generic_name) }
     val step1Guide = remember(browser, resolvedBrowserName) {
         browser
-    }.toStep1GuideContent(resolvedBrowserName = resolvedBrowserName)
+    }.toStep1GuideContent(
+        resolvedBrowserName = resolvedBrowserName,
+        showDesktopGuideButton = showGuideButton,
+    )
 
     Surface(
         modifier = Modifier
@@ -129,8 +136,11 @@ private fun GuideTitle(
             )
         }
         Spacer(modifier = Modifier.weight(1f))
-        TextButton(onClick = onDismiss) {
-            Text(text = stringResource(R.string.import_guide_exit))
+        IconButton(onClick = onDismiss) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                contentDescription = stringResource(R.string.bookmark_icon_back),
+            )
         }
     }
 }
@@ -194,6 +204,7 @@ private fun BookmarkImportGuideScreenPreview() {
         icon = null,
         browser = Browser.CHROME,
         browserName = "Chrome",
+        showGuideButton = true,
         onDismiss = {},
         onOpenDesktopGuide = {},
     )

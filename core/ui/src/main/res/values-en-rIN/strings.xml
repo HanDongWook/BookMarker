@@ -109,7 +109,6 @@
     <string name="import_guide_step1_body_desktop_generic">On your computer %1$s, find Bookmark/Favourites manager and export to HTML.</string>
     <string name="import_guide_step2_title">2. Save the HTML file to phone</string>
     <string name="import_guide_open_guide_failed">Could not open guide page.</string>
-    <string name="import_guide_exit">Exit</string>
     <string name="open_bookmark_failed">Could not open bookmark link.</string>
     <string name="delete_bookmark_dialog_title">Delete bookmarks?</string>
     <string name="delete_bookmark_dialog_message">Do you want to delete these bookmarks?</string>
@@ -119,7 +118,6 @@
     <string name="delete_bookmark_item_dialog_message">Do you want to delete the selected folder or bookmark?</string>
     <string name="delete_bookmark_item_dialog_confirm">Delete</string>
     <string name="delete_bookmark_item_dialog_cancel">Cancel</string>
-    <string name="import_option_dialog_open_guide">View bookmark HTML import guide</string>
     <string name="import_option_dialog_pick_file">Import bookmark HTML file</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Add empty bookmark item</string>
     <string name="bookmark_color_picker_dialog_title">Select bookmark colour</string>

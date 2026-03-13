@@ -68,6 +68,11 @@
     <string name="bookmark_mode_list">북마크 리스트 보기</string>
     <string name="bookmark_mode_icon">북마크 아이콘 보기</string>
     <string name="import_bookmarks">북마크 가져오기</string>
+    <string name="import_source_html_file_title">HTML 파일</string>
+    <string name="import_source_html_file_description">내보낸 HTML 파일에서 북마크를 바로 가져옵니다.</string>
+    <string name="import_source_browser_guides_description">주요 브라우저의 내보내기 방법을 확인합니다.</string>
+    <string name="import_source_badge_recommended">추천</string>
+    <string name="import_source_badge_direct_import">바로 가져오기</string>
     <string name="browser_generic_name">브라우저</string>
     <string name="import_guide_title">크롬 북마크 가져오기</string>
     <string name="import_guide_title_for_browser">%1$s 북마크 가져오기</string>
@@ -119,7 +124,12 @@
     <string name="import_guide_step1_body_desktop_generic">PC %1$s에서 북마크/즐겨찾기 관리 화면으로 이동해 HTML로 내보내기를 진행하세요.</string>
     <string name="import_guide_step2_title">2. HTML 파일을 휴대폰에 저장</string>
     <string name="import_guide_open_guide_failed">가이드 페이지를 열 수 없어요.</string>
-    <string name="import_guide_exit">나가기</string>
+    <string name="browser_guide_badge_guide">가이드</string>
+    <string name="browser_guide_badge_desktop">데스크톱</string>
+    <string name="browser_guide_filter_all">전체</string>
+    <string name="browser_guide_filter_installed">설치됨</string>
+    <string name="browser_guide_filter_guide">가이드</string>
+    <string name="browser_guide_filter_desktop">데스크톱</string>
     <string name="open_bookmark_failed">북마크 링크를 열 수 없어요.</string>
     <string name="delete_bookmark_dialog_title">북마크 삭제</string>
     <string name="delete_bookmark_dialog_message">북마크를 삭제하시겠습니까?</string>
@@ -129,7 +139,6 @@
     <string name="delete_bookmark_item_dialog_message">선택한 폴더 또는 북마크를 삭제하시겠습니까?</string>
     <string name="delete_bookmark_item_dialog_confirm">삭제</string>
     <string name="delete_bookmark_item_dialog_cancel">취소</string>
-    <string name="import_option_dialog_open_guide">북마크 HTML 가져오기 가이드</string>
     <string name="import_option_dialog_pick_file">북마크 HTML 파일 가져오기</string>
     <string name="import_option_dialog_add_empty_bookmark_item">빈 북마크 아이템 추가하기</string>
     <string name="bookmark_color_picker_dialog_title">북마크 색상 선택</string>

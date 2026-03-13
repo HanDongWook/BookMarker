@@ -5,8 +5,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface FeatureBookmarkImportGuideRoute {
     @Serializable
-    data object Picker : FeatureBookmarkImportGuideRoute
+    data object Root : FeatureBookmarkImportGuideRoute
 
     @Serializable
-    data class GuideFeatureBookmark(val browserId: String) : FeatureBookmarkImportGuideRoute
+    data object BrowserGuides : FeatureBookmarkImportGuideRoute
+
+    @Serializable
+    data class BrowserGuideDetail(val browserId: String) : FeatureBookmarkImportGuideRoute
 }
