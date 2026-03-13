@@ -1,10 +1,7 @@
 package com.hdw.bookmarker.feature.importguide.ui.picker
 
 import android.graphics.drawable.ColorDrawable
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,14 +24,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.importguide.model.BrowserGuideItem
+import com.hdw.bookmarker.feature.importguide.ui.component.BrowserGuideIcon
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -92,8 +87,10 @@ private fun BrowserItem(
             .clickable(onClick = onSyncClick),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        BrowserItemAvatar(
-            guideItem = guideItem,
+        BrowserGuideIcon(
+            browser = guideItem.browser,
+            displayName = guideItem.displayName,
+            installedIcon = guideItem.installedBrowser?.icon,
             modifier = iconModifier,
         )
         Spacer(modifier = Modifier.width(12.dp))
@@ -152,40 +149,6 @@ private fun BrowserPickerScreenPreview() {
         onOpenDesktopGuide = {},
         onBackClick = {},
     )
-}
-
-@Composable
-private fun BrowserItemAvatar(guideItem: BrowserGuideItem, modifier: Modifier = Modifier) {
-    val installedIcon = guideItem.installedBrowser?.icon
-    if (installedIcon != null) {
-        Image(
-            painter = rememberDrawablePainter(drawable = installedIcon),
-            contentDescription = guideItem.displayName,
-            modifier = modifier.size(40.dp),
-        )
-        return
-    }
-
-    Surface(
-        modifier = modifier.size(40.dp),
-        shape = MaterialTheme.shapes.medium,
-        tonalElevation = 2.dp,
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(MaterialTheme.shapes.medium)
-                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f)),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = guideItem.displayName.firstOrNull()?.uppercase() ?: "?",
-                style = MaterialTheme.typography.titleMedium,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-    }
 }
 
 @Composable
