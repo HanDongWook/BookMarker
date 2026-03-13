@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -138,7 +138,7 @@ private fun GuideTitle(
         Spacer(modifier = Modifier.weight(1f))
         IconButton(onClick = onDismiss) {
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                imageVector = Icons.Default.Close,
                 contentDescription = stringResource(R.string.bookmark_icon_back),
             )
         }
