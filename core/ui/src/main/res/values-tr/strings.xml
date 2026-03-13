@@ -167,4 +167,5 @@
     <string name="bookmark_display_type_list">Liste</string>
     <string name="bookmark_display_type_icon">Simge</string>
     <string name="bookmark_show_url_label">URL’yi göster</string>
+    <string name="bookmark_scroll_long_url_label">Uzun URL’yi kaydır</string>
 </resources>

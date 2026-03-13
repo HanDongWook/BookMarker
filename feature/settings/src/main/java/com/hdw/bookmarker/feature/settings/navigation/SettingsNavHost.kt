@@ -26,6 +26,7 @@ internal fun SettingsNavHost(
     onBackClick: () -> Unit,
     onTemporaryDataClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
+    onScrollLongBookmarkUrlChange: (Boolean) -> Unit,
     onThemeModeSelect: (String) -> Unit,
     onShowBookmarkUrlChange: (Boolean) -> Unit,
     onDefaultBrowserSelect: (String) -> Unit,
@@ -81,7 +82,9 @@ internal fun SettingsNavHost(
 
         slideComposable<SettingsNavRoute.Appearance.Bookmark> {
             BookmarkAppearanceScreen(
+                scrollLongBookmarkUrl = state.scrollLongBookmarkUrl,
                 showBookmarkUrl = state.showBookmarkUrl,
+                onScrollLongBookmarkUrlChange = onScrollLongBookmarkUrlChange,
                 onShowBookmarkUrlChange = onShowBookmarkUrlChange,
                 onBackClick = { navController.popBackStack() },
             )
@@ -131,6 +134,7 @@ private fun SettingsNavHostPreview() {
         onBackClick = {},
         onTemporaryDataClick = {},
         onAppUpdateClick = {},
+        onScrollLongBookmarkUrlChange = {},
         onThemeModeSelect = {},
         onShowBookmarkUrlChange = {},
         onDefaultBrowserSelect = {},

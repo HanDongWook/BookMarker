@@ -24,6 +24,7 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
         val defaultBrowserPackage = stringPreferencesKey("default_browser_package")
         val bookmarkDisplayType = stringPreferencesKey("bookmark_display_type")
         val showBookmarkUrl = booleanPreferencesKey("show_bookmark_url")
+        val scrollLongBookmarkUrl = booleanPreferencesKey("scroll_long_bookmark_url")
         val appThemeMode = stringPreferencesKey("app_theme_mode")
         val bookmarkFolderIconShape = stringPreferencesKey("bookmark_folder_icon_shape")
         val bookmarkFolderIconColor = stringPreferencesKey("bookmark_folder_icon_color")
@@ -51,6 +52,15 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
 
     fun getShowBookmarkUrl(): Flow<Boolean> = getBoolean(
         key = Keys.showBookmarkUrl,
+        defaultValue = true,
+    )
+
+    suspend fun saveScrollLongBookmarkUrl(value: Boolean) {
+        saveBoolean(Keys.scrollLongBookmarkUrl, value)
+    }
+
+    fun getScrollLongBookmarkUrl(): Flow<Boolean> = getBoolean(
+        key = Keys.scrollLongBookmarkUrl,
         defaultValue = true,
     )
 

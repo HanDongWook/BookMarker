@@ -66,6 +66,7 @@ internal fun BookmarkListContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
+    scrollLongBookmarkUrl: Boolean,
     showBookmarkUrl: Boolean,
     folderIconStyle: BookmarkFolderIconStyle,
     modifier: Modifier = Modifier,
@@ -115,6 +116,7 @@ internal fun BookmarkListContent(
                     BookmarkLeafRow(
                         bookmark = item,
                         depth = node.depth,
+                        scrollLongBookmarkUrl = scrollLongBookmarkUrl,
                         showBookmarkUrl = showBookmarkUrl,
                         onClick = { onBookmarkClick(item.url) },
                         onLongClick = { onItemLongClick(item, node.path) },
@@ -182,6 +184,7 @@ private fun BookmarkFolderRow(
 private fun BookmarkLeafRow(
     bookmark: BookmarkItem.Bookmark,
     depth: Int,
+    scrollLongBookmarkUrl: Boolean,
     showBookmarkUrl: Boolean,
     onClick: () -> Unit,
     onLongClick: () -> Unit,
@@ -222,10 +225,16 @@ private fun BookmarkLeafRow(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
-                    overflow = TextOverflow.Visible,
+                    overflow = if (scrollLongBookmarkUrl) TextOverflow.Visible else TextOverflow.Ellipsis,
                     modifier = Modifier
                         .weight(0.6f)
-                        .basicMarquee(),
+                        .then(
+                            if (scrollLongBookmarkUrl) {
+                                Modifier.basicMarquee()
+                            } else {
+                                Modifier
+                            },
+                        ),
                 )
             }
         } else {
@@ -279,6 +288,7 @@ private fun BookmarkListContentPreview() {
         bookmarkDocument = previewBookmarkListDocument(),
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
+        scrollLongBookmarkUrl = true,
         showBookmarkUrl = true,
         folderIconStyle = BookmarkFolderIconStyle(),
     )
@@ -323,6 +333,7 @@ private fun BookmarkLeafRowPreview() {
             iconUri = null,
         ),
         depth = 0,
+        scrollLongBookmarkUrl = true,
         showBookmarkUrl = true,
         onClick = {},
         onLongClick = {},

@@ -6,6 +6,7 @@ interface SettingsRepository {
     fun getDefaultBrowserPackageFlow(): Flow<String?>
     fun getBookmarkDisplayTypeFlow(): Flow<String?>
     fun getShowBookmarkUrlFlow(): Flow<Boolean>
+    fun getScrollLongBookmarkUrlFlow(): Flow<Boolean>
     fun getAppThemeModeFlow(): Flow<String?>
     fun getBookmarkFolderIconShapeFlow(): Flow<String?>
     fun getBookmarkFolderIconColorFlow(): Flow<String?>
@@ -13,6 +14,7 @@ interface SettingsRepository {
     suspend fun setDefaultBrowserPackage(packageName: String)
     suspend fun setBookmarkDisplayType(displayType: String)
     suspend fun setShowBookmarkUrl(show: Boolean)
+    suspend fun setScrollLongBookmarkUrl(enabled: Boolean)
     suspend fun setAppThemeMode(mode: String)
     suspend fun setBookmarkFolderIconShape(shape: String)
     suspend fun setBookmarkFolderIconColor(color: String)
