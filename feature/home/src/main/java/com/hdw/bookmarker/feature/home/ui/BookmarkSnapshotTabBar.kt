@@ -19,6 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkAdd
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.MoveToInbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 internal fun BookmarkSnapshotTabBar(
     orderedSnapshotIds: List<String>,
+    inboxSnapshotIds: Set<String>,
     bookmarkColors: Map<String, Long>,
     selectedBookmarkId: String?,
     isEditMode: Boolean,
@@ -89,6 +91,7 @@ internal fun BookmarkSnapshotTabBar(
 
         items(orderedSnapshotIds, key = { it }) { snapshotId ->
             val isSelected = selectedBookmarkId == snapshotId
+            val isInboxSnapshot = snapshotId in inboxSnapshotIds
             val colorValue = bookmarkColors[snapshotId] ?: 0L
             Surface(
                 color = if (isSelected) {
@@ -110,7 +113,11 @@ internal fun BookmarkSnapshotTabBar(
                         .padding(horizontal = 6.dp, vertical = 2.dp),
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Bookmark,
+                        imageVector = if (isInboxSnapshot) {
+                            Icons.Default.MoveToInbox
+                        } else {
+                            Icons.Default.Bookmark
+                        },
                         contentDescription = null,
                         tint = Color(colorValue),
                         modifier = Modifier
