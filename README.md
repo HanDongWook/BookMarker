@@ -1,7 +1,7 @@
 <h1 align="center">BookMarker</h1>
 
 <p align="center">
-  <img src="design/images/app_icon.png" alt="Screenshot 1" width="250" style="border-radius: 50%;" />
+  <img src="design/icons/app_icon.png" alt="Screenshot 1" width="250" style="border-radius: 50%;" />
 </p>
 
 
@@ -13,8 +13,8 @@ BookMarker는 브라우저 북마크 HTML 파일을 앱으로 가져와 폴더 �
 ## 스크린샷
 
 <p align="center">
-  <img src="design/images/screenshots/screenshot_1.png" alt="Screenshot 1" width="220" />
-  <img src="design/images/screenshots/screenshot_2.png" alt="Screenshot 2" width="220" />
+  <img src="design/screenshots/screenshot_1.png" alt="Screenshot 1" width="220" />
+  <img src="design/screenshots/screenshot_2.png" alt="Screenshot 2" width="220" />
 </p>
 
 ## 기술 스택
