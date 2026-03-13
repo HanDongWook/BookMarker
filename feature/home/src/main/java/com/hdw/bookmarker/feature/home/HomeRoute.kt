@@ -56,10 +56,6 @@ fun HomeRoute(
             is HomeSideEffect.ShowMessage -> {
                 context.showShortToast(resources.getString(sideEffect.messageResId))
             }
-
-            is HomeSideEffect.OpenFilePicker -> {
-                htmlPickerLauncher.launch(arrayOf(MimeTypes.HTML))
-            }
         }
     }
 
@@ -72,7 +68,6 @@ fun HomeRoute(
         onSelectedFolderPathChange = viewModel::onSelectedFolderPathChange,
         onBookmarkColorSelected = viewModel::onBookmarkColorSelected,
         onDefaultBrowserSelected = viewModel::onDefaultBrowserSelected,
-        onOpenFilePicker = viewModel::openFilePicker,
         onDeleteBookmarkSnapshot = viewModel::deleteBookmarkSnapshot,
         onBookmarkDisplayTypeToggle = viewModel::onBookmarkDisplayTypeToggle,
         onAddBookmarkItem = viewModel::addBookmarkItem,

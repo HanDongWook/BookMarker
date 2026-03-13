@@ -118,7 +118,6 @@
     <string name="delete_bookmark_item_dialog_message">確定要刪除所選資料夾或書籤嗎？</string>
     <string name="delete_bookmark_item_dialog_confirm">刪除</string>
     <string name="delete_bookmark_item_dialog_cancel">取消</string>
-    <string name="import_option_dialog_pick_file">從 HTML 匯入書籤</string>
     <string name="import_option_dialog_add_empty_bookmark_item">新增空白書籤項目</string>
     <string name="bookmark_color_picker_dialog_title">選擇書籤顏色</string>
     <string name="bookmark_color_picker_dialog_close">關閉</string>

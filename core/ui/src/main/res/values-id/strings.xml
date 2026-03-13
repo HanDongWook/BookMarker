@@ -118,7 +118,6 @@
     <string name="delete_bookmark_item_dialog_message">Apakah Anda ingin menghapus folder atau bookmark yang dipilih?</string>
     <string name="delete_bookmark_item_dialog_confirm">Hapus</string>
     <string name="delete_bookmark_item_dialog_cancel">Batal</string>
-    <string name="import_option_dialog_pick_file">Impor bookmark dari HTML</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Tambahkan item bookmark kosong</string>
     <string name="bookmark_color_picker_dialog_title">Pilih warna bookmark</string>
     <string name="bookmark_color_picker_dialog_close">Tutup</string>

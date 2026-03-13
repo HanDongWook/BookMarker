@@ -140,10 +140,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun openFilePicker() = intent {
-        postSideEffect(HomeSideEffect.OpenFilePicker)
-    }
-
     fun onSnapshotSelected(snapshotId: String) = intent {
         if (state.selectedBookmarkId == snapshotId) return@intent
         reduce { state.withSelectedBookmarkId(snapshotId) }
