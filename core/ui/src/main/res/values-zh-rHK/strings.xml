@@ -138,8 +138,8 @@
     <string name="folder_style_title">資料夾樣式</string>
     <string name="app_language_label">應用程式語言</string>
     <string name="app_language_system_default">系統預設</string>
-    <string name="folder_shape_label">資料夾形狀</string>
-    <string name="folder_color_label">資料夾顏色</string>
+    <string name="folder_shape_label">形狀</string>
+    <string name="folder_color_label">顏色</string>
     <string name="folder_shape_filled">實心</string>
     <string name="folder_shape_outlined">外框</string>
     <string name="folder_color_default">預設</string>

@@ -138,8 +138,8 @@
     <string name="folder_style_title">文件夹样式</string>
     <string name="app_language_label">应用语言</string>
     <string name="app_language_system_default">跟随系统</string>
-    <string name="folder_shape_label">文件夹形状</string>
-    <string name="folder_color_label">文件夹颜色</string>
+    <string name="folder_shape_label">形状</string>
+    <string name="folder_color_label">颜色</string>
     <string name="folder_shape_filled">实心</string>
     <string name="folder_shape_outlined">描边</string>
     <string name="folder_color_default">默认</string>

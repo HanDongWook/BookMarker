@@ -138,8 +138,8 @@
     <string name="folder_style_title">Estilo da pasta</string>
     <string name="app_language_label">Idioma do app</string>
     <string name="app_language_system_default">Padrão do sistema</string>
-    <string name="folder_shape_label">Formato da pasta</string>
-    <string name="folder_color_label">Cor da pasta</string>
+    <string name="folder_shape_label">Formato</string>
+    <string name="folder_color_label">Cor</string>
     <string name="folder_shape_filled">Preenchido</string>
     <string name="folder_shape_outlined">Contornado</string>
     <string name="folder_color_default">Padrão</string>

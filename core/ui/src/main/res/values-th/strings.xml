@@ -138,8 +138,8 @@
     <string name="folder_style_title">สไตล์โฟลเดอร์</string>
     <string name="app_language_label">ภาษาของแอป</string>
     <string name="app_language_system_default">ค่าเริ่มต้นของระบบ</string>
-    <string name="folder_shape_label">รูปทรงโฟลเดอร์</string>
-    <string name="folder_color_label">สีโฟลเดอร์</string>
+    <string name="folder_shape_label">รูปทรง</string>
+    <string name="folder_color_label">สี</string>
     <string name="folder_shape_filled">ทึบ</string>
     <string name="folder_shape_outlined">เส้นขอบ</string>
     <string name="folder_color_default">ค่าเริ่มต้น</string>
