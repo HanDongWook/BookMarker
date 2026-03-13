@@ -14,9 +14,9 @@ import com.hdw.bookmarker.feature.settings.model.SettingsState
 import com.hdw.bookmarker.feature.settings.ui.SettingsScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.appearance.AppearanceScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppUpdateUiState
-import com.hdw.bookmarker.feature.settings.ui.tab.bookmark.BookmarkSettingsScreen
+import com.hdw.bookmarker.feature.settings.ui.tab.bookmark.BookmarkAppearanceScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.defaultbrowser.DefaultBrowserScreen
-import com.hdw.bookmarker.feature.settings.ui.tab.folder.FolderSettingsScreen
+import com.hdw.bookmarker.feature.settings.ui.tab.folder.FolderAppearanceScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.opensource.OpenSourceLicensesScreen
 
 @Composable
@@ -27,6 +27,7 @@ internal fun SettingsNavHost(
     onTemporaryDataClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
     onThemeModeSelect: (String) -> Unit,
+    onShowBookmarkUrlChange: (Boolean) -> Unit,
     onDefaultBrowserSelect: (String) -> Unit,
     onFolderShapeSelect: (BookmarkFolderIconShape) -> Unit,
     onFolderColorSelect: (BookmarkFolderIconColor) -> Unit,
@@ -79,7 +80,9 @@ internal fun SettingsNavHost(
         }
 
         slideComposable<SettingsNavRoute.Appearance.Bookmark> {
-            BookmarkSettingsScreen(
+            BookmarkAppearanceScreen(
+                showBookmarkUrl = state.showBookmarkUrl,
+                onShowBookmarkUrlChange = onShowBookmarkUrlChange,
                 onBackClick = { navController.popBackStack() },
             )
         }
@@ -94,7 +97,7 @@ internal fun SettingsNavHost(
         }
 
         slideComposable<SettingsNavRoute.Appearance.Folder> {
-            FolderSettingsScreen(
+            FolderAppearanceScreen(
                 selectedFolderIconStyle = state.folderIconStyle,
                 onBackClick = { navController.popBackStack() },
                 onShapeSelect = onFolderShapeSelect,
@@ -129,6 +132,7 @@ private fun SettingsNavHostPreview() {
         onTemporaryDataClick = {},
         onAppUpdateClick = {},
         onThemeModeSelect = {},
+        onShowBookmarkUrlChange = {},
         onDefaultBrowserSelect = {},
         onFolderShapeSelect = {},
         onFolderColorSelect = {},

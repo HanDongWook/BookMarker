@@ -64,6 +64,7 @@ internal fun BookmarkListContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
+    showBookmarkUrl: Boolean,
     folderIconStyle: BookmarkFolderIconStyle,
     modifier: Modifier = Modifier,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
@@ -112,6 +113,7 @@ internal fun BookmarkListContent(
                     BookmarkLeafRow(
                         bookmark = item,
                         depth = node.depth,
+                        showBookmarkUrl = showBookmarkUrl,
                         onClick = { onBookmarkClick(item.url) },
                         onLongClick = { onItemLongClick(item, node.path) },
                     )
@@ -177,6 +179,7 @@ private fun BookmarkFolderRow(
 private fun BookmarkLeafRow(
     bookmark: BookmarkItem.Bookmark,
     depth: Int,
+    showBookmarkUrl: Boolean,
     onClick: () -> Unit,
     onLongClick: () -> Unit,
 ) {
@@ -196,13 +199,41 @@ private fun BookmarkLeafRow(
             title = bookmark.title,
             modifier = Modifier.size(20.dp),
         )
-        Text(
-            text = bookmark.title,
-            style = MaterialTheme.typography.bodyMedium,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(start = 10.dp),
-        )
+        if (showBookmarkUrl) {
+            Row(
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .weight(1f),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = bookmark.title,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(0.4f),
+                )
+                Text(
+                    text = bookmark.url,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(0.6f),
+                )
+            }
+        } else {
+            Text(
+                text = bookmark.title,
+                style = MaterialTheme.typography.bodyMedium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .weight(1f),
+            )
+        }
     }
 }
 
@@ -243,6 +274,7 @@ private fun BookmarkListContentPreview() {
         bookmarkDocument = previewBookmarkListDocument(),
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
+        showBookmarkUrl = true,
         folderIconStyle = BookmarkFolderIconStyle(),
     )
 }
@@ -286,6 +318,7 @@ private fun BookmarkLeafRowPreview() {
             iconUri = null,
         ),
         depth = 0,
+        showBookmarkUrl = true,
         onClick = {},
         onLongClick = {},
     )

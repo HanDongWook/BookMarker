@@ -3,6 +3,7 @@ package com.hdw.bookmarker.core.datastore.preferences
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -22,6 +23,7 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
     object Keys {
         val defaultBrowserPackage = stringPreferencesKey("default_browser_package")
         val bookmarkDisplayType = stringPreferencesKey("bookmark_display_type")
+        val showBookmarkUrl = booleanPreferencesKey("show_bookmark_url")
         val appThemeMode = stringPreferencesKey("app_theme_mode")
         val bookmarkFolderIconShape = stringPreferencesKey("bookmark_folder_icon_shape")
         val bookmarkFolderIconColor = stringPreferencesKey("bookmark_folder_icon_color")
@@ -42,6 +44,15 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
     fun getBookmarkDisplayType(): Flow<String?> = safeData.map { preferences ->
         preferences[Keys.bookmarkDisplayType]
     }
+
+    suspend fun saveShowBookmarkUrl(value: Boolean) {
+        saveBoolean(Keys.showBookmarkUrl, value)
+    }
+
+    fun getShowBookmarkUrl(): Flow<Boolean> = getBoolean(
+        key = Keys.showBookmarkUrl,
+        defaultValue = true,
+    )
 
     suspend fun saveAppThemeMode(value: String) {
         saveString(Keys.appThemeMode, value)
