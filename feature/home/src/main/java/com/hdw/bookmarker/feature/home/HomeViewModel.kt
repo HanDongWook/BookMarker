@@ -1,14 +1,10 @@
 package com.hdw.bookmarker.feature.home
 
-import android.content.Context
 import android.net.Uri
-import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
-import com.hdw.bookmarker.core.domain.usecase.ImportBookmarksFromHtmlUseCase
 import com.hdw.bookmarker.core.domain.usecase.ObserveHomeUiStateUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
@@ -16,30 +12,23 @@ import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
-import com.hdw.bookmarker.core.model.bookmark.error.BookmarkImportError
-import com.hdw.bookmarker.core.model.bookmark.result.BookmarkImportResult
-import com.hdw.bookmarker.core.model.file.error.ContentFileError
-import com.hdw.bookmarker.core.model.file.result.ContentFileResult
-import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.editor.BookmarkTreeEditor
+import com.hdw.bookmarker.feature.home.importer.BookmarkImportCoordinator
+import com.hdw.bookmarker.feature.home.importer.BookmarkImportCoordinatorResult
+import com.hdw.bookmarker.feature.home.snapshot.SnapshotTitleGenerator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    @param:ApplicationContext private val context: Context,
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
-    private val importBookmarksFromHtmlUseCase: ImportBookmarksFromHtmlUseCase,
-    private val getBookmarkRawFileHashUseCase: GetBookmarkRawFileHashUseCase,
     private val getBookmarkSnapshotRawFileHashUseCase: GetBookmarkSnapshotRawFileHashUseCase,
     private val observeHomeUiStateUseCase: ObserveHomeUiStateUseCase,
     private val saveBookmarkSnapshotUseCase: SaveBookmarkSnapshotUseCase,
@@ -48,6 +37,8 @@ class HomeViewModel @Inject constructor(
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
     private val bookmarkTreeEditor: BookmarkTreeEditor,
+    private val bookmarkImportCoordinator: BookmarkImportCoordinator,
+    private val snapshotTitleGenerator: SnapshotTitleGenerator,
 ) : ViewModel(),
     ContainerHost<HomeState, HomeSideEffect> {
     override val container = container<HomeState, HomeSideEffect>(HomeState()) {
@@ -130,37 +121,21 @@ class HomeViewModel @Inject constructor(
     fun onHtmlFileSelected(uri: Uri) = intent {
         reduce { state.copy(isImporting = true) }
         try {
-            val rawFileHash = when (val hashResult = getBookmarkRawFileHashUseCase(uri)) {
-                is ContentFileResult.Success -> hashResult.data
-
-                is ContentFileResult.Failure -> {
-                    postSideEffect(
-                        HomeSideEffect.ShowError(
-                            messageResId = hashResult.error.toUiMessageResId(),
-                            detail = hashResult.message,
-                        ),
-                    )
-                    return@intent
-                }
-            }
-
-            when (val result = importBookmarksFromHtmlUseCase(uri = uri)) {
-                is BookmarkImportResult.Success -> {
-                    val snapshotTitle = state.nextDefaultSnapshotTitle(context)
-                    val savedId = saveBookmarkSnapshotUseCase(
-                        snapshotId = null,
-                        document = result.document.copy(title = snapshotTitle),
-                        sourceHash = rawFileHash,
-                    )
-                    reduce { state.withSelectedBookmarkId(savedId) }
+            when (
+                val result = bookmarkImportCoordinator.importHtml(
+                    uri = uri,
+                    existingDocuments = state.bookmarkDocuments.values,
+                )
+            ) {
+                is BookmarkImportCoordinatorResult.Success -> {
+                    reduce { state.withSelectedBookmarkId(result.snapshotId) }
                 }
 
-                is BookmarkImportResult.Failure -> {
-                    Timber.e("Bookmark html import failed. error=%s, message=%s", result.error, result.message)
+                is BookmarkImportCoordinatorResult.Failure -> {
                     postSideEffect(
                         HomeSideEffect.ShowError(
-                            messageResId = result.error.toUiMessageResId(),
-                            detail = result.message,
+                            messageResId = result.messageResId,
+                            detail = result.detail,
                         ),
                     )
                 }
@@ -189,7 +164,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun addEmptyBookmarkSnapshot() = intent {
-        val snapshotTitle = state.nextDefaultSnapshotTitle(context)
+        val snapshotTitle = snapshotTitleGenerator.nextDefaultTitle(state.bookmarkDocuments.values)
         val snapshotId = saveBookmarkSnapshotUseCase(
             snapshotId = null,
             document = BookmarkDocument(
@@ -307,7 +282,7 @@ class HomeViewModel @Inject constructor(
         val currentDocument = currentSnapshotId
             ?.let { currentState.bookmarkDocuments[it] }
             ?: BookmarkDocument(
-                title = currentState.nextDefaultSnapshotTitle(context),
+                title = snapshotTitleGenerator.nextDefaultTitle(currentState.bookmarkDocuments.values),
                 metas = emptyMap(),
                 rootItems = emptyList(),
             )
@@ -344,43 +319,6 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun currentEpochSecondsString(): String = (System.currentTimeMillis() / 1000L).toString()
-
-    private fun HomeState.nextDefaultSnapshotTitle(context: Context): String {
-        val titlePrefix = context.getString(R.string.default_snapshot_title_prefix)
-        val maxNumber = bookmarkDocuments.values
-            .mapNotNull { document ->
-                document.title
-                    ?.trim()
-                    ?.takeIf { it.startsWith(titlePrefix) }
-                    ?.removePrefix(titlePrefix)
-                    ?.toIntOrNull()
-            }
-            .maxOrNull()
-            ?: 0
-        return "$titlePrefix${maxNumber + 1}"
-    }
-
-    @StringRes
-    private fun BookmarkImportError.toUiMessageResId(): Int = when (this) {
-        BookmarkImportError.INVALID_URI -> R.string.error_invalid_uri
-        BookmarkImportError.FILE_NOT_FOUND -> R.string.error_file_not_found
-        BookmarkImportError.PERMISSION_DENIED -> R.string.error_permission_denied
-        BookmarkImportError.IO_ERROR -> R.string.error_io
-        BookmarkImportError.EMPTY_CONTENT -> R.string.error_empty_content
-        BookmarkImportError.PARSE_ERROR -> R.string.error_parse
-        BookmarkImportError.UNSUPPORTED_BROWSER -> R.string.error_unsupported_browser
-        BookmarkImportError.UNKNOWN -> R.string.error_unknown
-    }
-
-    @StringRes
-    private fun ContentFileError.toUiMessageResId(): Int = when (this) {
-        ContentFileError.INVALID_URI -> R.string.error_invalid_uri
-        ContentFileError.FILE_NOT_FOUND -> R.string.error_file_not_found
-        ContentFileError.PERMISSION_DENIED -> R.string.error_permission_denied
-        ContentFileError.IO_ERROR -> R.string.error_io
-        ContentFileError.EMPTY_CONTENT -> R.string.error_empty_content
-        ContentFileError.UNKNOWN -> R.string.error_unknown
-    }
 
     private fun String?.toBookmarkDisplayType(): BookmarkDisplayType = when (this) {
         BookmarkDisplayType.ICON.name -> BookmarkDisplayType.ICON
