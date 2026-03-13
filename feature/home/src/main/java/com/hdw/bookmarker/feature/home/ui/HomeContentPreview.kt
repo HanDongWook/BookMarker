@@ -28,6 +28,7 @@ private fun HomeContentPreview() {
         isBrowserEditMode = false,
         defaultBrowserIcon = null,
         onSettingsClick = {},
+        onSearchClick = {},
         onBookmarkDisplayTypeToggle = {},
         onDefaultBrowserPickerOpen = {},
         onEditLabelClick = {},

@@ -10,6 +10,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
@@ -26,10 +27,14 @@ import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
+import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchItemType
+import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchResult
 import com.hdw.bookmarker.feature.home.ui.dialog.HomeDialogHost
+import com.hdw.bookmarker.feature.home.ui.search.BookmarkSearchDialog
 import com.hdw.bookmarker.feature.home.ui.preview.BookmarkPreviewPaneState
 import com.hdw.bookmarker.feature.home.ui.preview.rememberBookmarkPreviewPaneState
 import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportAction
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
@@ -69,6 +74,8 @@ fun HomeScreen(
     var pendingDeleteSnapshotId by uiState.pendingDeleteSnapshotId
     var pendingRenameSnapshotId by uiState.pendingRenameSnapshotId
     var pendingSnapshotTitle by uiState.pendingSnapshotTitle
+    var showSearchDialog by uiState.showSearchDialog
+    var searchQuery by uiState.searchQuery
     var pendingEditBookmarkItemPath by uiState.pendingEditBookmarkItemPath
     var pendingDeleteBookmarkItemPath by uiState.pendingDeleteBookmarkItemPath
     var pendingEditBookmarkItem by uiState.pendingEditBookmarkItem
@@ -83,6 +90,7 @@ fun HomeScreen(
         initialPage = 0,
         pageCount = { orderedSnapshotIds.size },
     )
+    val scope = rememberCoroutineScope()
     val selectedBookmarkId = state.selectedBookmarkId
         ?.takeIf { id -> orderedSnapshotIds.contains(id) }
         ?: orderedSnapshotIds.getOrNull(pagerState.currentPage)
@@ -107,6 +115,26 @@ fun HomeScreen(
         ?.icon
     val selectedBookmarkDocument = selectedBookmarkId
         ?.let { state.bookmarkDocuments[it] }
+    val dismissSearchDialog = {
+        showSearchDialog = false
+        searchQuery = ""
+    }
+
+    val onSearchResultClick: (BookmarkSearchResult) -> Unit = { result ->
+        val targetFolderPath = when (result.itemType) {
+            BookmarkSearchItemType.FOLDER -> result.itemPath
+            BookmarkSearchItemType.BOOKMARK -> result.revealFolderPath
+        }
+        onSnapshotSelected(result.snapshotId)
+        onSelectedFolderPathChange(result.snapshotId, targetFolderPath)
+        dismissSearchDialog()
+        val targetPage = orderedSnapshotIds.indexOf(result.snapshotId)
+        if (targetPage >= 0 && targetPage != pagerState.currentPage) {
+            scope.launch {
+                pagerState.animateScrollToPage(targetPage)
+            }
+        }
+    }
 
     LaunchedEffect(pagerState, orderedSnapshotIds) {
         if (orderedSnapshotIds.isEmpty()) return@LaunchedEffect
@@ -163,6 +191,7 @@ fun HomeScreen(
                 isBrowserEditMode = isBrowserEditMode,
                 defaultBrowserIcon = defaultBrowserIcon,
                 onSettingsClick = onSettingsClick,
+                onSearchClick = { showSearchDialog = true },
                 onBookmarkDisplayTypeToggle = onBookmarkDisplayTypeToggle,
                 onDefaultBrowserPickerOpen = {
                     if (state.installedBrowsers.isNotEmpty()) {
@@ -209,6 +238,18 @@ fun HomeScreen(
                     }
                 },
             )
+            if (showSearchDialog) {
+                BookmarkSearchDialog(
+                    query = searchQuery,
+                    orderedSnapshotIds = orderedSnapshotIds,
+                    bookmarkDocuments = state.bookmarkDocuments,
+                    snapshotTitles = snapshotTitles,
+                    folderIconStyle = state.folderIconStyle,
+                    onQueryChange = { searchQuery = it },
+                    onDismissRequest = dismissSearchDialog,
+                    onResultClick = onSearchResultClick,
+                )
+            }
         }
     }
 }
@@ -230,6 +271,8 @@ internal class HomeScreenUiState(
     val pendingDeleteSnapshotId: MutableState<String?>,
     val pendingRenameSnapshotId: MutableState<String?>,
     val pendingSnapshotTitle: MutableState<String>,
+    val showSearchDialog: MutableState<Boolean>,
+    val searchQuery: MutableState<String>,
     val pendingEditBookmarkItemPath: MutableState<List<Int>?>,
     val pendingDeleteBookmarkItemPath: MutableState<List<Int>?>,
     val pendingEditBookmarkItem: MutableState<BookmarkItem?>,
@@ -257,6 +300,8 @@ private fun rememberHomeScreenUiState(): HomeScreenUiState = HomeScreenUiState(
     pendingDeleteSnapshotId = rememberSaveable { mutableStateOf<String?>(null) },
     pendingRenameSnapshotId = rememberSaveable { mutableStateOf<String?>(null) },
     pendingSnapshotTitle = rememberSaveable { mutableStateOf("") },
+    showSearchDialog = rememberSaveable { mutableStateOf(false) },
+    searchQuery = rememberSaveable { mutableStateOf("") },
     pendingEditBookmarkItemPath = remember { mutableStateOf<List<Int>?>(null) },
     pendingDeleteBookmarkItemPath = remember { mutableStateOf<List<Int>?>(null) },
     pendingEditBookmarkItem = remember { mutableStateOf<BookmarkItem?>(null) },

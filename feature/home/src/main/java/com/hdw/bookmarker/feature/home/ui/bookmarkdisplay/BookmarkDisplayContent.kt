@@ -74,6 +74,7 @@ fun BookmarkDisplayContent(
                     showBookmarkUrl = showBookmarkUrl,
                     showFolderDescription = showFolderDescription,
                     scrollLongFolderDescription = scrollLongFolderDescription,
+                    selectedFolderPath = selectedFolderPath,
                     onSelectedFolderPathChange = onSelectedFolderPathChange,
                     folderIconStyle = folderIconStyle,
                     modifier = Modifier
