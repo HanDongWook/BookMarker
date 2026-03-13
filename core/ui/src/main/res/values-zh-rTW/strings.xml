@@ -139,9 +139,13 @@
     <string name="app_update_flow_failed">無法啟動更新。</string>
     <string name="rate_app_review_requested_hint">如果沒有彈出視窗，請到 Play 商店評分。</string>
     <string name="export_current_bookmarks_html_failed">無法建立書籤 HTML 檔案。</string>
+    <string name="export_current_bookmarks_saved">已儲存匯出內容。</string>
+    <string name="export_current_bookmarks_save_failed">無法儲存匯出內容。</string>
     <string name="export_bookmark_method_title">匯出</string>
-    <string name="export_bookmark_method_text">匯出為文字</string>
-    <string name="export_bookmark_method_html">匯出為 HTML</string>
+    <string name="export_bookmark_method_share_text">以文字分享</string>
+    <string name="export_bookmark_method_share_html">以 HTML 分享</string>
+    <string name="export_bookmark_method_save_text">儲存文字檔</string>
+    <string name="export_bookmark_method_save_html">儲存 HTML 檔</string>
     <string name="rate_app_open_store_failed">無法開啟 Play 商店。</string>
     <string name="appearance_label">外觀</string>
     <string name="bookmark_show_url_label">顯示 URL</string>

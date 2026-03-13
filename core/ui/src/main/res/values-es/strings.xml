@@ -139,9 +139,13 @@
     <string name="app_update_flow_failed">No se pudo iniciar la actualización.</string>
     <string name="rate_app_review_requested_hint">Si no aparece ninguna ventana emergente, valora la app en Play Store.</string>
     <string name="export_current_bookmarks_html_failed">No se pudo crear el archivo HTML de marcadores.</string>
+    <string name="export_current_bookmarks_saved">Exportación guardada.</string>
+    <string name="export_current_bookmarks_save_failed">No se pudo guardar la exportación.</string>
     <string name="export_bookmark_method_title">Exportar</string>
-    <string name="export_bookmark_method_text">Exportar como texto</string>
-    <string name="export_bookmark_method_html">Exportar como HTML</string>
+    <string name="export_bookmark_method_share_text">Compartir como texto</string>
+    <string name="export_bookmark_method_share_html">Compartir como HTML</string>
+    <string name="export_bookmark_method_save_text">Guardar archivo de texto</string>
+    <string name="export_bookmark_method_save_html">Guardar archivo HTML</string>
     <string name="rate_app_open_store_failed">No se pudo abrir Play Store.</string>
     <string name="appearance_label">Apariencia</string>
     <string name="bookmark_show_url_label">Mostrar URL</string>
