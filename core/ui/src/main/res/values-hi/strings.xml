@@ -150,6 +150,7 @@
     <string name="export_bookmark_method_save_html">HTML फ़ाइल सहेजें</string>
     <string name="rate_app_open_store_failed">Play Store नहीं खोला जा सका।</string>
     <string name="appearance_label">दिखावट</string>
+    <string name="behavior_label">व्यवहार</string>
     <string name="bookmark_show_url_label">URL दिखाएं</string>
     <string name="bookmark_scroll_long_url_label">लंबा URL स्क्रॉल करें</string>
     <string name="folder_show_description_label">विवरण दिखाएं</string>

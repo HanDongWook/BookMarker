@@ -1,17 +1,22 @@
 package com.hdw.bookmarker.feature.settings.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.airbnb.mvrx.compose.collectAsState
+import com.airbnb.mvrx.compose.mavericksViewModel
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
+import com.hdw.bookmarker.feature.settings.behavior.BehaviorViewModel
 import com.hdw.bookmarker.feature.settings.model.DisplayValueState
 import com.hdw.bookmarker.feature.settings.model.SettingsState
 import com.hdw.bookmarker.feature.settings.navigation.appearance.appearanceGraph
 import com.hdw.bookmarker.feature.settings.ui.SettingsScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppUpdateUiState
+import com.hdw.bookmarker.feature.settings.ui.tab.behavior.BehaviorScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.defaultbrowser.DefaultBrowserScreen
 import com.hdw.bookmarker.feature.settings.ui.tab.opensource.OpenSourceLicensesScreen
 
@@ -50,6 +55,9 @@ internal fun SettingsNavHost(
                 onAppearanceClick = {
                     navController.navigate(SettingsNavRoute.AppearanceGraph)
                 },
+                onBehaviorClick = {
+                    navController.navigate(SettingsNavRoute.Behavior)
+                },
                 onOpenSourceLicensesClick = {
                     navController.navigate(SettingsNavRoute.OpenSourceLicenses)
                 },
@@ -59,6 +67,17 @@ internal fun SettingsNavHost(
         }
 
         appearanceGraph(navController = navController)
+
+        slideComposable<SettingsNavRoute.Behavior> {
+            val behaviorViewModel: BehaviorViewModel = mavericksViewModel()
+            val behaviorState by behaviorViewModel.collectAsState()
+            BehaviorScreen(
+                openBookmarkAdjacentOnLargeScreen = behaviorState.openBookmarkAdjacentOnLargeScreen,
+                onOpenBookmarkAdjacentOnLargeScreenChange =
+                    behaviorViewModel::setOpenBookmarkAdjacentOnLargeScreen,
+                onBackClick = { navController.popBackStack() },
+            )
+        }
 
         slideComposable<SettingsNavRoute.DefaultBrowser> {
             DefaultBrowserScreen(

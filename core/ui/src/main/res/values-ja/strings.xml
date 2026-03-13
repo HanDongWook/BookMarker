@@ -150,6 +150,7 @@
     <string name="export_bookmark_method_save_html">HTMLファイルを保存</string>
     <string name="rate_app_open_store_failed">Play ストアを開けませんでした。</string>
     <string name="appearance_label">外観</string>
+    <string name="behavior_label">動作</string>
     <string name="bookmark_show_url_label">URLを表示</string>
     <string name="bookmark_scroll_long_url_label">長いURLをスクロール</string>
     <string name="folder_show_description_label">説明を表示</string>
