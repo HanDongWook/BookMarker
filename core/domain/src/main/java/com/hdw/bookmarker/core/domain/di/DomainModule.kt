@@ -15,7 +15,9 @@ import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetScrollLongFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetShowFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
@@ -24,7 +26,9 @@ import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetScrollLongFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetShowBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetShowFolderDescriptionUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -120,6 +124,18 @@ object DomainModule {
 
     @Provides
     @Singleton
+    fun provideGetShowFolderDescriptionUseCase(
+        settingsRepository: SettingsRepository,
+    ): GetShowFolderDescriptionUseCase = GetShowFolderDescriptionUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideGetScrollLongFolderDescriptionUseCase(
+        settingsRepository: SettingsRepository,
+    ): GetScrollLongFolderDescriptionUseCase = GetScrollLongFolderDescriptionUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
     fun provideSetShowBookmarkUrlUseCase(settingsRepository: SettingsRepository): SetShowBookmarkUrlUseCase =
         SetShowBookmarkUrlUseCase(settingsRepository)
 
@@ -128,6 +144,18 @@ object DomainModule {
     fun provideSetScrollLongBookmarkUrlUseCase(
         settingsRepository: SettingsRepository,
     ): SetScrollLongBookmarkUrlUseCase = SetScrollLongBookmarkUrlUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetShowFolderDescriptionUseCase(
+        settingsRepository: SettingsRepository,
+    ): SetShowFolderDescriptionUseCase = SetShowFolderDescriptionUseCase(settingsRepository)
+
+    @Provides
+    @Singleton
+    fun provideSetScrollLongFolderDescriptionUseCase(
+        settingsRepository: SettingsRepository,
+    ): SetScrollLongFolderDescriptionUseCase = SetScrollLongFolderDescriptionUseCase(settingsRepository)
 
     @Provides
     @Singleton

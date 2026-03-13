@@ -168,5 +168,7 @@
     <string name="bookmark_display_type_icon">圖示</string>
     <string name="bookmark_show_url_label">顯示 URL</string>
     <string name="bookmark_scroll_long_url_label">捲動長 URL</string>
+    <string name="folder_show_description_label">顯示描述</string>
+    <string name="folder_scroll_long_description_label">捲動長描述</string>
     <string name="folder_description">描述</string>
 </resources>

@@ -12,14 +12,18 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconStyleUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetScrollLongFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetShowFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetScrollLongFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetShowBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetShowFolderDescriptionUseCase
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape
 import com.hdw.bookmarker.feature.settings.model.SettingsState
@@ -39,10 +43,14 @@ class SettingsViewModel @AssistedInject constructor(
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
     private val getScrollLongBookmarkUrlUseCase: GetScrollLongBookmarkUrlUseCase,
     private val getShowBookmarkUrlUseCase: GetShowBookmarkUrlUseCase,
+    private val getScrollLongFolderDescriptionUseCase: GetScrollLongFolderDescriptionUseCase,
+    private val getShowFolderDescriptionUseCase: GetShowFolderDescriptionUseCase,
     private val setAppThemeModeUseCase: SetAppThemeModeUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
     private val setScrollLongBookmarkUrlUseCase: SetScrollLongBookmarkUrlUseCase,
     private val setShowBookmarkUrlUseCase: SetShowBookmarkUrlUseCase,
+    private val setScrollLongFolderDescriptionUseCase: SetScrollLongFolderDescriptionUseCase,
+    private val setShowFolderDescriptionUseCase: SetShowFolderDescriptionUseCase,
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val getBookmarkFolderIconStyleUseCase: GetBookmarkFolderIconStyleUseCase,
     private val setBookmarkFolderIconShapeUseCase: SetBookmarkFolderIconShapeUseCase,
@@ -52,6 +60,8 @@ class SettingsViewModel @AssistedInject constructor(
     private var observingBookmarkDisplayType = false
     private var observingScrollLongBookmarkUrl = false
     private var observingShowBookmarkUrl = false
+    private var observingShowFolderDescription = false
+    private var observingScrollLongFolderDescription = false
     private var observingDefaultBrowser = false
     private var observingFolderIconStyle = false
 
@@ -72,6 +82,8 @@ class SettingsViewModel @AssistedInject constructor(
         observeBookmarkDisplayType()
         observeScrollLongBookmarkUrl()
         observeShowBookmarkUrl()
+        observeShowFolderDescription()
+        observeScrollLongFolderDescription()
         observeDefaultBrowser()
         observeFolderIconStyle()
     }
@@ -101,6 +113,20 @@ class SettingsViewModel @AssistedInject constructor(
         setState { copy(scrollLongBookmarkUrl = enabled) }
         viewModelScope.launch {
             setScrollLongBookmarkUrlUseCase(enabled)
+        }
+    }
+
+    fun setShowFolderDescription(show: Boolean) {
+        setState { copy(showFolderDescription = show) }
+        viewModelScope.launch {
+            setShowFolderDescriptionUseCase(show)
+        }
+    }
+
+    fun setScrollLongFolderDescription(enabled: Boolean) {
+        setState { copy(scrollLongFolderDescription = enabled) }
+        viewModelScope.launch {
+            setScrollLongFolderDescriptionUseCase(enabled)
         }
     }
 
@@ -222,6 +248,32 @@ class SettingsViewModel @AssistedInject constructor(
                 withState { current ->
                     if (scrollLongBookmarkUrl == current.scrollLongBookmarkUrl) return@withState
                     setState { copy(scrollLongBookmarkUrl = scrollLongBookmarkUrl) }
+                }
+            }
+        }
+    }
+
+    private fun observeShowFolderDescription() {
+        if (observingShowFolderDescription) return
+        observingShowFolderDescription = true
+        viewModelScope.launch {
+            getShowFolderDescriptionUseCase().collectLatest { showFolderDescription ->
+                withState { current ->
+                    if (showFolderDescription == current.showFolderDescription) return@withState
+                    setState { copy(showFolderDescription = showFolderDescription) }
+                }
+            }
+        }
+    }
+
+    private fun observeScrollLongFolderDescription() {
+        if (observingScrollLongFolderDescription) return
+        observingScrollLongFolderDescription = true
+        viewModelScope.launch {
+            getScrollLongFolderDescriptionUseCase().collectLatest { scrollLongFolderDescription ->
+                withState { current ->
+                    if (scrollLongFolderDescription == current.scrollLongFolderDescription) return@withState
+                    setState { copy(scrollLongFolderDescription = scrollLongFolderDescription) }
                 }
             }
         }

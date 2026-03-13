@@ -27,6 +27,8 @@ internal fun SettingsNavHost(
     onTemporaryDataClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
     onScrollLongBookmarkUrlChange: (Boolean) -> Unit,
+    onShowFolderDescriptionChange: (Boolean) -> Unit,
+    onScrollLongFolderDescriptionChange: (Boolean) -> Unit,
     onThemeModeSelect: (String) -> Unit,
     onShowBookmarkUrlChange: (Boolean) -> Unit,
     onDefaultBrowserSelect: (String) -> Unit,
@@ -102,9 +104,13 @@ internal fun SettingsNavHost(
         slideComposable<SettingsNavRoute.Appearance.Folder> {
             FolderAppearanceScreen(
                 selectedFolderIconStyle = state.folderIconStyle,
+                showFolderDescription = state.showFolderDescription,
+                scrollLongFolderDescription = state.scrollLongFolderDescription,
                 onBackClick = { navController.popBackStack() },
                 onShapeSelect = onFolderShapeSelect,
                 onColorSelect = onFolderColorSelect,
+                onShowFolderDescriptionChange = onShowFolderDescriptionChange,
+                onScrollLongFolderDescriptionChange = onScrollLongFolderDescriptionChange,
             )
         }
 
@@ -135,6 +141,8 @@ private fun SettingsNavHostPreview() {
         onTemporaryDataClick = {},
         onAppUpdateClick = {},
         onScrollLongBookmarkUrlChange = {},
+        onShowFolderDescriptionChange = {},
+        onScrollLongFolderDescriptionChange = {},
         onThemeModeSelect = {},
         onShowBookmarkUrlChange = {},
         onDefaultBrowserSelect = {},

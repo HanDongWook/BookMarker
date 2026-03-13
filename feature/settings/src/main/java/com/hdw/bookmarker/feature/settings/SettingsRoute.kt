@@ -126,6 +126,8 @@ fun SettingsRoute(onBackClick: () -> Unit) {
         onTemporaryDataClick = { showClearTemporaryDataDialog = true },
         onAppUpdateClick = viewModel::onAppUpdateClick,
         onScrollLongBookmarkUrlChange = viewModel::setScrollLongBookmarkUrl,
+        onShowFolderDescriptionChange = viewModel::setShowFolderDescription,
+        onScrollLongFolderDescriptionChange = viewModel::setScrollLongFolderDescription,
         onThemeModeSelect = viewModel::selectAppThemeMode,
         onShowBookmarkUrlChange = viewModel::setShowBookmarkUrl,
         onDefaultBrowserSelect = viewModel::selectDefaultBrowser,
