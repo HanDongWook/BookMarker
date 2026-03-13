@@ -109,7 +109,6 @@
     <string name="import_guide_step1_body_desktop_generic">PC版%1$sで Bookmark/Favorites manager を探し、HTMLへエクスポートします。</string>
     <string name="import_guide_step2_title">2. HTMLファイルをスマホに保存</string>
     <string name="import_guide_open_guide_failed">ガイドページを開けませんでした。</string>
-    <string name="import_guide_exit">終了</string>
     <string name="open_bookmark_failed">ブックマークリンクを開けませんでした。</string>
     <string name="delete_bookmark_dialog_title">ブックマークを削除しますか？</string>
     <string name="delete_bookmark_dialog_message">これらのブックマークを削除しますか？</string>
@@ -119,7 +118,6 @@
     <string name="delete_bookmark_item_dialog_message">選択したフォルダまたはブックマークを削除しますか？</string>
     <string name="delete_bookmark_item_dialog_confirm">削除</string>
     <string name="delete_bookmark_item_dialog_cancel">キャンセル</string>
-    <string name="import_option_dialog_open_guide">ブックマークHTMLインポートガイドを見る</string>
     <string name="import_option_dialog_pick_file">ブックマークHTMLファイルをインポート</string>
     <string name="import_option_dialog_add_empty_bookmark_item">空のブックマーク項目を追加</string>
     <string name="bookmark_color_picker_dialog_title">ブックマークの色を選択</string>

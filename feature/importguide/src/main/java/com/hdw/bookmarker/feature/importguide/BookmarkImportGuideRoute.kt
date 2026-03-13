@@ -21,11 +21,16 @@ import com.hdw.bookmarker.feature.importguide.model.BrowserGuideCatalog
 import com.hdw.bookmarker.feature.importguide.route.FeatureBookmarkImportGuideRoute
 import com.hdw.bookmarker.feature.importguide.ui.detail.BookmarkImportGuideScreen
 import com.hdw.bookmarker.feature.importguide.ui.picker.BrowserPickerScreen
+import com.hdw.bookmarker.feature.importguide.ui.root.ImportBookmarksRootScreen
 import org.orbitmvi.orbit.compose.collectAsState
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun BookmarkImportGuideRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Browser, String?) -> Boolean) {
+fun BookmarkImportGuideRoute(
+    onBackClick: () -> Unit,
+    onImportHtmlFile: () -> Unit,
+    onOpenDesktopGuide: (Browser, String?) -> Boolean,
+) {
     val viewModel: BookmarkImportGuideViewModel = hiltViewModel()
     val navController: NavHostController = rememberNavController()
     val state by viewModel.collectAsState()
@@ -35,17 +40,31 @@ fun BookmarkImportGuideRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Brows
     SharedTransitionLayout {
         NavHost(
             navController = navController,
-            startDestination = FeatureBookmarkImportGuideRoute.Picker,
+            startDestination = FeatureBookmarkImportGuideRoute.Root,
         ) {
-            slideComposable<FeatureBookmarkImportGuideRoute.Picker> {
-                BrowserPickerScreen(
-                    guideItems = state.guideItems,
-                    onOpenDesktopGuide = { browser ->
-                        navController.navigate(
-                            FeatureBookmarkImportGuideRoute.GuideFeatureBookmark(browser.name),
-                        )
+            slideComposable<FeatureBookmarkImportGuideRoute.Root> {
+                ImportBookmarksRootScreen(
+                    onImportHtmlFileClick = onImportHtmlFile,
+                    onOpenBrowserGuidesClick = {
+                        navController.navigate(FeatureBookmarkImportGuideRoute.BrowserGuides)
                     },
                     onBackClick = onBackClick,
+                )
+            }
+
+            slideComposable<FeatureBookmarkImportGuideRoute.BrowserGuides> {
+                BrowserPickerScreen(
+                    guideItems = state.filteredGuideItems,
+                    selectedFilter = state.selectedFilter,
+                    onFilterSelected = viewModel::onGuideFilterSelected,
+                    onOpenDesktopGuide = { browser ->
+                        navController.navigate(
+                            FeatureBookmarkImportGuideRoute.BrowserGuideDetail(browser.name),
+                        )
+                    },
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
                     iconModifierForBrowser = { guideItem ->
                         Modifier.sharedElement(
                             sharedContentState = rememberSharedContentState(
@@ -65,51 +84,54 @@ fun BookmarkImportGuideRoute(onBackClick: () -> Unit, onOpenDesktopGuide: (Brows
                 )
             }
 
-            slideComposable<FeatureBookmarkImportGuideRoute.GuideFeatureBookmark> { entry ->
+            slideComposable<FeatureBookmarkImportGuideRoute.BrowserGuideDetail> { entry ->
                 BackHandler {
                     navController.popBackStack()
                 }
 
+                val defaultGuideItem = BrowserGuideCatalog.defaultGuideItem()
                 val selectedBrowser = runCatching {
-                    Browser.valueOf(entry.toRoute<FeatureBookmarkImportGuideRoute.GuideFeatureBookmark>().browserId)
-                }.getOrElse { Browser.CHROME }
+                    Browser.valueOf(entry.toRoute<FeatureBookmarkImportGuideRoute.BrowserGuideDetail>().browserId)
+                }.getOrElse { defaultGuideItem.browser }
                 val currentSelectedGuideItem = state.guideItems
                     .firstOrNull { it.browser == selectedBrowser }
                     ?: BrowserGuideCatalog.findByBrowser(selectedBrowser)
+                    ?: defaultGuideItem
 
                 BookmarkImportGuideScreen(
-                    icon = currentSelectedGuideItem?.installedBrowser?.icon,
-                    browser = currentSelectedGuideItem?.browser ?: selectedBrowser,
-                    browserName = currentSelectedGuideItem?.displayName.orEmpty(),
+                    icon = currentSelectedGuideItem.installedBrowser?.icon,
+                    browser = currentSelectedGuideItem.browser,
+                    browserName = currentSelectedGuideItem.displayName,
+                    showGuideButton = currentSelectedGuideItem.hasGuideLink,
                     onDismiss = {
                         navController.popBackStack()
                     },
                     onOpenDesktopGuide = {
                         if (
                             !onOpenDesktopGuide(
-                                currentSelectedGuideItem?.browser ?: selectedBrowser,
-                                currentSelectedGuideItem?.installedBrowser?.packageName,
+                                currentSelectedGuideItem.browser,
+                                currentSelectedGuideItem.installedBrowser?.packageName,
                             )
                         ) {
                             context.showShortToast(resources.getString(R.string.import_guide_open_guide_failed))
                         }
                     },
-                    iconModifier = currentSelectedGuideItem?.let { guideItem ->
+                    iconModifier = currentSelectedGuideItem.let { guideItem ->
                         Modifier.sharedElement(
                             sharedContentState = rememberSharedContentState(
                                 key = "browser-icon-${guideItem.browser.name}",
                             ),
                             animatedVisibilityScope = this,
                         )
-                    } ?: Modifier,
-                    browserNameModifier = currentSelectedGuideItem?.let { guideItem ->
+                    },
+                    browserNameModifier = currentSelectedGuideItem.let { guideItem ->
                         Modifier.sharedElement(
                             sharedContentState = rememberSharedContentState(
                                 key = "browser-name-${guideItem.browser.name}",
                             ),
                             animatedVisibilityScope = this,
                         )
-                    } ?: Modifier,
+                    },
                 )
             }
         }

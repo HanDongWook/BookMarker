@@ -109,7 +109,6 @@
     <string name="import_guide_step1_body_desktop_generic">No %1$s do seu computador, encontre o gestor de favoritos/marcadores e exporte para HTML.</string>
     <string name="import_guide_step2_title">2. Guardar o ficheiro HTML no telemóvel</string>
     <string name="import_guide_open_guide_failed">Não foi possível abrir a página do guia.</string>
-    <string name="import_guide_exit">Sair</string>
     <string name="open_bookmark_failed">Não foi possível abrir a ligação do favorito.</string>
     <string name="delete_bookmark_dialog_title">Eliminar favoritos?</string>
     <string name="delete_bookmark_dialog_message">Pretende eliminar estes favoritos?</string>
@@ -119,7 +118,6 @@
     <string name="delete_bookmark_item_dialog_message">Pretende eliminar a pasta ou o favorito selecionado?</string>
     <string name="delete_bookmark_item_dialog_confirm">Eliminar</string>
     <string name="delete_bookmark_item_dialog_cancel">Cancelar</string>
-    <string name="import_option_dialog_open_guide">Ver guia para importar HTML de favoritos</string>
     <string name="import_option_dialog_pick_file">Importar ficheiro HTML de favoritos</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Adicionar item de favorito vazio</string>
     <string name="bookmark_color_picker_dialog_title">Selecionar cor do favorito</string>

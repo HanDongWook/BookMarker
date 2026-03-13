@@ -109,7 +109,6 @@
     <string name="import_guide_step1_body_desktop_generic">Sul tuo computer con %1$s, trova Bookmark/Favorites manager ed esporta in HTML.</string>
     <string name="import_guide_step2_title">2. Salva il file HTML sul telefono</string>
     <string name="import_guide_open_guide_failed">Impossibile aprire la pagina guida.</string>
-    <string name="import_guide_exit">Esci</string>
     <string name="open_bookmark_failed">Impossibile aprire il link del segnalibro.</string>
     <string name="delete_bookmark_dialog_title">Eliminare i segnalibri?</string>
     <string name="delete_bookmark_dialog_message">Vuoi eliminare questi segnalibri?</string>
@@ -119,7 +118,6 @@
     <string name="delete_bookmark_item_dialog_message">Vuoi eliminare la cartella o il segnalibro selezionato?</string>
     <string name="delete_bookmark_item_dialog_confirm">Elimina</string>
     <string name="delete_bookmark_item_dialog_cancel">Annulla</string>
-    <string name="import_option_dialog_open_guide">Visualizza guida importazione HTML dei segnalibri</string>
     <string name="import_option_dialog_pick_file">Importa file HTML dei segnalibri</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Aggiungi elemento segnalibro vuoto</string>
     <string name="bookmark_color_picker_dialog_title">Seleziona colore segnalibro</string>
