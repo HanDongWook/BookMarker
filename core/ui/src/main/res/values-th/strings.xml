@@ -153,7 +153,6 @@
     <string name="behavior_label">พฤติกรรม</string>
     <string name="bookmark_show_url_label">แสดง URL</string>
     <string name="bookmark_scroll_long_url_label">เลื่อน URL ยาว</string>
-    <string name="bookmark_open_side_preview_on_large_screens_label">เปิดตัวอย่างด้านข้างบนหน้าจอขนาดใหญ่</string>
     <string name="bookmark_preview_title">ตัวอย่าง</string>
     <string name="bookmark_preview_placeholder">เลือกบุ๊กมาร์กเพื่อดูตัวอย่าง</string>
     <string name="bookmark_preview_refresh">รีเฟรชตัวอย่าง</string>
