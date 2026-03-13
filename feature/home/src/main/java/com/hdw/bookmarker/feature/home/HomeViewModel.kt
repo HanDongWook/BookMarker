@@ -5,22 +5,11 @@ import android.net.Uri
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarkColorsUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconStyleUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetOpenBookmarkAdjacentOnLargeScreenUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetOpenBookmarkSidePreviewOnLargeScreenUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetScrollLongFolderDescriptionUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetShowFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.ImportBookmarksFromHtmlUseCase
+import com.hdw.bookmarker.core.domain.usecase.ObserveHomeUiStateUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
@@ -51,100 +40,63 @@ class HomeViewModel @Inject constructor(
     private val importBookmarksFromHtmlUseCase: ImportBookmarksFromHtmlUseCase,
     private val getBookmarkRawFileHashUseCase: GetBookmarkRawFileHashUseCase,
     private val getBookmarkSnapshotRawFileHashUseCase: GetBookmarkSnapshotRawFileHashUseCase,
-    private val getBookmarkSnapshotsUseCase: GetBookmarkSnapshotsUseCase,
-    private val getOrderedSnapshotIdsUseCase: GetOrderedSnapshotIdsUseCase,
-    private val getBookmarkColorsUseCase: GetBookmarkColorsUseCase,
+    private val observeHomeUiStateUseCase: ObserveHomeUiStateUseCase,
     private val saveBookmarkSnapshotUseCase: SaveBookmarkSnapshotUseCase,
     private val setBookmarkColorUseCase: SetBookmarkColorUseCase,
     private val clearBookmarkSnapshotUseCase: ClearBookmarkSnapshotUseCase,
-    private val getDefaultBrowserPackageUseCase: GetDefaultBrowserPackageUseCase,
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
-    private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
-    private val getScrollLongBookmarkUrlUseCase: GetScrollLongBookmarkUrlUseCase,
-    private val getOpenBookmarkAdjacentOnLargeScreenUseCase: GetOpenBookmarkAdjacentOnLargeScreenUseCase,
-    private val getOpenBookmarkSidePreviewOnLargeScreenUseCase: GetOpenBookmarkSidePreviewOnLargeScreenUseCase,
-    private val getScrollLongFolderDescriptionUseCase: GetScrollLongFolderDescriptionUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
-    private val getShowBookmarkUrlUseCase: GetShowBookmarkUrlUseCase,
-    private val getShowFolderDescriptionUseCase: GetShowFolderDescriptionUseCase,
-    private val getBookmarkFolderIconStyleUseCase: GetBookmarkFolderIconStyleUseCase,
 ) : ViewModel(),
     ContainerHost<HomeState, HomeSideEffect> {
-    private var isObservingSnapshots = false
-    private var isObservingOrderedIds = false
-    private var isObservingColors = false
-    private var isObservingDefaultBrowser = false
-    private var isObservingBookmarkDisplayType = false
-    private var isObservingScrollLongBookmarkUrl = false
-    private var isObservingOpenBookmarkAdjacentOnLargeScreen = false
-    private var isObservingOpenBookmarkSidePreviewOnLargeScreen = false
-    private var isObservingShowBookmarkUrl = false
-    private var isObservingShowFolderDescription = false
-    private var isObservingScrollLongFolderDescription = false
-    private var isObservingFolderIconStyle = false
-
     override val container = container<HomeState, HomeSideEffect>(HomeState()) {
-        observeBookmarkSnapshots()
-        observeOrderedSnapshotIds()
-        observeBookmarkColors()
-        observeDefaultBrowserPackage()
-        observeBookmarkDisplayType()
-        observeScrollLongBookmarkUrl()
-        observeOpenBookmarkAdjacentOnLargeScreen()
-        observeOpenBookmarkSidePreviewOnLargeScreen()
-        observeShowBookmarkUrl()
-        observeShowFolderDescription()
-        observeScrollLongFolderDescription()
-        observeFolderIconStyle()
+        observeHomeUiState()
         loadInstalledBrowsers()
+    }
+
+    private fun HomeState.withSelectedBookmarkId(selectedBookmarkId: String?): HomeState = copy(
+        selectedBookmarkId = selectedBookmarkId,
+    )
+
+    private fun observeHomeUiState() = intent {
+        observeHomeUiStateUseCase().collect { observedState ->
+            reduce {
+                val visibleSnapshotIds = observedState.orderedSnapshotIds
+                    .filter(observedState.bookmarkDocuments::containsKey)
+                val nextSelectedBookmarkId = state.selectedBookmarkId
+                    ?.takeIf { selectedId ->
+                        observedState.bookmarkDocuments.containsKey(selectedId) &&
+                                (visibleSnapshotIds.isEmpty() || visibleSnapshotIds.contains(selectedId))
+                    }
+                    ?: visibleSnapshotIds.firstOrNull()
+                    ?: observedState.bookmarkDocuments.keys.firstOrNull()
+
+                state.withSelectedBookmarkId(nextSelectedBookmarkId).copy(
+                    orderedSnapshotIds = observedState.orderedSnapshotIds,
+                    bookmarkDocuments = observedState.bookmarkDocuments,
+                    bookmarkColors = observedState.bookmarkColors,
+                    selectedFolderPaths = state.selectedFolderPaths.retain(
+                        observedState.bookmarkDocuments.keys,
+                    ),
+                    defaultBrowserPackage = observedState.defaultBrowserPackage,
+                    bookmarkDisplayType = observedState.bookmarkDisplayType.toBookmarkDisplayType(),
+                    scrollLongBookmarkUrl = observedState.scrollLongBookmarkUrl,
+                    showBookmarkUrl = observedState.showBookmarkUrl,
+                    openBookmarkAdjacentOnLargeScreen =
+                        observedState.openBookmarkAdjacentOnLargeScreen,
+                    openBookmarkSidePreviewOnLargeScreen =
+                        observedState.openBookmarkSidePreviewOnLargeScreen,
+                    showFolderDescription = observedState.showFolderDescription,
+                    scrollLongFolderDescription = observedState.scrollLongFolderDescription,
+                    folderIconStyle = observedState.folderIconStyle,
+                )
+            }
+        }
     }
 
     private fun loadInstalledBrowsers() = intent {
         val browsers = getInstalledBrowsersUseCase()
         reduce {
             state.copy(installedBrowsers = browsers)
-        }
-    }
-
-    private fun observeBookmarkColors() = intent {
-        if (isObservingColors) return@intent
-        isObservingColors = true
-        getBookmarkColorsUseCase().collect { colors ->
-            reduce {
-                state.copy(bookmarkColors = colors)
-            }
-        }
-    }
-
-    private fun observeBookmarkSnapshots() = intent {
-        if (isObservingSnapshots) return@intent
-        isObservingSnapshots = true
-        getBookmarkSnapshotsUseCase().collect { snapshots ->
-            val nextSelectedBookmarkId = state.selectedBookmarkId
-                ?.takeIf { snapshots.containsKey(it) }
-                ?: snapshots.keys.firstOrNull()
-            reduce {
-                state.withSelectedBookmarkId(nextSelectedBookmarkId).copy(
-                    bookmarkDocuments = snapshots,
-                    selectedFolderPaths = state.selectedFolderPaths.retain(snapshots.keys),
-                )
-            }
-        }
-    }
-
-    private fun observeOrderedSnapshotIds() = intent {
-        if (isObservingOrderedIds) return@intent
-        isObservingOrderedIds = true
-        getOrderedSnapshotIdsUseCase().collect { ids ->
-            val nextSelectedBookmarkId = state.selectedBookmarkId
-                ?.takeIf { ids.contains(it) }
-                ?: ids.firstOrNull()
-            reduce {
-                state.withSelectedBookmarkId(nextSelectedBookmarkId).copy(
-                    orderedSnapshotIds = ids,
-                    selectedFolderPaths = state.selectedFolderPaths.retain(ids),
-                )
-            }
         }
     }
 
@@ -482,104 +434,6 @@ class HomeViewModel @Inject constructor(
             .maxOrNull()
             ?: 0
         return "$titlePrefix${maxNumber + 1}"
-    }
-
-    private fun HomeState.withSelectedBookmarkId(selectedBookmarkId: String?): HomeState = copy(
-        selectedBookmarkId = selectedBookmarkId,
-    )
-
-    private fun observeDefaultBrowserPackage() = intent {
-        if (isObservingDefaultBrowser) return@intent
-        isObservingDefaultBrowser = true
-        getDefaultBrowserPackageUseCase().collect { browserInfo ->
-            reduce {
-                state.copy(
-                    defaultBrowserPackage = browserInfo?.packageName,
-                )
-            }
-        }
-    }
-
-    private fun observeBookmarkDisplayType() = intent {
-        if (isObservingBookmarkDisplayType) return@intent
-        isObservingBookmarkDisplayType = true
-        getBookmarkDisplayTypeUseCase().collect { displayType ->
-            reduce {
-                state.copy(
-                    bookmarkDisplayType = displayType.toBookmarkDisplayType(),
-                )
-            }
-        }
-    }
-
-    private fun observeFolderIconStyle() = intent {
-        if (isObservingFolderIconStyle) return@intent
-        isObservingFolderIconStyle = true
-        getBookmarkFolderIconStyleUseCase().collect { style ->
-            reduce {
-                state.copy(folderIconStyle = style)
-            }
-        }
-    }
-
-    private fun observeScrollLongBookmarkUrl() = intent {
-        if (isObservingScrollLongBookmarkUrl) return@intent
-        isObservingScrollLongBookmarkUrl = true
-        getScrollLongBookmarkUrlUseCase().collect { scrollLongBookmarkUrl ->
-            reduce {
-                state.copy(scrollLongBookmarkUrl = scrollLongBookmarkUrl)
-            }
-        }
-    }
-
-    private fun observeShowBookmarkUrl() = intent {
-        if (isObservingShowBookmarkUrl) return@intent
-        isObservingShowBookmarkUrl = true
-        getShowBookmarkUrlUseCase().collect { showBookmarkUrl ->
-            reduce {
-                state.copy(showBookmarkUrl = showBookmarkUrl)
-            }
-        }
-    }
-
-    private fun observeOpenBookmarkAdjacentOnLargeScreen() = intent {
-        if (isObservingOpenBookmarkAdjacentOnLargeScreen) return@intent
-        isObservingOpenBookmarkAdjacentOnLargeScreen = true
-        getOpenBookmarkAdjacentOnLargeScreenUseCase().collect { enabled ->
-            reduce {
-                state.copy(openBookmarkAdjacentOnLargeScreen = enabled)
-            }
-        }
-    }
-
-    private fun observeOpenBookmarkSidePreviewOnLargeScreen() = intent {
-        if (isObservingOpenBookmarkSidePreviewOnLargeScreen) return@intent
-        isObservingOpenBookmarkSidePreviewOnLargeScreen = true
-        getOpenBookmarkSidePreviewOnLargeScreenUseCase().collect { enabled ->
-            reduce {
-                state.copy(openBookmarkSidePreviewOnLargeScreen = enabled)
-            }
-        }
-    }
-
-    private fun observeShowFolderDescription() = intent {
-        if (isObservingShowFolderDescription) return@intent
-        isObservingShowFolderDescription = true
-        getShowFolderDescriptionUseCase().collect { showFolderDescription ->
-            reduce {
-                state.copy(showFolderDescription = showFolderDescription)
-            }
-        }
-    }
-
-    private fun observeScrollLongFolderDescription() = intent {
-        if (isObservingScrollLongFolderDescription) return@intent
-        isObservingScrollLongFolderDescription = true
-        getScrollLongFolderDescriptionUseCase().collect { scrollLongFolderDescription ->
-            reduce {
-                state.copy(scrollLongFolderDescription = scrollLongFolderDescription)
-            }
-        }
     }
 
     @StringRes
