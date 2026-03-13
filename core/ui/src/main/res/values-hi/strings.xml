@@ -153,6 +153,13 @@
     <string name="behavior_label">व्यवहार</string>
     <string name="bookmark_show_url_label">URL दिखाएं</string>
     <string name="bookmark_scroll_long_url_label">लंबा URL स्क्रॉल करें</string>
+    <string name="bookmark_open_side_preview_on_large_screens_label">बड़ी स्क्रीन पर साइड प्रीव्यू खोलें</string>
+    <string name="bookmark_preview_title">प्रीव्यू</string>
+    <string name="bookmark_preview_placeholder">प्रीव्यू के लिए बुकमार्क चुनें</string>
+    <string name="bookmark_preview_refresh">प्रीव्यू रीफ़्रेश करें</string>
+    <string name="bookmark_preview_open_externally">बाहरी रूप से खोलें</string>
+    <string name="bookmark_preview_close">प्रीव्यू बंद करें</string>
+    <string name="bookmark_preview_failed">प्रीव्यू लोड नहीं हो सका</string>
     <string name="folder_show_description_label">विवरण दिखाएं</string>
     <string name="folder_scroll_long_description_label">लंबा विवरण स्क्रॉल करें</string>
     <string name="folder_description">विवरण</string>

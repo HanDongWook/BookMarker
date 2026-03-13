@@ -153,6 +153,13 @@
     <string name="behavior_label">Comportamento</string>
     <string name="bookmark_show_url_label">Mostra URL</string>
     <string name="bookmark_scroll_long_url_label">Scorri URL lungo</string>
+    <string name="bookmark_open_side_preview_on_large_screens_label">Apri anteprima laterale su schermi grandi</string>
+    <string name="bookmark_preview_title">Anteprima</string>
+    <string name="bookmark_preview_placeholder">Seleziona un segnalibro per l’anteprima</string>
+    <string name="bookmark_preview_refresh">Aggiorna anteprima</string>
+    <string name="bookmark_preview_open_externally">Apri esternamente</string>
+    <string name="bookmark_preview_close">Chiudi anteprima</string>
+    <string name="bookmark_preview_failed">Impossibile caricare l’anteprima</string>
     <string name="folder_show_description_label">Mostra descrizione</string>
     <string name="folder_scroll_long_description_label">Scorri descrizione lunga</string>
     <string name="folder_description">Descrizione</string>
