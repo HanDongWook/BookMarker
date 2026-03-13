@@ -10,7 +10,9 @@ import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
+import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.HomeState
+import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.ui.HomeScreenUiState
 import com.hdw.bookmarker.feature.home.ui.share.ShareBookmarkMethodDialog
 import com.hdw.bookmarker.feature.home.ui.share.requestCurrentBookmarkHtmlShare
@@ -28,10 +30,9 @@ internal fun HomeDialogHost(
     onAddEmptyBookmarkSnapshot: () -> Unit,
     onDeleteBookmarkSnapshot: (String) -> Unit,
     onRenameBookmarkSnapshot: (String, String) -> Unit,
-    onUpdateBookmarkItem: (List<Int>, String, String?, String?) -> Unit,
+    onUpdateBookmarkItem: (UpdateBookmarkItemRequest) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
-    onAddFolder: (String, String, List<Int>?) -> Unit,
-    onAddBookmark: (String, String, List<Int>?) -> Unit,
+    onAddBookmarkItem: (AddBookmarkItemRequest) -> Unit,
     onDefaultBrowserSelected: (String) -> Unit,
     onBookmarkColorSelected: (String, Long) -> Unit,
 ) {
@@ -140,12 +141,20 @@ internal fun HomeDialogHost(
             },
             onApply = {
                 val path = pendingEditBookmarkItemPath ?: return@ManageBookmarkItemDialog
-                onUpdateBookmarkItem(
-                    path,
-                    pendingEditBookmarkTitle,
-                    pendingEditBookmarkUrl.takeIf { editingItem is BookmarkItem.Bookmark },
-                    pendingEditBookmarkDescription.takeIf { editingItem is BookmarkItem.Folder },
-                )
+                val request = when (editingItem) {
+                    is BookmarkItem.Bookmark -> UpdateBookmarkItemRequest.Bookmark(
+                        path = path,
+                        title = pendingEditBookmarkTitle,
+                        url = pendingEditBookmarkUrl,
+                    )
+
+                    is BookmarkItem.Folder -> UpdateBookmarkItemRequest.Folder(
+                        path = path,
+                        title = pendingEditBookmarkTitle,
+                        description = pendingEditBookmarkDescription,
+                    )
+                }
+                onUpdateBookmarkItem(request)
                 pendingEditBookmarkItemPath = null
                 pendingEditBookmarkItem = null
             },
@@ -219,10 +228,12 @@ internal fun HomeDialogHost(
             onFolderDescriptionChange = { pendingFolderDescription = it },
             onDismiss = { showAddFolderDialog = false },
             onConfirm = {
-                onAddFolder(
-                    pendingFolderTitle,
-                    pendingFolderDescription,
-                    selectedFolderPath,
+                onAddBookmarkItem(
+                    AddBookmarkItemRequest.Folder(
+                        parentFolderPath = selectedFolderPath,
+                        title = pendingFolderTitle,
+                        description = pendingFolderDescription,
+                    ),
                 )
                 showAddFolderDialog = false
             },
@@ -237,10 +248,12 @@ internal fun HomeDialogHost(
             onBookmarkUrlChange = { pendingBookmarkUrl = it },
             onDismiss = { showAddBookmarkDialog = false },
             onConfirm = {
-                onAddBookmark(
-                    pendingBookmarkTitle,
-                    pendingBookmarkUrl,
-                    selectedFolderPath,
+                onAddBookmarkItem(
+                    AddBookmarkItemRequest.Bookmark(
+                        parentFolderPath = selectedFolderPath,
+                        title = pendingBookmarkTitle,
+                        url = pendingBookmarkUrl,
+                    ),
                 )
                 showAddBookmarkDialog = false
             },

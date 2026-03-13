@@ -21,8 +21,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
+import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeState
+import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.ui.dialog.HomeDialogHost
 import kotlinx.coroutines.flow.distinctUntilChanged
 
@@ -39,11 +41,10 @@ fun HomeScreen(
     onOpenFilePicker: () -> Unit,
     onDeleteBookmarkSnapshot: (String) -> Unit,
     onBookmarkDisplayTypeToggle: () -> Unit,
-    onAddFolder: (String, String, List<Int>?) -> Unit,
-    onAddBookmark: (String, String, List<Int>?) -> Unit,
+    onAddBookmarkItem: (AddBookmarkItemRequest) -> Unit,
     onRenameBookmarkSnapshot: (String, String) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
-    onUpdateBookmarkItem: (List<Int>, String, String?, String?) -> Unit,
+    onUpdateBookmarkItem: (UpdateBookmarkItemRequest) -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
 ) {
     val uiState = rememberHomeScreenUiState()
@@ -124,8 +125,7 @@ fun HomeScreen(
         onRenameBookmarkSnapshot = onRenameBookmarkSnapshot,
         onUpdateBookmarkItem = onUpdateBookmarkItem,
         onDeleteBookmarkItem = onDeleteBookmarkItem,
-        onAddFolder = onAddFolder,
-        onAddBookmark = onAddBookmark,
+        onAddBookmarkItem = onAddBookmarkItem,
         onDefaultBrowserSelected = onDefaultBrowserSelected,
         onBookmarkColorSelected = onBookmarkColorSelected,
     )
@@ -253,11 +253,10 @@ private fun HomeScreenPreview() {
         onOpenFilePicker = {},
         onDeleteBookmarkSnapshot = {},
         onBookmarkDisplayTypeToggle = {},
-        onAddFolder = { _, _, _ -> },
-        onAddBookmark = { _, _, _ -> },
+        onAddBookmarkItem = { _ -> },
         onRenameBookmarkSnapshot = { _, _ -> },
         onDeleteBookmarkItem = {},
-        onUpdateBookmarkItem = { _, _, _, _ -> },
+        onUpdateBookmarkItem = { _ -> },
         onAddEmptyBookmarkSnapshot = {},
     )
 }
