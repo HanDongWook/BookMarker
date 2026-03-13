@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
-    <string name="installed_browser">Yüklü tarayıcılar</string>
+    <string name="browser_guides_title">Tarayıcı kılavuzları</string>
+    <string name="import_guide_installed_badge">Yüklü</string>
     <string name="menu">Menü</string>
     <string name="menu_settings">Ayarlar</string>
     <string name="settings">Ayarlar</string>
