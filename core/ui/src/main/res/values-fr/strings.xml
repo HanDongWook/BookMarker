@@ -166,4 +166,5 @@
     <string name="bookmark_display_mode_label">Mode d’affichage</string>
     <string name="bookmark_display_type_list">Liste</string>
     <string name="bookmark_display_type_icon">Icône</string>
+    <string name="bookmark_show_url_label">Afficher l’URL</string>
 </resources>

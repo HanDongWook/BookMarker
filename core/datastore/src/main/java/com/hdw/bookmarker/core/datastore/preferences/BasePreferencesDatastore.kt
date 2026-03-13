@@ -25,7 +25,18 @@ abstract class BasePreferencesDatastore(protected val dataStore: DataStore<Prefe
         }
     }
 
+    protected suspend fun saveBoolean(key: Preferences.Key<Boolean>, value: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[key] = value
+        }
+    }
+
     protected fun getString(key: Preferences.Key<String>, defaultValue: String = ""): Flow<String> =
+        safeData.map { preferences ->
+            preferences[key] ?: defaultValue
+        }
+
+    protected fun getBoolean(key: Preferences.Key<Boolean>, defaultValue: Boolean = false): Flow<Boolean> =
         safeData.map { preferences ->
             preferences[key] ?: defaultValue
         }

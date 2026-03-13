@@ -166,4 +166,5 @@
     <string name="bookmark_display_mode_label">Modalità di visualizzazione</string>
     <string name="bookmark_display_type_list">Elenco</string>
     <string name="bookmark_display_type_icon">Icona</string>
+    <string name="bookmark_show_url_label">Mostra URL</string>
 </resources>

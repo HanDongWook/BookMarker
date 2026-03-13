@@ -11,6 +11,7 @@ data class SettingsState(
     val selectedBrowserPackage: String? = null,
     val selectedThemeMode: String? = null,
     val bookmarkDisplayType: String? = null,
+    val showBookmarkUrl: Boolean = true,
     val folderIconStyle: BookmarkFolderIconStyle = BookmarkFolderIconStyle(),
     val appUpdateUiState: AppUpdateUiState = AppUpdateUiState.Checking,
     val updateLaunchRequestId: Long = 0L,
