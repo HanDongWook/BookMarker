@@ -1,5 +1,4 @@
 package com.hdw.bookmarker.feature.settings.ui
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,17 +11,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.os.LocaleListCompat
 import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.url.AppWebUrl
@@ -31,8 +25,6 @@ import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
 import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppUpdateUiState
 import com.hdw.bookmarker.feature.settings.ui.tab.appversion.AppVersionRow
 import com.hdw.bookmarker.feature.settings.ui.tab.defaultbrowser.DefaultBrowserRow
-import com.hdw.bookmarker.feature.settings.ui.tab.language.AppLanguageDialog
-import com.hdw.bookmarker.feature.settings.ui.tab.language.AppLanguageRow
 import com.hdw.bookmarker.feature.settings.ui.tab.legal.PrivacyPolicyRow
 import com.hdw.bookmarker.feature.settings.ui.tab.opensource.OpenSourceLicenseRow
 import com.hdw.bookmarker.feature.settings.ui.tab.rateapp.RateAppRow
@@ -59,10 +51,6 @@ fun SettingsScreen(
     val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
     val resources = LocalResources.current
-    var selectedLanguageTag by rememberSaveable {
-        mutableStateOf(AppCompatDelegate.getApplicationLocales().toLanguageTags().substringBefore(","))
-    }
-    var showAppLanguageDialog by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -95,12 +83,6 @@ fun SettingsScreen(
             SettingsRow(
                 title = stringResource(R.string.appearance_label),
                 onClick = onAppearanceClick,
-            )
-            BookMarkerDivider()
-
-            AppLanguageRow(
-                languageTag = selectedLanguageTag,
-                onClick = { showAppLanguageDialog = true },
             )
             BookMarkerDivider()
 
@@ -137,23 +119,6 @@ fun SettingsScreen(
             )
             BookMarkerDivider()
         }
-    }
-
-    if (showAppLanguageDialog) {
-        AppLanguageDialog(
-            selectedLanguageTag = selectedLanguageTag,
-            onDismiss = { showAppLanguageDialog = false },
-            onLanguageSelect = { languageTag ->
-                selectedLanguageTag = languageTag
-                val localeList = if (languageTag.isBlank()) {
-                    LocaleListCompat.getEmptyLocaleList()
-                } else {
-                    LocaleListCompat.forLanguageTags(languageTag)
-                }
-                AppCompatDelegate.setApplicationLocales(localeList)
-                showAppLanguageDialog = false
-            },
-        )
     }
 }
 

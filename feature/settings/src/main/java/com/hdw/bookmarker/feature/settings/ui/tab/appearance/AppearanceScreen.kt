@@ -1,5 +1,7 @@
 package com.hdw.bookmarker.feature.settings.ui.tab.appearance
 
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -36,6 +38,8 @@ import com.hdw.bookmarker.core.ui.folderstyle.iconVector
 import com.hdw.bookmarker.core.ui.folderstyle.label
 import com.hdw.bookmarker.core.ui.folderstyle.resolveTint
 import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
+import com.hdw.bookmarker.feature.settings.ui.tab.language.AppLanguageDialog
+import com.hdw.bookmarker.feature.settings.ui.tab.language.AppLanguageRow
 import com.hdw.bookmarker.feature.settings.ui.tab.theme.ThemeModeDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,6 +58,10 @@ fun AppearanceScreen(
         SettingsRepository.APP_THEME_MODE_LIGHT
     }
     var showThemeDialog by rememberSaveable { mutableStateOf(false) }
+    var selectedLanguageTag by rememberSaveable {
+        mutableStateOf(AppCompatDelegate.getApplicationLocales().toLanguageTags().substringBefore(","))
+    }
+    var showAppLanguageDialog by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -87,6 +95,12 @@ fun AppearanceScreen(
             )
             BookMarkerDivider()
 
+            AppLanguageRow(
+                languageTag = selectedLanguageTag,
+                onClick = { showAppLanguageDialog = true },
+            )
+            BookMarkerDivider()
+
             SettingsRow(
                 title = stringResource(R.string.add_folder),
                 onClick = onFolderClick,
@@ -114,6 +128,23 @@ fun AppearanceScreen(
             onThemeModeSelect = { themeMode ->
                 onThemeModeSelect(themeMode)
                 showThemeDialog = false
+            },
+        )
+    }
+
+    if (showAppLanguageDialog) {
+        AppLanguageDialog(
+            selectedLanguageTag = selectedLanguageTag,
+            onDismiss = { showAppLanguageDialog = false },
+            onLanguageSelect = { languageTag ->
+                selectedLanguageTag = languageTag
+                val localeList = if (languageTag.isBlank()) {
+                    LocaleListCompat.getEmptyLocaleList()
+                } else {
+                    LocaleListCompat.forLanguageTags(languageTag)
+                }
+                AppCompatDelegate.setApplicationLocales(localeList)
+                showAppLanguageDialog = false
             },
         )
     }

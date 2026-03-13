@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">Selecionar cor do favorito</string>
     <string name="bookmark_color_picker_dialog_close">Fechar</string>
     <string name="folder_style_label">Estilo da pasta</string>
-    <string name="app_language_label">Idioma do app</string>
+    <string name="app_language_label">Idioma</string>
     <string name="app_language_system_default">Padrão do sistema</string>
     <string name="folder_shape_label">Formato</string>
     <string name="folder_color_label">Cor</string>

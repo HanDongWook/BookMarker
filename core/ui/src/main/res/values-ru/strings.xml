@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">Выберите цвет закладки</string>
     <string name="bookmark_color_picker_dialog_close">Закрыть</string>
     <string name="folder_style_label">Стиль папки</string>
-    <string name="app_language_label">Язык приложения</string>
+    <string name="app_language_label">Язык</string>
     <string name="app_language_system_default">Системный по умолчанию</string>
     <string name="folder_shape_label">Форма</string>
     <string name="folder_color_label">Цвет</string>

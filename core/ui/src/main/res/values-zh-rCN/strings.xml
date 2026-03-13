@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">选择书签颜色</string>
     <string name="bookmark_color_picker_dialog_close">关闭</string>
     <string name="folder_style_label">文件夹样式</string>
-    <string name="app_language_label">应用语言</string>
+    <string name="app_language_label">语言</string>
     <string name="app_language_system_default">跟随系统</string>
     <string name="folder_shape_label">形状</string>
     <string name="folder_color_label">颜色</string>

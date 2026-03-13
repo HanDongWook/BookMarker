@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">選擇書籤顏色</string>
     <string name="bookmark_color_picker_dialog_close">關閉</string>
     <string name="folder_style_label">資料夾樣式</string>
-    <string name="app_language_label">應用程式語言</string>
+    <string name="app_language_label">語言</string>
     <string name="app_language_system_default">系統預設</string>
     <string name="folder_shape_label">形狀</string>
     <string name="folder_color_label">顏色</string>

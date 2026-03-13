@@ -122,7 +122,7 @@
     <string name="bookmark_color_picker_dialog_title">Sélectionner la couleur du signet</string>
     <string name="bookmark_color_picker_dialog_close">Fermer</string>
     <string name="folder_style_label">Style de dossier</string>
-    <string name="app_language_label">Langue de l’application</string>
+    <string name="app_language_label">Langue</string>
     <string name="app_language_system_default">Par défaut du système</string>
     <string name="folder_shape_label">Forme</string>
     <string name="folder_color_label">Couleur</string>
