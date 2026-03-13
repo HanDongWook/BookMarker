@@ -162,4 +162,8 @@
     <string name="share_bookmark_method_text">แชร์เป็นข้อความ</string>
     <string name="share_bookmark_method_html">แชร์เป็น HTML</string>
     <string name="rate_app_open_store_failed">ไม่สามารถเปิด Play Store ได้</string>
+    <string name="appearance_label">รูปลักษณ์</string>
+    <string name="bookmark_display_mode_label">โหมดการแสดงผล</string>
+    <string name="bookmark_display_type_list">รายการ</string>
+    <string name="bookmark_display_type_icon">ไอคอน</string>
 </resources>

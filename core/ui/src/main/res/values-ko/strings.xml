@@ -162,4 +162,8 @@
     <string name="folder_color_green">초록</string>
     <string name="folder_color_orange">주황</string>
     <string name="folder_color_purple">보라</string>
+    <string name="appearance_label">모양</string>
+    <string name="bookmark_display_mode_label">표시 방식</string>
+    <string name="bookmark_display_type_list">목록</string>
+    <string name="bookmark_display_type_icon">아이콘</string>
 </resources>

@@ -18,5 +18,7 @@ interface SettingsRepository {
     companion object {
         const val APP_THEME_MODE_LIGHT = "LIGHT"
         const val APP_THEME_MODE_DARK = "DARK"
+        const val BOOKMARK_DISPLAY_TYPE_LIST = "LIST"
+        const val BOOKMARK_DISPLAY_TYPE_ICON = "ICON"
     }
 }
