@@ -117,10 +117,6 @@ fun HomeScreen(
             }
     }
 
-    LaunchedEffect(selectedBookmarkId) {
-        uiState.previewPaneState.clear()
-    }
-
     LaunchedEffect(enableLargeScreenSidePreview) {
         if (!enableLargeScreenSidePreview) {
             uiState.previewPaneState.clear()
