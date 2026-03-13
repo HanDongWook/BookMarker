@@ -153,6 +153,13 @@
     <string name="behavior_label">Comportamento</string>
     <string name="bookmark_show_url_label">Mostrar URL</string>
     <string name="bookmark_scroll_long_url_label">Rolar URL longa</string>
+    <string name="bookmark_open_side_preview_on_large_screens_label">Abrir prévia lateral em telas grandes</string>
+    <string name="bookmark_preview_title">Prévia</string>
+    <string name="bookmark_preview_placeholder">Selecione um marcador para visualizar a prévia</string>
+    <string name="bookmark_preview_refresh">Atualizar prévia</string>
+    <string name="bookmark_preview_open_externally">Abrir externamente</string>
+    <string name="bookmark_preview_close">Fechar prévia</string>
+    <string name="bookmark_preview_failed">Não foi possível carregar a prévia</string>
     <string name="folder_show_description_label">Mostrar descrição</string>
     <string name="folder_scroll_long_description_label">Rolar descrição longa</string>
     <string name="folder_description">Descrição</string>

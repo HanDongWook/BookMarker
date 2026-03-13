@@ -26,6 +26,8 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
         val showBookmarkUrl = booleanPreferencesKey("show_bookmark_url")
         val scrollLongBookmarkUrl = booleanPreferencesKey("scroll_long_bookmark_url")
         val openBookmarkAdjacentOnLargeScreen = booleanPreferencesKey("open_bookmark_adjacent_on_large_screen")
+        val openBookmarkSidePreviewOnLargeScreen =
+            booleanPreferencesKey("open_bookmark_side_preview_on_large_screen")
         val showFolderDescription = booleanPreferencesKey("show_folder_description")
         val scrollLongFolderDescription = booleanPreferencesKey("scroll_long_folder_description")
         val appThemeMode = stringPreferencesKey("app_theme_mode")
@@ -73,6 +75,15 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
 
     fun getOpenBookmarkAdjacentOnLargeScreen(): Flow<Boolean> = getBoolean(
         key = Keys.openBookmarkAdjacentOnLargeScreen,
+        defaultValue = false,
+    )
+
+    suspend fun saveOpenBookmarkSidePreviewOnLargeScreen(value: Boolean) {
+        saveBoolean(Keys.openBookmarkSidePreviewOnLargeScreen, value)
+    }
+
+    fun getOpenBookmarkSidePreviewOnLargeScreen(): Flow<Boolean> = getBoolean(
+        key = Keys.openBookmarkSidePreviewOnLargeScreen,
         defaultValue = false,
     )
 

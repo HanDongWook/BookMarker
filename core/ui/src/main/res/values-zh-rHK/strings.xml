@@ -153,6 +153,13 @@
     <string name="behavior_label">行為</string>
     <string name="bookmark_show_url_label">顯示 URL</string>
     <string name="bookmark_scroll_long_url_label">捲動長 URL</string>
+    <string name="bookmark_open_side_preview_on_large_screens_label">在大螢幕上開啟側邊預覽</string>
+    <string name="bookmark_preview_title">預覽</string>
+    <string name="bookmark_preview_placeholder">選擇書籤以預覽</string>
+    <string name="bookmark_preview_refresh">重新整理預覽</string>
+    <string name="bookmark_preview_open_externally">在外部開啟</string>
+    <string name="bookmark_preview_close">關閉預覽</string>
+    <string name="bookmark_preview_failed">無法載入預覽</string>
     <string name="folder_show_description_label">顯示描述</string>
     <string name="folder_scroll_long_description_label">捲動長描述</string>
     <string name="folder_description">描述</string>

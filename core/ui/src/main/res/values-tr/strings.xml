@@ -153,6 +153,13 @@
     <string name="behavior_label">Davranış</string>
     <string name="bookmark_show_url_label">URL’yi göster</string>
     <string name="bookmark_scroll_long_url_label">Uzun URL’yi kaydır</string>
+    <string name="bookmark_open_side_preview_on_large_screens_label">Büyük ekranlarda yan önizlemeyi aç</string>
+    <string name="bookmark_preview_title">Önizleme</string>
+    <string name="bookmark_preview_placeholder">Önizleme için bir yer imi seç</string>
+    <string name="bookmark_preview_refresh">Önizlemeyi yenile</string>
+    <string name="bookmark_preview_open_externally">Harici olarak aç</string>
+    <string name="bookmark_preview_close">Önizlemeyi kapat</string>
+    <string name="bookmark_preview_failed">Önizleme yüklenemedi</string>
     <string name="folder_show_description_label">Açıklamayı göster</string>
     <string name="folder_scroll_long_description_label">Uzun açıklamayı kaydır</string>
     <string name="folder_description">Açıklama</string>

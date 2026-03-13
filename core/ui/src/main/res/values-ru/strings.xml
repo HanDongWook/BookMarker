@@ -153,6 +153,13 @@
     <string name="behavior_label">Поведение</string>
     <string name="bookmark_show_url_label">Показывать URL</string>
     <string name="bookmark_scroll_long_url_label">Прокручивать длинный URL</string>
+    <string name="bookmark_open_side_preview_on_large_screens_label">Открывать боковой предпросмотр на больших экранах</string>
+    <string name="bookmark_preview_title">Предпросмотр</string>
+    <string name="bookmark_preview_placeholder">Выберите закладку для предпросмотра</string>
+    <string name="bookmark_preview_refresh">Обновить предпросмотр</string>
+    <string name="bookmark_preview_open_externally">Открыть во внешнем браузере</string>
+    <string name="bookmark_preview_close">Закрыть предпросмотр</string>
+    <string name="bookmark_preview_failed">Не удалось загрузить предпросмотр</string>
     <string name="folder_show_description_label">Показывать описание</string>
     <string name="folder_scroll_long_description_label">Прокручивать длинное описание</string>
     <string name="folder_description">Описание</string>
