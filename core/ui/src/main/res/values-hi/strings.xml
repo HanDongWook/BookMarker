@@ -109,7 +109,6 @@
     <string name="import_guide_step1_body_desktop_generic">अपने कंप्यूटर के %1$s में Bookmark/Favorites manager ढूँढें और HTML में एक्सपोर्ट करें।</string>
     <string name="import_guide_step2_title">2. HTML फ़ाइल को फ़ोन में सेव करें</string>
     <string name="import_guide_open_guide_failed">गाइड पेज नहीं खुल सका।</string>
-    <string name="import_guide_exit">बंद करें</string>
     <string name="open_bookmark_failed">बुकमार्क लिंक नहीं खुल सका।</string>
     <string name="delete_bookmark_dialog_title">बुकमार्क हटाएँ?</string>
     <string name="delete_bookmark_dialog_message">क्या आप इन बुकमार्क को हटाना चाहते हैं?</string>
@@ -119,7 +118,6 @@
     <string name="delete_bookmark_item_dialog_message">क्या आप चयनित फ़ोल्डर या बुकमार्क हटाना चाहते हैं?</string>
     <string name="delete_bookmark_item_dialog_confirm">हटाएँ</string>
     <string name="delete_bookmark_item_dialog_cancel">रद्द करें</string>
-    <string name="import_option_dialog_open_guide">बुकमार्क HTML आयात गाइड देखें</string>
     <string name="import_option_dialog_pick_file">बुकमार्क HTML फ़ाइल आयात करें</string>
     <string name="import_option_dialog_add_empty_bookmark_item">खाली बुकमार्क आइटम जोड़ें</string>
     <string name="bookmark_color_picker_dialog_title">बुकमार्क रंग चुनें</string>

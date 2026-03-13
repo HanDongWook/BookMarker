@@ -69,6 +69,11 @@
     <string name="bookmark_mode_list">Bookmark list view</string>
     <string name="bookmark_mode_icon">Bookmark icon view</string>
     <string name="import_bookmarks">Import bookmarks</string>
+    <string name="import_source_html_file_title">HTML file</string>
+    <string name="import_source_html_file_description">Import bookmarks directly from an exported HTML file.</string>
+    <string name="import_source_browser_guides_description">Find export steps for popular browsers.</string>
+    <string name="import_source_badge_recommended">Recommended</string>
+    <string name="import_source_badge_direct_import">Direct import</string>
     <string name="browser_generic_name">browser</string>
     <string name="import_guide_title">Import Chrome bookmarks</string>
     <string name="import_guide_title_for_browser">Import %1$s bookmarks</string>
@@ -120,7 +125,12 @@
     <string name="import_guide_step1_body_desktop_generic">On your computer %1$s, find Bookmark/Favorites manager and export to HTML.</string>
     <string name="import_guide_step2_title">2. Save the HTML file to phone</string>
     <string name="import_guide_open_guide_failed">Could not open guide page.</string>
-    <string name="import_guide_exit">Exit</string>
+    <string name="browser_guide_badge_guide">Guide</string>
+    <string name="browser_guide_badge_desktop">Desktop</string>
+    <string name="browser_guide_filter_all">All</string>
+    <string name="browser_guide_filter_installed">Installed</string>
+    <string name="browser_guide_filter_guide">Guide</string>
+    <string name="browser_guide_filter_desktop">Desktop</string>
     <string name="open_bookmark_failed">Could not open bookmark link.</string>
     <string name="delete_bookmark_dialog_title">Delete bookmarks?</string>
     <string name="delete_bookmark_dialog_message">Do you want to delete these bookmarks?</string>
@@ -130,7 +140,6 @@
     <string name="delete_bookmark_item_dialog_message">Do you want to delete the selected folder or bookmark?</string>
     <string name="delete_bookmark_item_dialog_confirm">Delete</string>
     <string name="delete_bookmark_item_dialog_cancel">Cancel</string>
-    <string name="import_option_dialog_open_guide">View bookmark HTML import guide</string>
     <string name="import_option_dialog_pick_file">Import bookmark HTML file</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Add empty bookmark item</string>
     <string name="bookmark_color_picker_dialog_title">Select bookmark color</string>

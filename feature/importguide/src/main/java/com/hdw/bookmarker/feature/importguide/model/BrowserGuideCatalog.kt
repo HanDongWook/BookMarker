@@ -8,6 +8,8 @@ internal object BrowserGuideCatalog {
         val browser: Browser,
         val displayName: String,
         val packagePriority: List<String> = emptyList(),
+        val guideLinkType: BrowserGuideLinkType = BrowserGuideLinkType.OFFICIAL,
+        val requiresDesktopExport: Boolean = true,
     )
 
     // Ordered by broad worldwide browser usage, then by long-tail support priority.
@@ -64,6 +66,8 @@ internal object BrowserGuideCatalog {
                 "com.brave.browser_beta",
                 "com.brave.browser_nightly",
             ),
+            guideLinkType = BrowserGuideLinkType.IN_APP,
+            requiresDesktopExport = false,
         ),
         Entry(
             browser = Browser.YANDEX,
@@ -94,6 +98,7 @@ internal object BrowserGuideCatalog {
             browser = Browser.KIWI,
             displayName = "Kiwi Browser",
             packagePriority = listOf("com.kiwibrowser.browser"),
+            guideLinkType = BrowserGuideLinkType.NONE,
         ),
         Entry(browser = Browser.IE, displayName = "Internet Explorer"),
     )
@@ -118,6 +123,8 @@ internal object BrowserGuideCatalog {
                 browser = entry.browser,
                 displayName = entry.displayName,
                 installedBrowser = installedBrowser,
+                guideLinkType = entry.guideLinkType,
+                requiresDesktopExport = entry.requiresDesktopExport,
             )
         }
     }
@@ -128,6 +135,17 @@ internal object BrowserGuideCatalog {
             BrowserGuideItem(
                 browser = entry.browser,
                 displayName = entry.displayName,
+                guideLinkType = entry.guideLinkType,
+                requiresDesktopExport = entry.requiresDesktopExport,
             )
         }
+
+    fun defaultGuideItem(): BrowserGuideItem = globalRankedEntries.first().let { entry ->
+        BrowserGuideItem(
+            browser = entry.browser,
+            displayName = entry.displayName,
+            guideLinkType = entry.guideLinkType,
+            requiresDesktopExport = entry.requiresDesktopExport,
+        )
+    }
 }

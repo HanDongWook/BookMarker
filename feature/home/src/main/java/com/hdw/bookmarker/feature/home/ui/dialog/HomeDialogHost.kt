@@ -87,7 +87,7 @@ internal fun HomeDialogHost(
     if (showImportOptionDialog) {
         ImportOptionDialog(
             onDismiss = { showImportOptionDialog = false },
-            onOpenGuide = {
+            onOpenImportBookmarks = {
                 showImportOptionDialog = false
                 onOpenBookmarkImportGuide()
             },

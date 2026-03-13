@@ -109,7 +109,6 @@
     <string name="import_guide_step1_body_desktop_generic">บนคอมพิวเตอร์ของคุณใน %1$s ให้ค้นหา Bookmark/Favorites manager แล้วส่งออกเป็น HTML</string>
     <string name="import_guide_step2_title">2. บันทึกไฟล์ HTML ลงในโทรศัพท์</string>
     <string name="import_guide_open_guide_failed">ไม่สามารถเปิดหน้าคู่มือได้</string>
-    <string name="import_guide_exit">ออก</string>
     <string name="open_bookmark_failed">ไม่สามารถเปิดลิงก์บุ๊กมาร์กได้</string>
     <string name="delete_bookmark_dialog_title">ลบบุ๊กมาร์ก?</string>
     <string name="delete_bookmark_dialog_message">คุณต้องการลบบุ๊กมาร์กเหล่านี้หรือไม่?</string>
@@ -119,7 +118,6 @@
     <string name="delete_bookmark_item_dialog_message">คุณต้องการลบโฟลเดอร์หรือบุ๊กมาร์กที่เลือกหรือไม่?</string>
     <string name="delete_bookmark_item_dialog_confirm">ลบ</string>
     <string name="delete_bookmark_item_dialog_cancel">ยกเลิก</string>
-    <string name="import_option_dialog_open_guide">ดูคู่มือนำเข้า HTML บุ๊กมาร์ก</string>
     <string name="import_option_dialog_pick_file">นำเข้าไฟล์ HTML บุ๊กมาร์ก</string>
     <string name="import_option_dialog_add_empty_bookmark_item">เพิ่มรายการบุ๊กมาร์กว่าง</string>
     <string name="bookmark_color_picker_dialog_title">เลือกสีบุ๊กมาร์ก</string>
