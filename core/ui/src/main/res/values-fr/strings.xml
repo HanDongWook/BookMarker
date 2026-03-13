@@ -33,9 +33,9 @@
     <string name="share_app_label">Partager cette application</string>
     <string name="share_app_chooser_title">Partager l’application</string>
     <string name="share_app_message">Essayez BookMarker : %1$s</string>
-    <string name="share_current_bookmarks_label">Partager les signets</string>
-    <string name="share_current_bookmarks_chooser_title">Partager les signets</string>
-    <string name="share_current_bookmarks_empty">Aucun signet à partager.</string>
+    <string name="export_current_bookmarks_label">Exporter les signets</string>
+    <string name="export_current_bookmarks_chooser_title">Exporter les signets</string>
+    <string name="export_current_bookmarks_empty">Aucun signet à exporter.</string>
     <string name="privacy_policy_label">Politique de confidentialité</string>
     <string name="temporary_data_label">Données temporaires</string>
     <string name="open_source_licenses_label">Licences open source</string>
@@ -138,10 +138,10 @@
     <string name="app_update_flow_canceled">Mise à jour annulée.</string>
     <string name="app_update_flow_failed">Échec du démarrage de la mise à jour.</string>
     <string name="rate_app_review_requested_hint">Si aucune fenêtre ne s’affiche, veuillez noter l’application sur le Play Store.</string>
-    <string name="share_current_bookmarks_html_failed">Impossible de créer le fichier HTML des favoris.</string>
-    <string name="share_bookmark_method_title">Choisir le type de partage</string>
-    <string name="share_bookmark_method_text">Partager en texte</string>
-    <string name="share_bookmark_method_html">Partager en HTML</string>
+    <string name="export_current_bookmarks_html_failed">Échec de la création du fichier HTML des signets.</string>
+    <string name="export_bookmark_method_title">Exporter</string>
+    <string name="export_bookmark_method_text">Exporter en texte</string>
+    <string name="export_bookmark_method_html">Exporter en HTML</string>
     <string name="rate_app_open_store_failed">Impossible d’ouvrir le Play Store.</string>
     <string name="appearance_label">Apparence</string>
     <string name="bookmark_show_url_label">Afficher l’URL</string>
