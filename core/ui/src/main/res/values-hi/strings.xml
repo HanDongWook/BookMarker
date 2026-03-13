@@ -168,5 +168,7 @@
     <string name="bookmark_display_type_icon">आइकन</string>
     <string name="bookmark_show_url_label">URL दिखाएं</string>
     <string name="bookmark_scroll_long_url_label">लंबा URL स्क्रॉल करें</string>
+    <string name="folder_show_description_label">विवरण दिखाएं</string>
+    <string name="folder_scroll_long_description_label">लंबा विवरण स्क्रॉल करें</string>
     <string name="folder_description">विवरण</string>
 </resources>

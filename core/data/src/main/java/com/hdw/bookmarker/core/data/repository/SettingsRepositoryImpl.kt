@@ -11,6 +11,8 @@ class SettingsRepositoryImpl @Inject constructor(private val bookMarkerDatastore
     override fun getBookmarkDisplayTypeFlow(): Flow<String?> = bookMarkerDatastore.getBookmarkDisplayType()
     override fun getShowBookmarkUrlFlow(): Flow<Boolean> = bookMarkerDatastore.getShowBookmarkUrl()
     override fun getScrollLongBookmarkUrlFlow(): Flow<Boolean> = bookMarkerDatastore.getScrollLongBookmarkUrl()
+    override fun getShowFolderDescriptionFlow(): Flow<Boolean> = bookMarkerDatastore.getShowFolderDescription()
+    override fun getScrollLongFolderDescriptionFlow(): Flow<Boolean> = bookMarkerDatastore.getScrollLongFolderDescription()
     override fun getAppThemeModeFlow(): Flow<String?> = bookMarkerDatastore.getAppThemeMode()
     override fun getBookmarkFolderIconShapeFlow(): Flow<String?> = bookMarkerDatastore.getBookmarkFolderIconShape()
     override fun getBookmarkFolderIconColorFlow(): Flow<String?> = bookMarkerDatastore.getBookmarkFolderIconColor()
@@ -29,6 +31,14 @@ class SettingsRepositoryImpl @Inject constructor(private val bookMarkerDatastore
 
     override suspend fun setScrollLongBookmarkUrl(enabled: Boolean) {
         bookMarkerDatastore.saveScrollLongBookmarkUrl(enabled)
+    }
+
+    override suspend fun setShowFolderDescription(show: Boolean) {
+        bookMarkerDatastore.saveShowFolderDescription(show)
+    }
+
+    override suspend fun setScrollLongFolderDescription(enabled: Boolean) {
+        bookMarkerDatastore.saveScrollLongFolderDescription(enabled)
     }
 
     override suspend fun setAppThemeMode(mode: String) {

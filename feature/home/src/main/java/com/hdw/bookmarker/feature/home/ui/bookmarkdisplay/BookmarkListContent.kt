@@ -68,6 +68,8 @@ internal fun BookmarkListContent(
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
     scrollLongBookmarkUrl: Boolean,
     showBookmarkUrl: Boolean,
+    showFolderDescription: Boolean,
+    scrollLongFolderDescription: Boolean,
     folderIconStyle: BookmarkFolderIconStyle,
     modifier: Modifier = Modifier,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
@@ -97,6 +99,8 @@ internal fun BookmarkListContent(
                         depth = node.depth,
                         isExpanded = expandedFolders[node.key] == true,
                         isSelected = selectedFolderKey == node.key,
+                        showFolderDescription = showFolderDescription,
+                        scrollLongFolderDescription = scrollLongFolderDescription,
                         folderIconStyle = folderIconStyle,
                         onLongClick = { onItemLongClick(item, node.path) },
                         onToggle = {
@@ -133,6 +137,8 @@ private fun BookmarkFolderRow(
     depth: Int,
     isExpanded: Boolean,
     isSelected: Boolean,
+    showFolderDescription: Boolean,
+    scrollLongFolderDescription: Boolean,
     folderIconStyle: BookmarkFolderIconStyle,
     onLongClick: () -> Unit,
     onToggle: () -> Unit,
@@ -162,16 +168,51 @@ private fun BookmarkFolderRow(
             contentDescription = null,
             tint = folderIconStyle.color.resolveTint(),
         )
-        Text(
-            text = "${folder.title} ($directChildCount)",
-            style = MaterialTheme.typography.bodyLarge,
-            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .padding(start = 10.dp)
-                .weight(1f),
-        )
+        if (showFolderDescription && !folder.description.isNullOrBlank()) {
+            Row(
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .weight(1f),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = "${folder.title} ($directChildCount)",
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(0.4f),
+                )
+                Text(
+                    text = folder.description.orEmpty(),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = if (scrollLongFolderDescription) TextOverflow.Visible else TextOverflow.Ellipsis,
+                    modifier = Modifier
+                        .weight(0.6f)
+                        .then(
+                            if (scrollLongFolderDescription) {
+                                Modifier.basicMarquee()
+                            } else {
+                                Modifier
+                            }
+                        ),
+                )
+            }
+        } else {
+            Text(
+                text = "${folder.title} ($directChildCount)",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .weight(1f),
+            )
+        }
         Icon(
             imageVector = if (isExpanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
             contentDescription = null,
@@ -290,6 +331,8 @@ private fun BookmarkListContentPreview() {
         onItemLongClick = { _, _ -> },
         scrollLongBookmarkUrl = true,
         showBookmarkUrl = true,
+        showFolderDescription = true,
+        scrollLongFolderDescription = true,
         folderIconStyle = BookmarkFolderIconStyle(),
     )
 }
@@ -316,6 +359,8 @@ private fun BookmarkFolderRowPreview() {
         depth = 0,
         isExpanded = true,
         isSelected = true,
+        showFolderDescription = true,
+        scrollLongFolderDescription = true,
         folderIconStyle = BookmarkFolderIconStyle(),
         onLongClick = {},
         onToggle = {},

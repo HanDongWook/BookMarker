@@ -168,5 +168,7 @@
     <string name="bookmark_display_type_icon">ไอคอน</string>
     <string name="bookmark_show_url_label">แสดง URL</string>
     <string name="bookmark_scroll_long_url_label">เลื่อน URL ยาว</string>
+    <string name="folder_show_description_label">แสดงคำอธิบาย</string>
+    <string name="folder_scroll_long_description_label">เลื่อนคำอธิบายยาว</string>
     <string name="folder_description">คำอธิบาย</string>
 </resources>
