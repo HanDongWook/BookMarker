@@ -7,6 +7,7 @@ data class AppearanceState(
     val selectedThemeMode: String? = null,
     val showBookmarkUrl: Boolean = true,
     val scrollLongBookmarkUrl: Boolean = true,
+    val openBookmarkSidePreviewOnLargeScreen: Boolean = false,
     val showFolderDescription: Boolean = true,
     val scrollLongFolderDescription: Boolean = true,
     val folderIconStyle: BookmarkFolderIconStyle = BookmarkFolderIconStyle(),
