@@ -33,6 +33,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 @Composable
 fun HomeScreen(
     state: HomeState,
+    enableLargeScreenSidePreview: Boolean,
     onSettingsClick: () -> Unit,
     onOpenBookmark: (String, String?) -> Boolean,
     onOpenBookmarkImportGuide: () -> Unit,
@@ -72,6 +73,8 @@ fun HomeScreen(
     var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
+    var previewBookmarkUrl by uiState.previewBookmarkUrl
+    var previewRefreshToken by uiState.previewRefreshToken
 
     val orderedSnapshotIds = state.orderedSnapshotIds
     val context = LocalContext.current
@@ -113,6 +116,18 @@ fun HomeScreen(
             .collect { page ->
                 orderedSnapshotIds.getOrNull(page)?.let(onSnapshotSelected)
             }
+    }
+
+    LaunchedEffect(selectedBookmarkId) {
+        previewBookmarkUrl = null
+        previewRefreshToken = 0
+    }
+
+    LaunchedEffect(enableLargeScreenSidePreview) {
+        if (!enableLargeScreenSidePreview) {
+            previewBookmarkUrl = null
+            previewRefreshToken = 0
+        }
     }
 
     LaunchedEffect(pendingBookmarkExportAction, selectedBookmarkDocument) {
@@ -168,7 +183,9 @@ fun HomeScreen(
                 onEnterEditMode = { isBrowserEditMode = true },
                 onDeleteSnapshotRequest = { snapshotId -> pendingDeleteSnapshotId = snapshotId },
                 onBookmarkClick = { url ->
-                    if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
+                    if (enableLargeScreenSidePreview) {
+                        previewBookmarkUrl = url
+                    } else if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
                         context.showShortToast(resources.getString(R.string.open_bookmark_failed))
                     }
                 },
@@ -191,6 +208,23 @@ fun HomeScreen(
                     }
                 },
                 onSnapshotExportClick = { showExportBookmarkMethodDialog = true },
+                previewBookmarkUrl = previewBookmarkUrl,
+                previewRefreshToken = previewRefreshToken,
+                showLargeScreenSidePreview = enableLargeScreenSidePreview,
+                onPreviewClose = {
+                    previewBookmarkUrl = null
+                    previewRefreshToken = 0
+                },
+                onPreviewRefresh = {
+                    if (!previewBookmarkUrl.isNullOrBlank()) {
+                        previewRefreshToken += 1
+                    }
+                },
+                onPreviewOpenExternally = { url ->
+                    if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
+                        context.showShortToast(resources.getString(R.string.open_bookmark_failed))
+                    }
+                },
             )
         }
     }
@@ -219,6 +253,8 @@ internal class HomeScreenUiState(
     val pendingEditBookmarkTitle: MutableState<String>,
     val pendingEditBookmarkUrl: MutableState<String>,
     val pendingEditBookmarkDescription: MutableState<String>,
+    val previewBookmarkUrl: MutableState<String?>,
+    val previewRefreshToken: MutableState<Int>,
 )
 
 @Composable
@@ -245,6 +281,8 @@ private fun rememberHomeScreenUiState(): HomeScreenUiState = HomeScreenUiState(
     pendingEditBookmarkTitle = rememberSaveable { mutableStateOf("") },
     pendingEditBookmarkUrl = rememberSaveable { mutableStateOf("") },
     pendingEditBookmarkDescription = rememberSaveable { mutableStateOf("") },
+    previewBookmarkUrl = rememberSaveable { mutableStateOf<String?>(null) },
+    previewRefreshToken = rememberSaveable { mutableStateOf(0) },
 )
 
 @Preview(showBackground = true)
@@ -255,6 +293,7 @@ private fun HomeScreenPreview() {
             orderedSnapshotIds = emptyList(),
             bookmarkDisplayType = BookmarkDisplayType.LIST,
         ),
+        enableLargeScreenSidePreview = false,
         onSettingsClick = {},
         onOpenBookmark = { _, _ -> true },
         onOpenBookmarkImportGuide = {},
