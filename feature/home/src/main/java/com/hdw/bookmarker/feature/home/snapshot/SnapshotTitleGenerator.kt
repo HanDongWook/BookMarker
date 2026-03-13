@@ -9,6 +9,8 @@ import javax.inject.Inject
 class SnapshotTitleGenerator @Inject constructor(
     @param:ApplicationContext private val context: Context,
 ) {
+    fun inboxTitle(): String = context.getString(R.string.bookmark_inbox_title)
+
     fun nextDefaultTitle(existingDocuments: Collection<BookmarkDocument>): String {
         val titlePrefix = context.getString(R.string.default_snapshot_title_prefix)
         val maxNumber = existingDocuments

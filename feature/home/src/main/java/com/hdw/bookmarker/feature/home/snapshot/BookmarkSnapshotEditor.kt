@@ -2,8 +2,11 @@ package com.hdw.bookmarker.feature.home.snapshot
 
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
+import com.hdw.bookmarker.core.model.bookmark.BOOKMARK_DOCUMENT_KIND_INBOX
+import com.hdw.bookmarker.core.model.bookmark.BOOKMARK_DOCUMENT_META_KIND
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.editor.BookmarkTreeEditor
 import javax.inject.Inject
@@ -23,6 +26,34 @@ class BookmarkSnapshotEditor @Inject constructor(
                 metas = emptyMap(),
                 rootItems = emptyList(),
             ),
+        )
+    }
+
+    suspend fun getOrCreateInboxSnapshot(
+        bookmarkDocuments: Map<String, BookmarkDocument>,
+    ): Pair<String?, BookmarkDocument> {
+        val existingInbox = bookmarkDocuments.entries.firstOrNull { (_, document) ->
+            document.isInboxSnapshot()
+        }
+        if (existingInbox != null) {
+            return existingInbox.key to existingInbox.value
+        }
+
+        return null to BookmarkDocument(
+            title = snapshotTitleGenerator.inboxTitle(),
+            metas = mapOf(BOOKMARK_DOCUMENT_META_KIND to BOOKMARK_DOCUMENT_KIND_INBOX),
+            rootItems = emptyList(),
+        )
+    }
+
+    suspend fun addItemToInbox(
+        bookmarkDocuments: Map<String, BookmarkDocument>,
+        item: BookmarkItem,
+    ): String {
+        val (snapshotId, inboxDocument) = getOrCreateInboxSnapshot(bookmarkDocuments)
+        return saveSnapshot(
+            snapshotId = snapshotId,
+            document = inboxDocument.copy(rootItems = inboxDocument.rootItems + item),
         )
     }
 

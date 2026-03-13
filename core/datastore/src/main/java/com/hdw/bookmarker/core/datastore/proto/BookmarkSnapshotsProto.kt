@@ -49,4 +49,6 @@ data class BookmarkLinkProto(
     @ProtoNumber(3) val addDate: String = "",
     @ProtoNumber(4) val lastModified: String = "",
     @ProtoNumber(5) val iconUri: String = "",
+    @ProtoNumber(6) val note: String = "",
+    @ProtoNumber(7) val tags: List<String> = emptyList(),
 )
