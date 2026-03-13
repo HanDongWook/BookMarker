@@ -208,6 +208,7 @@ private fun previewBookmarkDocument(): BookmarkDocument = BookmarkDocument(
     rootItems = listOf(
         BookmarkItem.Folder(
             title = "Android",
+            description = "Android development links",
             addDate = null,
             lastModified = null,
             children = listOf(

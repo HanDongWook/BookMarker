@@ -51,8 +51,25 @@ class BookmarkHtmlParser {
                 .firstOrNull { it.tagName().equals(HtmlTag.H3, ignoreCase = true) }
                 ?: continue
 
+            val nextSibling = node.nextElementSibling()
+            val description = when {
+                nextSibling?.tagName().equals(HtmlTag.DESCRIPTION, ignoreCase = true) -> {
+                    nextSibling?.text()?.takeIf { it.isNotBlank() }
+                }
+
+                else -> null
+            }
             val childDl = node.children()
                 .firstOrNull { it.tagName().equals(HtmlTag.DEFINITION_LIST, ignoreCase = true) }
+                ?: when {
+                    nextSibling?.tagName().equals(HtmlTag.DESCRIPTION, ignoreCase = true) -> {
+                        nextSibling?.nextElementSibling()
+                            ?.takeIf { it.tagName().equals(HtmlTag.DEFINITION_LIST, ignoreCase = true) }
+                    }
+
+                    else -> nextSibling
+                        ?.takeIf { it.tagName().equals(HtmlTag.DEFINITION_LIST, ignoreCase = true) }
+                }
                 ?: node.nextElementSiblings()
                     .firstOrNull { it.tagName().equals(HtmlTag.DEFINITION_LIST, ignoreCase = true) }
 
@@ -60,6 +77,7 @@ class BookmarkHtmlParser {
             items.add(
                 BookmarkItem.Folder(
                     title = directH3.text(),
+                    description = description,
                     addDate = directH3.attr(HtmlAttribute.ADD_DATE).takeIf { it.isNotBlank() },
                     lastModified = directH3.attr(HtmlAttribute.LAST_MODIFIED).takeIf { it.isNotBlank() },
                     children = children,
@@ -94,5 +112,6 @@ class BookmarkHtmlParser {
         const val PARAGRAPH = "p"
         const val H3 = "h3"
         const val ANCHOR = "a"
+        const val DESCRIPTION = "dd"
     }
 }

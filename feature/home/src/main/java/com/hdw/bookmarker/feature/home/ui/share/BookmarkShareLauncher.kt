@@ -113,6 +113,11 @@ private fun StringBuilder.appendBookmarkItems(items: List<BookmarkItem>, depth: 
 
             is BookmarkItem.Folder -> {
                 appendLine("$indent<DT><H3>${escapeHtml(item.title)}</H3>")
+                item.description
+                    ?.takeIf { it.isNotBlank() }
+                    ?.let { description ->
+                        appendLine("$indent<DD>${escapeHtml(description)}</DD>")
+                    }
                 appendLine("$indent<DL><p>")
                 appendBookmarkItems(item.children, depth + 1)
                 appendLine("$indent</DL><p>")
