@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.ui.tab
+package com.hdw.bookmarker.feature.home.ui.snapshottabbar
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable

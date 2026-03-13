@@ -1,6 +1,6 @@
 package com.hdw.bookmarker.feature.home.ui
 import android.graphics.drawable.Drawable
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -12,29 +12,24 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.designsystem.theme.BookMarkerYellow
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.ui.appbar.HomeTopAppBar
 import com.hdw.bookmarker.feature.home.ui.bookmarkdisplay.BookmarkDisplayContent
 import com.hdw.bookmarker.feature.home.ui.preview.BookmarkPreviewPane
+import com.hdw.bookmarker.feature.home.ui.preview.BookmarkPreviewPaneState
 import kotlinx.coroutines.launch
 
 @Composable
@@ -61,10 +56,7 @@ internal fun HomeContent(
     onSnapshotTitleClick: () -> Unit,
     onSnapshotExportClick: () -> Unit,
     showLargeScreenSidePreview: Boolean,
-    previewBookmarkUrl: String?,
-    previewRefreshToken: Int,
-    onPreviewClose: () -> Unit,
-    onPreviewRefresh: () -> Unit,
+    previewPaneState: BookmarkPreviewPaneState,
     onPreviewOpenExternally: (String) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
@@ -121,150 +113,117 @@ internal fun HomeContent(
                     modifier = Modifier.weight(1f),
                     onImportClick = onImportClick,
                 )
-            } else {
-                HorizontalPager(
-                    state = pagerState,
-                    modifier = Modifier.weight(1f),
-                ) { page ->
-                    val snapshotId = orderedSnapshotIds[page]
-                    val bookmarkDocument = state.bookmarkDocuments[snapshotId]
-                    val snapshotFolderPath = state.selectedFolderPaths.pathOf(snapshotId)
-                    if (bookmarkDocument != null) {
-                        if (showLargeScreenSidePreview) {
-                            Row(modifier = Modifier.fillMaxSize()) {
-                                BookmarkDisplayContent(
-                                    modifier = Modifier
-                                        .fillMaxHeight()
-                                        .weight(0.42f),
-                                    bookmarkDocument = bookmarkDocument,
-                                    displayType = state.bookmarkDisplayType,
-                                    scrollLongBookmarkUrl = state.scrollLongBookmarkUrl,
-                                    showBookmarkUrl = state.showBookmarkUrl,
-                                    showFolderDescription = state.showFolderDescription,
-                                    scrollLongFolderDescription = state.scrollLongFolderDescription,
-                                    folderIconStyle = state.folderIconStyle,
-                                    onBookmarkClick = onBookmarkClick,
-                                    onItemLongClick = onItemLongClick,
-                                    onSelectedFolderPathChange = { path -> onSelectedFolderPathChange(snapshotId, path) },
-                                    selectedFolderPath = snapshotFolderPath,
-                                    snapshotTitle = currentSnapshotTitle,
-                                    onSnapshotTitleClick = onSnapshotTitleClick,
-                                    onSnapshotExportClick = onSnapshotExportClick,
-                                )
-                                VerticalDivider()
-                                BookmarkPreviewPane(
-                                    url = previewBookmarkUrl,
-                                    refreshToken = previewRefreshToken,
-                                    onOpenExternally = onPreviewOpenExternally,
-                                    onClose = onPreviewClose,
-                                    onRefresh = onPreviewRefresh,
-                                    modifier = Modifier
-                                        .fillMaxHeight()
-                                        .weight(0.58f),
-                                )
-                            }
-                        } else {
-                            BookmarkDisplayContent(
-                                modifier = Modifier.fillMaxSize(),
-                                bookmarkDocument = bookmarkDocument,
-                                displayType = state.bookmarkDisplayType,
-                                scrollLongBookmarkUrl = state.scrollLongBookmarkUrl,
-                                showBookmarkUrl = state.showBookmarkUrl,
-                                showFolderDescription = state.showFolderDescription,
-                                scrollLongFolderDescription = state.scrollLongFolderDescription,
-                                folderIconStyle = state.folderIconStyle,
-                                onBookmarkClick = onBookmarkClick,
-                                onItemLongClick = onItemLongClick,
-                                onSelectedFolderPathChange = { path -> onSelectedFolderPathChange(snapshotId, path) },
-                                selectedFolderPath = snapshotFolderPath,
-                                snapshotTitle = currentSnapshotTitle,
-                                onSnapshotTitleClick = onSnapshotTitleClick,
-                                onSnapshotExportClick = onSnapshotExportClick,
-                            )
-                        }
-                    } else {
-                        NoBookmarkItem(
-                            modifier = Modifier.fillMaxSize(),
-                            onImportClick = onImportClick,
-                        )
-                    }
+            } else if (showLargeScreenSidePreview) {
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.background),
+                ) {
+                    BookmarkDocumentsPager(
+                        state = state,
+                        orderedSnapshotIds = orderedSnapshotIds,
+                        pagerState = pagerState,
+                        onImportClick = onImportClick,
+                        onBookmarkClick = onBookmarkClick,
+                        onItemLongClick = onItemLongClick,
+                        onSelectedFolderPathChange = onSelectedFolderPathChange,
+                        currentSnapshotTitle = currentSnapshotTitle,
+                        onSnapshotTitleClick = onSnapshotTitleClick,
+                        onSnapshotExportClick = onSnapshotExportClick,
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(0.42f)
+                            .background(MaterialTheme.colorScheme.background),
+                    )
+                    VerticalDivider(modifier = Modifier.fillMaxHeight())
+                    LargeScreenBookmarkPreviewPane(
+                        previewPaneState = previewPaneState,
+                        onPreviewOpenExternally = onPreviewOpenExternally,
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(0.58f),
+                    )
                 }
+            } else {
+                BookmarkDocumentsPager(
+                    state = state,
+                    orderedSnapshotIds = orderedSnapshotIds,
+                    pagerState = pagerState,
+                    onImportClick = onImportClick,
+                    onBookmarkClick = onBookmarkClick,
+                    onItemLongClick = onItemLongClick,
+                    onSelectedFolderPathChange = onSelectedFolderPathChange,
+                    currentSnapshotTitle = currentSnapshotTitle,
+                    onSnapshotTitleClick = onSnapshotTitleClick,
+                    onSnapshotExportClick = onSnapshotExportClick,
+                    modifier = Modifier.weight(1f),
+                )
             }
         }
     }
 }
 
 @Composable
-private fun NoBookmarkItem(modifier: Modifier, onImportClick: () -> Unit) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = 32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text(
-            text = stringResource(R.string.no_browsers_connected),
-            textAlign = TextAlign.Center,
-        )
-        Button(
-            onClick = onImportClick,
-            modifier = Modifier.padding(top = 12.dp),
-        ) {
-            Text(text = stringResource(R.string.import_bookmarks))
+private fun BookmarkDocumentsPager(
+    state: HomeState,
+    orderedSnapshotIds: List<String>,
+    pagerState: PagerState,
+    onImportClick: () -> Unit,
+    onBookmarkClick: (String) -> Unit,
+    onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
+    onSelectedFolderPathChange: (String, List<Int>?) -> Unit,
+    currentSnapshotTitle: String?,
+    onSnapshotTitleClick: () -> Unit,
+    onSnapshotExportClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    HorizontalPager(
+        state = pagerState,
+        modifier = modifier,
+    ) { page ->
+        val snapshotId = orderedSnapshotIds[page]
+        val bookmarkDocument = state.bookmarkDocuments[snapshotId]
+        val snapshotFolderPath = state.selectedFolderPaths.pathOf(snapshotId)
+        if (bookmarkDocument != null) {
+            BookmarkDisplayContent(
+                modifier = Modifier.fillMaxSize(),
+                bookmarkDocument = bookmarkDocument,
+                displayType = state.bookmarkDisplayType,
+                scrollLongBookmarkUrl = state.scrollLongBookmarkUrl,
+                showBookmarkUrl = state.showBookmarkUrl,
+                showFolderDescription = state.showFolderDescription,
+                scrollLongFolderDescription = state.scrollLongFolderDescription,
+                folderIconStyle = state.folderIconStyle,
+                onBookmarkClick = onBookmarkClick,
+                onItemLongClick = onItemLongClick,
+                onSelectedFolderPathChange = { path -> onSelectedFolderPathChange(snapshotId, path) },
+                selectedFolderPath = snapshotFolderPath,
+                snapshotTitle = currentSnapshotTitle,
+                onSnapshotTitleClick = onSnapshotTitleClick,
+                onSnapshotExportClick = onSnapshotExportClick,
+            )
+        } else {
+            NoBookmarkItem(
+                modifier = Modifier.fillMaxSize(),
+                onImportClick = onImportClick,
+            )
         }
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-private fun NoBookmarkItemPreview() {
-    NoBookmarkItem(
-        modifier = Modifier.fillMaxSize(),
-        onImportClick = {},
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun HomeContentPreview() {
-    HomeContent(
-        state = HomeState(
-            orderedSnapshotIds = emptyList(),
-            bookmarkDisplayType = BookmarkDisplayType.LIST,
-            scrollLongBookmarkUrl = true,
-            showBookmarkUrl = true,
-            showFolderDescription = true,
-            scrollLongFolderDescription = true,
-        ),
-        orderedSnapshotIds = emptyList(),
-        selectedBookmarkId = null,
-        pagerState = androidx.compose.foundation.pager.rememberPagerState(
-            initialPage = 0,
-            pageCount = { 0 },
-        ),
-        isBrowserEditMode = false,
-        defaultBrowserIcon = null,
-        onSettingsClick = {},
-        onBookmarkDisplayTypeToggle = {},
-        onDefaultBrowserPickerOpen = {},
-        onEditLabelClick = {},
-        onEditModeDoneClick = {},
-        onAddItemClick = {},
-        onImportClick = {},
-        onEnterEditMode = {},
-        onDeleteSnapshotRequest = {},
-        onBookmarkClick = {},
-        onItemLongClick = { _, _ -> },
-        onSelectedFolderPathChange = { _, _ -> },
-        currentSnapshotTitle = "북마크1",
-        onSnapshotTitleClick = {},
-        onSnapshotExportClick = {},
-        showLargeScreenSidePreview = false,
-        previewBookmarkUrl = null,
-        previewRefreshToken = 0,
-        onPreviewClose = {},
-        onPreviewRefresh = {},
-        onPreviewOpenExternally = {},
+private fun LargeScreenBookmarkPreviewPane(
+    previewPaneState: BookmarkPreviewPaneState,
+    onPreviewOpenExternally: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    BookmarkPreviewPane(
+        url = previewPaneState.currentUrl,
+        refreshToken = previewPaneState.refreshToken,
+        onOpenExternally = onPreviewOpenExternally,
+        onClose = previewPaneState::clear,
+        onRefresh = previewPaneState::refresh,
+        modifier = modifier,
     )
 }

@@ -20,15 +20,15 @@ import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
 import com.hdw.bookmarker.feature.home.ui.HomeScreen
-import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportAction
-import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportFormat
-import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportMethod
-import com.hdw.bookmarker.feature.home.ui.share.buildBookmarkExportFileName
-import com.hdw.bookmarker.feature.home.ui.share.buildBookmarkExportHtmlContent
-import com.hdw.bookmarker.feature.home.ui.share.buildBookmarkExportTextContent
-import com.hdw.bookmarker.feature.home.ui.share.shareCurrentBookmarkHtmlExport
-import com.hdw.bookmarker.feature.home.ui.share.shareCurrentBookmarkTextExport
-import com.hdw.bookmarker.feature.home.ui.share.saveBookmarkExportContent
+import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportAction
+import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportFormat
+import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportMethod
+import com.hdw.bookmarker.feature.home.ui.export.buildBookmarkExportFileName
+import com.hdw.bookmarker.feature.home.ui.export.buildBookmarkExportHtmlContent
+import com.hdw.bookmarker.feature.home.ui.export.buildBookmarkExportTextContent
+import com.hdw.bookmarker.feature.home.ui.export.shareCurrentBookmarkHtmlExport
+import com.hdw.bookmarker.feature.home.ui.export.shareCurrentBookmarkTextExport
+import com.hdw.bookmarker.feature.home.ui.export.saveBookmarkExportContent
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 

@@ -9,10 +9,10 @@ import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.ui.HomeScreenUiState
-import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportAction
-import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportFormat
-import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportMethod
-import com.hdw.bookmarker.feature.home.ui.share.ExportBookmarkMethodDialog
+import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportAction
+import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportFormat
+import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportMethod
+import com.hdw.bookmarker.feature.home.ui.export.ExportBookmarkMethodDialog
 
 @Composable
 internal fun HomeDialogHost(

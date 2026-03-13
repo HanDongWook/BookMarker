@@ -27,7 +27,9 @@ import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.ui.dialog.HomeDialogHost
-import com.hdw.bookmarker.feature.home.ui.share.BookmarkExportAction
+import com.hdw.bookmarker.feature.home.ui.preview.BookmarkPreviewPaneState
+import com.hdw.bookmarker.feature.home.ui.preview.rememberBookmarkPreviewPaneState
+import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportAction
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
@@ -73,9 +75,6 @@ fun HomeScreen(
     var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
-    var previewBookmarkUrl by uiState.previewBookmarkUrl
-    var previewRefreshToken by uiState.previewRefreshToken
-
     val orderedSnapshotIds = state.orderedSnapshotIds
     val context = LocalContext.current
     val resources = LocalResources.current
@@ -119,14 +118,12 @@ fun HomeScreen(
     }
 
     LaunchedEffect(selectedBookmarkId) {
-        previewBookmarkUrl = null
-        previewRefreshToken = 0
+        uiState.previewPaneState.clear()
     }
 
     LaunchedEffect(enableLargeScreenSidePreview) {
         if (!enableLargeScreenSidePreview) {
-            previewBookmarkUrl = null
-            previewRefreshToken = 0
+            uiState.previewPaneState.clear()
         }
     }
 
@@ -184,7 +181,7 @@ fun HomeScreen(
                 onDeleteSnapshotRequest = { snapshotId -> pendingDeleteSnapshotId = snapshotId },
                 onBookmarkClick = { url ->
                     if (enableLargeScreenSidePreview) {
-                        previewBookmarkUrl = url
+                        uiState.previewPaneState.open(url)
                     } else if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
                         context.showShortToast(resources.getString(R.string.open_bookmark_failed))
                     }
@@ -208,18 +205,8 @@ fun HomeScreen(
                     }
                 },
                 onSnapshotExportClick = { showExportBookmarkMethodDialog = true },
-                previewBookmarkUrl = previewBookmarkUrl,
-                previewRefreshToken = previewRefreshToken,
+                previewPaneState = uiState.previewPaneState,
                 showLargeScreenSidePreview = enableLargeScreenSidePreview,
-                onPreviewClose = {
-                    previewBookmarkUrl = null
-                    previewRefreshToken = 0
-                },
-                onPreviewRefresh = {
-                    if (!previewBookmarkUrl.isNullOrBlank()) {
-                        previewRefreshToken += 1
-                    }
-                },
                 onPreviewOpenExternally = { url ->
                     if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
                         context.showShortToast(resources.getString(R.string.open_bookmark_failed))
@@ -253,8 +240,7 @@ internal class HomeScreenUiState(
     val pendingEditBookmarkTitle: MutableState<String>,
     val pendingEditBookmarkUrl: MutableState<String>,
     val pendingEditBookmarkDescription: MutableState<String>,
-    val previewBookmarkUrl: MutableState<String?>,
-    val previewRefreshToken: MutableState<Int>,
+    val previewPaneState: BookmarkPreviewPaneState,
 )
 
 @Composable
@@ -281,8 +267,7 @@ private fun rememberHomeScreenUiState(): HomeScreenUiState = HomeScreenUiState(
     pendingEditBookmarkTitle = rememberSaveable { mutableStateOf("") },
     pendingEditBookmarkUrl = rememberSaveable { mutableStateOf("") },
     pendingEditBookmarkDescription = rememberSaveable { mutableStateOf("") },
-    previewBookmarkUrl = rememberSaveable { mutableStateOf<String?>(null) },
-    previewRefreshToken = rememberSaveable { mutableStateOf(0) },
+    previewPaneState = rememberBookmarkPreviewPaneState(),
 )
 
 @Preview(showBackground = true)

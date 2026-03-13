@@ -13,7 +13,7 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
         uiState.showColorPickerDialog.value ||
         uiState.isBrowserEditMode.value ||
         uiState.showImportOptionDialog.value ||
-        uiState.previewBookmarkUrl.value != null
+        uiState.previewPaneState.currentUrl != null
 
     BackHandler(enabled = shouldHandleBack) {
         when {
@@ -38,10 +38,7 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
 
             uiState.showImportOptionDialog.value -> uiState.showImportOptionDialog.value = false
 
-            uiState.previewBookmarkUrl.value != null -> {
-                uiState.previewBookmarkUrl.value = null
-                uiState.previewRefreshToken.value = 0
-            }
+            uiState.previewPaneState.currentUrl != null -> uiState.previewPaneState.clear()
         }
     }
 }
