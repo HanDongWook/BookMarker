@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
-    <string name="installed_browser">已安装的浏览器</string>
+    <string name="browser_guides_title">浏览器指南</string>
+    <string name="import_guide_installed_badge">已安装</string>
     <string name="menu">菜单</string>
     <string name="menu_settings">设置</string>
     <string name="settings">设置</string>

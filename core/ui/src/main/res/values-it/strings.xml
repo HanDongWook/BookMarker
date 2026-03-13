@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
-    <string name="installed_browser">Browser installati</string>
+    <string name="browser_guides_title">Guide del browser</string>
+    <string name="import_guide_installed_badge">Installato</string>
     <string name="menu">Menu</string>
     <string name="menu_settings">Impostazioni</string>
     <string name="settings">Impostazioni</string>
