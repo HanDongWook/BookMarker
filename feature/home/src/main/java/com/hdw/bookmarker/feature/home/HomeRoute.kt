@@ -134,6 +134,8 @@ fun HomeRoute(
             htmlPickerLauncher.launch(arrayOf(MimeTypes.HTML))
         }
     }
+    val shouldOpenBookmarkSidePreview = state.openBookmarkSidePreviewOnLargeScreen &&
+        configuration.screenWidthDp >= OPEN_BOOKMARK_ADJACENT_MIN_WIDTH_DP
     val shouldOpenBookmarkAdjacent = state.openBookmarkAdjacentOnLargeScreen &&
         configuration.screenWidthDp >= OPEN_BOOKMARK_ADJACENT_MIN_WIDTH_DP
 
@@ -193,6 +195,7 @@ fun HomeRoute(
 
     HomeScreen(
         state = state,
+        enableLargeScreenSidePreview = shouldOpenBookmarkSidePreview,
         onSettingsClick = onSettingsClick,
         onOpenBookmark = { url, preferredBrowserPackage ->
             onOpenBookmark(
