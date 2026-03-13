@@ -33,9 +33,9 @@
     <string name="share_app_label">Bu uygulamayı paylaş</string>
     <string name="share_app_chooser_title">Uygulamayı paylaş</string>
     <string name="share_app_message">BookMarker’ı deneyin: %1$s</string>
-    <string name="share_current_bookmarks_label">Yer imlerini paylaş</string>
-    <string name="share_current_bookmarks_chooser_title">Yer imlerini paylaş</string>
-    <string name="share_current_bookmarks_empty">Paylaşılacak yer imi yok.</string>
+    <string name="export_current_bookmarks_label">Yer imlerini dışa aktar</string>
+    <string name="export_current_bookmarks_chooser_title">Yer imlerini dışa aktar</string>
+    <string name="export_current_bookmarks_empty">Dışa aktarılacak yer imi yok.</string>
     <string name="privacy_policy_label">Gizlilik Politikası</string>
     <string name="temporary_data_label">Geçici veriler</string>
     <string name="open_source_licenses_label">Açık kaynak lisansları</string>
@@ -138,10 +138,10 @@
     <string name="app_update_flow_canceled">Güncelleme iptal edildi.</string>
     <string name="app_update_flow_failed">Güncelleme başlatılamadı.</string>
     <string name="rate_app_review_requested_hint">Açılır pencere görünmezse lütfen Play Store’da puan verin.</string>
-    <string name="share_current_bookmarks_html_failed">Yer imi HTML dosyası oluşturulamadı.</string>
-    <string name="share_bookmark_method_title">Paylaşım türünü seçin</string>
-    <string name="share_bookmark_method_text">Metin olarak paylaş</string>
-    <string name="share_bookmark_method_html">HTML olarak paylaş</string>
+    <string name="export_current_bookmarks_html_failed">Yer imi HTML dosyası oluşturulamadı.</string>
+    <string name="export_bookmark_method_title">Dışa aktar</string>
+    <string name="export_bookmark_method_text">Metin olarak dışa aktar</string>
+    <string name="export_bookmark_method_html">HTML olarak dışa aktar</string>
     <string name="rate_app_open_store_failed">Play Store açılamadı.</string>
     <string name="appearance_label">Görünüm</string>
     <string name="bookmark_show_url_label">URL’yi göster</string>

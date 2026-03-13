@@ -33,9 +33,9 @@
     <string name="share_app_label">Chia sẻ ứng dụng này</string>
     <string name="share_app_chooser_title">Chia sẻ ứng dụng</string>
     <string name="share_app_message">Hãy thử BookMarker: %1$s</string>
-    <string name="share_current_bookmarks_label">Chia sẻ dấu trang</string>
-    <string name="share_current_bookmarks_chooser_title">Chia sẻ dấu trang</string>
-    <string name="share_current_bookmarks_empty">Không có dấu trang để chia sẻ.</string>
+    <string name="export_current_bookmarks_label">Xuất dấu trang</string>
+    <string name="export_current_bookmarks_chooser_title">Xuất dấu trang</string>
+    <string name="export_current_bookmarks_empty">Không có dấu trang để xuất.</string>
     <string name="privacy_policy_label">Chính sách quyền riêng tư</string>
     <string name="temporary_data_label">Dữ liệu tạm thời</string>
     <string name="open_source_licenses_label">Giấy phép mã nguồn mở</string>
@@ -138,10 +138,10 @@
     <string name="app_update_flow_canceled">Đã hủy cập nhật.</string>
     <string name="app_update_flow_failed">Không thể bắt đầu cập nhật.</string>
     <string name="rate_app_review_requested_hint">Nếu không thấy cửa sổ bật lên, vui lòng đánh giá trên Play Store.</string>
-    <string name="share_current_bookmarks_html_failed">Không thể tạo tệp HTML dấu trang.</string>
-    <string name="share_bookmark_method_title">Chọn kiểu chia sẻ</string>
-    <string name="share_bookmark_method_text">Chia sẻ dưới dạng văn bản</string>
-    <string name="share_bookmark_method_html">Chia sẻ dưới dạng HTML</string>
+    <string name="export_current_bookmarks_html_failed">Không thể tạo tệp HTML dấu trang.</string>
+    <string name="export_bookmark_method_title">Xuất</string>
+    <string name="export_bookmark_method_text">Xuất dưới dạng văn bản</string>
+    <string name="export_bookmark_method_html">Xuất dưới dạng HTML</string>
     <string name="rate_app_open_store_failed">Không thể mở Play Store.</string>
     <string name="appearance_label">Giao diện</string>
     <string name="bookmark_show_url_label">Hiển thị URL</string>

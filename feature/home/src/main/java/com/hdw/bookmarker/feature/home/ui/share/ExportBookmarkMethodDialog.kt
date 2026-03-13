@@ -25,7 +25,7 @@ import androidx.compose.ui.window.Dialog
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
-fun ShareBookmarkMethodDialog(onDismiss: () -> Unit, onShareTextClick: () -> Unit, onShareHtmlClick: () -> Unit) {
+fun ExportBookmarkMethodDialog(onDismiss: () -> Unit, onExportTextClick: () -> Unit, onExportHtmlClick: () -> Unit) {
     Dialog(onDismissRequest = onDismiss) {
         Surface(
             modifier = Modifier
@@ -41,7 +41,7 @@ fun ShareBookmarkMethodDialog(onDismiss: () -> Unit, onShareTextClick: () -> Uni
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Text(
-                    text = stringResource(R.string.share_bookmark_method_title),
+                    text = stringResource(R.string.export_bookmark_method_title),
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
@@ -53,16 +53,16 @@ fun ShareBookmarkMethodDialog(onDismiss: () -> Unit, onShareTextClick: () -> Uni
                     ShareMethodOption(
                         modifier = Modifier.weight(1f),
                         imageVector = Icons.AutoMirrored.Filled.TextSnippet,
-                        title = stringResource(R.string.share_bookmark_method_text),
-                        contentDescription = stringResource(R.string.share_bookmark_method_text),
-                        onClick = onShareTextClick,
+                        title = stringResource(R.string.export_bookmark_method_text),
+                        contentDescription = stringResource(R.string.export_bookmark_method_text),
+                        onClick = onExportTextClick,
                     )
                     ShareMethodOption(
                         modifier = Modifier.weight(1f),
                         imageVector = Icons.Default.Code,
-                        title = stringResource(R.string.share_bookmark_method_html),
-                        contentDescription = stringResource(R.string.share_bookmark_method_html),
-                        onClick = onShareHtmlClick,
+                        title = stringResource(R.string.export_bookmark_method_html),
+                        contentDescription = stringResource(R.string.export_bookmark_method_html),
+                        onClick = onExportHtmlClick,
                     )
                 }
             }
@@ -100,10 +100,10 @@ private fun ShareMethodOption(
 
 @Preview(showBackground = true)
 @Composable
-private fun ShareBookmarkMethodDialogPreview() {
-    ShareBookmarkMethodDialog(
+private fun ExportBookmarkMethodDialogPreview() {
+    ExportBookmarkMethodDialog(
         onDismiss = {},
-        onShareTextClick = {},
-        onShareHtmlClick = {},
+        onExportTextClick = {},
+        onExportHtmlClick = {},
     )
 }

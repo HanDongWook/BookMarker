@@ -8,7 +8,7 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
         uiState.pendingEditBookmarkItemPath.value != null ||
         uiState.showAddBookmarkDialog.value ||
         uiState.showAddFolderDialog.value ||
-        uiState.showShareBookmarkMethodDialog.value ||
+        uiState.showExportBookmarkMethodDialog.value ||
         uiState.showAddItemTypeDialog.value ||
         uiState.showColorPickerDialog.value ||
         uiState.isBrowserEditMode.value ||
@@ -27,7 +27,7 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
 
             uiState.showAddFolderDialog.value -> uiState.showAddFolderDialog.value = false
 
-            uiState.showShareBookmarkMethodDialog.value -> uiState.showShareBookmarkMethodDialog.value = false
+            uiState.showExportBookmarkMethodDialog.value -> uiState.showExportBookmarkMethodDialog.value = false
 
             uiState.showAddItemTypeDialog.value -> uiState.showAddItemTypeDialog.value = false
 
