@@ -14,7 +14,7 @@ import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.ui.HomeScreenUiState
-import com.hdw.bookmarker.feature.home.ui.share.ShareBookmarkMethodDialog
+import com.hdw.bookmarker.feature.home.ui.share.ExportBookmarkMethodDialog
 import com.hdw.bookmarker.feature.home.ui.share.requestCurrentBookmarkHtmlShare
 import com.hdw.bookmarker.feature.home.ui.share.requestCurrentBookmarkTextShare
 
@@ -41,7 +41,7 @@ internal fun HomeDialogHost(
     var showDefaultBrowserDialog by uiState.showDefaultBrowserDialog
     var showColorPickerDialog by uiState.showColorPickerDialog
     var showAddItemTypeDialog by uiState.showAddItemTypeDialog
-    var showShareBookmarkMethodDialog by uiState.showShareBookmarkMethodDialog
+    var showExportBookmarkMethodDialog by uiState.showExportBookmarkMethodDialog
     var showAddFolderDialog by uiState.showAddFolderDialog
     var showAddBookmarkDialog by uiState.showAddBookmarkDialog
     var pendingFolderTitle by uiState.pendingFolderTitle
@@ -189,26 +189,26 @@ internal fun HomeDialogHost(
         )
     }
 
-    if (showShareBookmarkMethodDialog) {
-        ShareBookmarkMethodDialog(
-            onDismiss = { showShareBookmarkMethodDialog = false },
-            onShareTextClick = {
-                showShareBookmarkMethodDialog = false
+    if (showExportBookmarkMethodDialog) {
+        ExportBookmarkMethodDialog(
+            onDismiss = { showExportBookmarkMethodDialog = false },
+            onExportTextClick = {
+                showExportBookmarkMethodDialog = false
                 val currentDocument = selectedBookmarkDocument
                 if (currentDocument == null || !requestCurrentBookmarkTextShare(context, currentDocument)) {
-                    context.showShortToast(resources.getString(R.string.share_current_bookmarks_empty))
+                    context.showShortToast(resources.getString(R.string.export_current_bookmarks_empty))
                 }
             },
-            onShareHtmlClick = {
-                showShareBookmarkMethodDialog = false
+            onExportHtmlClick = {
+                showExportBookmarkMethodDialog = false
                 val currentDocument = selectedBookmarkDocument
                 when {
                     currentDocument == null -> {
-                        context.showShortToast(resources.getString(R.string.share_current_bookmarks_empty))
+                        context.showShortToast(resources.getString(R.string.export_current_bookmarks_empty))
                     }
 
                     !requestCurrentBookmarkHtmlShare(context, currentDocument) -> {
-                        context.showShortToast(resources.getString(R.string.share_current_bookmarks_html_failed))
+                        context.showShortToast(resources.getString(R.string.export_current_bookmarks_html_failed))
                     }
                 }
             },
