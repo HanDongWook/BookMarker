@@ -7,6 +7,9 @@ sealed interface SettingsNavRoute {
     data object Main : SettingsNavRoute
 
     @Serializable
+    data object AppearanceGraph : SettingsNavRoute
+
+    @Serializable
     data object DefaultBrowser : SettingsNavRoute
 
     sealed interface Appearance : SettingsNavRoute {

@@ -4,6 +4,7 @@ import com.airbnb.mvrx.hilt.AssistedViewModelFactory
 import com.airbnb.mvrx.hilt.MavericksViewModelComponent
 import com.airbnb.mvrx.hilt.ViewModelKey
 import com.hdw.bookmarker.feature.settings.SettingsViewModel
+import com.hdw.bookmarker.feature.settings.appearance.AppearanceViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,4 +17,9 @@ interface SettingsMavericksModule {
     @IntoMap
     @ViewModelKey(SettingsViewModel::class)
     fun bindSettingsViewModelFactory(factory: SettingsViewModel.Factory): AssistedViewModelFactory<*, *>
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AppearanceViewModel::class)
+    fun bindAppearanceViewModelFactory(factory: AppearanceViewModel.Factory): AssistedViewModelFactory<*, *>
 }
