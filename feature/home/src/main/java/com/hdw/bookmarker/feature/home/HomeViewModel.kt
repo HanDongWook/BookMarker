@@ -8,6 +8,8 @@ import com.hdw.bookmarker.core.domain.usecase.ObserveHomeUiStateUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
+import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
+import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
@@ -46,7 +48,10 @@ class HomeViewModel @Inject constructor(
     private fun observeHomeUiState() = intent {
         observeHomeUiStateUseCase().collect { observedState ->
             reduce {
-                val visibleSnapshotIds = observedState.orderedSnapshotIds
+                val orderedSnapshotIds = observedState.orderedSnapshotIds.reorderInboxFirst(
+                    observedState.bookmarkDocuments,
+                )
+                val visibleSnapshotIds = orderedSnapshotIds
                     .filter(observedState.bookmarkDocuments::containsKey)
                 val nextSelectedBookmarkId = state.selectedBookmarkId
                     ?.takeIf { selectedId ->
@@ -57,7 +62,7 @@ class HomeViewModel @Inject constructor(
                     ?: observedState.bookmarkDocuments.keys.firstOrNull()
 
                 state.withSelectedBookmarkId(nextSelectedBookmarkId).copy(
-                    orderedSnapshotIds = observedState.orderedSnapshotIds,
+                    orderedSnapshotIds = orderedSnapshotIds,
                     bookmarkDocuments = observedState.bookmarkDocuments,
                     bookmarkColors = observedState.bookmarkColors,
                     selectedFolderPaths = state.selectedFolderPaths.retain(
@@ -267,6 +272,15 @@ class HomeViewModel @Inject constructor(
         .map(String::trim)
         .filter(String::isNotBlank)
         .distinct()
+
+    private fun List<String>.reorderInboxFirst(
+        bookmarkDocuments: Map<String, BookmarkDocument>,
+    ): List<String> {
+        val (inboxIds, otherIds) = partition { snapshotId ->
+            bookmarkDocuments[snapshotId]?.isInboxSnapshot() == true
+        }
+        return inboxIds + otherIds
+    }
 
     private fun currentEpochSecondsString(): String = (System.currentTimeMillis() / 1000L).toString()
 

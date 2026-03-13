@@ -31,6 +31,8 @@
     <string name="bookmark_snapshot_name">Name</string>
     <string name="default_snapshot_title_prefix">Bookmark</string>
     <string name="bookmark_inbox_title">Inbox</string>
+    <string name="bookmark_inbox_badge">Inbox</string>
+    <string name="bookmark_inbox_empty">No saved links in Inbox yet.\nShare a link to save it here.</string>
     <string name="save_to_inbox">Saved to Inbox</string>
     <string name="rename_bookmark_snapshot">Rename</string>
     <string name="app_version_label">App Version</string>
