@@ -44,6 +44,7 @@ fun SettingsScreen(
     onTemporaryDataClick: () -> Unit,
     onDefaultBrowserClick: () -> Unit,
     onAppearanceClick: () -> Unit,
+    onBehaviorClick: () -> Unit,
     onOpenSourceLicensesClick: () -> Unit,
     appUpdateUiState: AppUpdateUiState,
     onAppUpdateClick: () -> Unit,
@@ -83,6 +84,12 @@ fun SettingsScreen(
             SettingsRow(
                 title = stringResource(R.string.appearance_label),
                 onClick = onAppearanceClick,
+            )
+            BookMarkerDivider()
+
+            SettingsRow(
+                title = stringResource(R.string.behavior_label),
+                onClick = onBehaviorClick,
             )
             BookMarkerDivider()
 
@@ -134,6 +141,7 @@ private fun SettingsScreenPreview() {
         onTemporaryDataClick = {},
         onDefaultBrowserClick = {},
         onAppearanceClick = {},
+        onBehaviorClick = {},
         onOpenSourceLicensesClick = {},
         appUpdateUiState = AppUpdateUiState.UpToDate,
         onAppUpdateClick = {},
