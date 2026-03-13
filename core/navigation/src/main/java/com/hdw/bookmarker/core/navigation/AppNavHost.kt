@@ -22,11 +22,10 @@ fun AppNavHost(navController: NavHostController) {
                 onSettingsClick = {
                     navController.navigate(AppRoute.Settings)
                 },
-                onOpenBookmark = { url, preferredBrowserPackage ->
+                onOpenBookmark = { request ->
                     ExternalAppNavigator.openBookmarkUrl(
                         context = context,
-                        url = url,
-                        preferredBrowserPackage = preferredBrowserPackage,
+                        request = request,
                     )
                 },
                 onOpenBookmarkImportGuide = {
