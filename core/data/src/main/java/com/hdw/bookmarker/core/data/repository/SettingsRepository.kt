@@ -8,6 +8,7 @@ interface SettingsRepository {
     fun getShowBookmarkUrlFlow(): Flow<Boolean>
     fun getScrollLongBookmarkUrlFlow(): Flow<Boolean>
     fun getOpenBookmarkAdjacentOnLargeScreenFlow(): Flow<Boolean>
+    fun getOpenBookmarkSidePreviewOnLargeScreenFlow(): Flow<Boolean>
     fun getShowFolderDescriptionFlow(): Flow<Boolean>
     fun getScrollLongFolderDescriptionFlow(): Flow<Boolean>
     fun getAppThemeModeFlow(): Flow<String?>
@@ -19,6 +20,7 @@ interface SettingsRepository {
     suspend fun setShowBookmarkUrl(show: Boolean)
     suspend fun setScrollLongBookmarkUrl(enabled: Boolean)
     suspend fun setOpenBookmarkAdjacentOnLargeScreen(enabled: Boolean)
+    suspend fun setOpenBookmarkSidePreviewOnLargeScreen(enabled: Boolean)
     suspend fun setShowFolderDescription(show: Boolean)
     suspend fun setScrollLongFolderDescription(enabled: Boolean)
     suspend fun setAppThemeMode(mode: String)

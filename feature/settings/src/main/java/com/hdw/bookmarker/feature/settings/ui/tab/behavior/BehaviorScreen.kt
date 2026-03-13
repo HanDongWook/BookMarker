@@ -24,7 +24,9 @@ import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
 @Composable
 fun BehaviorScreen(
     openBookmarkAdjacentOnLargeScreen: Boolean,
+    openBookmarkSidePreviewOnLargeScreen: Boolean,
     onOpenBookmarkAdjacentOnLargeScreenChange: (Boolean) -> Unit,
+    onOpenBookmarkSidePreviewOnLargeScreenChange: (Boolean) -> Unit,
     onBackClick: () -> Unit,
 ) {
     Scaffold(
@@ -49,6 +51,19 @@ fun BehaviorScreen(
                 .padding(innerPadding),
         ) {
             SettingsRow(
+                title = stringResource(R.string.bookmark_open_side_preview_on_large_screens_label),
+                onClick = {
+                    onOpenBookmarkSidePreviewOnLargeScreenChange(!openBookmarkSidePreviewOnLargeScreen)
+                },
+                trailingContent = {
+                    Switch(
+                        checked = openBookmarkSidePreviewOnLargeScreen,
+                        onCheckedChange = onOpenBookmarkSidePreviewOnLargeScreenChange,
+                    )
+                },
+            )
+            BookMarkerDivider()
+            SettingsRow(
                 title = stringResource(R.string.bookmark_open_beside_app_on_large_screens_label),
                 onClick = {
                     onOpenBookmarkAdjacentOnLargeScreenChange(!openBookmarkAdjacentOnLargeScreen)
@@ -70,7 +85,9 @@ fun BehaviorScreen(
 private fun BehaviorScreenPreview() {
     BehaviorScreen(
         openBookmarkAdjacentOnLargeScreen = false,
+        openBookmarkSidePreviewOnLargeScreen = false,
         onOpenBookmarkAdjacentOnLargeScreenChange = {},
+        onOpenBookmarkSidePreviewOnLargeScreenChange = {},
         onBackClick = {},
     )
 }
