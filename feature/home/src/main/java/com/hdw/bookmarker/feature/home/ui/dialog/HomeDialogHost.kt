@@ -26,7 +26,6 @@ internal fun HomeDialogHost(
     selectedBookmarkDocument: BookmarkDocument?,
     selectedFolderPath: List<Int>?,
     onOpenBookmarkImportGuide: () -> Unit,
-    onOpenFilePicker: () -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
     onDeleteBookmarkSnapshot: (String) -> Unit,
     onRenameBookmarkSnapshot: (String, String) -> Unit,
@@ -90,10 +89,6 @@ internal fun HomeDialogHost(
             onOpenImportBookmarks = {
                 showImportOptionDialog = false
                 onOpenBookmarkImportGuide()
-            },
-            onPickFile = {
-                showImportOptionDialog = false
-                onOpenFilePicker()
             },
             onAddEmptyBookmarkItem = {
                 showImportOptionDialog = false

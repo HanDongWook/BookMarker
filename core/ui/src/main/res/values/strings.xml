@@ -140,7 +140,6 @@
     <string name="delete_bookmark_item_dialog_message">Do you want to delete the selected folder or bookmark?</string>
     <string name="delete_bookmark_item_dialog_confirm">Delete</string>
     <string name="delete_bookmark_item_dialog_cancel">Cancel</string>
-    <string name="import_option_dialog_pick_file">Import bookmarks from HTML</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Add empty bookmark item</string>
     <string name="bookmark_color_picker_dialog_title">Select bookmark color</string>
     <string name="bookmark_color_picker_dialog_close">Close</string>
