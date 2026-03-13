@@ -150,6 +150,7 @@
     <string name="export_bookmark_method_save_html">บันทึกไฟล์ HTML</string>
     <string name="rate_app_open_store_failed">ไม่สามารถเปิด Play Store ได้</string>
     <string name="appearance_label">รูปลักษณ์</string>
+    <string name="behavior_label">พฤติกรรม</string>
     <string name="bookmark_show_url_label">แสดง URL</string>
     <string name="bookmark_scroll_long_url_label">เลื่อน URL ยาว</string>
     <string name="folder_show_description_label">แสดงคำอธิบาย</string>

@@ -150,6 +150,7 @@
     <string name="export_bookmark_method_save_html">Guardar ficheiro HTML</string>
     <string name="rate_app_open_store_failed">Não foi possível abrir a Play Store.</string>
     <string name="appearance_label">Aparência</string>
+    <string name="behavior_label">Comportamento</string>
     <string name="bookmark_show_url_label">Mostrar URL</string>
     <string name="bookmark_scroll_long_url_label">Deslocar URL longa</string>
     <string name="folder_show_description_label">Mostrar descrição</string>

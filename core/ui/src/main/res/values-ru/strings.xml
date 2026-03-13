@@ -150,6 +150,7 @@
     <string name="export_bookmark_method_save_html">Сохранить HTML-файл</string>
     <string name="rate_app_open_store_failed">Не удалось открыть Play Маркет.</string>
     <string name="appearance_label">Внешний вид</string>
+    <string name="behavior_label">Поведение</string>
     <string name="bookmark_show_url_label">Показывать URL</string>
     <string name="bookmark_scroll_long_url_label">Прокручивать длинный URL</string>
     <string name="folder_show_description_label">Показывать описание</string>
