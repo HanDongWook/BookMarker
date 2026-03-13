@@ -69,10 +69,6 @@
     <string name="bookmark_mode_icon">북마크 아이콘 보기</string>
     <string name="import_bookmarks">북마크 가져오기</string>
     <string name="import_source_html_file_title">HTML 파일</string>
-    <string name="import_source_html_file_description">내보낸 HTML 파일에서 북마크를 바로 가져옵니다.</string>
-    <string name="import_source_browser_guides_description">주요 브라우저의 내보내기 방법을 확인합니다.</string>
-    <string name="import_source_badge_recommended">추천</string>
-    <string name="import_source_badge_direct_import">바로 가져오기</string>
     <string name="browser_generic_name">브라우저</string>
     <string name="import_guide_title">크롬 북마크 가져오기</string>
     <string name="import_guide_title_for_browser">%1$s 북마크 가져오기</string>
