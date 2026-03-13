@@ -10,7 +10,6 @@ import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconStyleUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarksUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
@@ -18,6 +17,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetShowFolderDescriptionUseCase
+import com.hdw.bookmarker.core.domain.usecase.ImportBookmarksFromHtmlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
@@ -46,8 +46,9 @@ object DomainModule {
 
     @Provides
     @Singleton
-    fun provideGetBookmarksUseCase(bookmarkRepository: BookmarkRepository): GetBookmarksUseCase =
-        GetBookmarksUseCase(bookmarkRepository)
+    fun provideImportBookmarksFromHtmlUseCase(
+        bookmarkRepository: BookmarkRepository,
+    ): ImportBookmarksFromHtmlUseCase = ImportBookmarksFromHtmlUseCase(bookmarkRepository)
 
     @Provides
     @Singleton
