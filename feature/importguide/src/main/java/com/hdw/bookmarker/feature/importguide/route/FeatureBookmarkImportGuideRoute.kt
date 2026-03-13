@@ -8,5 +8,5 @@ sealed interface FeatureBookmarkImportGuideRoute {
     data object Picker : FeatureBookmarkImportGuideRoute
 
     @Serializable
-    data class GuideFeatureBookmark(val packageName: String) : FeatureBookmarkImportGuideRoute
+    data class GuideFeatureBookmark(val browserId: String) : FeatureBookmarkImportGuideRoute
 }
