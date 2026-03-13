@@ -3,24 +3,20 @@ package com.hdw.bookmarker.feature.home
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.ClearBookmarkSnapshotUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.ObserveHomeUiStateUseCase
-import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
-import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
-import com.hdw.bookmarker.feature.home.editor.BookmarkTreeEditor
 import com.hdw.bookmarker.feature.home.importer.BookmarkImportCoordinator
 import com.hdw.bookmarker.feature.home.importer.BookmarkImportCoordinatorResult
-import com.hdw.bookmarker.feature.home.snapshot.SnapshotTitleGenerator
+import com.hdw.bookmarker.feature.home.snapshot.BookmarkSnapshotEditor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
@@ -29,16 +25,13 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getInstalledBrowsersUseCase: GetInstalledBrowsersUseCase,
-    private val getBookmarkSnapshotRawFileHashUseCase: GetBookmarkSnapshotRawFileHashUseCase,
     private val observeHomeUiStateUseCase: ObserveHomeUiStateUseCase,
-    private val saveBookmarkSnapshotUseCase: SaveBookmarkSnapshotUseCase,
     private val setBookmarkColorUseCase: SetBookmarkColorUseCase,
     private val clearBookmarkSnapshotUseCase: ClearBookmarkSnapshotUseCase,
     private val setDefaultBrowserPackageUseCase: SetDefaultBrowserPackageUseCase,
     private val setBookmarkDisplayTypeUseCase: SetBookmarkDisplayTypeUseCase,
-    private val bookmarkTreeEditor: BookmarkTreeEditor,
     private val bookmarkImportCoordinator: BookmarkImportCoordinator,
-    private val snapshotTitleGenerator: SnapshotTitleGenerator,
+    private val bookmarkSnapshotEditor: BookmarkSnapshotEditor,
 ) : ViewModel(),
     ContainerHost<HomeState, HomeSideEffect> {
     override val container = container<HomeState, HomeSideEffect>(HomeState()) {
@@ -164,15 +157,8 @@ class HomeViewModel @Inject constructor(
     }
 
     fun addEmptyBookmarkSnapshot() = intent {
-        val snapshotTitle = snapshotTitleGenerator.nextDefaultTitle(state.bookmarkDocuments.values)
-        val snapshotId = saveBookmarkSnapshotUseCase(
-            snapshotId = null,
-            document = BookmarkDocument(
-                title = snapshotTitle,
-                metas = emptyMap(),
-                rootItems = emptyList(),
-            ),
-            sourceHash = "",
+        val snapshotId = bookmarkSnapshotEditor.addEmptySnapshot(
+            existingDocuments = state.bookmarkDocuments.values,
         )
         reduce { state.withSelectedBookmarkId(snapshotId) }
     }
@@ -205,8 +191,9 @@ class HomeViewModel @Inject constructor(
         }
 
         val currentState = state
-        val savedSnapshotId = saveAddedItem(
-            currentState = currentState,
+        val savedSnapshotId = bookmarkSnapshotEditor.addItem(
+            currentSnapshotId = currentState.selectedBookmarkId,
+            bookmarkDocuments = currentState.bookmarkDocuments,
             parentFolderPath = request.parentFolderPath,
             item = item,
         )
@@ -218,17 +205,11 @@ class HomeViewModel @Inject constructor(
 
         val currentSnapshotId = state.selectedBookmarkId ?: return@intent
         val currentDocument = state.bookmarkDocuments[currentSnapshotId] ?: return@intent
-        val updatedRootItems = bookmarkTreeEditor.removeItemByPath(
-            items = currentDocument.rootItems,
+        val savedSnapshotId = bookmarkSnapshotEditor.deleteItem(
+            snapshotId = currentSnapshotId,
+            document = currentDocument,
             path = path,
         ) ?: return@intent
-        val sourceHash = getBookmarkSnapshotRawFileHashUseCase(currentSnapshotId).orEmpty()
-
-        val savedSnapshotId = saveBookmarkSnapshotUseCase(
-            snapshotId = currentSnapshotId,
-            document = currentDocument.copy(rootItems = updatedRootItems),
-            sourceHash = sourceHash,
-        )
         reduce { state.withSelectedBookmarkId(savedSnapshotId) }
     }
 
@@ -243,18 +224,11 @@ class HomeViewModel @Inject constructor(
 
         val currentSnapshotId = state.selectedBookmarkId ?: return@intent
         val currentDocument = state.bookmarkDocuments[currentSnapshotId] ?: return@intent
-        val updatedRootItems = bookmarkTreeEditor.updateItemByPath(
-            items = currentDocument.rootItems,
-            path = normalizedRequest.path,
+        val savedSnapshotId = bookmarkSnapshotEditor.updateItem(
+            snapshotId = currentSnapshotId,
+            document = currentDocument,
             request = normalizedRequest,
         ) ?: return@intent
-        val sourceHash = getBookmarkSnapshotRawFileHashUseCase(currentSnapshotId).orEmpty()
-
-        val savedSnapshotId = saveBookmarkSnapshotUseCase(
-            snapshotId = currentSnapshotId,
-            document = currentDocument.copy(rootItems = updatedRootItems),
-            sourceHash = sourceHash,
-        )
         reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
     }
 
@@ -263,54 +237,12 @@ class HomeViewModel @Inject constructor(
         if (trimmedTitle.isBlank()) return@intent
 
         val currentDocument = state.bookmarkDocuments[snapshotId] ?: return@intent
-        val sourceHash = getBookmarkSnapshotRawFileHashUseCase(snapshotId).orEmpty()
-
-        val savedSnapshotId = saveBookmarkSnapshotUseCase(
+        val savedSnapshotId = bookmarkSnapshotEditor.renameSnapshot(
             snapshotId = snapshotId,
-            document = currentDocument.copy(title = trimmedTitle),
-            sourceHash = sourceHash,
+            document = currentDocument,
+            title = trimmedTitle,
         )
         reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
-    }
-
-    private suspend fun saveAddedItem(
-        currentState: HomeState,
-        item: BookmarkItem,
-        parentFolderPath: List<Int>? = null,
-    ): String {
-        val currentSnapshotId = currentState.selectedBookmarkId
-        val currentDocument = currentSnapshotId
-            ?.let { currentState.bookmarkDocuments[it] }
-            ?: BookmarkDocument(
-                title = snapshotTitleGenerator.nextDefaultTitle(currentState.bookmarkDocuments.values),
-                metas = emptyMap(),
-                rootItems = emptyList(),
-            )
-
-        val updatedRootItems = if (parentFolderPath.isNullOrEmpty()) {
-            currentDocument.rootItems + item
-        } else {
-            bookmarkTreeEditor.addItemToFolderByPath(
-                items = currentDocument.rootItems,
-                path = parentFolderPath,
-                item = item,
-            )
-                ?: (currentDocument.rootItems + item)
-        }
-
-        val updatedDocument = currentDocument.copy(
-            rootItems = updatedRootItems,
-        )
-
-        val sourceHash = currentSnapshotId
-            ?.let { getBookmarkSnapshotRawFileHashUseCase(it) }
-            .orEmpty()
-
-        return saveBookmarkSnapshotUseCase(
-            snapshotId = currentSnapshotId,
-            document = updatedDocument,
-            sourceHash = sourceHash,
-        )
     }
 
     private fun normalizeUrl(url: String): String {
