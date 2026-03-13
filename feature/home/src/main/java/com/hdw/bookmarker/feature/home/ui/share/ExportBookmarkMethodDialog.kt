@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.TextSnippet
 import androidx.compose.material.icons.filled.Code
+import androidx.compose.material.icons.filled.SaveAlt
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -25,7 +26,13 @@ import androidx.compose.ui.window.Dialog
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
-fun ExportBookmarkMethodDialog(onDismiss: () -> Unit, onExportTextClick: () -> Unit, onExportHtmlClick: () -> Unit) {
+fun ExportBookmarkMethodDialog(
+    onDismiss: () -> Unit,
+    onShareTextClick: () -> Unit,
+    onShareHtmlClick: () -> Unit,
+    onSaveTextClick: () -> Unit,
+    onSaveHtmlClick: () -> Unit,
+) {
     Dialog(onDismissRequest = onDismiss) {
         Surface(
             modifier = Modifier
@@ -45,33 +52,70 @@ fun ExportBookmarkMethodDialog(onDismiss: () -> Unit, onExportTextClick: () -> U
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.Top,
-                ) {
-                    ShareMethodOption(
-                        modifier = Modifier.weight(1f),
+                ExportMethodRow(
+                    startOption = ExportMethodOptionData(
                         imageVector = Icons.AutoMirrored.Filled.TextSnippet,
-                        title = stringResource(R.string.export_bookmark_method_text),
-                        contentDescription = stringResource(R.string.export_bookmark_method_text),
-                        onClick = onExportTextClick,
-                    )
-                    ShareMethodOption(
-                        modifier = Modifier.weight(1f),
+                        title = stringResource(R.string.export_bookmark_method_share_text),
+                        onClick = onShareTextClick,
+                    ),
+                    endOption = ExportMethodOptionData(
                         imageVector = Icons.Default.Code,
-                        title = stringResource(R.string.export_bookmark_method_html),
-                        contentDescription = stringResource(R.string.export_bookmark_method_html),
-                        onClick = onExportHtmlClick,
-                    )
-                }
+                        title = stringResource(R.string.export_bookmark_method_share_html),
+                        onClick = onShareHtmlClick,
+                    ),
+                )
+                ExportMethodRow(
+                    startOption = ExportMethodOptionData(
+                        imageVector = Icons.Default.SaveAlt,
+                        title = stringResource(R.string.export_bookmark_method_save_text),
+                        onClick = onSaveTextClick,
+                    ),
+                    endOption = ExportMethodOptionData(
+                        imageVector = Icons.Default.SaveAlt,
+                        title = stringResource(R.string.export_bookmark_method_save_html),
+                        onClick = onSaveHtmlClick,
+                    ),
+                )
             }
         }
     }
 }
 
 @Composable
-private fun ShareMethodOption(
+private fun ExportMethodRow(
+    startOption: ExportMethodOptionData,
+    endOption: ExportMethodOptionData,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalAlignment = Alignment.Top,
+    ) {
+        ExportMethodOption(
+            modifier = Modifier.weight(1f),
+            imageVector = startOption.imageVector,
+            title = startOption.title,
+            contentDescription = startOption.title,
+            onClick = startOption.onClick,
+        )
+        ExportMethodOption(
+            modifier = Modifier.weight(1f),
+            imageVector = endOption.imageVector,
+            title = endOption.title,
+            contentDescription = endOption.title,
+            onClick = endOption.onClick,
+        )
+    }
+}
+
+private data class ExportMethodOptionData(
+    val imageVector: ImageVector,
+    val title: String,
+    val onClick: () -> Unit,
+)
+
+@Composable
+private fun ExportMethodOption(
     imageVector: ImageVector,
     title: String,
     contentDescription: String,
@@ -103,7 +147,9 @@ private fun ShareMethodOption(
 private fun ExportBookmarkMethodDialogPreview() {
     ExportBookmarkMethodDialog(
         onDismiss = {},
-        onExportTextClick = {},
-        onExportHtmlClick = {},
+        onShareTextClick = {},
+        onShareHtmlClick = {},
+        onSaveTextClick = {},
+        onSaveHtmlClick = {},
     )
 }

@@ -139,9 +139,13 @@
     <string name="app_update_flow_failed">Échec du démarrage de la mise à jour.</string>
     <string name="rate_app_review_requested_hint">Si aucune fenêtre ne s’affiche, veuillez noter l’application sur le Play Store.</string>
     <string name="export_current_bookmarks_html_failed">Échec de la création du fichier HTML des signets.</string>
+    <string name="export_current_bookmarks_saved">Exportation enregistrée.</string>
+    <string name="export_current_bookmarks_save_failed">Échec de l’enregistrement de l’exportation.</string>
     <string name="export_bookmark_method_title">Exporter</string>
-    <string name="export_bookmark_method_text">Exporter en texte</string>
-    <string name="export_bookmark_method_html">Exporter en HTML</string>
+    <string name="export_bookmark_method_share_text">Partager en texte</string>
+    <string name="export_bookmark_method_share_html">Partager en HTML</string>
+    <string name="export_bookmark_method_save_text">Enregistrer le fichier texte</string>
+    <string name="export_bookmark_method_save_html">Enregistrer le fichier HTML</string>
     <string name="rate_app_open_store_failed">Impossible d’ouvrir le Play Store.</string>
     <string name="appearance_label">Apparence</string>
     <string name="bookmark_show_url_label">Afficher l’URL</string>

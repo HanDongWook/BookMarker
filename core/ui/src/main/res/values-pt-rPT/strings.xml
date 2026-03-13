@@ -139,9 +139,13 @@
     <string name="app_update_flow_failed">Falha ao iniciar a atualização.</string>
     <string name="rate_app_review_requested_hint">Se não aparecer qualquer pop-up, avalie a app na Play Store.</string>
     <string name="export_current_bookmarks_html_failed">Falha ao criar o ficheiro HTML de favoritos.</string>
+    <string name="export_current_bookmarks_saved">Exportação guardada.</string>
+    <string name="export_current_bookmarks_save_failed">Falha ao guardar a exportação.</string>
     <string name="export_bookmark_method_title">Exportar</string>
-    <string name="export_bookmark_method_text">Exportar como texto</string>
-    <string name="export_bookmark_method_html">Exportar como HTML</string>
+    <string name="export_bookmark_method_share_text">Partilhar como texto</string>
+    <string name="export_bookmark_method_share_html">Partilhar como HTML</string>
+    <string name="export_bookmark_method_save_text">Guardar ficheiro de texto</string>
+    <string name="export_bookmark_method_save_html">Guardar ficheiro HTML</string>
     <string name="rate_app_open_store_failed">Não foi possível abrir a Play Store.</string>
     <string name="appearance_label">Aparência</string>
     <string name="bookmark_show_url_label">Mostrar URL</string>
