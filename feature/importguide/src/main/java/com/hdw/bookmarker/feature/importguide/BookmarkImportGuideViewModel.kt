@@ -2,21 +2,16 @@ package com.hdw.bookmarker.feature.importguide
 
 import androidx.lifecycle.ViewModel
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
-import com.hdw.bookmarker.core.model.browser.BrowserInfo
+import com.hdw.bookmarker.feature.importguide.model.BrowserGuideCatalog
+import com.hdw.bookmarker.feature.importguide.model.BrowserGuideItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
 
 data class BrowserPickerState(
-    val installedBrowsers: List<BrowserInfo> = emptyList(),
-    val selectedBrowserPackageForImport: String? = null,
-) {
-    val currentSelectedBrowser: BrowserInfo?
-        get() = selectedBrowserPackageForImport
-            ?.let { pkg -> installedBrowsers.find { it.packageName == pkg } }
-            ?: installedBrowsers.firstOrNull()
-}
+    val guideItems: List<BrowserGuideItem> = emptyList(),
+)
 
 @HiltViewModel
 class BookmarkImportGuideViewModel @Inject constructor(
@@ -30,20 +25,9 @@ class BookmarkImportGuideViewModel @Inject constructor(
     private fun loadInstalledBrowsers() = intent {
         val browsers = getInstalledBrowsersUseCase()
         reduce {
-            state.copy(installedBrowsers = browsers)
-        }
-    }
-
-    fun onBrowserSelected(packageName: String) = intent {
-        reduce {
-            state.copy(selectedBrowserPackageForImport = packageName)
-        }
-    }
-
-    fun clearSelectedBrowser() = intent {
-        if (state.selectedBrowserPackageForImport == null) return@intent
-        reduce {
-            state.copy(selectedBrowserPackageForImport = null)
+            state.copy(
+                guideItems = BrowserGuideCatalog.buildGuideItems(browsers),
+            )
         }
     }
 }

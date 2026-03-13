@@ -35,21 +35,17 @@ import com.hdw.bookmarker.core.ui.R
 @Composable
 fun BookmarkImportGuideScreen(
     icon: Drawable?,
-    browserPackageName: String?,
-    browserName: String?,
+    browser: Browser,
+    browserName: String,
     onDismiss: () -> Unit,
     onOpenDesktopGuide: () -> Unit,
     iconModifier: Modifier = Modifier,
     browserNameModifier: Modifier = Modifier,
 ) {
-    val browser = remember(browserPackageName, browserName) {
-        Browser.fromPackageAndName(
-            packageName = browserPackageName,
-            appName = browserName,
-        )
-    }
-    val resolvedBrowserName = browserName ?: stringResource(R.string.browser_generic_name)
-    val step1Guide = browser.toStep1GuideContent(resolvedBrowserName = resolvedBrowserName)
+    val resolvedBrowserName = browserName.ifBlank { stringResource(R.string.browser_generic_name) }
+    val step1Guide = remember(browser, resolvedBrowserName) {
+        browser
+    }.toStep1GuideContent(resolvedBrowserName = resolvedBrowserName)
 
     Surface(
         modifier = Modifier
@@ -73,10 +69,10 @@ fun BookmarkImportGuideScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = if (browserName.isNullOrBlank()) {
+                text = if (browserName.isBlank()) {
                     stringResource(R.string.import_guide_title)
                 } else {
-                    stringResource(R.string.import_guide_title_for_browser, browserName)
+                    stringResource(R.string.import_guide_title_for_browser, resolvedBrowserName)
                 },
                 style = MaterialTheme.typography.headlineSmall,
             )
@@ -191,7 +187,7 @@ private fun GuideSectionPreview() {
 private fun BookmarkImportGuideScreenPreview() {
     BookmarkImportGuideScreen(
         icon = null,
-        browserPackageName = "com.android.chrome",
+        browser = Browser.CHROME,
         browserName = "Chrome",
         onDismiss = {},
         onOpenDesktopGuide = {},
