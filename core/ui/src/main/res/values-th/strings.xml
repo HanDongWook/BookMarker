@@ -118,7 +118,7 @@
     <string name="delete_bookmark_item_dialog_message">คุณต้องการลบโฟลเดอร์หรือบุ๊กมาร์กที่เลือกหรือไม่?</string>
     <string name="delete_bookmark_item_dialog_confirm">ลบ</string>
     <string name="delete_bookmark_item_dialog_cancel">ยกเลิก</string>
-    <string name="import_option_dialog_pick_file">นำเข้าไฟล์ HTML บุ๊กมาร์ก</string>
+    <string name="import_option_dialog_pick_file">นำเข้าบุ๊กมาร์กจาก HTML</string>
     <string name="import_option_dialog_add_empty_bookmark_item">เพิ่มรายการบุ๊กมาร์กว่าง</string>
     <string name="bookmark_color_picker_dialog_title">เลือกสีบุ๊กมาร์ก</string>
     <string name="bookmark_color_picker_dialog_close">ปิด</string>

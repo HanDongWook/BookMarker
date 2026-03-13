@@ -118,7 +118,7 @@
     <string name="delete_bookmark_item_dialog_message">确定要删除所选文件夹或书签吗？</string>
     <string name="delete_bookmark_item_dialog_confirm">删除</string>
     <string name="delete_bookmark_item_dialog_cancel">取消</string>
-    <string name="import_option_dialog_pick_file">导入书签 HTML 文件</string>
+    <string name="import_option_dialog_pick_file">从 HTML 导入书签</string>
     <string name="import_option_dialog_add_empty_bookmark_item">添加空白书签项</string>
     <string name="bookmark_color_picker_dialog_title">选择书签颜色</string>
     <string name="bookmark_color_picker_dialog_close">关闭</string>

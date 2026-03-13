@@ -118,7 +118,7 @@
     <string name="delete_bookmark_item_dialog_message">Möchten Sie den ausgewählten Ordner oder das ausgewählte Lesezeichen löschen?</string>
     <string name="delete_bookmark_item_dialog_confirm">Löschen</string>
     <string name="delete_bookmark_item_dialog_cancel">Abbrechen</string>
-    <string name="import_option_dialog_pick_file">Lesezeichen-HTML-Datei importieren</string>
+    <string name="import_option_dialog_pick_file">Lesezeichen aus HTML importieren</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Leeren Lesezeicheneintrag hinzufügen</string>
     <string name="bookmark_color_picker_dialog_title">Lesezeichenfarbe auswählen</string>
     <string name="bookmark_color_picker_dialog_close">Schließen</string>
