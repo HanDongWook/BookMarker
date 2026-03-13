@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">Установленные браузеры</string>
-    <string name="menu_description">Меню</string>
     <string name="menu">Меню</string>
     <string name="menu_settings">Настройки</string>
     <string name="settings">Настройки</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">Не удалось разобрать формат закладок.</string>
     <string name="error_unsupported_browser">Браузер не поддерживается.</string>
     <string name="error_unknown">Произошла неизвестная ошибка.</string>
-    <string name="no_bookmarks_imported">Закладки ещё не импортированы.</string>
     <string name="empty_bookmarks">В этом представлении нет закладок.</string>
     <string name="bookmark_icon_back">Назад к предыдущей папке</string>
     <string name="bookmark_mode_list">Режим списка закладок</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">В мобильном %1$s экспорт закладок может быть недоступен.</string>
     <string name="import_guide_step1_body_desktop_generic">На компьютере в %1$s найдите Bookmark/Favorites manager и экспортируйте в HTML.</string>
     <string name="import_guide_step2_title">2. Сохраните HTML-файл на телефон</string>
-    <string name="import_guide_step3_title">3. Импортируйте HTML-файл</string>
-    <string name="import_guide_step3_body">Нажмите кнопку ниже и выберите экспортированный HTML-файл, чтобы импортировать закладки в приложение.</string>
-    <string name="import_guide_step3_button">Выбрать HTML-файл</string>
     <string name="import_guide_open_guide_failed">Не удалось открыть страницу руководства.</string>
-    <string name="import_guide_open_downloads_failed">Не удалось открыть Downloads.</string>
     <string name="import_guide_exit">Выход</string>
     <string name="open_bookmark_failed">Не удалось открыть ссылку закладки.</string>
-    <string name="import_skipped_same_file">Этот файл уже импортирован. Пропущено.</string>
-    <string name="import_overwrite_dialog_title">Перезаписать импортированные закладки?</string>
-    <string name="import_overwrite_dialog_message">Обнаружен другой файл закладок. Если продолжить, существующие импортированные закладки будут удалены и заменены.</string>
-    <string name="import_overwrite_dialog_confirm">Перезаписать</string>
-    <string name="import_overwrite_dialog_cancel">Отмена</string>
     <string name="delete_bookmark_dialog_title">Удалить закладки?</string>
     <string name="delete_bookmark_dialog_message">Вы хотите удалить эти закладки?</string>
     <string name="delete_bookmark_dialog_confirm">Удалить</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">Выберите цвет закладки</string>
     <string name="bookmark_color_picker_dialog_close">Закрыть</string>
     <string name="folder_style_label">Стиль папки</string>
-    <string name="folder_style_title">Стиль папки</string>
     <string name="app_language_label">Язык приложения</string>
     <string name="app_language_system_default">Системный по умолчанию</string>
     <string name="folder_shape_label">Форма</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">Зеленый</string>
     <string name="folder_color_orange">Оранжевый</string>
     <string name="folder_color_purple">Фиолетовый</string>
-    <string name="app_update_status_checking">Проверка обновлений…</string>
     <string name="app_update_status_latest">Последняя версия</string>
     <string name="app_update_status_available">Доступно обновление (v%1$d)</string>
-    <string name="app_update_status_in_progress">Выполняется обновление</string>
-    <string name="app_update_status_unavailable">Не удалось проверить обновления</string>
-    <string name="app_update_action_update">Обновить</string>
     <string name="app_update_flow_canceled">Обновление отменено.</string>
     <string name="app_update_flow_failed">Не удалось запустить обновление.</string>
-    <string name="rate_app_fallback_opening_store">Не удалось показать отзыв в приложении. Открываем Play Маркет.</string>
     <string name="rate_app_review_requested_hint">Если всплывающее окно не появится, пожалуйста, оцените приложение в Play Маркете.</string>
     <string name="share_current_bookmarks_html_failed">Не удалось создать HTML-файл закладок.</string>
     <string name="share_bookmark_method_title">Выберите способ отправки</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">Поделиться как HTML</string>
     <string name="rate_app_open_store_failed">Не удалось открыть Play Маркет.</string>
     <string name="appearance_label">Внешний вид</string>
-    <string name="bookmark_display_mode_label">Режим отображения</string>
-    <string name="bookmark_display_type_list">Список</string>
-    <string name="bookmark_display_type_icon">Значки</string>
     <string name="bookmark_show_url_label">Показывать URL</string>
     <string name="bookmark_scroll_long_url_label">Прокручивать длинный URL</string>
     <string name="folder_show_description_label">Показывать описание</string>
     <string name="folder_scroll_long_description_label">Прокручивать длинное описание</string>
     <string name="folder_description">Описание</string>
+    <string name="display_value_loading">Загрузка</string>
 </resources>

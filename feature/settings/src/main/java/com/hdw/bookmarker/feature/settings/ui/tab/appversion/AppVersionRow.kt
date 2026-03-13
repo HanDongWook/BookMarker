@@ -6,10 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.feature.settings.model.DisplayValueState
 import com.hdw.bookmarker.feature.settings.ui.component.SettingsRow
 
 @Composable
-fun AppVersionRow(version: String, appUpdateUiState: AppUpdateUiState, onUpdateClick: () -> Unit) {
+fun AppVersionRow(version: DisplayValueState, appUpdateUiState: AppUpdateUiState, onUpdateClick: () -> Unit) {
     val updateStatusText = when (appUpdateUiState) {
         AppUpdateUiState.UpToDate -> stringResource(R.string.app_update_status_latest)
 
@@ -25,14 +26,25 @@ fun AppVersionRow(version: String, appUpdateUiState: AppUpdateUiState, onUpdateC
         AppUpdateUiState.Unavailable,
         -> null
     }
+    val versionText = when (version) {
+        DisplayValueState.Loading -> stringResource(R.string.display_value_loading)
+        is DisplayValueState.Loaded -> version.value
+        DisplayValueState.Unavailable -> null
+    }
 
     SettingsRow(
         title = stringResource(R.string.app_version_label),
         trailingContent = {
-            Text(
-                text = if (updateStatusText == null) version else "$version ($updateStatusText)",
-                style = MaterialTheme.typography.bodyMedium,
-            )
+            versionText?.let {
+                Text(
+                    text = if (updateStatusText == null || version !is DisplayValueState.Loaded) {
+                        it
+                    } else {
+                        "$it ($updateStatusText)"
+                    },
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
         },
         onClick = {
             if (appUpdateUiState is AppUpdateUiState.UpdateAvailable) {
@@ -46,7 +58,7 @@ fun AppVersionRow(version: String, appUpdateUiState: AppUpdateUiState, onUpdateC
 private fun AppVersionRowPreviewContent(appUpdateUiState: AppUpdateUiState) {
     MaterialTheme {
         AppVersionRow(
-            version = "1.2.3 (123)",
+            version = DisplayValueState.Loaded("1.2.3 (123)"),
             appUpdateUiState = appUpdateUiState,
             onUpdateClick = {},
         )

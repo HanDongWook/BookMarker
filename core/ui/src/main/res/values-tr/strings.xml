@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">Yüklü tarayıcılar</string>
-    <string name="menu_description">Menü</string>
     <string name="menu">Menü</string>
     <string name="menu_settings">Ayarlar</string>
     <string name="settings">Ayarlar</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">Yer imi biçimi ayrıştırılamadı.</string>
     <string name="error_unsupported_browser">Desteklenmeyen tarayıcı.</string>
     <string name="error_unknown">Bilinmeyen bir hata oluştu.</string>
-    <string name="no_bookmarks_imported">Henüz yer imi içe aktarılmadı.</string>
     <string name="empty_bookmarks">Bu görünümde yer imi yok.</string>
     <string name="bookmark_icon_back">Önceki klasöre dön</string>
     <string name="bookmark_mode_list">Yer imi liste görünümü</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">Mobil %1$s’te yer imi dışa aktarma kullanılamayabilir.</string>
     <string name="import_guide_step1_body_desktop_generic">Bilgisayarınızdaki %1$s’te Bookmark/Favorites manager’ı bulun ve HTML’ye dışa aktarın.</string>
     <string name="import_guide_step2_title">2. HTML dosyasını telefona kaydedin</string>
-    <string name="import_guide_step3_title">3. HTML dosyasını içe aktarın</string>
-    <string name="import_guide_step3_body">Aşağıdaki düğmeye dokunun ve dışa aktarılan HTML dosyasını seçerek yer imlerini uygulamaya aktarın.</string>
-    <string name="import_guide_step3_button">HTML dosyası seç</string>
     <string name="import_guide_open_guide_failed">Kılavuz sayfası açılamadı.</string>
-    <string name="import_guide_open_downloads_failed">Downloads açılamadı.</string>
     <string name="import_guide_exit">Çıkış</string>
     <string name="open_bookmark_failed">Yer imi bağlantısı açılamadı.</string>
-    <string name="import_skipped_same_file">Aynı dosya zaten içe aktarıldı. Atlandı.</string>
-    <string name="import_overwrite_dialog_title">İçe aktarılan yer imleri üzerine yazılsın mı?</string>
-    <string name="import_overwrite_dialog_message">Farklı bir yer imi dosyası tespit edildi. Devam ederseniz mevcut içe aktarılan yer imleri silinip değiştirilecektir.</string>
-    <string name="import_overwrite_dialog_confirm">Üzerine yaz</string>
-    <string name="import_overwrite_dialog_cancel">İptal</string>
     <string name="delete_bookmark_dialog_title">Yer imleri silinsin mi?</string>
     <string name="delete_bookmark_dialog_message">Bu yer imlerini silmek istiyor musunuz?</string>
     <string name="delete_bookmark_dialog_confirm">Sil</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">Yer imi rengini seç</string>
     <string name="bookmark_color_picker_dialog_close">Kapat</string>
     <string name="folder_style_label">Klasör stili</string>
-    <string name="folder_style_title">Klasör stili</string>
     <string name="app_language_label">Uygulama dili</string>
     <string name="app_language_system_default">Sistem varsayılanı</string>
     <string name="folder_shape_label">Şekil</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">Yeşil</string>
     <string name="folder_color_orange">Turuncu</string>
     <string name="folder_color_purple">Mor</string>
-    <string name="app_update_status_checking">Güncellemeler kontrol ediliyor…</string>
     <string name="app_update_status_latest">En son sürüm</string>
     <string name="app_update_status_available">Güncelleme mevcut (v%1$d)</string>
-    <string name="app_update_status_in_progress">Güncelleme sürüyor</string>
-    <string name="app_update_status_unavailable">Güncellemeler kontrol edilemiyor</string>
-    <string name="app_update_action_update">Güncelle</string>
     <string name="app_update_flow_canceled">Güncelleme iptal edildi.</string>
     <string name="app_update_flow_failed">Güncelleme başlatılamadı.</string>
-    <string name="rate_app_fallback_opening_store">Uygulama içi değerlendirme gösterilemedi. Play Store açılıyor.</string>
     <string name="rate_app_review_requested_hint">Açılır pencere görünmezse lütfen Play Store’da puan verin.</string>
     <string name="share_current_bookmarks_html_failed">Yer imi HTML dosyası oluşturulamadı.</string>
     <string name="share_bookmark_method_title">Paylaşım türünü seçin</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">HTML olarak paylaş</string>
     <string name="rate_app_open_store_failed">Play Store açılamadı.</string>
     <string name="appearance_label">Görünüm</string>
-    <string name="bookmark_display_mode_label">Görüntüleme modu</string>
-    <string name="bookmark_display_type_list">Liste</string>
-    <string name="bookmark_display_type_icon">Simge</string>
     <string name="bookmark_show_url_label">URL’yi göster</string>
     <string name="bookmark_scroll_long_url_label">Uzun URL’yi kaydır</string>
     <string name="folder_show_description_label">Açıklamayı göster</string>
     <string name="folder_scroll_long_description_label">Uzun açıklamayı kaydır</string>
     <string name="folder_description">Açıklama</string>
+    <string name="display_value_loading">Yükleniyor</string>
 </resources>

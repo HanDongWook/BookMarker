@@ -3,7 +3,6 @@
 
     <string name="title">BookMarker</string>
     <string name="installed_browser">Installed browsers</string>
-    <string name="menu_description">Menu</string>
     <string name="menu">Menu</string>
     <string name="menu_settings">Settings</string>
     <string name="settings">Settings</string>
@@ -30,16 +29,11 @@
     <string name="default_snapshot_title_prefix">Bookmark</string>
     <string name="rename_bookmark_snapshot">Rename</string>
     <string name="app_version_label">App Version</string>
-    <string name="app_update_status_checking">Checking for updates…</string>
     <string name="app_update_status_latest">Latest version</string>
     <string name="app_update_status_available">Update available (v%1$d)</string>
-    <string name="app_update_status_in_progress">Update in progress</string>
-    <string name="app_update_status_unavailable">Unable to check updates</string>
-    <string name="app_update_action_update">Update</string>
     <string name="app_update_flow_canceled">Update canceled.</string>
     <string name="app_update_flow_failed">Failed to start update.</string>
     <string name="rate_app_label">Rate this app</string>
-    <string name="rate_app_fallback_opening_store">Unable to show in-app review. Opening Play Store.</string>
     <string name="rate_app_review_requested_hint">If no popup appears, please rate in Play Store.</string>
     <string name="rate_app_open_store_failed">Could not open Play Store.</string>
     <string name="share_app_label">Share this app</string>
@@ -69,7 +63,6 @@
     <string name="error_parse">Failed to parse bookmark format.</string>
     <string name="error_unsupported_browser">Unsupported browser.</string>
     <string name="error_unknown">An unknown error occurred.</string>
-    <string name="no_bookmarks_imported">No bookmarks imported yet.</string>
     <string name="empty_bookmarks">No bookmarks in this view.</string>
     <string name="bookmark_icon_back">Back to previous folder</string>
     <string name="bookmark_mode_list">Bookmark list view</string>
@@ -125,18 +118,9 @@
     <string name="import_guide_step1_body_notice_generic">On mobile %1$s, bookmark export may not be available.</string>
     <string name="import_guide_step1_body_desktop_generic">On your computer %1$s, find Bookmark/Favorites manager and export to HTML.</string>
     <string name="import_guide_step2_title">2. Save the HTML file to phone</string>
-    <string name="import_guide_step3_title">3. Import HTML file</string>
-    <string name="import_guide_step3_body">Tap the button below and choose the exported HTML file to import bookmarks into the app.</string>
-    <string name="import_guide_step3_button">Select HTML file</string>
     <string name="import_guide_open_guide_failed">Could not open guide page.</string>
-    <string name="import_guide_open_downloads_failed">Could not open Downloads.</string>
     <string name="import_guide_exit">Exit</string>
     <string name="open_bookmark_failed">Could not open bookmark link.</string>
-    <string name="import_skipped_same_file">Same file already imported. Skipped.</string>
-    <string name="import_overwrite_dialog_title">Overwrite imported bookmarks?</string>
-    <string name="import_overwrite_dialog_message">A different bookmark file was detected. If you continue, the existing imported bookmarks will be removed and replaced.</string>
-    <string name="import_overwrite_dialog_confirm">Overwrite</string>
-    <string name="import_overwrite_dialog_cancel">Cancel</string>
     <string name="delete_bookmark_dialog_title">Delete bookmarks?</string>
     <string name="delete_bookmark_dialog_message">Do you want to delete these bookmarks?</string>
     <string name="delete_bookmark_dialog_confirm">Delete</string>
@@ -151,7 +135,6 @@
     <string name="bookmark_color_picker_dialog_title">Select bookmark color</string>
     <string name="bookmark_color_picker_dialog_close">Close</string>
     <string name="folder_style_label">Folder style</string>
-    <string name="folder_style_title">Folder style</string>
     <string name="app_language_label">App language</string>
     <string name="app_language_system_default">System default</string>
     <string name="folder_shape_label">Shape</string>
@@ -164,12 +147,10 @@
     <string name="folder_color_orange">Orange</string>
     <string name="folder_color_purple">Purple</string>
     <string name="appearance_label">Appearance</string>
-    <string name="bookmark_display_mode_label">Display mode</string>
-    <string name="bookmark_display_type_list">List</string>
-    <string name="bookmark_display_type_icon">Icon</string>
     <string name="bookmark_show_url_label">Show URL</string>
     <string name="bookmark_scroll_long_url_label">Scroll long URL</string>
     <string name="folder_show_description_label">Show description</string>
     <string name="folder_scroll_long_description_label">Scroll long description</string>
     <string name="folder_description">Description</string>
+    <string name="display_value_loading">Loading</string>
 </resources>

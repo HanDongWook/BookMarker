@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
     <string name="installed_browser">Navigateurs installés</string>
-    <string name="menu_description">Menu</string>
     <string name="menu">Menu</string>
     <string name="menu_settings">Paramètres</string>
     <string name="settings">Paramètres</string>
@@ -53,7 +52,6 @@
     <string name="error_parse">Échec de l’analyse du format des signets.</string>
     <string name="error_unsupported_browser">Navigateur non pris en charge.</string>
     <string name="error_unknown">Une erreur inconnue est survenue.</string>
-    <string name="no_bookmarks_imported">Aucun signet importé pour le moment.</string>
     <string name="empty_bookmarks">Aucun signet dans cette vue.</string>
     <string name="bookmark_icon_back">Retour au dossier précédent</string>
     <string name="bookmark_mode_list">Vue liste des signets</string>
@@ -109,18 +107,9 @@
     <string name="import_guide_step1_body_notice_generic">Sur %1$s mobile, l’exportation des signets peut ne pas être disponible.</string>
     <string name="import_guide_step1_body_desktop_generic">Sur votre ordinateur avec %1$s, trouvez Bookmark/Favorites manager et exportez en HTML.</string>
     <string name="import_guide_step2_title">2. Enregistrer le fichier HTML sur le téléphone</string>
-    <string name="import_guide_step3_title">3. Importer le fichier HTML</string>
-    <string name="import_guide_step3_body">Appuyez sur le bouton ci-dessous et choisissez le fichier HTML exporté pour importer les signets dans l’application.</string>
-    <string name="import_guide_step3_button">Sélectionner un fichier HTML</string>
     <string name="import_guide_open_guide_failed">Impossible d’ouvrir la page du guide.</string>
-    <string name="import_guide_open_downloads_failed">Impossible d’ouvrir Downloads.</string>
     <string name="import_guide_exit">Quitter</string>
     <string name="open_bookmark_failed">Impossible d’ouvrir le lien du signet.</string>
-    <string name="import_skipped_same_file">Le même fichier a déjà été importé. Ignoré.</string>
-    <string name="import_overwrite_dialog_title">Écraser les signets importés ?</string>
-    <string name="import_overwrite_dialog_message">Un fichier de signets différent a été détecté. Si vous continuez, les signets importés existants seront supprimés et remplacés.</string>
-    <string name="import_overwrite_dialog_confirm">Écraser</string>
-    <string name="import_overwrite_dialog_cancel">Annuler</string>
     <string name="delete_bookmark_dialog_title">Supprimer les signets ?</string>
     <string name="delete_bookmark_dialog_message">Voulez-vous supprimer ces signets ?</string>
     <string name="delete_bookmark_dialog_confirm">Supprimer</string>
@@ -135,7 +124,6 @@
     <string name="bookmark_color_picker_dialog_title">Sélectionner la couleur du signet</string>
     <string name="bookmark_color_picker_dialog_close">Fermer</string>
     <string name="folder_style_label">Style de dossier</string>
-    <string name="folder_style_title">Style de dossier</string>
     <string name="app_language_label">Langue de l’application</string>
     <string name="app_language_system_default">Par défaut du système</string>
     <string name="folder_shape_label">Forme</string>
@@ -147,15 +135,10 @@
     <string name="folder_color_green">Vert</string>
     <string name="folder_color_orange">Orange</string>
     <string name="folder_color_purple">Violet</string>
-    <string name="app_update_status_checking">Vérification des mises à jour…</string>
     <string name="app_update_status_latest">Dernière version</string>
     <string name="app_update_status_available">Mise à jour disponible (v%1$d)</string>
-    <string name="app_update_status_in_progress">Mise à jour en cours</string>
-    <string name="app_update_status_unavailable">Impossible de vérifier les mises à jour</string>
-    <string name="app_update_action_update">Mettre à jour</string>
     <string name="app_update_flow_canceled">Mise à jour annulée.</string>
     <string name="app_update_flow_failed">Échec du démarrage de la mise à jour.</string>
-    <string name="rate_app_fallback_opening_store">Impossible d’afficher l’avis intégré. Ouverture du Play Store.</string>
     <string name="rate_app_review_requested_hint">Si aucune fenêtre ne s’affiche, veuillez noter l’application sur le Play Store.</string>
     <string name="share_current_bookmarks_html_failed">Impossible de créer le fichier HTML des favoris.</string>
     <string name="share_bookmark_method_title">Choisir le type de partage</string>
@@ -163,12 +146,10 @@
     <string name="share_bookmark_method_html">Partager en HTML</string>
     <string name="rate_app_open_store_failed">Impossible d’ouvrir le Play Store.</string>
     <string name="appearance_label">Apparence</string>
-    <string name="bookmark_display_mode_label">Mode d’affichage</string>
-    <string name="bookmark_display_type_list">Liste</string>
-    <string name="bookmark_display_type_icon">Icône</string>
     <string name="bookmark_show_url_label">Afficher l’URL</string>
     <string name="bookmark_scroll_long_url_label">Faire défiler l’URL longue</string>
     <string name="folder_show_description_label">Afficher la description</string>
     <string name="folder_scroll_long_description_label">Faire défiler la description longue</string>
     <string name="folder_description">Description</string>
+    <string name="display_value_loading">Chargement</string>
 </resources>
