@@ -22,21 +22,21 @@ import kotlinx.coroutines.withContext
 
 @Composable
 fun SettingsRoute(onBackClick: () -> Unit) {
-    val viewModel: SettingsViewModel = mavericksViewModel()
-    val state by viewModel.collectAsState()
+    val settingsViewModel: SettingsViewModel = mavericksViewModel()
+    val settingsState by settingsViewModel.collectAsState()
 
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val appUpdateController = rememberAppUpdateController(
-        appUpdateUiState = state.appUpdateUiState,
-        onUiStateChange = viewModel::setAppUpdateUiState,
+        appUpdateUiState = settingsState.appUpdateUiState,
+        onUiStateChange = settingsViewModel::setAppUpdateUiState,
     )
 
     var temporaryDataSize by rememberSaveable { mutableStateOf("0 MB") }
     var showClearTemporaryDataDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(context) {
-        viewModel.initialize(
+        settingsViewModel.initialize(
             appVersion = context.getAppVersionDisplay(),
         )
         temporaryDataSize = withContext(Dispatchers.IO) {
@@ -46,19 +46,12 @@ fun SettingsRoute(onBackClick: () -> Unit) {
     }
 
     SettingsNavHost(
-        state = state,
+        settingsState = settingsState,
         temporaryDataSize = temporaryDataSize,
         onBackClick = onBackClick,
         onTemporaryDataClick = { showClearTemporaryDataDialog = true },
         onAppUpdateClick = appUpdateController::onUpdateClick,
-        onScrollLongBookmarkUrlChange = viewModel::setScrollLongBookmarkUrl,
-        onShowFolderDescriptionChange = viewModel::setShowFolderDescription,
-        onScrollLongFolderDescriptionChange = viewModel::setScrollLongFolderDescription,
-        onThemeModeSelect = viewModel::selectAppThemeMode,
-        onShowBookmarkUrlChange = viewModel::setShowBookmarkUrl,
-        onDefaultBrowserSelect = viewModel::selectDefaultBrowser,
-        onFolderShapeSelect = viewModel::selectFolderIconShape,
-        onFolderColorSelect = viewModel::selectFolderIconColor,
+        onDefaultBrowserSelect = settingsViewModel::selectDefaultBrowser,
     )
 
     if (showClearTemporaryDataDialog) {
