@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
-    <string name="installed_browser">Trình duyệt đã cài đặt</string>
+    <string name="browser_guides_title">Hướng dẫn trình duyệt</string>
+    <string name="import_guide_installed_badge">Đã cài đặt</string>
     <string name="menu">Menu</string>
     <string name="menu_settings">Cài đặt</string>
     <string name="settings">Cài đặt</string>

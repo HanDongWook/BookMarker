@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">BookMarker</string>
     <string name="title">BookMarker</string>
-    <string name="installed_browser">Browser terpasang</string>
+    <string name="browser_guides_title">Panduan browser</string>
+    <string name="import_guide_installed_badge">Terpasang</string>
     <string name="menu">Menu</string>
     <string name="menu_settings">Pengaturan</string>
     <string name="settings">Pengaturan</string>
