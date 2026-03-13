@@ -1,6 +1,7 @@
 package com.hdw.bookmarker.feature.home.ui
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -19,9 +20,11 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.designsystem.theme.BookMarkerYellow
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
@@ -76,16 +79,8 @@ internal fun HomeContent(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = onAddItemClick,
-                shape = CircleShape,
-                containerColor = BookMarkerYellow,
-                contentColor = Color.Black,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(R.string.add_bookmark_or_folder),
-                )
+            if (!showLargeScreenSidePreview) {
+                AddItemFloatingActionButton(onClick = onAddItemClick)
             }
         },
     ) { innerPadding ->
@@ -120,22 +115,32 @@ internal fun HomeContent(
                         .fillMaxWidth()
                         .background(MaterialTheme.colorScheme.background),
                 ) {
-                    BookmarkDocumentsPager(
-                        state = state,
-                        orderedSnapshotIds = orderedSnapshotIds,
-                        pagerState = pagerState,
-                        onImportClick = onImportClick,
-                        onBookmarkClick = onBookmarkClick,
-                        onItemLongClick = onItemLongClick,
-                        onSelectedFolderPathChange = onSelectedFolderPathChange,
-                        currentSnapshotTitle = currentSnapshotTitle,
-                        onSnapshotTitleClick = onSnapshotTitleClick,
-                        onSnapshotExportClick = onSnapshotExportClick,
+                    Box(
                         modifier = Modifier
                             .fillMaxHeight()
                             .weight(0.42f)
                             .background(MaterialTheme.colorScheme.background),
-                    )
+                    ) {
+                        BookmarkDocumentsPager(
+                            state = state,
+                            orderedSnapshotIds = orderedSnapshotIds,
+                            pagerState = pagerState,
+                            onImportClick = onImportClick,
+                            onBookmarkClick = onBookmarkClick,
+                            onItemLongClick = onItemLongClick,
+                            onSelectedFolderPathChange = onSelectedFolderPathChange,
+                            currentSnapshotTitle = currentSnapshotTitle,
+                            onSnapshotTitleClick = onSnapshotTitleClick,
+                            onSnapshotExportClick = onSnapshotExportClick,
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                        AddItemFloatingActionButton(
+                            onClick = onAddItemClick,
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(16.dp),
+                        )
+                    }
                     VerticalDivider(modifier = Modifier.fillMaxHeight())
                     LargeScreenBookmarkPreviewPane(
                         previewPaneState = previewPaneState,
@@ -161,6 +166,25 @@ internal fun HomeContent(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun AddItemFloatingActionButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    FloatingActionButton(
+        onClick = onClick,
+        shape = CircleShape,
+        containerColor = BookMarkerYellow,
+        contentColor = Color.Black,
+        modifier = modifier,
+    ) {
+        Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = stringResource(R.string.add_bookmark_or_folder),
+        )
     }
 }
 
