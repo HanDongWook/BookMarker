@@ -138,8 +138,8 @@
     <string name="folder_style_title">Klasör stili</string>
     <string name="app_language_label">Uygulama dili</string>
     <string name="app_language_system_default">Sistem varsayılanı</string>
-    <string name="folder_shape_label">Klasör şekli</string>
-    <string name="folder_color_label">Klasör rengi</string>
+    <string name="folder_shape_label">Şekil</string>
+    <string name="folder_color_label">Renk</string>
     <string name="folder_shape_filled">Dolu</string>
     <string name="folder_shape_outlined">Anahat</string>
     <string name="folder_color_default">Varsayılan</string>

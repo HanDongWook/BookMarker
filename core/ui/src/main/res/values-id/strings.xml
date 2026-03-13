@@ -138,8 +138,8 @@
     <string name="folder_style_title">Gaya folder</string>
     <string name="app_language_label">Bahasa aplikasi</string>
     <string name="app_language_system_default">Bawaan sistem</string>
-    <string name="folder_shape_label">Bentuk folder</string>
-    <string name="folder_color_label">Warna folder</string>
+    <string name="folder_shape_label">Bentuk</string>
+    <string name="folder_color_label">Warna</string>
     <string name="folder_shape_filled">Terisi</string>
     <string name="folder_shape_outlined">Garis luar</string>
     <string name="folder_color_default">Default</string>
