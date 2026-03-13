@@ -125,12 +125,6 @@
     <string name="import_guide_step1_body_desktop_generic">On your computer %1$s, find Bookmark/Favorites manager and export to HTML.</string>
     <string name="import_guide_step2_title">2. Save the HTML file to phone</string>
     <string name="import_guide_open_guide_failed">Could not open guide page.</string>
-    <string name="browser_guide_badge_guide">Guide</string>
-    <string name="browser_guide_badge_desktop">Desktop</string>
-    <string name="browser_guide_filter_all">All</string>
-    <string name="browser_guide_filter_installed">Installed</string>
-    <string name="browser_guide_filter_guide">Guide</string>
-    <string name="browser_guide_filter_desktop">Desktop</string>
     <string name="open_bookmark_failed">Could not open bookmark link.</string>
     <string name="delete_bookmark_dialog_title">Delete bookmarks?</string>
     <string name="delete_bookmark_dialog_message">Do you want to delete these bookmarks?</string>

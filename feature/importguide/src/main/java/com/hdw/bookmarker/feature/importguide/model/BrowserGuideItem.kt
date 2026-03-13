@@ -9,13 +9,6 @@ enum class BrowserGuideLinkType {
     NONE,
 }
 
-enum class BrowserGuideFilter {
-    ALL,
-    INSTALLED,
-    GUIDE,
-    DESKTOP,
-}
-
 data class BrowserGuideItem(
     val browser: Browser,
     val displayName: String,
@@ -28,11 +21,4 @@ data class BrowserGuideItem(
 
     val hasGuideLink: Boolean
         get() = guideLinkType != BrowserGuideLinkType.NONE
-
-    fun matches(filter: BrowserGuideFilter): Boolean = when (filter) {
-        BrowserGuideFilter.ALL -> true
-        BrowserGuideFilter.INSTALLED -> isInstalled
-        BrowserGuideFilter.GUIDE -> hasGuideLink
-        BrowserGuideFilter.DESKTOP -> requiresDesktopExport
-    }
 }
