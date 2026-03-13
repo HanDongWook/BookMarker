@@ -1,7 +1,7 @@
 <h1 align="center">BookMarker</h1>
 
 <p align="center">
-  <img src="docs/images/AppIconImage.png" alt="Screenshot 1" width="250" style="border-radius: 50%;" />
+  <img src="docs/images/app_icon.png" alt="Screenshot 1" width="250" style="border-radius: 50%;" />
 </p>
 
 
