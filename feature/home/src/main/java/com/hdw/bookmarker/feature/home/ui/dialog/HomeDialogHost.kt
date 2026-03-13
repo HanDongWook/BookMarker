@@ -28,9 +28,9 @@ internal fun HomeDialogHost(
     onAddEmptyBookmarkSnapshot: () -> Unit,
     onDeleteBookmarkSnapshot: (String) -> Unit,
     onRenameBookmarkSnapshot: (String, String) -> Unit,
-    onUpdateBookmarkItem: (List<Int>, String, String?) -> Unit,
+    onUpdateBookmarkItem: (List<Int>, String, String?, String?) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
-    onAddFolder: (String, List<Int>?) -> Unit,
+    onAddFolder: (String, String, List<Int>?) -> Unit,
     onAddBookmark: (String, String, List<Int>?) -> Unit,
     onDefaultBrowserSelected: (String) -> Unit,
     onBookmarkColorSelected: (String, Long) -> Unit,
@@ -45,6 +45,7 @@ internal fun HomeDialogHost(
     var showAddFolderDialog by uiState.showAddFolderDialog
     var showAddBookmarkDialog by uiState.showAddBookmarkDialog
     var pendingFolderTitle by uiState.pendingFolderTitle
+    var pendingFolderDescription by uiState.pendingFolderDescription
     var pendingBookmarkTitle by uiState.pendingBookmarkTitle
     var pendingBookmarkUrl by uiState.pendingBookmarkUrl
     var pendingDeleteSnapshotId by uiState.pendingDeleteSnapshotId
@@ -55,6 +56,7 @@ internal fun HomeDialogHost(
     var pendingEditBookmarkItem by uiState.pendingEditBookmarkItem
     var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
+    var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
 
     if (showColorPickerDialog && selectedBookmarkId != null) {
         BookmarkColorPickerDialog(
@@ -128,8 +130,10 @@ internal fun HomeDialogHost(
             item = editingItem,
             title = pendingEditBookmarkTitle,
             url = pendingEditBookmarkUrl,
+            description = pendingEditBookmarkDescription,
             onTitleChange = { pendingEditBookmarkTitle = it },
             onUrlChange = { pendingEditBookmarkUrl = it },
+            onDescriptionChange = { pendingEditBookmarkDescription = it },
             onDismiss = {
                 pendingEditBookmarkItemPath = null
                 pendingEditBookmarkItem = null
@@ -140,6 +144,7 @@ internal fun HomeDialogHost(
                     path,
                     pendingEditBookmarkTitle,
                     pendingEditBookmarkUrl.takeIf { editingItem is BookmarkItem.Bookmark },
+                    pendingEditBookmarkDescription.takeIf { editingItem is BookmarkItem.Folder },
                 )
                 pendingEditBookmarkItemPath = null
                 pendingEditBookmarkItem = null
@@ -168,6 +173,7 @@ internal fun HomeDialogHost(
             onAddFolderClick = {
                 showAddItemTypeDialog = false
                 pendingFolderTitle = ""
+                pendingFolderDescription = ""
                 showAddFolderDialog = true
             },
             onAddBookmarkClick = {
@@ -208,11 +214,14 @@ internal fun HomeDialogHost(
     if (showAddFolderDialog) {
         AddFolderDialog(
             folderTitle = pendingFolderTitle,
+            folderDescription = pendingFolderDescription,
             onFolderTitleChange = { pendingFolderTitle = it },
+            onFolderDescriptionChange = { pendingFolderDescription = it },
             onDismiss = { showAddFolderDialog = false },
             onConfirm = {
                 onAddFolder(
                     pendingFolderTitle,
+                    pendingFolderDescription,
                     selectedFolderPath,
                 )
                 showAddFolderDialog = false

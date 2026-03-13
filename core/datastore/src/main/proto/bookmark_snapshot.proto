@@ -33,6 +33,7 @@ message BookmarkFolderProto {
   string add_date = 2;
   string last_modified = 3;
   repeated BookmarkNodeProto children = 4;
+  string description = 5;
 }
 
 message BookmarkLinkProto {

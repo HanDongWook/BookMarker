@@ -39,6 +39,7 @@ data class BookmarkFolderProto(
     @ProtoNumber(2) val addDate: String = "",
     @ProtoNumber(3) val lastModified: String = "",
     @ProtoNumber(4) val children: List<BookmarkNodeProto> = emptyList(),
+    @ProtoNumber(5) val description: String = "",
 )
 
 @Serializable

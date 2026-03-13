@@ -16,7 +16,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 private const val BOOKMARK_SNAPSHOT_DATASTORE_NAME = "bookmark_snapshot.pb"
-private const val BOOKMARK_SNAPSHOT_SCHEMA_VERSION = 1
+private const val BOOKMARK_SNAPSHOT_SCHEMA_VERSION = 2
 
 private val Context.bookmarkSnapshotDataStore: DataStore<BookmarkSnapshotsProto> by dataStore(
     fileName = BOOKMARK_SNAPSHOT_DATASTORE_NAME,

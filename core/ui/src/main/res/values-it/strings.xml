@@ -168,4 +168,5 @@
     <string name="bookmark_display_type_icon">Icona</string>
     <string name="bookmark_show_url_label">Mostra URL</string>
     <string name="bookmark_scroll_long_url_label">Scorri URL lungo</string>
+    <string name="folder_description">Descrizione</string>
 </resources>
