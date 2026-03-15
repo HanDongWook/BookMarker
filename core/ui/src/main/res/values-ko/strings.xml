@@ -180,4 +180,6 @@
     <string name="display_value_loading">불러오는 중</string>
     <string name="bookmark_search_location_prefix">"위치 : "</string>
     <string name="bookmark_search_tags_prefix">"태그 : "</string>
+    <string name="bookmark_item_action_edit">편집</string>
+    <string name="bookmark_item_action_delete">삭제</string>
 </resources>
