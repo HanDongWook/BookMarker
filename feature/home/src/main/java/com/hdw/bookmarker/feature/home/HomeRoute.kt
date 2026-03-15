@@ -27,16 +27,13 @@ import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportMethod
 import com.hdw.bookmarker.feature.home.ui.export.buildBookmarkExportFileName
 import com.hdw.bookmarker.feature.home.ui.export.buildBookmarkExportHtmlContent
 import com.hdw.bookmarker.feature.home.ui.export.buildBookmarkExportTextContent
+import com.hdw.bookmarker.feature.home.ui.export.saveBookmarkExportContent
 import com.hdw.bookmarker.feature.home.ui.export.shareCurrentBookmarkHtmlExport
 import com.hdw.bookmarker.feature.home.ui.export.shareCurrentBookmarkTextExport
-import com.hdw.bookmarker.feature.home.ui.export.saveBookmarkExportContent
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
-private data class PendingBookmarkFileExport(
-    val fileName: String,
-    val content: String,
-)
+private data class PendingBookmarkFileExport(val fileName: String, val content: String)
 
 private fun handleShareBookmarkExport(
     format: BookmarkExportFormat,

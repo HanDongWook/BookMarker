@@ -55,6 +55,7 @@ internal fun BookmarkPreviewWebView(
                     requestState.markRequested(url)
                     webView.loadUrl(url)
                 }
+
                 requestState.shouldRefresh() -> {
                     requestState.markRequested(url)
                     webView.reload()

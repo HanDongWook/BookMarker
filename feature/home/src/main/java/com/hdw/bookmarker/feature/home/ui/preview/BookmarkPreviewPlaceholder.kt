@@ -13,10 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-internal fun BookmarkPreviewPlaceholder(
-    text: String,
-    modifier: Modifier = Modifier,
-) {
+internal fun BookmarkPreviewPlaceholder(text: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()

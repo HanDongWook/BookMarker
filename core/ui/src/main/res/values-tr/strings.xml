@@ -165,7 +165,7 @@
     <string name="folder_description">Açıklama</string>
     <string name="display_value_loading">Yükleniyor</string>
     <string name="bookmark_tags">Etiketler</string>
-    <string name="bookmark_note">Not</string>
+    <string name="bookmark_note">Açıklama</string>
     <string name="bookmark_inbox_title">Gelen Kutusu</string>
     <string name="bookmark_inbox_badge">Gelen Kutusu</string>
     <string name="bookmark_inbox_empty">Gelen Kutusunda henüz kayıtlı bağlantı yok.\nBuraya kaydetmek için bir bağlantı paylaşın.</string>

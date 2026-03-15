@@ -14,11 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
-fun ImportOptionDialog(
-    onDismiss: () -> Unit,
-    onOpenImportBookmarks: () -> Unit,
-    onAddEmptyBookmarkItem: () -> Unit,
-) {
+fun ImportOptionDialog(onDismiss: () -> Unit, onOpenImportBookmarks: () -> Unit, onAddEmptyBookmarkItem: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
         text = {

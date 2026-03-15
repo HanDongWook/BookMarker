@@ -165,7 +165,7 @@
     <string name="folder_description">Description</string>
     <string name="display_value_loading">Chargement</string>
     <string name="bookmark_tags">Tags</string>
-    <string name="bookmark_note">Note</string>
+    <string name="bookmark_note">Description</string>
     <string name="bookmark_inbox_title">Boîte de réception</string>
     <string name="bookmark_inbox_badge">Boîte de réception</string>
     <string name="bookmark_inbox_empty">Aucun lien n\'est encore enregistré dans la Boîte de réception.\nPartagez un lien pour l\'enregistrer ici.</string>

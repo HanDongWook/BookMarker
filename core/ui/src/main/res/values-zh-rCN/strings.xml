@@ -165,7 +165,7 @@
     <string name="folder_description">说明</string>
     <string name="display_value_loading">加载中</string>
     <string name="bookmark_tags">标签</string>
-    <string name="bookmark_note">笔记</string>
+    <string name="bookmark_note">说明</string>
     <string name="bookmark_inbox_title">收件箱</string>
     <string name="bookmark_inbox_badge">收件箱</string>
     <string name="bookmark_inbox_empty">收件箱中尚无保存的链接。\n分享一个链接以将其保存至此处。</string>

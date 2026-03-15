@@ -10,7 +10,4 @@ enum class BookmarkExportFormat {
     HTML,
 }
 
-data class BookmarkExportAction(
-    val method: BookmarkExportMethod,
-    val format: BookmarkExportFormat,
-)
+data class BookmarkExportAction(val method: BookmarkExportMethod, val format: BookmarkExportFormat)

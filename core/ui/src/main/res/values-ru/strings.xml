@@ -165,7 +165,7 @@
     <string name="folder_description">Описание</string>
     <string name="display_value_loading">Загрузка</string>
     <string name="bookmark_tags">Теги</string>
-    <string name="bookmark_note">Заметка</string>
+    <string name="bookmark_note">Описание</string>
     <string name="bookmark_inbox_title">Входящие</string>
     <string name="bookmark_inbox_badge">Входящие</string>
     <string name="bookmark_inbox_empty">Во входящих пока нет сохраненных ссылок.\nПоделитесь ссылкой, чтобы сохранить ее здесь.</string>
