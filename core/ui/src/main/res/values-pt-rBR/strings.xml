@@ -153,6 +153,7 @@
     <string name="behavior_label">Comportamento</string>
     <string name="bookmark_show_url_label">Mostrar URL</string>
     <string name="bookmark_scroll_long_url_label">Rolar URL longa</string>
+    <string name="bookmark_open_side_preview_label">Prévia</string>
     <string name="bookmark_preview_title">Prévia</string>
     <string name="bookmark_preview_placeholder">Selecione um marcador para visualizar a prévia</string>
     <string name="bookmark_preview_refresh">Atualizar prévia</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">Rolar descrição longa</string>
     <string name="folder_description">Descrição</string>
     <string name="display_value_loading">Carregando</string>
+    <string name="bookmark_tags">Tags</string>
+    <string name="bookmark_note">Nota</string>
+    <string name="bookmark_inbox_title">Caixa de entrada</string>
+    <string name="bookmark_inbox_badge">Caixa de entrada</string>
+    <string name="bookmark_inbox_empty">Ainda não há links salvos na Caixa de entrada.\nCompartilhe um link para salvá-lo aqui.</string>
+    <string name="save_to_inbox">Salvo na Caixa de entrada</string>
+    <string name="import_source_html_file_title">Arquivo HTML</string>
+    <string name="large_screen_label">Tela grande</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">Abrir ao lado do app em telas grandes</string>
+    <string name="bookmark_search_open">Buscar favoritos</string>
+    <string name="bookmark_search_hint">Buscar pastas e favoritos</string>
+    <string name="bookmark_search_empty">Busque pastas e favoritos em todos os snapshots.</string>
+    <string name="bookmark_search_loading">Buscando…</string>
+    <string name="bookmark_search_no_results">Nenhuma pasta ou favorito correspondente.</string>
+    <string name="bookmark_search_close">Fechar busca</string>
+    <string name="bookmark_search_clear">Limpar texto de busca</string>
 </resources>

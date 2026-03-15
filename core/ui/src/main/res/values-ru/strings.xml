@@ -153,6 +153,7 @@
     <string name="behavior_label">Поведение</string>
     <string name="bookmark_show_url_label">Показывать URL</string>
     <string name="bookmark_scroll_long_url_label">Прокручивать длинный URL</string>
+    <string name="bookmark_open_side_preview_label">Предпросмотр</string>
     <string name="bookmark_preview_title">Предпросмотр</string>
     <string name="bookmark_preview_placeholder">Выберите закладку для предпросмотра</string>
     <string name="bookmark_preview_refresh">Обновить предпросмотр</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">Прокручивать длинное описание</string>
     <string name="folder_description">Описание</string>
     <string name="display_value_loading">Загрузка</string>
+    <string name="bookmark_tags">Теги</string>
+    <string name="bookmark_note">Заметка</string>
+    <string name="bookmark_inbox_title">Входящие</string>
+    <string name="bookmark_inbox_badge">Входящие</string>
+    <string name="bookmark_inbox_empty">Во входящих пока нет сохраненных ссылок.\nПоделитесь ссылкой, чтобы сохранить ее здесь.</string>
+    <string name="save_to_inbox">Сохранено во входящие</string>
+    <string name="import_source_html_file_title">HTML-файл</string>
+    <string name="large_screen_label">Большой экран</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">Открывать рядом с приложением на больших экранах</string>
+    <string name="bookmark_search_open">Поиск закладок</string>
+    <string name="bookmark_search_hint">Поиск папок и закладок</string>
+    <string name="bookmark_search_empty">Ищите папки и закладки по всем снимкам.</string>
+    <string name="bookmark_search_loading">Поиск…</string>
+    <string name="bookmark_search_no_results">Нет подходящих папок или закладок.</string>
+    <string name="bookmark_search_close">Закрыть поиск</string>
+    <string name="bookmark_search_clear">Очистить текст поиска</string>
 </resources>

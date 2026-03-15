@@ -153,6 +153,7 @@
     <string name="behavior_label">Comportamento</string>
     <string name="bookmark_show_url_label">Mostrar URL</string>
     <string name="bookmark_scroll_long_url_label">Deslocar URL longa</string>
+    <string name="bookmark_open_side_preview_label">Pré-visualização</string>
     <string name="bookmark_preview_title">Pré-visualização</string>
     <string name="bookmark_preview_placeholder">Selecione um marcador para pré-visualizar</string>
     <string name="bookmark_preview_refresh">Atualizar pré-visualização</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">Deslocar descrição longa</string>
     <string name="folder_description">Descrição</string>
     <string name="display_value_loading">A carregar</string>
+    <string name="bookmark_tags">Etiquetas</string>
+    <string name="bookmark_note">Nota</string>
+    <string name="bookmark_inbox_title">Caixa de entrada</string>
+    <string name="bookmark_inbox_badge">Caixa de entrada</string>
+    <string name="bookmark_inbox_empty">Ainda não há hiperligações guardadas na Caixa de entrada.\nPartilhe uma hiperligação para a guardar aqui.</string>
+    <string name="save_to_inbox">Guardado na Caixa de entrada</string>
+    <string name="import_source_html_file_title">Ficheiro HTML</string>
+    <string name="large_screen_label">Ecrã grande</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">Abrir ao lado da app em ecrãs grandes</string>
+    <string name="bookmark_search_open">Pesquisar marcadores</string>
+    <string name="bookmark_search_hint">Pesquisar pastas e marcadores</string>
+    <string name="bookmark_search_empty">Pesquise pastas e marcadores em todos os instantâneos.</string>
+    <string name="bookmark_search_loading">A pesquisar…</string>
+    <string name="bookmark_search_no_results">Nenhuma pasta ou marcador correspondente.</string>
+    <string name="bookmark_search_close">Fechar pesquisa</string>
+    <string name="bookmark_search_clear">Limpar texto de pesquisa</string>
 </resources>

@@ -153,6 +153,7 @@
     <string name="behavior_label">Davranış</string>
     <string name="bookmark_show_url_label">URL’yi göster</string>
     <string name="bookmark_scroll_long_url_label">Uzun URL’yi kaydır</string>
+    <string name="bookmark_open_side_preview_label">Önizleme</string>
     <string name="bookmark_preview_title">Önizleme</string>
     <string name="bookmark_preview_placeholder">Önizleme için bir yer imi seç</string>
     <string name="bookmark_preview_refresh">Önizlemeyi yenile</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">Uzun açıklamayı kaydır</string>
     <string name="folder_description">Açıklama</string>
     <string name="display_value_loading">Yükleniyor</string>
+    <string name="bookmark_tags">Etiketler</string>
+    <string name="bookmark_note">Not</string>
+    <string name="bookmark_inbox_title">Gelen Kutusu</string>
+    <string name="bookmark_inbox_badge">Gelen Kutusu</string>
+    <string name="bookmark_inbox_empty">Gelen Kutusunda henüz kayıtlı bağlantı yok.\nBuraya kaydetmek için bir bağlantı paylaşın.</string>
+    <string name="save_to_inbox">Gelen Kutusuna kaydedildi</string>
+    <string name="import_source_html_file_title">HTML dosyası</string>
+    <string name="large_screen_label">Büyük ekran</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">Büyük ekranlarda uygulamanın yanında aç</string>
+    <string name="bookmark_search_open">Yer işaretlerini ara</string>
+    <string name="bookmark_search_hint">Klasörleri ve yer işaretlerini ara</string>
+    <string name="bookmark_search_empty">Tüm anlık görüntülerdeki klasörleri ve yer işaretlerini arayın.</string>
+    <string name="bookmark_search_loading">Aranıyor…</string>
+    <string name="bookmark_search_no_results">Eşleşen klasör veya yer işareti yok.</string>
+    <string name="bookmark_search_close">Aramayı kapat</string>
+    <string name="bookmark_search_clear">Arama metnini temizle</string>
 </resources>
