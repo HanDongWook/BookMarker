@@ -151,8 +151,11 @@
     <string name="rate_app_open_store_failed">Play Store नहीं खोला जा सका।</string>
     <string name="appearance_label">दिखावट</string>
     <string name="behavior_label">व्यवहार</string>
-    <string name="bookmark_show_url_label">URL दिखाएं</string>
-    <string name="bookmark_scroll_long_url_label">लंबा URL स्क्रॉल करें</string>
+    <string name="bookmark_secondary_info_label">बुकमार्क जानकारी प्रदर्शन</string>
+    <string name="bookmark_secondary_info_none">कोई नहीं</string>
+    <string name="bookmark_secondary_info_url">URL</string>
+    <string name="bookmark_secondary_info_tag">टैग</string>
+    <string name="bookmark_scroll_long_info_label">लंबी जानकारी स्क्रॉल करें</string>
     <string name="bookmark_open_side_preview_label">प्रीव्यू</string>
     <string name="bookmark_preview_title">प्रीव्यू</string>
     <string name="bookmark_preview_placeholder">प्रीव्यू के लिए बुकमार्क चुनें</string>

@@ -151,8 +151,11 @@
     <string name="rate_app_open_store_failed">Play Store konnte nicht geöffnet werden.</string>
     <string name="appearance_label">Erscheinungsbild</string>
     <string name="behavior_label">Verhalten</string>
-    <string name="bookmark_show_url_label">URL anzeigen</string>
-    <string name="bookmark_scroll_long_url_label">Lange URL scrollen</string>
+    <string name="bookmark_secondary_info_label">Lesezeichen-Info-Anzeige</string>
+    <string name="bookmark_secondary_info_none">Keine</string>
+    <string name="bookmark_secondary_info_url">URL</string>
+    <string name="bookmark_secondary_info_tag">Tag</string>
+    <string name="bookmark_scroll_long_info_label">Lange Info scrollen</string>
     <string name="bookmark_open_side_preview_label">Vorschau</string>
     <string name="bookmark_preview_title">Vorschau</string>
     <string name="bookmark_preview_placeholder">Wähle ein Lesezeichen für die Vorschau aus</string>

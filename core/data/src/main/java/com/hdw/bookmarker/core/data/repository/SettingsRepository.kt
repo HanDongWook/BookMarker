@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 interface SettingsRepository {
     fun getDefaultBrowserPackageFlow(): Flow<String?>
     fun getBookmarkDisplayTypeFlow(): Flow<String?>
-    fun getShowBookmarkUrlFlow(): Flow<Boolean>
+    fun getBookmarkSecondaryDisplayTypeFlow(): Flow<String?>
     fun getScrollLongBookmarkUrlFlow(): Flow<Boolean>
     fun getOpenBookmarkAdjacentOnLargeScreenFlow(): Flow<Boolean>
     fun getOpenBookmarkSidePreviewOnLargeScreenFlow(): Flow<Boolean>
@@ -17,7 +17,7 @@ interface SettingsRepository {
 
     suspend fun setDefaultBrowserPackage(packageName: String)
     suspend fun setBookmarkDisplayType(displayType: String)
-    suspend fun setShowBookmarkUrl(show: Boolean)
+    suspend fun setBookmarkSecondaryDisplayType(displayType: String)
     suspend fun setScrollLongBookmarkUrl(enabled: Boolean)
     suspend fun setOpenBookmarkAdjacentOnLargeScreen(enabled: Boolean)
     suspend fun setOpenBookmarkSidePreviewOnLargeScreen(enabled: Boolean)

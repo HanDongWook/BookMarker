@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
+import com.hdw.bookmarker.core.model.settings.BookmarkSecondaryDisplayType
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
 import com.hdw.bookmarker.core.ui.folderstyle.iconVector
 import com.hdw.bookmarker.core.ui.folderstyle.resolveTint
@@ -69,8 +70,8 @@ internal fun BookmarkListContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
-    scrollLongBookmarkUrl: Boolean,
-    showBookmarkUrl: Boolean,
+    scrollLongSecondaryInfo: Boolean,
+    secondaryDisplayType: BookmarkSecondaryDisplayType,
     showFolderDescription: Boolean,
     scrollLongFolderDescription: Boolean,
     folderIconStyle: BookmarkFolderIconStyle,
@@ -136,8 +137,8 @@ internal fun BookmarkListContent(
                     BookmarkLeafRow(
                         bookmark = item,
                         depth = node.depth,
-                        scrollLongBookmarkUrl = scrollLongBookmarkUrl,
-                        showBookmarkUrl = showBookmarkUrl,
+                        scrollLongSecondaryInfo = scrollLongSecondaryInfo,
+                        secondaryDisplayType = secondaryDisplayType,
                         onClick = { onBookmarkClick(item.url) },
                         onLongClick = { onItemLongClick(item, node.path) },
                     )
@@ -229,8 +230,8 @@ private fun BookmarkFolderRow(
 private fun BookmarkLeafRow(
     bookmark: BookmarkItem.Bookmark,
     depth: Int,
-    scrollLongBookmarkUrl: Boolean,
-    showBookmarkUrl: Boolean,
+    scrollLongSecondaryInfo: Boolean,
+    secondaryDisplayType: BookmarkSecondaryDisplayType,
     onClick: () -> Unit,
     onLongClick: () -> Unit,
 ) {
@@ -250,53 +251,34 @@ private fun BookmarkLeafRow(
             title = bookmark.title,
             modifier = Modifier.size(20.dp),
         )
-        if (showBookmarkUrl) {
-            Row(
-                modifier = Modifier
-                    .padding(start = 10.dp)
-                    .weight(1f),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = bookmark.title,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f),
-                )
-                RightAlignedSecondaryText(
-                    text = buildString {
-                        append(bookmark.url)
-                        if (bookmark.tags.isNotEmpty()) {
-                            append(" ")
-                            append(bookmark.tags.joinToString(separator = " ") { "#$it" })
-                        }
-                    },
-                    scrollLongText = scrollLongBookmarkUrl,
-                )
-            }
-        } else {
-            Row(
-                modifier = Modifier
-                    .padding(start = 10.dp)
-                    .weight(1f),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = bookmark.title,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f),
-                )
-                if (bookmark.tags.isNotEmpty()) {
-                    RightAlignedSecondaryText(
-                        text = bookmark.tags.joinToString(separator = " ") { "#$it" },
-                        scrollLongText = scrollLongBookmarkUrl,
-                    )
+        Row(
+            modifier = Modifier
+                .padding(start = 10.dp)
+                .weight(1f),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = bookmark.title,
+                style = MaterialTheme.typography.bodyMedium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f),
+            )
+            val secondaryText = when (secondaryDisplayType) {
+                BookmarkSecondaryDisplayType.NONE -> null
+                BookmarkSecondaryDisplayType.URL -> bookmark.url
+                BookmarkSecondaryDisplayType.TAG -> if (bookmark.tags.isNotEmpty()) {
+                    bookmark.tags.joinToString(separator = " ") { "#$it" }
+                } else {
+                    null
                 }
+            }
+            if (secondaryText != null) {
+                RightAlignedSecondaryText(
+                    text = secondaryText,
+                    scrollLongText = scrollLongSecondaryInfo,
+                )
             }
         }
     }
@@ -365,8 +347,8 @@ private fun BookmarkListContentPreview() {
         bookmarkDocument = previewBookmarkListDocument(),
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
-        scrollLongBookmarkUrl = true,
-        showBookmarkUrl = true,
+        scrollLongSecondaryInfo = true,
+        secondaryDisplayType = BookmarkSecondaryDisplayType.URL,
         showFolderDescription = true,
         scrollLongFolderDescription = true,
         folderIconStyle = BookmarkFolderIconStyle(),
@@ -416,8 +398,8 @@ private fun BookmarkLeafRowPreview() {
             iconUri = null,
         ),
         depth = 0,
-        scrollLongBookmarkUrl = true,
-        showBookmarkUrl = true,
+        scrollLongSecondaryInfo = true,
+        secondaryDisplayType = BookmarkSecondaryDisplayType.URL,
         onClick = {},
         onLongClick = {},
     )
