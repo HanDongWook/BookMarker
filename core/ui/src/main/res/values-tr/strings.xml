@@ -187,8 +187,16 @@
     <string name="bookmark_item_action_delete">Sil</string>
     <string name="bookmark_item_action_copy">Kopyala</string>
     <string name="bookmark_item_action_paste">Yapıştır</string>
-    <string name="bookmark_item_copy_toast_folder">&quot;%1&quot; klasörü kopyalandı.</string>
-    <string name="bookmark_item_copy_toast_bookmark">&quot;%1&quot; yer imi kopyalandı.</string>
-    <string name="delete_bookmark_item_dialog_message_folder">&quot;%1&quot; klasörü silinsin mi?</string>
-    <string name="delete_bookmark_item_dialog_message_bookmark">&quot;%1&quot; yer imi silinsin mi?</string>
+    <string name="bookmark_item_copy_toast_folder">\"%1$s\" klasörü kopyalandı.</string>
+    <string name="bookmark_item_copy_toast_bookmark">\"%1$s\" yer imi kopyalandı.</string>
+    <string name="delete_bookmark_item_dialog_message_folder">\"%1$s\" klasörü silinsin mi?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">\"%1$s\" yer imi silinsin mi?</string>
+    <string name="bookmark_item_action_color">Renk</string>
+    <string name="bookmark_item_action_title_bookmark">Yer imi "%1$s"</string>
+    <string name="bookmark_item_action_title_folder">Klasör "%1$s"</string>
+    <string name="bookmark_snapshot_action_title">Yer imi anlık görüntüsü "%1$s"</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Yer imi anlık görüntüsünü sil</string>
+    <string name="delete_bookmark_snapshot_dialog_message">"%1$s" yer imi anlık görüntüsü silinsin mi?</string>
+    <string name="delete_bookmark_snapshot_dialog_confirm">Sil</string>
+    <string name="delete_bookmark_snapshot_dialog_cancel">İptal</string>
 </resources>

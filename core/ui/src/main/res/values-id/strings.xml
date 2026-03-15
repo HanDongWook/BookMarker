@@ -187,8 +187,16 @@
     <string name="bookmark_item_action_delete">Hapus</string>
     <string name="bookmark_item_action_copy">Salin</string>
     <string name="bookmark_item_action_paste">Tempel</string>
-    <string name="bookmark_item_copy_toast_folder">Folder &quot;%1&quot; disalin.</string>
-    <string name="bookmark_item_copy_toast_bookmark">Bookmark &quot;%1&quot; disalin.</string>
-    <string name="delete_bookmark_item_dialog_message_folder">Hapus folder &quot;%1&quot;?</string>
-    <string name="delete_bookmark_item_dialog_message_bookmark">Hapus bookmark &quot;%1&quot;?</string>
+    <string name="bookmark_item_copy_toast_folder">Folder \"%1$s\" disalin.</string>
+    <string name="bookmark_item_copy_toast_bookmark">Bookmark \"%1$s\" disalin.</string>
+    <string name="delete_bookmark_item_dialog_message_folder">Hapus folder \"%1$s\"?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">Hapus bookmark \"%1$s\"?</string>
+    <string name="bookmark_item_action_color">Warna</string>
+    <string name="bookmark_item_action_title_bookmark">Bookmark "%1$s"</string>
+    <string name="bookmark_item_action_title_folder">Folder "%1$s"</string>
+    <string name="bookmark_snapshot_action_title">Snapshot bookmark "%1$s"</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Hapus snapshot bookmark</string>
+    <string name="delete_bookmark_snapshot_dialog_message">Hapus snapshot bookmark "%1$s"?</string>
+    <string name="delete_bookmark_snapshot_dialog_confirm">Hapus</string>
+    <string name="delete_bookmark_snapshot_dialog_cancel">Batal</string>
 </resources>

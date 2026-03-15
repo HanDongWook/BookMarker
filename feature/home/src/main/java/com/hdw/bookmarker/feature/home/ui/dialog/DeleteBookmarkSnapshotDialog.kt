@@ -8,19 +8,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
-fun DeleteBookmarkSnapshotDialog(onDismiss: () -> Unit, onConfirmDelete: () -> Unit) {
+fun DeleteBookmarkSnapshotDialog(
+    snapshotTitle: String,
+    onDismiss: () -> Unit,
+    onConfirmDelete: () -> Unit,
+) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = stringResource(R.string.delete_bookmark_dialog_title)) },
-        text = { Text(text = stringResource(R.string.delete_bookmark_dialog_message)) },
+        title = { Text(text = stringResource(R.string.delete_bookmark_snapshot_dialog_title)) },
+        text = {
+            Text(
+                text = stringResource(
+                    R.string.delete_bookmark_snapshot_dialog_message,
+                    snapshotTitle,
+                ),
+            )
+        },
         confirmButton = {
             TextButton(onClick = onConfirmDelete) {
-                Text(text = stringResource(R.string.delete_bookmark_dialog_confirm))
+                Text(text = stringResource(R.string.delete_bookmark_snapshot_dialog_confirm))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text(text = stringResource(R.string.delete_bookmark_dialog_cancel))
+                Text(text = stringResource(R.string.delete_bookmark_snapshot_dialog_cancel))
             }
         },
     )
@@ -30,6 +41,7 @@ fun DeleteBookmarkSnapshotDialog(onDismiss: () -> Unit, onConfirmDelete: () -> U
 @Composable
 private fun DeleteBookmarkSnapshotDialogPreview() {
     DeleteBookmarkSnapshotDialog(
+        snapshotTitle = "북마크1",
         onDismiss = {},
         onConfirmDelete = {},
     )

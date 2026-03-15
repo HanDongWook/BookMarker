@@ -187,8 +187,16 @@
     <string name="bookmark_item_action_delete">हटाएँ</string>
     <string name="bookmark_item_action_copy">कॉपी</string>
     <string name="bookmark_item_action_paste">पेस्ट</string>
-    <string name="bookmark_item_copy_toast_folder">फ़ोल्डर &quot;%1&quot; कॉपी किया गया।</string>
-    <string name="bookmark_item_copy_toast_bookmark">बुकमार्क &quot;%1&quot; कॉपी किया गया।</string>
-    <string name="delete_bookmark_item_dialog_message_folder">क्या आप &quot;%1&quot; फ़ोल्डर हटाना चाहते हैं?</string>
-    <string name="delete_bookmark_item_dialog_message_bookmark">क्या आप &quot;%1&quot; बुकमार्क हटाना चाहते हैं?</string>
+    <string name="bookmark_item_copy_toast_folder">फ़ोल्डर \"%1$s\" कॉपी किया गया।</string>
+    <string name="bookmark_item_copy_toast_bookmark">बुकमार्क \"%1$s\" कॉपी किया गया।</string>
+    <string name="delete_bookmark_item_dialog_message_folder">क्या आप \"%1$s\" फ़ोल्डर हटाना चाहते हैं?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">क्या आप \"%1$s\" बुकमार्क हटाना चाहते हैं?</string>
+    <string name="bookmark_item_action_color">रंग</string>
+    <string name="bookmark_item_action_title_bookmark">बुकमार्क "%1$s"</string>
+    <string name="bookmark_item_action_title_folder">फ़ोल्डर "%1$s"</string>
+    <string name="bookmark_snapshot_action_title">बुकमार्क स्नैपशॉट "%1$s"</string>
+    <string name="delete_bookmark_snapshot_dialog_title">बुकमार्क स्नैपशॉट हटाएँ</string>
+    <string name="delete_bookmark_snapshot_dialog_message">क्या आप बुकमार्क स्नैपशॉट "%1$s" हटाना चाहते हैं?</string>
+    <string name="delete_bookmark_snapshot_dialog_confirm">हटाएँ</string>
+    <string name="delete_bookmark_snapshot_dialog_cancel">रद्द करें</string>
 </resources>

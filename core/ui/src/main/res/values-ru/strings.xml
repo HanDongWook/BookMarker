@@ -187,8 +187,16 @@
     <string name="bookmark_item_action_delete">Удалить</string>
     <string name="bookmark_item_action_copy">Копировать</string>
     <string name="bookmark_item_action_paste">Вставить</string>
-    <string name="bookmark_item_copy_toast_folder">Папка &quot;%1&quot; скопирована.</string>
-    <string name="bookmark_item_copy_toast_bookmark">Закладка &quot;%1&quot; скопирована.</string>
-    <string name="delete_bookmark_item_dialog_message_folder">Удалить папку &quot;%1&quot;?</string>
-    <string name="delete_bookmark_item_dialog_message_bookmark">Удалить закладку &quot;%1&quot;?</string>
+    <string name="bookmark_item_copy_toast_folder">Папка \"%1$s\" скопирована.</string>
+    <string name="bookmark_item_copy_toast_bookmark">Закладка \"%1$s\" скопирована.</string>
+    <string name="delete_bookmark_item_dialog_message_folder">Удалить папку \"%1$s\"?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">Удалить закладку \"%1$s\"?</string>
+    <string name="bookmark_item_action_color">Цвет</string>
+    <string name="bookmark_item_action_title_bookmark">Закладка "%1$s"</string>
+    <string name="bookmark_item_action_title_folder">Папка "%1$s"</string>
+    <string name="bookmark_snapshot_action_title">Снимок закладок "%1$s"</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Удалить снимок закладок</string>
+    <string name="delete_bookmark_snapshot_dialog_message">Удалить снимок закладок "%1$s"?</string>
+    <string name="delete_bookmark_snapshot_dialog_confirm">Удалить</string>
+    <string name="delete_bookmark_snapshot_dialog_cancel">Отмена</string>
 </resources>
