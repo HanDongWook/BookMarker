@@ -37,7 +37,7 @@ internal fun BookmarkPreviewTopBar(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         Text(
-            text = title?.takeIf { it.isNotBlank() } ?: stringResource(R.string.bookmark_preview_title),
+            text = title ?: "",
             style = MaterialTheme.typography.titleMedium,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
