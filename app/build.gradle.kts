@@ -104,16 +104,20 @@ dependencies {
 
     implementation(libs.mavericks.core)
 
-    debugImplementation(libs.showkase)
-    implementation(libs.showkase.annotation)
-    kspDebug(libs.showkase.processor)
-
     implementation(libs.timber)
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.perf)
+
+    //for development
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.extended)
+
+    debugImplementation(libs.showkase)
+    implementation(libs.showkase.annotation)
+    kspDebug(libs.showkase.processor)
 
     debugRuntimeOnly(libs.leakcanary.android)
     debugRuntimeOnly(libs.androidx.compose.ui.test.manifest)
