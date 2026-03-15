@@ -82,7 +82,7 @@ class MainActivity : BaseActivity() {
         val rawTitle = intent.getStringExtra(Intent.EXTRA_TITLE)
             ?: intent.getStringExtra(Intent.EXTRA_SUBJECT)
             ?: extractedUrl
-        val cleanedNote = sharedText
+        val cleanedDescription = sharedText
             .replace(extractedUrl, "")
             .trim()
             .takeIf { it.isNotBlank() }
@@ -90,7 +90,7 @@ class MainActivity : BaseActivity() {
         return QuickSaveBookmarkSeed(
             title = rawTitle.trim().ifBlank { extractedUrl },
             url = extractedUrl,
-            note = cleanedNote,
+            description = cleanedDescription,
         )
     }
 

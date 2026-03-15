@@ -71,7 +71,7 @@ fun HomeScreen(
     var pendingFolderDescription by uiState.pendingFolderDescription
     var pendingBookmarkTitle by uiState.pendingBookmarkTitle
     var pendingBookmarkUrl by uiState.pendingBookmarkUrl
-    var pendingBookmarkNote by uiState.pendingBookmarkNote
+    var pendingBookmarkDescription by uiState.pendingBookmarkDescription
     var pendingBookmarkTags by uiState.pendingBookmarkTags
     var addBookmarkToInbox by uiState.addBookmarkToInbox
     var pendingDeleteSnapshotId by uiState.pendingDeleteSnapshotId
@@ -82,7 +82,6 @@ fun HomeScreen(
     var pendingEditBookmarkItemPath by uiState.pendingEditBookmarkItemPath
     var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
-    var pendingEditBookmarkNote by uiState.pendingEditBookmarkNote
     var pendingEditBookmarkTags by uiState.pendingEditBookmarkTags
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
     val orderedSnapshotIds = remember(state.bookmarkSnapshots) {
@@ -129,7 +128,7 @@ fun HomeScreen(
         if (pendingQuickSaveRequestToken == null) return@LaunchedEffect
         pendingBookmarkTitle = quickSaveRequest.title
         pendingBookmarkUrl = quickSaveRequest.url
-        pendingBookmarkNote = quickSaveRequest.note
+        pendingBookmarkDescription = quickSaveRequest.description
         pendingBookmarkTags = quickSaveRequest.tags.joinToString(separator = ", ")
         addBookmarkToInbox = true
         showAddBookmarkDialog = true
@@ -239,11 +238,13 @@ fun HomeScreen(
                         is BookmarkItem.Bookmark -> item.title
                     }
                     pendingEditBookmarkUrl = (item as? BookmarkItem.Bookmark)?.url.orEmpty()
-                    pendingEditBookmarkNote = (item as? BookmarkItem.Bookmark)?.note.orEmpty()
                     pendingEditBookmarkTags = (item as? BookmarkItem.Bookmark)?.tags
                         ?.joinToString(separator = ", ")
                         .orEmpty()
-                    pendingEditBookmarkDescription = (item as? BookmarkItem.Folder)?.description.orEmpty()
+                    pendingEditBookmarkDescription = when (item) {
+                        is BookmarkItem.Bookmark -> item.description.orEmpty()
+                        is BookmarkItem.Folder -> item.description.orEmpty()
+                    }
                 },
                 onSelectedFolderPathChange = onSelectedFolderPathChange,
                 currentSnapshotTitle = selectedBookmarkId?.let(snapshotTitles::get),

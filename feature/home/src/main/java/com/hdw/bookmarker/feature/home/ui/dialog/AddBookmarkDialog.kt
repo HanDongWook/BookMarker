@@ -18,11 +18,11 @@ import com.hdw.bookmarker.core.ui.component.BookmarkerTextField
 fun AddBookmarkDialog(
     bookmarkTitle: String,
     bookmarkUrl: String,
-    bookmarkNote: String,
+    bookmarkDescription: String,
     bookmarkTags: String,
     onBookmarkTitleChange: (String) -> Unit,
     onBookmarkUrlChange: (String) -> Unit,
-    onBookmarkNoteChange: (String) -> Unit,
+    onBookmarkDescriptionChange: (String) -> Unit,
     onBookmarkTagsChange: (String) -> Unit,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit,
@@ -59,13 +59,13 @@ fun AddBookmarkDialog(
                     label = { Text(text = stringResource(R.string.bookmark_tags)) },
                 )
                 BookmarkerTextField(
-                    value = bookmarkNote,
-                    onValueChange = onBookmarkNoteChange,
+                    value = bookmarkDescription,
+                    onValueChange = onBookmarkDescriptionChange,
                     singleLine = false,
                     minLines = 2,
                     maxLines = 5,
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text(text = stringResource(R.string.bookmark_note)) },
+                    label = { Text(text = stringResource(R.string.bookmark_description)) },
                 )
             }
         },
@@ -91,11 +91,11 @@ private fun AddBookmarkDialogPreview() {
     AddBookmarkDialog(
         bookmarkTitle = "GitHub",
         bookmarkUrl = "https://github.com",
-        bookmarkNote = "Android samples",
+        bookmarkDescription = "Android samples",
         bookmarkTags = "android, samples",
         onBookmarkTitleChange = {},
         onBookmarkUrlChange = {},
-        onBookmarkNoteChange = {},
+        onBookmarkDescriptionChange = {},
         onBookmarkTagsChange = {},
         onDismiss = {},
         onConfirm = {},

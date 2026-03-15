@@ -165,7 +165,7 @@
     <string name="folder_description">Açıklama</string>
     <string name="display_value_loading">Yükleniyor</string>
     <string name="bookmark_tags">Etiketler</string>
-    <string name="bookmark_note">Açıklama</string>
+    <string name="bookmark_description">Açıklama</string>
     <string name="bookmark_inbox_title">Gelen Kutusu</string>
     <string name="bookmark_inbox_badge">Gelen Kutusu</string>
     <string name="import_source_html_file_title">HTML dosyası</string>
