@@ -27,9 +27,7 @@ val LocalWindowContext = staticCompositionLocalOf {
 }
 
 @Composable
-fun ProvideWindowContext(
-    content: @Composable () -> Unit,
-) {
+fun ProvideWindowContext(content: @Composable () -> Unit) {
     val configuration = LocalConfiguration.current
     val windowContext = WindowContext(
         screenWidthDp = configuration.screenWidthDp,

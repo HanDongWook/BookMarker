@@ -16,7 +16,8 @@ class BookmarkRepositoryImpl @Inject constructor(
     private val contentFileManager: ContentFileManager,
     private val bookmarkSnapshotDatastore: BookMarkerBookmarkSnapshotDatastore,
 ) : BookmarkRepository {
-    override suspend fun importBookmarksFromHtml(uri: Uri): BookmarkImportResult = bookmarkHtmlImportManager.parseHtml(uri)
+    override suspend fun importBookmarksFromHtml(uri: Uri): BookmarkImportResult =
+        bookmarkHtmlImportManager.parseHtml(uri)
 
     override suspend fun getRawFileHash(uri: Uri): ContentFileResult<String> = contentFileManager.getRawFileHash(uri)
 
