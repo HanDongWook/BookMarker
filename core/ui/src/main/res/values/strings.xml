@@ -33,7 +33,6 @@
     <string name="bookmark_inbox_title">Inbox</string>
     <string name="bookmark_inbox_badge">Inbox</string>
     <string name="bookmark_inbox_empty">No saved links in Inbox yet.\nShare a link to save it here.</string>
-    <string name="save_to_inbox">Saved to Inbox</string>
     <string name="rename_bookmark_snapshot">Rename</string>
     <string name="app_version_label">App Version</string>
     <string name="app_update_status_latest">Latest version</string>
@@ -144,7 +143,7 @@
     <string name="delete_bookmark_item_dialog_cancel">Cancel</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Add empty bookmark item</string>
     <string name="bookmark_color_picker_dialog_title">Select color</string>
-    <string name="bookmark_color_picker_dialog_close">Close</string>
+    <string name="bookmark_color_picker_dialog_close">Confirm</string>
     <string name="folder_style_label">Folder style</string>
     <string name="app_language_label">Language</string>
     <string name="app_language_system_default">System default</string>

@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">Отмена</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Добавить пустой элемент закладки</string>
     <string name="bookmark_color_picker_dialog_title">Выберите цвет</string>
-    <string name="bookmark_color_picker_dialog_close">Закрыть</string>
+    <string name="bookmark_color_picker_dialog_close">Подтвердить</string>
     <string name="folder_style_label">Стиль папки</string>
     <string name="app_language_label">Язык</string>
     <string name="app_language_system_default">Системный по умолчанию</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">Входящие</string>
     <string name="bookmark_inbox_badge">Входящие</string>
     <string name="bookmark_inbox_empty">Во входящих пока нет сохраненных ссылок.\nПоделитесь ссылкой, чтобы сохранить ее здесь.</string>
-    <string name="save_to_inbox">Сохранено во входящие</string>
     <string name="import_source_html_file_title">HTML-файл</string>
     <string name="large_screen_label">Большой экран</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Открывать рядом с приложением на больших экранах</string>

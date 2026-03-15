@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">रद्द करें</string>
     <string name="import_option_dialog_add_empty_bookmark_item">खाली बुकमार्क आइटम जोड़ें</string>
     <string name="bookmark_color_picker_dialog_title">रंग चुनें</string>
-    <string name="bookmark_color_picker_dialog_close">बंद करें</string>
+    <string name="bookmark_color_picker_dialog_close">पुष्टि करें</string>
     <string name="folder_style_label">फ़ोल्डर शैली</string>
     <string name="app_language_label">भाषा</string>
     <string name="app_language_system_default">सिस्टम डिफ़ॉल्ट</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">इनबॉक्स</string>
     <string name="bookmark_inbox_badge">इनबॉक्स</string>
     <string name="bookmark_inbox_empty">इनबॉक्स में अभी तक कोई लिंक सेव नहीं किया गया है।\nयहां सेव करने के लिए लिंक शेयर करें।</string>
-    <string name="save_to_inbox">इनबॉक्स में सेव किया गया</string>
     <string name="import_source_html_file_title">HTML फ़ाइल</string>
     <string name="large_screen_label">बड़ी स्क्रीन</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">बड़ी स्क्रीन पर ऐप के बगल में खोलें</string>

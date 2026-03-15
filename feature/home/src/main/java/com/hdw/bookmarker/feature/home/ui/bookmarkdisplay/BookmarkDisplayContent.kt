@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Inventory2
 import androidx.compose.material.icons.filled.IosShare
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -163,37 +161,24 @@ private fun SnapshotTitleText(
                 .weight(1f)
                 .padding(start = 8.dp, end = 4.dp)
                 .then(
-                    if (onSnapshotTitleClick != null) {
+                    if (onSnapshotTitleClick != null && !isInboxSnapshot) {
                         Modifier.clickable(onClick = onSnapshotTitleClick)
                     } else {
                         Modifier
                     },
                 ),
         )
-        if (isInboxSnapshot) {
-            AssistChip(
-                onClick = {},
-                enabled = false,
-                label = { Text(text = stringResource(R.string.bookmark_inbox_badge)) },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Inventory2,
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp),
-                    )
-                },
-                modifier = Modifier.padding(end = 4.dp),
-            )
-        }
-        IconButton(
-            onClick = { onSnapshotExportClick?.invoke() },
-            enabled = onSnapshotExportClick != null,
-            modifier = Modifier.size(40.dp),
-        ) {
-            Icon(
-                imageVector = Icons.Default.IosShare,
-                contentDescription = stringResource(R.string.export_current_bookmarks_label),
-            )
+        if (!isInboxSnapshot) {
+            IconButton(
+                onClick = { onSnapshotExportClick?.invoke() },
+                enabled = onSnapshotExportClick != null,
+                modifier = Modifier.size(40.dp),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.IosShare,
+                    contentDescription = stringResource(R.string.export_current_bookmarks_label),
+                )
+            }
         }
     }
 }

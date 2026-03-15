@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">Cancelar</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Adicionar item de favorito vazio</string>
     <string name="bookmark_color_picker_dialog_title">Selecionar cor</string>
-    <string name="bookmark_color_picker_dialog_close">Fechar</string>
+    <string name="bookmark_color_picker_dialog_close">Confirmar</string>
     <string name="folder_style_label">Estilo da pasta</string>
     <string name="app_language_label">Idioma</string>
     <string name="app_language_system_default">Predefinição do sistema</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">Caixa de entrada</string>
     <string name="bookmark_inbox_badge">Caixa de entrada</string>
     <string name="bookmark_inbox_empty">Ainda não há hiperligações guardadas na Caixa de entrada.\nPartilhe uma hiperligação para a guardar aqui.</string>
-    <string name="save_to_inbox">Guardado na Caixa de entrada</string>
     <string name="import_source_html_file_title">Ficheiro HTML</string>
     <string name="large_screen_label">Ecrã grande</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Abrir ao lado da app em ecrãs grandes</string>

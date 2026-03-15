@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">ยกเลิก</string>
     <string name="import_option_dialog_add_empty_bookmark_item">เพิ่มรายการบุ๊กมาร์กว่าง</string>
     <string name="bookmark_color_picker_dialog_title">เลือกสี</string>
-    <string name="bookmark_color_picker_dialog_close">ปิด</string>
+    <string name="bookmark_color_picker_dialog_close">ยืนยัน</string>
     <string name="folder_style_label">สไตล์โฟลเดอร์</string>
     <string name="app_language_label">ภาษา</string>
     <string name="app_language_system_default">ค่าเริ่มต้นของระบบ</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">กล่องจดหมาย</string>
     <string name="bookmark_inbox_badge">กล่องจดหมาย</string>
     <string name="bookmark_inbox_empty">ยังไม่มีลิงก์ที่บันทึกไว้ในกล่องจดหมาย\nแชร์ลิงก์เพื่อบันทึกไว้ที่นี่</string>
-    <string name="save_to_inbox">บันทึกในกล่องจดหมายแล้ว</string>
     <string name="import_source_html_file_title">ไฟล์ HTML</string>
     <string name="large_screen_label">หน้าจอขนาดใหญ่</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">เปิดข้างแอปบนหน้าจอขนาดใหญ่</string>

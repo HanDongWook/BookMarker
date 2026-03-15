@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">Annuler</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Ajouter un élément de signet vide</string>
     <string name="bookmark_color_picker_dialog_title">Sélectionner la couleur</string>
-    <string name="bookmark_color_picker_dialog_close">Fermer</string>
+    <string name="bookmark_color_picker_dialog_close">Confirmer</string>
     <string name="folder_style_label">Style de dossier</string>
     <string name="app_language_label">Langue</string>
     <string name="app_language_system_default">Par défaut du système</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">Boîte de réception</string>
     <string name="bookmark_inbox_badge">Boîte de réception</string>
     <string name="bookmark_inbox_empty">Aucun lien n\'est encore enregistré dans la Boîte de réception.\nPartagez un lien pour l\'enregistrer ici.</string>
-    <string name="save_to_inbox">Enregistré dans la Boîte de réception</string>
     <string name="import_source_html_file_title">Fichier HTML</string>
     <string name="large_screen_label">Grand écran</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Ouvrir à côté de l\'app sur grands écrans</string>
