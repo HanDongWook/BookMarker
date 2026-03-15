@@ -178,7 +178,7 @@ private fun GuideSection(
 
 @Preview(showBackground = true)
 @Composable
-private fun GuideTitlePreview() {
+internal fun GuideTitlePreview() {
     GuideTitle(
         browser = Browser.CHROME,
         icon = null,
@@ -189,7 +189,7 @@ private fun GuideTitlePreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun GuideSectionPreview() {
+internal fun GuideSectionPreview() {
     GuideSection(
         "1. 브라우저 북마크 내보내기",
         "브라우저 설정에서 북마크 관리자 메뉴로 이동하세요.",
@@ -199,7 +199,7 @@ private fun GuideSectionPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkImportGuideScreenPreview() {
+internal fun BookmarkImportGuideScreenPreview() {
     BookmarkImportGuideScreen(
         icon = null,
         browser = Browser.CHROME,

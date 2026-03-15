@@ -110,7 +110,7 @@ private fun ImportSourceRow(title: String, onClick: () -> Unit, leadingContent: 
 
 @Preview(showBackground = true)
 @Composable
-private fun ImportBookmarksRootScreenPreview() {
+internal fun ImportBookmarksRootScreenPreview() {
     ImportBookmarksRootScreen(
         onImportHtmlFileClick = {},
         onOpenBrowserGuidesClick = {},

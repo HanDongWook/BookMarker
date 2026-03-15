@@ -178,7 +178,7 @@ private fun FolderAppearanceValue(folderIconStyle: BookmarkFolderIconStyle, text
 
 @Preview(showBackground = true)
 @Composable
-private fun AppearanceScreenPreview() {
+internal fun AppearanceScreenPreview() {
     AppearanceScreen(
         selectedThemeMode = SettingsRepository.APP_THEME_MODE_LIGHT,
         folderIconStyle = BookmarkFolderIconStyle(

@@ -137,7 +137,7 @@ internal fun BookmarkPreviewPaneContent(
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkPreviewPaneEmptyPreview() {
+internal fun BookmarkPreviewPaneEmptyPreview() {
     BookmarkPreviewPaneContent(
         title = null,
         currentUrl = null,
@@ -151,7 +151,7 @@ private fun BookmarkPreviewPaneEmptyPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkPreviewPaneLoadingPreview() {
+internal fun BookmarkPreviewPaneLoadingPreview() {
     BookmarkPreviewPaneContent(
         title = "OpenAI",
         currentUrl = "https://openai.com",
@@ -167,7 +167,7 @@ private fun BookmarkPreviewPaneLoadingPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkPreviewPaneErrorPreview() {
+internal fun BookmarkPreviewPaneErrorPreview() {
     BookmarkPreviewPaneContent(
         title = "Broken page",
         currentUrl = "https://example.com",

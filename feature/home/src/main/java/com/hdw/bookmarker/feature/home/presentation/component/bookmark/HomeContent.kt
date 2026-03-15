@@ -269,7 +269,7 @@ private fun LargeScreenBookmarkPreviewPane(
 
 @Preview(showBackground = true)
 @Composable
-private fun HomeContentPreview() {
+internal fun HomeContentPreview() {
     val pagerState = rememberPagerState(pageCount = { 0 })
     HomeContent(
         state = HomeState(

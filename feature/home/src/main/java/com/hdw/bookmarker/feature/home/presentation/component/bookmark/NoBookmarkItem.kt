@@ -39,7 +39,7 @@ internal fun NoBookmarkItem(modifier: Modifier = Modifier, onImportClick: () -> 
 
 @Preview(showBackground = true)
 @Composable
-private fun NoBookmarkItemPreview() {
+internal fun NoBookmarkItemPreview() {
     NoBookmarkItem(
         modifier = Modifier.fillMaxSize(),
         onImportClick = {},

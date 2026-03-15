@@ -17,7 +17,7 @@ fun PrivacyPolicyRow(onClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PrivacyPolicyRowPreview() {
+internal fun PrivacyPolicyRowPreview() {
     MaterialTheme {
         PrivacyPolicyRow(onClick = {})
     }

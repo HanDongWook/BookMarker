@@ -114,7 +114,7 @@ private fun BrowserItem(
 
 @Preview(showBackground = true)
 @Composable
-private fun BrowserItemPreview() {
+internal fun BrowserItemPreview() {
     BrowserItem(
         guideItem = BrowserGuideItem(
             browser = com.hdw.bookmarker.core.model.browser.Browser.CHROME,
@@ -131,7 +131,7 @@ private fun BrowserItemPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun BrowserPickerScreenPreview() {
+internal fun BrowserPickerScreenPreview() {
     BrowserPickerScreen(
         guideItems = listOf(
             BrowserGuideItem(
