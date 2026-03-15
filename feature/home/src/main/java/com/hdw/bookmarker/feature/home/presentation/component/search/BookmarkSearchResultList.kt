@@ -142,7 +142,7 @@ private fun BookmarkSearchResultRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkSearchResultListPreview() {
+internal fun BookmarkSearchResultListPreview() {
     BookmarkSearchResultList(
         results = listOf(
             BookmarkSearchResult(

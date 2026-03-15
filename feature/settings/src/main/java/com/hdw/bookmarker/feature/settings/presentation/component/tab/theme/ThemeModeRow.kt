@@ -23,7 +23,7 @@ fun ThemeModeRow(selectedThemeMode: String, onClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-private fun ThemeModeRowPreview() {
+internal fun ThemeModeRowPreview() {
     MaterialTheme {
         ThemeModeRow(
             selectedThemeMode = SettingsRepository.APP_THEME_MODE_DARK,

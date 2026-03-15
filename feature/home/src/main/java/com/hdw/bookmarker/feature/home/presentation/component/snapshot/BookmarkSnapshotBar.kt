@@ -114,7 +114,7 @@ internal fun BookmarkSnapshotBar(
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkSnapshotBarPreview() {
+internal fun BookmarkSnapshotBarPreview() {
     val snapshotIds = listOf(
         SnapshotId("1"),
         SnapshotId("2"),

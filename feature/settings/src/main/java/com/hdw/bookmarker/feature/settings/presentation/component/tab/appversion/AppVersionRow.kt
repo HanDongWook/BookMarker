@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.feature.settings.presentation.model.DisplayValueState
 import com.hdw.bookmarker.feature.settings.presentation.component.SettingsRow
+import com.hdw.bookmarker.feature.settings.presentation.model.DisplayValueState
 
 @Composable
 fun AppVersionRow(version: DisplayValueState, appUpdateUiState: AppUpdateUiState, onUpdateClick: () -> Unit) {
@@ -67,30 +67,30 @@ private fun AppVersionRowPreviewContent(appUpdateUiState: AppUpdateUiState) {
 
 @Preview(showBackground = true, name = "Checking")
 @Composable
-private fun AppVersionRowCheckingPreview() {
+internal fun AppVersionRowCheckingPreview() {
     AppVersionRowPreviewContent(appUpdateUiState = AppUpdateUiState.Checking)
 }
 
 @Preview(showBackground = true, name = "UpToDate")
 @Composable
-private fun AppVersionRowUpToDatePreview() {
+internal fun AppVersionRowUpToDatePreview() {
     AppVersionRowPreviewContent(appUpdateUiState = AppUpdateUiState.UpToDate)
 }
 
 @Preview(showBackground = true, name = "UpdateAvailable")
 @Composable
-private fun AppVersionRowUpdateAvailablePreview() {
+internal fun AppVersionRowUpdateAvailablePreview() {
     AppVersionRowPreviewContent(appUpdateUiState = AppUpdateUiState.UpdateAvailable(availableVersionCode = 124))
 }
 
 @Preview(showBackground = true, name = "InProgress")
 @Composable
-private fun AppVersionRowInProgressPreview() {
+internal fun AppVersionRowInProgressPreview() {
     AppVersionRowPreviewContent(appUpdateUiState = AppUpdateUiState.InProgress)
 }
 
 @Preview(showBackground = true, name = "Unavailable")
 @Composable
-private fun AppVersionRowUnavailablePreview() {
+internal fun AppVersionRowUnavailablePreview() {
     AppVersionRowPreviewContent(appUpdateUiState = AppUpdateUiState.Unavailable)
 }

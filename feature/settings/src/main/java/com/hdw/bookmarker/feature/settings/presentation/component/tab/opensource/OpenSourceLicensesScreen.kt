@@ -78,6 +78,6 @@ fun OpenSourceLicensesScreen(onBackClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-private fun OpenSourceLicensesScreenPreview() {
+internal fun OpenSourceLicensesScreenPreview() {
     OpenSourceLicensesScreen(onBackClick = {})
 }

@@ -43,7 +43,7 @@ fun DefaultBrowserRow(browserName: String, browserIcon: Any?, onClick: () -> Uni
 
 @Preview(showBackground = true)
 @Composable
-private fun DefaultBrowserRowPreview() {
+internal fun DefaultBrowserRowPreview() {
     MaterialTheme {
         DefaultBrowserRow(
             browserName = "Chrome",

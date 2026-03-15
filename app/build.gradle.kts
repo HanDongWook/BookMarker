@@ -111,7 +111,7 @@ dependencies {
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.perf)
 
-    //for development
+    // for development
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.extended)
 

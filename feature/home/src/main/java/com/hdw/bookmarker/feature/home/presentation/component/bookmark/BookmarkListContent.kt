@@ -236,7 +236,7 @@ private fun BookmarkFolderRow(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun BookmarkLeafRow(
+internal fun BookmarkLeafRow(
     bookmark: BookmarkItem.Bookmark,
     depth: Int,
     scrollLongSecondaryInfo: Boolean,
@@ -353,7 +353,7 @@ private fun flattenBookmarkTree(
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkListContentPreview() {
+internal fun BookmarkListContentPreview() {
     BookmarkListContent(
         bookmarkDocument = previewBookmarkListDocument(),
         onBookmarkClick = {},
@@ -370,7 +370,7 @@ private fun BookmarkListContentPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkFolderRowPreview() {
+internal fun BookmarkFolderRowPreview() {
     BookmarkFolderRow(
         folder = BookmarkItem.Folder(
             title = "Development",
@@ -400,7 +400,7 @@ private fun BookmarkFolderRowPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkLeafRowPreview() {
+internal fun BookmarkLeafRowPreview() {
     BookmarkLeafRow(
         bookmark = BookmarkItem.Bookmark(
             title = "Kotlin",

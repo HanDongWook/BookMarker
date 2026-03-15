@@ -14,20 +14,17 @@ import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
 import com.hdw.bookmarker.core.ui.util.clearTemporaryData
 import com.hdw.bookmarker.core.ui.util.getAppVersionDisplay
-import com.hdw.bookmarker.feature.settings.presentation.model.DisplayValueState
-import com.hdw.bookmarker.feature.settings.presentation.navigation.SettingsNavHost
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.appversion.rememberAppUpdateController
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.temporarydata.ClearTemporaryDataDialog
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.temporarydata.loadTemporaryDataSize
+import com.hdw.bookmarker.feature.settings.presentation.model.DisplayValueState
+import com.hdw.bookmarker.feature.settings.presentation.navigation.SettingsNavHost
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
-fun SettingsRoute(
-    onBackClick: () -> Unit,
-    isDebugBuild: Boolean,
-) {
+fun SettingsRoute(onBackClick: () -> Unit, isDebugBuild: Boolean) {
     val settingsViewModel: SettingsViewModel = mavericksViewModel()
     val settingsState by settingsViewModel.collectAsState()
 

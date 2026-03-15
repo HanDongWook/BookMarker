@@ -4,11 +4,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
-import com.hdw.bookmarker.feature.settings.presentation.navigation.SettingsNavRoute
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.appearance.AppearanceScreen
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.bookmark.BookmarkAppearanceScreen
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.folder.FolderAppearanceScreen
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.largescreen.LargeScreenAppearanceScreen
+import com.hdw.bookmarker.feature.settings.presentation.navigation.SettingsNavRoute
 
 internal fun NavGraphBuilder.appearanceGraph(navController: NavHostController) {
     navigation<SettingsNavRoute.AppearanceGraph>(
