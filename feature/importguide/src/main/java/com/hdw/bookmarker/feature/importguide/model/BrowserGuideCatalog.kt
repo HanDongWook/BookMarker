@@ -114,9 +114,11 @@ internal object BrowserGuideCatalog {
         return globalRankedEntries.map { entry ->
             val installedBrowser = installedByBrowser[entry.browser]
                 .orEmpty()
-                .sortedWith(compareBy<BrowserInfo> { browserInfo ->
-                    entry.packagePriority.indexOf(browserInfo.packageName).takeIf { it >= 0 } ?: Int.MAX_VALUE
-                }.thenBy { it.appName })
+                .sortedWith(
+                    compareBy<BrowserInfo> { browserInfo ->
+                        entry.packagePriority.indexOf(browserInfo.packageName).takeIf { it >= 0 } ?: Int.MAX_VALUE
+                    }.thenBy { it.appName },
+                )
                 .firstOrNull()
 
             BrowserGuideItem(
