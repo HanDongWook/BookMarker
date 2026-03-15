@@ -31,9 +31,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -44,6 +46,18 @@ import com.hdw.bookmarker.feature.home.search.BookmarkSearchEngine
 import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+
+private sealed interface BookmarkSearchUiState {
+    data object Empty : BookmarkSearchUiState
+
+    data object Loading : BookmarkSearchUiState
+
+    data object NoResults : BookmarkSearchUiState
+
+    data class Results(
+        val results: List<BookmarkSearchResult>,
+    ) : BookmarkSearchUiState
+}
 
 @Composable
 internal fun BookmarkSearchDialog(
@@ -122,7 +136,7 @@ internal fun BookmarkSearchDialog(
                 shape = MaterialTheme.shapes.extraLarge,
                 tonalElevation = 6.dp,
                 shadowElevation = 8.dp,
-                color = MaterialTheme.colorScheme.surface,
+                color = Color(android.graphics.Color.WHITE),
             ) {
                 Column(modifier = Modifier.fillMaxSize()) {
                     OutlinedTextField(
@@ -218,22 +232,11 @@ private fun BookmarkSearchMessage(
         contentAlignment = Alignment.Center,
     ) {
         Text(
+            modifier = Modifier.padding(horizontal = 24.dp),
             text = text,
+            textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(horizontal = 24.dp),
         )
     }
-}
-
-private sealed interface BookmarkSearchUiState {
-    data object Empty : BookmarkSearchUiState
-
-    data object Loading : BookmarkSearchUiState
-
-    data object NoResults : BookmarkSearchUiState
-
-    data class Results(
-        val results: List<BookmarkSearchResult>,
-    ) : BookmarkSearchUiState
 }
