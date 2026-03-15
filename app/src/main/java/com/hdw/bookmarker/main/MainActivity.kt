@@ -14,7 +14,7 @@ import com.hdw.bookmarker.base.BaseActivity
 import com.hdw.bookmarker.core.data.repository.SettingsRepository
 import com.hdw.bookmarker.core.designsystem.theme.BookMarkerTheme
 import com.hdw.bookmarker.core.navigation.AppNavHost
-import com.hdw.bookmarker.feature.home.contract.QuickSaveBookmarkSeed
+import com.hdw.bookmarker.feature.home.domain.model.QuickSaveBookmarkSeed
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
