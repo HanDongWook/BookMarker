@@ -168,7 +168,6 @@
     <string name="bookmark_note">Descrição</string>
     <string name="bookmark_inbox_title">Caixa de entrada</string>
     <string name="bookmark_inbox_badge">Caixa de entrada</string>
-    <string name="bookmark_inbox_empty">Ainda não há links salvos na Caixa de entrada.\nCompartilhe um link para salvá-lo aqui.</string>
     <string name="import_source_html_file_title">Arquivo HTML</string>
     <string name="large_screen_label">Tela grande</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Abrir ao lado do app em telas grandes</string>

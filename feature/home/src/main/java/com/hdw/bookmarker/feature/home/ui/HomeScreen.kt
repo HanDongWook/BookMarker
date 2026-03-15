@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
@@ -91,7 +92,12 @@ fun HomeScreen(
     var pendingEditBookmarkNote by uiState.pendingEditBookmarkNote
     var pendingEditBookmarkTags by uiState.pendingEditBookmarkTags
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
-    val orderedSnapshotIds = state.orderedSnapshotIds
+    val orderedSnapshotIds = remember(state.orderedSnapshotIds, state.bookmarkDocuments) {
+        state.orderedSnapshotIds.filter { id ->
+            val doc = state.bookmarkDocuments[id]
+            !(doc?.isInboxSnapshot() == true && doc.rootItems.isEmpty())
+        }
+    }
     val context = LocalContext.current
     val resources = LocalResources.current
 
