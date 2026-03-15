@@ -38,10 +38,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
+import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.component.BookmarkerTextField
+import com.hdw.bookmarker.feature.home.contract.BookmarkSnapshots
 import com.hdw.bookmarker.feature.home.search.BookmarkSearchEngine
 import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchResult
 import kotlinx.coroutines.Dispatchers
@@ -60,9 +61,8 @@ private sealed interface BookmarkSearchUiState {
 @Composable
 internal fun BookmarkSearchDialog(
     query: String,
-    orderedSnapshotIds: List<String>,
-    bookmarkDocuments: Map<String, BookmarkDocument>,
-    snapshotTitles: Map<String, String>,
+    library: BookmarkSnapshots,
+    snapshotTitles: Map<SnapshotId, String>,
     folderIconStyle: BookmarkFolderIconStyle,
     onQueryChange: (String) -> Unit,
     onDismissRequest: () -> Unit,
@@ -74,8 +74,7 @@ internal fun BookmarkSearchDialog(
     val searchUiState by produceState<BookmarkSearchUiState>(
         initialValue = BookmarkSearchUiState.Empty,
         query,
-        orderedSnapshotIds,
-        bookmarkDocuments,
+        library,
         snapshotTitles,
     ) {
         val normalizedQuery = query.trim()
@@ -88,8 +87,7 @@ internal fun BookmarkSearchDialog(
         val results = withContext(Dispatchers.Default) {
             searchEngine.search(
                 query = normalizedQuery,
-                orderedSnapshotIds = orderedSnapshotIds,
-                bookmarkDocuments = bookmarkDocuments,
+                library = library,
                 snapshotTitles = snapshotTitles,
             )
         }
