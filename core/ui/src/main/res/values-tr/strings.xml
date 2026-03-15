@@ -183,4 +183,6 @@
     <string name="bookmark_search_clear">Arama metnini temizle</string>
     <string name="bookmark_search_location_prefix">"Konum : "</string>
     <string name="bookmark_search_tags_prefix">"Etiketler : "</string>
+    <string name="bookmark_item_action_edit">Düzenle</string>
+    <string name="bookmark_item_action_delete">Sil</string>
 </resources>
