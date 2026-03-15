@@ -187,8 +187,16 @@
     <string name="bookmark_item_action_delete">刪除</string>
     <string name="bookmark_item_action_copy">複製</string>
     <string name="bookmark_item_action_paste">貼上</string>
-    <string name="bookmark_item_copy_toast_folder">已複製資料夾「%1」。</string>
-    <string name="bookmark_item_copy_toast_bookmark">已複製書籤「%1」。</string>
-    <string name="delete_bookmark_item_dialog_message_folder">要刪除「%1」資料夾嗎？</string>
-    <string name="delete_bookmark_item_dialog_message_bookmark">要刪除「%1」書籤嗎？</string>
+    <string name="bookmark_item_copy_toast_folder">已複製資料夾「%1$s」。</string>
+    <string name="bookmark_item_copy_toast_bookmark">已複製書籤「%1$s」。</string>
+    <string name="delete_bookmark_item_dialog_message_folder">要刪除「%1$s」資料夾嗎？</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">要刪除「%1$s」書籤嗎？</string>
+    <string name="bookmark_item_action_color">顏色</string>
+    <string name="bookmark_item_action_title_bookmark">書籤 "%1$s"</string>
+    <string name="bookmark_item_action_title_folder">資料夾 "%1$s"</string>
+    <string name="bookmark_snapshot_action_title">書籤快照 "%1$s"</string>
+    <string name="delete_bookmark_snapshot_dialog_title">刪除書籤快照</string>
+    <string name="delete_bookmark_snapshot_dialog_message">要刪除書籤快照 "%1$s" 嗎？</string>
+    <string name="delete_bookmark_snapshot_dialog_confirm">刪除</string>
+    <string name="delete_bookmark_snapshot_dialog_cancel">取消</string>
 </resources>

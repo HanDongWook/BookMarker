@@ -3,9 +3,11 @@ package com.hdw.bookmarker.feature.home.ui.dialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import com.hdw.bookmarker.core.domain.util.BookmarkColorGenerator
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.bookmark.SnapshotId
+import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
@@ -42,6 +44,7 @@ internal fun HomeDialogHost(
     var showImportOptionDialog by uiState.showImportOptionDialog
     var showDefaultBrowserDialog by uiState.showDefaultBrowserDialog
     var showColorPickerDialog by uiState.showColorPickerDialog
+    var pendingColorPickerSnapshotId by uiState.pendingColorPickerSnapshotId
     var showAddItemTypeDialog by uiState.showAddItemTypeDialog
     var showExportBookmarkMethodDialog by uiState.showExportBookmarkMethodDialog
     var pendingBookmarkExportAction by uiState.pendingBookmarkExportAction
@@ -55,6 +58,9 @@ internal fun HomeDialogHost(
     var pendingBookmarkTags by uiState.pendingBookmarkTags
     var addBookmarkToInbox by uiState.addBookmarkToInbox
     var pendingDeleteSnapshotId by uiState.pendingDeleteSnapshotId
+    var pendingDeleteSnapshotTitle by uiState.pendingDeleteSnapshotTitle
+    var pendingActionSnapshotId by uiState.pendingActionSnapshotId
+    var pendingActionSnapshotTitle by uiState.pendingActionSnapshotTitle
     var pendingRenameSnapshotId by uiState.pendingRenameSnapshotId
     var pendingSnapshotTitle by uiState.pendingSnapshotTitle
     var pendingEditBookmarkItemPath by uiState.pendingEditBookmarkItemPath
@@ -70,16 +76,21 @@ internal fun HomeDialogHost(
     var copiedBookmarkItem by uiState.copiedBookmarkItem
     var pendingPasteFolderPath by uiState.pendingPasteFolderPath
     var showPasteActionDialog by uiState.showPasteActionDialog
+    var showSnapshotActionDialog by uiState.showSnapshotActionDialog
 
-    if (showColorPickerDialog && selectedBookmarkId != null) {
+    val colorTargetSnapshotId = pendingColorPickerSnapshotId ?: selectedBookmarkId
+    if (showColorPickerDialog && colorTargetSnapshotId != null) {
         BookmarkColorPickerDialog(
             colors = BookmarkColorGenerator.getAllColors(),
-            currentColor = state.bookmarkColors[selectedBookmarkId]
-                ?: BookmarkColorGenerator.generateColorForId(selectedBookmarkId.value),
+            currentColor = state.bookmarkColors[colorTargetSnapshotId]
+                ?: BookmarkColorGenerator.generateColorForId(colorTargetSnapshotId.value),
             onColorSelect = { color ->
-                onBookmarkColorSelected(selectedBookmarkId, color)
+                onBookmarkColorSelected(colorTargetSnapshotId, color)
             },
-            onDismiss = { showColorPickerDialog = false },
+            onDismiss = {
+                showColorPickerDialog = false
+                pendingColorPickerSnapshotId = null
+            },
         )
     }
 
@@ -111,10 +122,15 @@ internal fun HomeDialogHost(
 
     if (pendingDeleteSnapshotId != null) {
         DeleteBookmarkSnapshotDialog(
-            onDismiss = { pendingDeleteSnapshotId = null },
+            snapshotTitle = pendingDeleteSnapshotTitle,
+            onDismiss = {
+                pendingDeleteSnapshotId = null
+                pendingDeleteSnapshotTitle = ""
+            },
             onConfirmDelete = {
                 onDeleteBookmarkSnapshot(pendingDeleteSnapshotId ?: return@DeleteBookmarkSnapshotDialog)
                 pendingDeleteSnapshotId = null
+                pendingDeleteSnapshotTitle = ""
             },
         )
     }
@@ -175,12 +191,26 @@ internal fun HomeDialogHost(
     }
 
     if (showBookmarkItemActionDialog && pendingEditBookmarkItemPath != null && pendingEditBookmarkItem != null) {
+        val itemActionTitle = when (val item = pendingEditBookmarkItem) {
+            is BookmarkItem.Folder -> stringResource(
+                R.string.bookmark_item_action_title_folder,
+                item.title,
+            )
+
+            is BookmarkItem.Bookmark -> stringResource(
+                R.string.bookmark_item_action_title_bookmark,
+                item.title,
+            )
+
+            null -> null
+        }
         BookmarkItemActionDialog(
             onDismiss = {
                 showBookmarkItemActionDialog = false
                 pendingEditBookmarkItemPath = null
                 pendingEditBookmarkItem = null
             },
+            titleText = itemActionTitle,
             onEditClick = {
                 showBookmarkItemActionDialog = false
                 showEditBookmarkItemDialog = true
@@ -207,6 +237,44 @@ internal fun HomeDialogHost(
                 pendingEditBookmarkItem = null
             }.takeIf {
                 copiedBookmarkItem != null && pendingEditBookmarkItem is BookmarkItem.Folder
+            },
+        )
+    }
+
+    if (showSnapshotActionDialog && pendingActionSnapshotId != null) {
+        BookmarkItemActionDialog(
+            onDismiss = {
+                showSnapshotActionDialog = false
+                pendingActionSnapshotId = null
+                pendingActionSnapshotTitle = ""
+            },
+            titleText = stringResource(
+                R.string.bookmark_snapshot_action_title,
+                pendingActionSnapshotTitle,
+            ),
+            onEditClick = {
+                val snapshotId = pendingActionSnapshotId ?: return@BookmarkItemActionDialog
+                pendingRenameSnapshotId = snapshotId
+                pendingSnapshotTitle = pendingActionSnapshotTitle
+                showSnapshotActionDialog = false
+                pendingActionSnapshotId = null
+                pendingActionSnapshotTitle = ""
+            },
+            onColorClick = {
+                val snapshotId = pendingActionSnapshotId ?: return@BookmarkItemActionDialog
+                pendingColorPickerSnapshotId = snapshotId
+                showColorPickerDialog = true
+                showSnapshotActionDialog = false
+                pendingActionSnapshotId = null
+                pendingActionSnapshotTitle = ""
+            },
+            onDeleteClick = {
+                val snapshotId = pendingActionSnapshotId ?: return@BookmarkItemActionDialog
+                pendingDeleteSnapshotId = snapshotId
+                pendingDeleteSnapshotTitle = pendingActionSnapshotTitle
+                showSnapshotActionDialog = false
+                pendingActionSnapshotId = null
+                pendingActionSnapshotTitle = ""
             },
         )
     }

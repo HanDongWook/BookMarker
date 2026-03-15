@@ -1,10 +1,5 @@
 package com.hdw.bookmarker.feature.home.ui
 
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,18 +14,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkAdd
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MoveToInbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.SnapshotId
@@ -42,22 +33,10 @@ internal fun BookmarkSnapshotBar(
     inboxSnapshotIds: Set<SnapshotId>,
     bookmarkColors: Map<SnapshotId, Long>,
     selectedBookmarkId: SnapshotId?,
-    isEditMode: Boolean,
     onAddClick: () -> Unit,
     onSnapshotClick: (SnapshotId) -> Unit,
-    onEnterEditMode: () -> Unit,
-    onDeleteRequest: (SnapshotId) -> Unit,
+    onSnapshotLongClick: (SnapshotId) -> Unit,
 ) {
-    val shakeRotation = rememberInfiniteTransition(label = "connected_browser_shake").animateFloat(
-        initialValue = -7f,
-        targetValue = 7f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 120),
-            repeatMode = RepeatMode.Reverse,
-        ),
-        label = "connected_browser_shake_rotation",
-    )
-
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -110,7 +89,7 @@ internal fun BookmarkSnapshotBar(
                             onClick = { onSnapshotClick(snapshotId) },
                             onLongClick = {
                                 onSnapshotClick(snapshotId)
-                                onEnterEditMode()
+                                onSnapshotLongClick(snapshotId)
                             },
                         )
                         .padding(horizontal = 6.dp, vertical = 2.dp),
@@ -123,41 +102,8 @@ internal fun BookmarkSnapshotBar(
                         },
                         contentDescription = null,
                         tint = Color(colorValue),
-                        modifier = Modifier
-                            .size(36.dp)
-                            .graphicsLayer {
-                                rotationZ =
-                                    if (isEditMode && isSelected) shakeRotation.value else 0f
-                            }
-                            .alpha(1f),
+                        modifier = Modifier.size(36.dp),
                     )
-
-                    if (isEditMode) {
-                        Surface(
-                            modifier = Modifier
-                                .align(Alignment.TopEnd)
-                                .size(16.dp),
-                            shape = MaterialTheme.shapes.small,
-                            color = MaterialTheme.colorScheme.error,
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(16.dp)
-                                    .combinedClickable(
-                                        onClick = { onDeleteRequest(snapshotId) },
-                                        onLongClick = {},
-                                    ),
-                                contentAlignment = Alignment.Center,
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Close,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onError,
-                                    modifier = Modifier.size(10.dp),
-                                )
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -183,10 +129,8 @@ private fun BookmarkSnapshotBarPreview() {
             SnapshotId("3") to 0xFF0000FF,
         ),
         selectedBookmarkId = SnapshotId("2"),
-        isEditMode = false,
         onAddClick = {},
         onSnapshotClick = {},
-        onEnterEditMode = {},
-        onDeleteRequest = {},
+        onSnapshotLongClick = {},
     )
 }

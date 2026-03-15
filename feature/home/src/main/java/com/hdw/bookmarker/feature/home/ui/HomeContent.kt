@@ -47,18 +47,14 @@ internal fun HomeContent(
     orderedSnapshotIds: List<SnapshotId>,
     selectedBookmarkId: SnapshotId?,
     pagerState: PagerState,
-    isBrowserEditMode: Boolean,
     defaultBrowserIcon: Drawable?,
     onSettingsClick: () -> Unit,
     onSearchClick: () -> Unit,
     onBookmarkDisplayTypeToggle: () -> Unit,
     onDefaultBrowserPickerOpen: () -> Unit,
-    onEditLabelClick: () -> Unit,
-    onEditModeDoneClick: () -> Unit,
     onAddItemClick: () -> Unit,
     onImportClick: () -> Unit,
-    onEnterEditMode: () -> Unit,
-    onDeleteSnapshotRequest: (SnapshotId) -> Unit,
+    onSnapshotLongClick: (SnapshotId) -> Unit,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
     onBlankAreaLongClick: (List<Int>?) -> Unit,
@@ -78,15 +74,12 @@ internal fun HomeContent(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             HomeTopAppBar(
-                isEditMode = isBrowserEditMode,
                 bookmarkDisplayType = state.bookmarkDisplayType,
                 defaultBrowserIcon = defaultBrowserIcon,
                 onSearchClick = onSearchClick,
                 onBookmarkDisplayTypeClick = onBookmarkDisplayTypeToggle,
                 onDefaultBrowserIconClick = onDefaultBrowserPickerOpen,
                 onSettingsClick = onSettingsClick,
-                onEditLabelClick = onEditLabelClick,
-                onEditModeDoneClick = onEditModeDoneClick,
             )
         },
         floatingActionButton = {
@@ -101,7 +94,6 @@ internal fun HomeContent(
                 inboxSnapshotIds = state.bookmarkSnapshots.inboxIds,
                 bookmarkColors = state.bookmarkColors,
                 selectedBookmarkId = selectedBookmarkId,
-                isEditMode = isBrowserEditMode,
                 onAddClick = onImportClick,
                 onSnapshotClick = { snapshotId ->
                     val targetPage = orderedSnapshotIds.indexOf(snapshotId)
@@ -111,8 +103,7 @@ internal fun HomeContent(
                         }
                     }
                 },
-                onEnterEditMode = onEnterEditMode,
-                onDeleteRequest = onDeleteSnapshotRequest,
+                onSnapshotLongClick = onSnapshotLongClick,
             )
 
             if (orderedSnapshotIds.isEmpty()) {
@@ -286,18 +277,14 @@ private fun HomeContentPreview() {
         orderedSnapshotIds = emptyList(),
         selectedBookmarkId = null,
         pagerState = pagerState,
-        isBrowserEditMode = false,
         defaultBrowserIcon = null,
         onSettingsClick = {},
         onSearchClick = {},
         onBookmarkDisplayTypeToggle = {},
         onDefaultBrowserPickerOpen = {},
-        onEditLabelClick = {},
-        onEditModeDoneClick = {},
         onAddItemClick = {},
         onImportClick = {},
-        onEnterEditMode = {},
-        onDeleteSnapshotRequest = {},
+        onSnapshotLongClick = {},
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
         onBlankAreaLongClick = {},
