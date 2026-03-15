@@ -168,7 +168,6 @@
     <string name="bookmark_note">Deskripsi</string>
     <string name="bookmark_inbox_title">Kotak Masuk</string>
     <string name="bookmark_inbox_badge">Kotak Masuk</string>
-    <string name="bookmark_inbox_empty">Belum ada tautan yang disimpan di Kotak Masuk.\nBagikan tautan untuk menyimpannya di sini.</string>
     <string name="import_source_html_file_title">File HTML</string>
     <string name="large_screen_label">Layar lebar</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Buka di samping aplikasi di layar lebar</string>

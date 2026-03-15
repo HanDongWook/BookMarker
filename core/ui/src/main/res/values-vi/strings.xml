@@ -168,7 +168,6 @@
     <string name="bookmark_note">Mô tả</string>
     <string name="bookmark_inbox_title">Hộp thư đến</string>
     <string name="bookmark_inbox_badge">Hộp thư đến</string>
-    <string name="bookmark_inbox_empty">Chưa có liên kết nào được lưu trong Hộp thư đến.\nChia sẻ liên kết để lưu vào đây.</string>
     <string name="import_source_html_file_title">Tệp HTML</string>
     <string name="large_screen_label">Màn hình lớn</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Mở bên cạnh ứng dụng trên màn hình lớn</string>

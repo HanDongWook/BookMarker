@@ -168,7 +168,6 @@
     <string name="bookmark_note">说明</string>
     <string name="bookmark_inbox_title">收件箱</string>
     <string name="bookmark_inbox_badge">收件箱</string>
-    <string name="bookmark_inbox_empty">收件箱中尚无保存的链接。\n分享一个链接以将其保存至此处。</string>
     <string name="import_source_html_file_title">HTML 文件</string>
     <string name="large_screen_label">大屏幕</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">在大屏幕上于应用旁打开</string>
