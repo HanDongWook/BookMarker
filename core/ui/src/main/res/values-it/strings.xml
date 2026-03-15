@@ -187,8 +187,16 @@
     <string name="bookmark_item_action_delete">Elimina</string>
     <string name="bookmark_item_action_copy">Copia</string>
     <string name="bookmark_item_action_paste">Incolla</string>
-    <string name="bookmark_item_copy_toast_folder">La cartella &quot;%1&quot; è stata copiata.</string>
-    <string name="bookmark_item_copy_toast_bookmark">Il segnalibro &quot;%1&quot; è stato copiato.</string>
-    <string name="delete_bookmark_item_dialog_message_folder">Eliminare la cartella &quot;%1&quot;?</string>
-    <string name="delete_bookmark_item_dialog_message_bookmark">Eliminare il segnalibro &quot;%1&quot;?</string>
+    <string name="bookmark_item_copy_toast_folder">La cartella \"%1$s\" è stata copiata.</string>
+    <string name="bookmark_item_copy_toast_bookmark">Il segnalibro \"%1$s\" è stato copiato.</string>
+    <string name="delete_bookmark_item_dialog_message_folder">Eliminare la cartella \"%1$s\"?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">Eliminare il segnalibro \"%1$s\"?</string>
+    <string name="bookmark_item_action_color">Colore</string>
+    <string name="bookmark_item_action_title_bookmark">Segnalibro "%1$s"</string>
+    <string name="bookmark_item_action_title_folder">Cartella "%1$s"</string>
+    <string name="bookmark_snapshot_action_title">Snapshot segnalibri "%1$s"</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Elimina snapshot segnalibri</string>
+    <string name="delete_bookmark_snapshot_dialog_message">Eliminare lo snapshot segnalibri "%1$s"?</string>
+    <string name="delete_bookmark_snapshot_dialog_confirm">Elimina</string>
+    <string name="delete_bookmark_snapshot_dialog_cancel">Annulla</string>
 </resources>

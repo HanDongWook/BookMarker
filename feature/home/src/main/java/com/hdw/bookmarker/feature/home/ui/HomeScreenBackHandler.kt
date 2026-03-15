@@ -11,7 +11,7 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
         uiState.showExportBookmarkMethodDialog.value ||
         uiState.showAddItemTypeDialog.value ||
         uiState.showColorPickerDialog.value ||
-        uiState.isBrowserEditMode.value ||
+        uiState.showSnapshotActionDialog.value ||
         uiState.showImportOptionDialog.value ||
         uiState.previewPaneState.currentUrl != null
 
@@ -35,9 +35,16 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
 
             uiState.showAddItemTypeDialog.value -> uiState.showAddItemTypeDialog.value = false
 
-            uiState.showColorPickerDialog.value -> uiState.showColorPickerDialog.value = false
+            uiState.showColorPickerDialog.value -> {
+                uiState.showColorPickerDialog.value = false
+                uiState.pendingColorPickerSnapshotId.value = null
+            }
 
-            uiState.isBrowserEditMode.value -> uiState.isBrowserEditMode.value = false
+            uiState.showSnapshotActionDialog.value -> {
+                uiState.showSnapshotActionDialog.value = false
+                uiState.pendingActionSnapshotId.value = null
+                uiState.pendingActionSnapshotTitle.value = ""
+            }
 
             uiState.showImportOptionDialog.value -> uiState.showImportOptionDialog.value = false
 

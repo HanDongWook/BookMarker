@@ -136,6 +136,10 @@
     <string name="delete_bookmark_dialog_message">Do you want to delete these bookmarks?</string>
     <string name="delete_bookmark_dialog_confirm">Delete</string>
     <string name="delete_bookmark_dialog_cancel">Cancel</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Delete Bookmark Snapshot</string>
+    <string name="delete_bookmark_snapshot_dialog_message">Delete bookmark snapshot \"%1$s\"?</string>
+    <string name="delete_bookmark_snapshot_dialog_confirm">Delete</string>
+    <string name="delete_bookmark_snapshot_dialog_cancel">Cancel</string>
     <string name="delete_bookmark_item_dialog_title">Delete</string>
     <string name="delete_bookmark_item_dialog_message">Do you want to delete the selected folder or bookmark?</string>
     <string name="delete_bookmark_item_dialog_message_folder">Delete folder \"%1$s\"?</string>
@@ -188,8 +192,12 @@
     <string name="bookmark_search_tags_prefix">"Tags : "</string>
     <string name="bookmark_item_action_edit">Edit</string>
     <string name="bookmark_item_action_delete">Delete</string>
+    <string name="bookmark_item_action_color">Color</string>
     <string name="bookmark_item_action_copy">Copy</string>
     <string name="bookmark_item_action_paste">Paste</string>
+    <string name="bookmark_item_action_title_bookmark">Bookmark \"%1$s\"</string>
+    <string name="bookmark_item_action_title_folder">Folder \"%1$s\"</string>
+    <string name="bookmark_snapshot_action_title">Bookmark Snapshot \"%1$s\"</string>
     <string name="bookmark_item_copy_toast_folder">Folder \"%1$s\" copied.</string>
     <string name="bookmark_item_copy_toast_bookmark">Bookmark \"%1$s\" copied.</string>
 </resources>

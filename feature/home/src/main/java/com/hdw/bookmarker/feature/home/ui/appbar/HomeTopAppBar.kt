@@ -1,10 +1,7 @@
 package com.hdw.bookmarker.feature.home.ui.appbar
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ViewList
 import androidx.compose.material.icons.filled.Apps
@@ -15,10 +12,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,15 +26,12 @@ import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopAppBar(
-    isEditMode: Boolean,
     bookmarkDisplayType: BookmarkDisplayType,
     defaultBrowserIcon: Drawable?,
     onSearchClick: () -> Unit,
     onBookmarkDisplayTypeClick: () -> Unit,
     onDefaultBrowserIconClick: () -> Unit,
     onSettingsClick: () -> Unit,
-    onEditLabelClick: () -> Unit,
-    onEditModeDoneClick: () -> Unit,
 ) {
     TopAppBar(
         title = {
@@ -50,52 +42,38 @@ fun HomeTopAppBar(
             )
         },
         actions = {
-            if (isEditMode) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    TextButton(onClick = onEditLabelClick) {
-                        Text(text = stringResource(R.string.edit_mode_editing))
-                    }
-                    Spacer(modifier = Modifier.width(4.dp))
-                    TextButton(onClick = onEditModeDoneClick) {
-                        Text(text = stringResource(R.string.edit_mode_done))
-                    }
-                }
-            } else {
-                IconButton(onClick = onSearchClick) {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = stringResource(R.string.bookmark_search_open),
+            IconButton(onClick = onSearchClick) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = stringResource(R.string.bookmark_search_open),
+                )
+            }
+            IconButton(onClick = onBookmarkDisplayTypeClick) {
+                Icon(
+                    imageVector = when (bookmarkDisplayType) {
+                        BookmarkDisplayType.LIST -> Icons.AutoMirrored.Filled.ViewList
+                        BookmarkDisplayType.ICON -> Icons.Default.Apps
+                    },
+                    contentDescription = when (bookmarkDisplayType) {
+                        BookmarkDisplayType.LIST -> stringResource(R.string.bookmark_mode_list)
+                        BookmarkDisplayType.ICON -> stringResource(R.string.bookmark_mode_icon)
+                    },
+                )
+            }
+            if (defaultBrowserIcon != null) {
+                IconButton(onClick = onDefaultBrowserIconClick) {
+                    Image(
+                        painter = rememberDrawablePainter(drawable = defaultBrowserIcon),
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
                     )
                 }
-                IconButton(onClick = onBookmarkDisplayTypeClick) {
-                    Icon(
-                        imageVector = when (bookmarkDisplayType) {
-                            BookmarkDisplayType.LIST -> Icons.AutoMirrored.Filled.ViewList
-                            BookmarkDisplayType.ICON -> Icons.Default.Apps
-                        },
-                        contentDescription = when (bookmarkDisplayType) {
-                            BookmarkDisplayType.LIST -> stringResource(R.string.bookmark_mode_list)
-                            BookmarkDisplayType.ICON -> stringResource(R.string.bookmark_mode_icon)
-                        },
-                    )
-                }
-                if (defaultBrowserIcon != null) {
-                    IconButton(onClick = onDefaultBrowserIconClick) {
-                        Image(
-                            painter = rememberDrawablePainter(drawable = defaultBrowserIcon),
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp),
-                        )
-                    }
-                }
-                IconButton(onClick = onSettingsClick) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = stringResource(R.string.menu_settings),
-                    )
-                }
+            }
+            IconButton(onClick = onSettingsClick) {
+                Icon(
+                    imageVector = Icons.Default.Settings,
+                    contentDescription = stringResource(R.string.menu_settings),
+                )
             }
         },
     )
@@ -106,15 +84,12 @@ fun HomeTopAppBar(
 private fun HomeTopAppBarPreview() {
     MaterialTheme {
         HomeTopAppBar(
-            isEditMode = false,
             bookmarkDisplayType = BookmarkDisplayType.LIST,
             defaultBrowserIcon = null,
             onSearchClick = {},
             onBookmarkDisplayTypeClick = {},
             onDefaultBrowserIconClick = {},
             onSettingsClick = {},
-            onEditLabelClick = {},
-            onEditModeDoneClick = {},
         )
     }
 }
