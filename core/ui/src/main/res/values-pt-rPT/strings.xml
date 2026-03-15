@@ -183,4 +183,6 @@
     <string name="bookmark_search_clear">Limpar texto de pesquisa</string>
     <string name="bookmark_search_location_prefix">"Localização : "</string>
     <string name="bookmark_search_tags_prefix">"Etiquetas : "</string>
+    <string name="bookmark_item_action_edit">Editar</string>
+    <string name="bookmark_item_action_delete">Eliminar</string>
 </resources>
