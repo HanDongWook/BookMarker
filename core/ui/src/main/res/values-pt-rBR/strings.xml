@@ -195,7 +195,7 @@
     <string name="bookmark_item_action_title_bookmark">Favorito "%1$s"</string>
     <string name="bookmark_item_action_title_folder">Pasta "%1$s"</string>
     <string name="bookmark_snapshot_action_title">Snapshot de favoritos "%1$s"</string>
-    <string name="delete_bookmark_snapshot_dialog_title">Excluir snapshot de favoritos</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Excluir</string>
     <string name="delete_bookmark_snapshot_dialog_message">Excluir snapshot de favoritos "%1$s"?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Excluir</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Cancelar</string>

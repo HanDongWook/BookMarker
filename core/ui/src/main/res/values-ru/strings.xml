@@ -195,7 +195,7 @@
     <string name="bookmark_item_action_title_bookmark">Закладка "%1$s"</string>
     <string name="bookmark_item_action_title_folder">Папка "%1$s"</string>
     <string name="bookmark_snapshot_action_title">Снимок закладок "%1$s"</string>
-    <string name="delete_bookmark_snapshot_dialog_title">Удалить снимок закладок</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Удалить</string>
     <string name="delete_bookmark_snapshot_dialog_message">Удалить снимок закладок "%1$s"?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Удалить</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Отмена</string>
