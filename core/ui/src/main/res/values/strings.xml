@@ -181,4 +181,6 @@
     <string name="display_value_loading">Loading</string>
     <string name="bookmark_search_location_prefix">"Location : "</string>
     <string name="bookmark_search_tags_prefix">"Tags : "</string>
+    <string name="bookmark_item_action_edit">Edit</string>
+    <string name="bookmark_item_action_delete">Delete</string>
 </resources>

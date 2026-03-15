@@ -245,6 +245,7 @@ fun HomeScreen(
                         is BookmarkItem.Bookmark -> item.description.orEmpty()
                         is BookmarkItem.Folder -> item.description.orEmpty()
                     }
+                    uiState.showBookmarkItemActionDialog.value = true
                 },
                 onSelectedFolderPathChange = onSelectedFolderPathChange,
                 currentSnapshotTitle = selectedBookmarkId?.let(snapshotTitles::get),

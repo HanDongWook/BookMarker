@@ -40,6 +40,8 @@ class HomeScreenUiState(
     val showSearchDialog: MutableState<Boolean>,
     val searchQuery: MutableState<String>,
     val isBrowserEditMode: MutableState<Boolean>,
+    val showBookmarkItemActionDialog: MutableState<Boolean>,
+    val showEditBookmarkItemDialog: MutableState<Boolean>,
 )
 
 @Composable
@@ -76,5 +78,7 @@ fun rememberHomeScreenUiState(
         showSearchDialog = mutableStateOf(false),
         searchQuery = mutableStateOf(""),
         isBrowserEditMode = mutableStateOf(false),
+        showBookmarkItemActionDialog = mutableStateOf(false),
+        showEditBookmarkItemDialog = mutableStateOf(false),
     )
 }
