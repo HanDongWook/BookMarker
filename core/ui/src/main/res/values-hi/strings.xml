@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">कोई मिलता-जुलता फ़ोल्डर या बुकमार्क नहीं।</string>
     <string name="bookmark_search_close">खोज बंद करें</string>
     <string name="bookmark_search_clear">खोज पाठ साफ़ करें</string>
+    <string name="bookmark_search_location_prefix">"स्थान : "</string>
+    <string name="bookmark_search_tags_prefix">"टैग : "</string>
 </resources>

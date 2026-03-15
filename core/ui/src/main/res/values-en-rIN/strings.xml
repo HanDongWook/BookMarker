@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">No matching folders or bookmarks.</string>
     <string name="bookmark_search_close">Close search</string>
     <string name="bookmark_search_clear">Clear search text</string>
+    <string name="bookmark_search_location_prefix">"$1"</string>
+    <string name="bookmark_search_tags_prefix">"$1"</string>
 </resources>

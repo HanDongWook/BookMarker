@@ -264,20 +264,38 @@ private fun BookmarkLeafRow(
                     modifier = Modifier.weight(1f),
                 )
                 RightAlignedSecondaryText(
-                    text = bookmark.url,
+                    text = buildString {
+                        append(bookmark.url)
+                        if (bookmark.tags.isNotEmpty()) {
+                            append(" ")
+                            append(bookmark.tags.joinToString(separator = " ") { "#$it" })
+                        }
+                    },
                     scrollLongText = scrollLongBookmarkUrl,
                 )
             }
         } else {
-            Text(
-                text = bookmark.title,
-                style = MaterialTheme.typography.bodyMedium,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
+            Row(
                 modifier = Modifier
                     .padding(start = 10.dp)
                     .weight(1f),
-            )
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = bookmark.title,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f),
+                )
+                if (bookmark.tags.isNotEmpty()) {
+                    RightAlignedSecondaryText(
+                        text = bookmark.tags.joinToString(separator = " ") { "#$it" },
+                        scrollLongText = scrollLongBookmarkUrl,
+                    )
+                }
+            }
         }
     }
 }
@@ -428,6 +446,7 @@ private fun previewBookmarkListDocument(): BookmarkDocument = BookmarkDocument(
             addDate = null,
             lastModified = null,
             iconUri = null,
+            tags = listOf("jetpack", "compose"),
         ),
     ),
 )

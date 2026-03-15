@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">No hay carpetas ni marcadores coincidentes.</string>
     <string name="bookmark_search_close">Cerrar búsqueda</string>
     <string name="bookmark_search_clear">Borrar texto de búsqueda</string>
+    <string name="bookmark_search_location_prefix">"Ubicación : "</string>
+    <string name="bookmark_search_tags_prefix">"Etiquetas : "</string>
 </resources>
