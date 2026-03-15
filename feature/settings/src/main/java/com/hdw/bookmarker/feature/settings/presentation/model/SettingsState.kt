@@ -1,0 +1,12 @@
+package com.hdw.bookmarker.feature.settings.presentation.model
+
+import com.airbnb.mvrx.MavericksState
+import com.hdw.bookmarker.core.model.browser.BrowserInfo
+import com.hdw.bookmarker.feature.settings.presentation.component.tab.appversion.AppUpdateUiState
+
+data class SettingsState(
+    val appVersion: DisplayValueState = DisplayValueState.Loading,
+    val installedBrowsers: List<BrowserInfo> = emptyList(),
+    val selectedBrowserPackage: String? = null,
+    val appUpdateUiState: AppUpdateUiState = AppUpdateUiState.Checking,
+) : MavericksState
