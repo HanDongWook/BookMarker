@@ -23,8 +23,8 @@
     <string name="add_bookmark">书签</string>
     <string name="add_bookmark_or_folder">添加</string>
     <string name="folder_name">文件夹名称</string>
-    <string name="bookmark_name">书签名称</string>
-    <string name="bookmark_url">书签 URL</string>
+    <string name="bookmark_name">名称</string>
+    <string name="bookmark_url">URL</string>
     <string name="bookmark_snapshot_name">名称</string>
     <string name="default_snapshot_title_prefix">书签</string>
     <string name="rename_bookmark_snapshot">重命名</string>

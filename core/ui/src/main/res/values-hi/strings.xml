@@ -23,8 +23,8 @@
     <string name="add_bookmark">बुकमार्क</string>
     <string name="add_bookmark_or_folder">जोड़ें</string>
     <string name="folder_name">फ़ोल्डर का नाम</string>
-    <string name="bookmark_name">बुकमार्क का नाम</string>
-    <string name="bookmark_url">बुकमार्क URL</string>
+    <string name="bookmark_name">नाम</string>
+    <string name="bookmark_url">URL</string>
     <string name="bookmark_snapshot_name">नाम</string>
     <string name="default_snapshot_title_prefix">बुकमार्क</string>
     <string name="rename_bookmark_snapshot">नाम बदलें</string>

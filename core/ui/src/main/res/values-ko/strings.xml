@@ -23,8 +23,8 @@
     <string name="add_bookmark">북마크</string>
     <string name="add_bookmark_or_folder">추가</string>
     <string name="folder_name">폴더 이름</string>
-    <string name="bookmark_name">북마크 이름</string>
-    <string name="bookmark_url">북마크 URL</string>
+    <string name="bookmark_name">이름</string>
+    <string name="bookmark_url">URL</string>
     <string name="bookmark_tags">태그</string>
     <string name="bookmark_note">메모</string>
     <string name="bookmark_snapshot_name">이름</string>
