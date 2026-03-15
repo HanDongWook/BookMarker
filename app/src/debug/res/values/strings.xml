@@ -4,4 +4,26 @@
     <string name="development_open_showkase">Open Showkase Browser</string>
     <string name="development_open_main">Open Main App</string>
     <string name="development_close">Close</string>
+    <string name="development_tab_mock_data">Mock Data</string>
+    <string name="development_tab_performance">Performance</string>
+    <string name="development_tab_deep_link">Deep Link</string>
+    <string name="development_tab_preview_tools">Preview Tools</string>
+    <string name="development_deep_link_tab_home">Home</string>
+    <string name="development_deep_link_tab_settings">Settings</string>
+    <string name="development_deep_link_tab_import_guide">Import Guide</string>
+
+    <string name="development_inject_mock_data">Inject Mock Bookmark Snapshot</string>
+    <string name="development_desc_mock_data">Insert sample tree</string>
+    <string name="development_run_performance_benchmark">Run Snapshot Benchmark</string>
+    <string name="development_desc_performance">Tap to measure</string>
+    <string name="development_performance_dialog_title">Performance Result</string>
+    <string name="development_deep_link_home">Open Home Route</string>
+    <string name="development_desc_deep_link_home">Navigate to Home</string>
+    <string name="development_deep_link_settings">Open Settings Route</string>
+    <string name="development_desc_deep_link_settings">Navigate to Settings</string>
+    <string name="development_deep_link_import_guide">Open Import Guide Route</string>
+    <string name="development_desc_deep_link_import_guide">Navigate to Import Guide</string>
+    <string name="development_open_deep_link_screen">Open Deep Link Screen</string>
+    <string name="development_desc_deep_link_navigate">Go to deep link menu</string>
+    <string name="development_desc_preview_tools">Open UI catalog</string>
 </resources>
