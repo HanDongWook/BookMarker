@@ -195,7 +195,7 @@
     <string name="bookmark_item_action_title_bookmark">Lesezeichen "%1$s"</string>
     <string name="bookmark_item_action_title_folder">Ordner "%1$s"</string>
     <string name="bookmark_snapshot_action_title">Lesezeichen-Snapshot "%1$s"</string>
-    <string name="delete_bookmark_snapshot_dialog_title">Lesezeichen-Snapshot löschen</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Löschen</string>
     <string name="delete_bookmark_snapshot_dialog_message">Lesezeichen-Snapshot "%1$s" löschen?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Löschen</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Abbrechen</string>

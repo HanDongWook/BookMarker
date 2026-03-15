@@ -195,7 +195,7 @@
     <string name="bookmark_item_action_title_bookmark">ブックマーク "%1$s"</string>
     <string name="bookmark_item_action_title_folder">フォルダ "%1$s"</string>
     <string name="bookmark_snapshot_action_title">ブックマークスナップショット "%1$s"</string>
-    <string name="delete_bookmark_snapshot_dialog_title">ブックマークスナップショットを削除</string>
+    <string name="delete_bookmark_snapshot_dialog_title">削除</string>
     <string name="delete_bookmark_snapshot_dialog_message">ブックマークスナップショット "%1$s" を削除しますか？</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">削除</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">キャンセル</string>

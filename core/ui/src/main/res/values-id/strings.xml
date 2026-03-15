@@ -195,7 +195,7 @@
     <string name="bookmark_item_action_title_bookmark">Bookmark "%1$s"</string>
     <string name="bookmark_item_action_title_folder">Folder "%1$s"</string>
     <string name="bookmark_snapshot_action_title">Snapshot bookmark "%1$s"</string>
-    <string name="delete_bookmark_snapshot_dialog_title">Hapus snapshot bookmark</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Hapus</string>
     <string name="delete_bookmark_snapshot_dialog_message">Hapus snapshot bookmark "%1$s"?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Hapus</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Batal</string>
