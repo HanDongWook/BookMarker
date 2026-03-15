@@ -32,6 +32,7 @@ class HomeScreenUiState(
     val pendingSnapshotTitle: MutableState<String>,
     val pendingEditBookmarkItemPath: MutableState<List<Int>?>,
     val pendingDeleteBookmarkItemPath: MutableState<List<Int>?>,
+    val pendingDeleteBookmarkItem: MutableState<BookmarkItem?>,
     val pendingEditBookmarkItem: MutableState<BookmarkItem?>,
     val pendingEditBookmarkTitle: MutableState<String>,
     val pendingEditBookmarkUrl: MutableState<String>,
@@ -42,6 +43,9 @@ class HomeScreenUiState(
     val isBrowserEditMode: MutableState<Boolean>,
     val showBookmarkItemActionDialog: MutableState<Boolean>,
     val showEditBookmarkItemDialog: MutableState<Boolean>,
+    val copiedBookmarkItem: MutableState<BookmarkItem?>,
+    val pendingPasteFolderPath: MutableState<List<Int>?>,
+    val showPasteActionDialog: MutableState<Boolean>,
 )
 
 @Composable
@@ -70,6 +74,7 @@ fun rememberHomeScreenUiState(
         pendingSnapshotTitle = mutableStateOf(""),
         pendingEditBookmarkItemPath = mutableStateOf(null),
         pendingDeleteBookmarkItemPath = mutableStateOf(null),
+        pendingDeleteBookmarkItem = mutableStateOf(null),
         pendingEditBookmarkItem = mutableStateOf(null),
         pendingEditBookmarkTitle = mutableStateOf(""),
         pendingEditBookmarkUrl = mutableStateOf(""),
@@ -80,5 +85,8 @@ fun rememberHomeScreenUiState(
         isBrowserEditMode = mutableStateOf(false),
         showBookmarkItemActionDialog = mutableStateOf(false),
         showEditBookmarkItemDialog = mutableStateOf(false),
+        copiedBookmarkItem = mutableStateOf(null),
+        pendingPasteFolderPath = mutableStateOf(null),
+        showPasteActionDialog = mutableStateOf(false),
     )
 }

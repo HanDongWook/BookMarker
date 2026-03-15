@@ -185,4 +185,10 @@
     <string name="bookmark_search_tags_prefix">"แท็ก : "</string>
     <string name="bookmark_item_action_edit">แก้ไข</string>
     <string name="bookmark_item_action_delete">ลบ</string>
+    <string name="bookmark_item_action_copy">คัดลอก</string>
+    <string name="bookmark_item_action_paste">วาง</string>
+    <string name="bookmark_item_copy_toast_folder">คัดลอกโฟลเดอร์ &quot;%1&quot; แล้ว</string>
+    <string name="bookmark_item_copy_toast_bookmark">คัดลอกบุ๊กมาร์ก &quot;%1&quot; แล้ว</string>
+    <string name="delete_bookmark_item_dialog_message_folder">ลบโฟลเดอร์ &quot;%1&quot; หรือไม่?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">ลบบุ๊กมาร์ก &quot;%1&quot; หรือไม่?</string>
 </resources>

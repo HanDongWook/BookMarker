@@ -8,10 +8,10 @@ import com.hdw.bookmarker.core.domain.usecase.ObserveAppearanceSettingsUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkSecondaryDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetOpenBookmarkSidePreviewOnLargeScreenUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongFolderDescriptionUseCase
-import com.hdw.bookmarker.core.domain.usecase.SetBookmarkSecondaryDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetShowFolderDescriptionUseCase
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape

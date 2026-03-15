@@ -70,6 +70,7 @@ internal fun BookmarkListContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
+    onBlankAreaLongClick: (List<Int>?) -> Unit,
     scrollLongSecondaryInfo: Boolean,
     secondaryDisplayType: BookmarkSecondaryDisplayType,
     showFolderDescription: Boolean,
@@ -100,48 +101,56 @@ internal fun BookmarkListContent(
             }
     }
 
-    LazyColumn(
+    Box(
         modifier = modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(2.dp),
-        contentPadding = PaddingValues(start = 8.dp, top = 4.dp, end = 4.dp, bottom = 4.dp),
+            .fillMaxSize()
+            .combinedClickable(
+                onClick = {},
+                onLongClick = { onBlankAreaLongClick(selectedFolderPath) },
+            ),
     ) {
-        items(items = visibleNodes, key = { it.key }) { node ->
-            when (val item = node.item) {
-                is BookmarkItem.Folder -> {
-                    BookmarkFolderRow(
-                        folder = item,
-                        depth = node.depth,
-                        isExpanded = expandedFolders[node.key] == true,
-                        isSelected = selectedFolderKey == node.key,
-                        showFolderDescription = showFolderDescription,
-                        scrollLongFolderDescription = scrollLongFolderDescription,
-                        folderIconStyle = folderIconStyle,
-                        onLongClick = { onItemLongClick(item, node.path) },
-                        onToggle = {
-                            if (selectedFolderKey == node.key) {
-                                onSelectedFolderPathChange(null)
-                                if (expandedFolders[node.key] == true) {
-                                    expandedFolders.remove(node.key)
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+            contentPadding = PaddingValues(start = 8.dp, top = 4.dp, end = 4.dp, bottom = 4.dp),
+        ) {
+            items(items = visibleNodes, key = { it.key }) { node ->
+                when (val item = node.item) {
+                    is BookmarkItem.Folder -> {
+                        BookmarkFolderRow(
+                            folder = item,
+                            depth = node.depth,
+                            isExpanded = expandedFolders[node.key] == true,
+                            isSelected = selectedFolderKey == node.key,
+                            showFolderDescription = showFolderDescription,
+                            scrollLongFolderDescription = scrollLongFolderDescription,
+                            folderIconStyle = folderIconStyle,
+                            onLongClick = { onItemLongClick(item, node.path) },
+                            onToggle = {
+                                if (selectedFolderKey == node.key) {
+                                    onSelectedFolderPathChange(null)
+                                    if (expandedFolders[node.key] == true) {
+                                        expandedFolders.remove(node.key)
+                                    } else {
+                                        expandedFolders[node.key] = true
+                                    }
                                 } else {
-                                    expandedFolders[node.key] = true
+                                    onSelectedFolderPathChange(node.path)
                                 }
-                            } else {
-                                onSelectedFolderPathChange(node.path)
-                            }
-                        },
-                    )
-                }
+                            },
+                        )
+                    }
 
-                is BookmarkItem.Bookmark -> {
-                    BookmarkLeafRow(
-                        bookmark = item,
-                        depth = node.depth,
-                        scrollLongSecondaryInfo = scrollLongSecondaryInfo,
-                        secondaryDisplayType = secondaryDisplayType,
-                        onClick = { onBookmarkClick(item.url) },
-                        onLongClick = { onItemLongClick(item, node.path) },
-                    )
+                    is BookmarkItem.Bookmark -> {
+                        BookmarkLeafRow(
+                            bookmark = item,
+                            depth = node.depth,
+                            scrollLongSecondaryInfo = scrollLongSecondaryInfo,
+                            secondaryDisplayType = secondaryDisplayType,
+                            onClick = { onBookmarkClick(item.url) },
+                            onLongClick = { onItemLongClick(item, node.path) },
+                        )
+                    }
                 }
             }
         }
@@ -267,7 +276,9 @@ private fun BookmarkLeafRow(
             )
             val secondaryText = when (secondaryDisplayType) {
                 BookmarkSecondaryDisplayType.NONE -> null
+
                 BookmarkSecondaryDisplayType.URL -> bookmark.url
+
                 BookmarkSecondaryDisplayType.TAG -> if (bookmark.tags.isNotEmpty()) {
                     bookmark.tags.joinToString(separator = " ") { "#$it" }
                 } else {
@@ -347,6 +358,7 @@ private fun BookmarkListContentPreview() {
         bookmarkDocument = previewBookmarkListDocument(),
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
+        onBlankAreaLongClick = {},
         scrollLongSecondaryInfo = true,
         secondaryDisplayType = BookmarkSecondaryDisplayType.URL,
         showFolderDescription = true,

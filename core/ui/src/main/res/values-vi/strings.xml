@@ -185,4 +185,10 @@
     <string name="bookmark_search_tags_prefix">"Thẻ : "</string>
     <string name="bookmark_item_action_edit">Chỉnh sửa</string>
     <string name="bookmark_item_action_delete">Xóa</string>
+    <string name="bookmark_item_action_copy">Sao chép</string>
+    <string name="bookmark_item_action_paste">Dán</string>
+    <string name="bookmark_item_copy_toast_folder">Đã sao chép thư mục &quot;%1&quot;.</string>
+    <string name="bookmark_item_copy_toast_bookmark">Đã sao chép dấu trang &quot;%1&quot;.</string>
+    <string name="delete_bookmark_item_dialog_message_folder">Xóa thư mục &quot;%1&quot;?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">Xóa dấu trang &quot;%1&quot;?</string>
 </resources>

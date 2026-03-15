@@ -25,7 +25,7 @@ class ObserveAppearanceSettingsUseCase @Inject constructor(
                 BookmarkSecondaryDisplayType.values().find { it.name == secondaryDisplayType }
                     ?: BookmarkSecondaryDisplayType.URL,
                 scrollLongBookmarkUrl,
-                openBookmarkSidePreviewOnLargeScreen
+                openBookmarkSidePreviewOnLargeScreen,
             )
         }
 
