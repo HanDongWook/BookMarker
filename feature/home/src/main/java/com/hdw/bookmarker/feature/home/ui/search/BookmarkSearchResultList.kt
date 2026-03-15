@@ -9,19 +9,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
+import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.folderstyle.iconVector
 import com.hdw.bookmarker.core.ui.folderstyle.resolveTint
 import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchItemType
@@ -37,19 +40,25 @@ internal fun BookmarkSearchResultList(
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        items(
+        itemsIndexed(
             items = results,
-            key = { result ->
+            key = { _, result ->
                 "${result.snapshotId.value}:${result.itemType}:${result.itemPath.joinToString(separator = "/")}"
             },
-        ) { result ->
+        ) { index, result ->
             BookmarkSearchResultRow(
                 result = result,
                 folderIconStyle = folderIconStyle,
                 onClick = { onResultClick(result) },
             )
+            if (index < results.lastIndex) {
+                HorizontalDivider(
+                    modifier = Modifier.padding(vertical = 4.dp),
+                    thickness = 0.5.dp,
+                    color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
+                )
+            }
         }
     }
 }
@@ -105,12 +114,21 @@ private fun BookmarkSearchResultRow(
                         text = secondaryText,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = if (result.itemType == BookmarkSearchItemType.BOOKMARK) 2 else 1,
+                        maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
                 }
+            if (result.tags.isNotEmpty()) {
+                Text(
+                    text = stringResource(R.string.bookmark_search_tags_prefix) + result.tags.joinToString(separator = " ") { "#$it" },
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
             Text(
-                text = result.breadcrumb,
+                text = stringResource(R.string.bookmark_search_location_prefix) + result.breadcrumb,
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,
@@ -146,6 +164,7 @@ private fun BookmarkSearchResultListPreview() {
                 breadcrumb = "Bookmark 1 / Engineering",
                 bookmarkUrl = "https://developer.android.com/jetpack/compose",
                 bookmarkIconUri = null,
+                tags = listOf("jetpack", "compose"),
             ),
         ),
         folderIconStyle = BookmarkFolderIconStyle(),

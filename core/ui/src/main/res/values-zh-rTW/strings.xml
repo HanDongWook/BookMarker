@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">沒有相符的資料夾或書籤。</string>
     <string name="bookmark_search_close">關閉搜尋</string>
     <string name="bookmark_search_clear">清除搜尋文字</string>
+    <string name="bookmark_search_location_prefix">"位置 : "</string>
+    <string name="bookmark_search_tags_prefix">"標籤 : "</string>
 </resources>

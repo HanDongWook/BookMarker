@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">Aucun dossier ou favori correspondant.</string>
     <string name="bookmark_search_close">Fermer la recherche</string>
     <string name="bookmark_search_clear">Effacer le texte de recherche</string>
+    <string name="bookmark_search_location_prefix">"Emplacement : "</string>
+    <string name="bookmark_search_tags_prefix">"Mots-clés : "</string>
 </resources>

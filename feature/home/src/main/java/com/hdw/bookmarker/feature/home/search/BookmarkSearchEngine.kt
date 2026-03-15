@@ -15,6 +15,8 @@ class BookmarkSearchEngine {
         val normalizedQuery = query.trim().lowercase()
         if (normalizedQuery.isBlank()) return emptyList()
 
+        val tagSearchQuery = normalizedQuery.removePrefix("#")
+
         return library.orderedIds.flatMap { snapshotId ->
             val document = library[snapshotId] ?: return@flatMap emptyList()
             val snapshotTitle = snapshotTitles[snapshotId]
@@ -26,6 +28,7 @@ class BookmarkSearchEngine {
                 snapshotTitle = snapshotTitle.orEmpty(),
                 items = document.rootItems,
                 normalizedQuery = normalizedQuery,
+                tagSearchQuery = tagSearchQuery,
             )
         }
     }
@@ -35,6 +38,7 @@ class BookmarkSearchEngine {
         snapshotTitle: String,
         items: List<BookmarkItem>,
         normalizedQuery: String,
+        tagSearchQuery: String,
         pathPrefix: List<Int> = emptyList(),
         parentFolderTitles: List<String> = emptyList(),
     ): List<BookmarkSearchResult> {
@@ -64,6 +68,7 @@ class BookmarkSearchEngine {
                         snapshotTitle = snapshotTitle,
                         items = item.children,
                         normalizedQuery = normalizedQuery,
+                        tagSearchQuery = tagSearchQuery,
                         pathPrefix = itemPath,
                         parentFolderTitles = parentFolderTitles + item.title,
                     )
@@ -74,7 +79,7 @@ class BookmarkSearchEngine {
                         item.title.contains(normalizedQuery, ignoreCase = true) ||
                         item.url.contains(normalizedQuery, ignoreCase = true) ||
                         item.description.orEmpty().contains(normalizedQuery, ignoreCase = true) ||
-                        item.tags.any { tag -> tag.contains(normalizedQuery, ignoreCase = true) }
+                        item.tags.any { tag -> tag.contains(tagSearchQuery, ignoreCase = true) }
                     ) {
                         results += BookmarkSearchResult(
                             snapshotId = snapshotId,
@@ -87,6 +92,7 @@ class BookmarkSearchEngine {
                             breadcrumb = buildBreadcrumb(snapshotTitle, parentFolderTitles),
                             bookmarkUrl = item.url,
                             bookmarkIconUri = item.iconUri,
+                            tags = item.tags,
                         )
                     }
                 }

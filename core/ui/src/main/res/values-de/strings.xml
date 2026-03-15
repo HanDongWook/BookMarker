@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">Keine passenden Ordner oder Lesezeichen.</string>
     <string name="bookmark_search_close">Suche schließen</string>
     <string name="bookmark_search_clear">Suchtext löschen</string>
+    <string name="bookmark_search_location_prefix">"Standort : "</string>
+    <string name="bookmark_search_tags_prefix">"Tags : "</string>
 </resources>
