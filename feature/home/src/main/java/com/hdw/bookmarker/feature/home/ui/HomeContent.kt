@@ -16,8 +16,8 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -26,8 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.designsystem.theme.BookMarkerYellow
-import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.ui.appbar.HomeTopAppBar
@@ -176,10 +176,7 @@ internal fun HomeContent(
 }
 
 @Composable
-private fun AddItemFloatingActionButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+private fun AddItemFloatingActionButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
     FloatingActionButton(
         onClick = onClick,
         shape = CircleShape,

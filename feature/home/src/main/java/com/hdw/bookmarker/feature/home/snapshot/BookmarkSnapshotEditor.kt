@@ -46,10 +46,7 @@ class BookmarkSnapshotEditor @Inject constructor(
         )
     }
 
-    suspend fun addItemToInbox(
-        bookmarkDocuments: Map<String, BookmarkDocument>,
-        item: BookmarkItem,
-    ): String {
+    suspend fun addItemToInbox(bookmarkDocuments: Map<String, BookmarkDocument>, item: BookmarkItem): String {
         val (snapshotId, inboxDocument) = getOrCreateInboxSnapshot(bookmarkDocuments)
         return saveSnapshot(
             snapshotId = snapshotId,
@@ -87,11 +84,7 @@ class BookmarkSnapshotEditor @Inject constructor(
         )
     }
 
-    suspend fun deleteItem(
-        snapshotId: String,
-        document: BookmarkDocument,
-        path: List<Int>,
-    ): String? {
+    suspend fun deleteItem(snapshotId: String, document: BookmarkDocument, path: List<Int>): String? {
         val updatedRootItems = bookmarkTreeEditor.removeItemByPath(
             items = document.rootItems,
             path = path,
@@ -120,19 +113,12 @@ class BookmarkSnapshotEditor @Inject constructor(
         )
     }
 
-    suspend fun renameSnapshot(
-        snapshotId: String,
-        document: BookmarkDocument,
-        title: String,
-    ): String = saveSnapshot(
+    suspend fun renameSnapshot(snapshotId: String, document: BookmarkDocument, title: String): String = saveSnapshot(
         snapshotId = snapshotId,
         document = document.copy(title = title),
     )
 
-    private suspend fun saveSnapshot(
-        snapshotId: String?,
-        document: BookmarkDocument,
-    ): String {
+    private suspend fun saveSnapshot(snapshotId: String?, document: BookmarkDocument): String {
         val sourceHash = snapshotId
             ?.let { currentSnapshotId ->
                 getBookmarkSnapshotRawFileHashUseCase(currentSnapshotId)

@@ -165,7 +165,7 @@
     <string name="folder_description">Descrição</string>
     <string name="display_value_loading">A carregar</string>
     <string name="bookmark_tags">Etiquetas</string>
-    <string name="bookmark_note">Nota</string>
+    <string name="bookmark_note">Descrição</string>
     <string name="bookmark_inbox_title">Caixa de entrada</string>
     <string name="bookmark_inbox_badge">Caixa de entrada</string>
     <string name="bookmark_inbox_empty">Ainda não há hiperligações guardadas na Caixa de entrada.\nPartilhe uma hiperligação para a guardar aqui.</string>

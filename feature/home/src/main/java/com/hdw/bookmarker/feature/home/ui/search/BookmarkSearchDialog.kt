@@ -19,7 +19,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,6 +41,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.core.ui.component.BookmarkerTextField
 import com.hdw.bookmarker.feature.home.search.BookmarkSearchEngine
 import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchResult
 import kotlinx.coroutines.Dispatchers
@@ -54,9 +54,7 @@ private sealed interface BookmarkSearchUiState {
 
     data object NoResults : BookmarkSearchUiState
 
-    data class Results(
-        val results: List<BookmarkSearchResult>,
-    ) : BookmarkSearchUiState
+    data class Results(val results: List<BookmarkSearchResult>) : BookmarkSearchUiState
 }
 
 @Composable
@@ -139,7 +137,7 @@ internal fun BookmarkSearchDialog(
                 color = Color(android.graphics.Color.WHITE),
             ) {
                 Column(modifier = Modifier.fillMaxSize()) {
-                    OutlinedTextField(
+                    BookmarkerTextField(
                         value = query,
                         onValueChange = onQueryChange,
                         modifier = Modifier
@@ -223,10 +221,7 @@ internal fun BookmarkSearchDialog(
 }
 
 @Composable
-private fun BookmarkSearchMessage(
-    text: String,
-    modifier: Modifier = Modifier,
-) {
+private fun BookmarkSearchMessage(text: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,

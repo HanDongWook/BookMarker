@@ -16,10 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
-internal fun NoBookmarkItem(
-    modifier: Modifier = Modifier,
-    onImportClick: () -> Unit,
-) {
+internal fun NoBookmarkItem(modifier: Modifier = Modifier, onImportClick: () -> Unit) {
     Column(
         modifier = modifier
             .fillMaxSize()

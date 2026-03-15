@@ -21,11 +21,7 @@ class BookmarkTreeEditor @Inject constructor() {
         }
     }
 
-    fun addItemToFolderByPath(
-        items: List<BookmarkItem>,
-        path: List<Int>,
-        item: BookmarkItem,
-    ): List<BookmarkItem>? {
+    fun addItemToFolderByPath(items: List<BookmarkItem>, path: List<Int>, item: BookmarkItem): List<BookmarkItem>? {
         val targetIndex = path.firstOrNull() ?: return null
         if (targetIndex !in items.indices) return null
 

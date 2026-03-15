@@ -10,10 +10,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 
 @Stable
-class BookmarkPreviewPaneState internal constructor(
-    initialUrl: String?,
-    initialRefreshToken: Int,
-) {
+class BookmarkPreviewPaneState internal constructor(initialUrl: String?, initialRefreshToken: Int) {
     var currentUrl by mutableStateOf(initialUrl)
         private set
 
