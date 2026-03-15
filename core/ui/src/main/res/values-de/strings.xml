@@ -23,8 +23,8 @@
     <string name="add_bookmark">Lesezeichen</string>
     <string name="add_bookmark_or_folder">Hinzufügen</string>
     <string name="folder_name">Ordnername</string>
-    <string name="bookmark_name">Lesezeichenname</string>
-    <string name="bookmark_url">Lesezeichen-URL</string>
+    <string name="bookmark_name">Name</string>
+    <string name="bookmark_url">URL</string>
     <string name="bookmark_snapshot_name">Name</string>
     <string name="default_snapshot_title_prefix">Lesezeichen</string>
     <string name="rename_bookmark_snapshot">Umbenennen</string>

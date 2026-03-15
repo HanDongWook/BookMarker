@@ -23,8 +23,8 @@
     <string name="add_bookmark">ブックマーク</string>
     <string name="add_bookmark_or_folder">追加</string>
     <string name="folder_name">フォルダ名</string>
-    <string name="bookmark_name">ブックマーク名</string>
-    <string name="bookmark_url">ブックマークURL</string>
+    <string name="bookmark_name">名前</string>
+    <string name="bookmark_url">URL</string>
     <string name="bookmark_snapshot_name">名前</string>
     <string name="default_snapshot_title_prefix">ブックマーク</string>
     <string name="rename_bookmark_snapshot">名前を変更</string>

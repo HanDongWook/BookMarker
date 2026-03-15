@@ -23,8 +23,8 @@
     <string name="add_bookmark">signet</string>
     <string name="add_bookmark_or_folder">Ajouter</string>
     <string name="folder_name">Nom du dossier</string>
-    <string name="bookmark_name">Nom du signet</string>
-    <string name="bookmark_url">URL du signet</string>
+    <string name="bookmark_name">Nom</string>
+    <string name="bookmark_url">URL</string>
     <string name="bookmark_snapshot_name">Nom</string>
     <string name="default_snapshot_title_prefix">Signet</string>
     <string name="rename_bookmark_snapshot">Renommer</string>
