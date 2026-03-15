@@ -165,7 +165,7 @@
     <string name="folder_description">説明</string>
     <string name="display_value_loading">読み込み中</string>
     <string name="bookmark_tags">タグ</string>
-    <string name="bookmark_note">メモ</string>
+    <string name="bookmark_note">説明</string>
     <string name="bookmark_inbox_title">受信トレイ</string>
     <string name="bookmark_inbox_badge">受信トレイ</string>
     <string name="bookmark_inbox_empty">受信トレイに保存されたリンクはまだありません。\nリンクを共有してここに保存してください。</string>

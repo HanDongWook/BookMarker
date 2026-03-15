@@ -120,5 +120,6 @@ class AppearanceViewModel @AssistedInject constructor(
         override fun create(state: AppearanceState): AppearanceViewModel
     }
 
-    companion object : MavericksViewModelFactory<AppearanceViewModel, AppearanceState> by hiltMavericksViewModelFactory()
+    companion object :
+        MavericksViewModelFactory<AppearanceViewModel, AppearanceState> by hiltMavericksViewModelFactory()
 }

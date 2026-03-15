@@ -96,10 +96,7 @@ class BookmarkSearchEngine {
         return results
     }
 
-    private fun buildBreadcrumb(
-        snapshotTitle: String,
-        parentFolderTitles: List<String>,
-    ): String = buildList {
+    private fun buildBreadcrumb(snapshotTitle: String, parentFolderTitles: List<String>): String = buildList {
         add(snapshotTitle)
         addAll(parentFolderTitles)
     }.joinToString(separator = " / ")

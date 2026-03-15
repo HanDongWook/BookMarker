@@ -1,8 +1,6 @@
 package com.hdw.bookmarker.feature.home.ui.preview.webview
 
-internal class BookmarkPreviewWebViewRequestState(
-    initialRefreshToken: Int,
-) {
+internal class BookmarkPreviewWebViewRequestState(initialRefreshToken: Int) {
     private var latestRefreshToken: Int = initialRefreshToken
     private var handledRefreshToken: Int = initialRefreshToken
     private var lastRequestedUrl: String? = null

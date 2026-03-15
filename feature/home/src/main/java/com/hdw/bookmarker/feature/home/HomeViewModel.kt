@@ -9,8 +9,8 @@ import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
-import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
@@ -56,7 +56,7 @@ class HomeViewModel @Inject constructor(
                 val nextSelectedBookmarkId = state.selectedBookmarkId
                     ?.takeIf { selectedId ->
                         observedState.bookmarkDocuments.containsKey(selectedId) &&
-                                (visibleSnapshotIds.isEmpty() || visibleSnapshotIds.contains(selectedId))
+                            (visibleSnapshotIds.isEmpty() || visibleSnapshotIds.contains(selectedId))
                     }
                     ?: visibleSnapshotIds.firstOrNull()
                     ?: observedState.bookmarkDocuments.keys.firstOrNull()
@@ -73,9 +73,9 @@ class HomeViewModel @Inject constructor(
                     scrollLongBookmarkUrl = observedState.scrollLongBookmarkUrl,
                     showBookmarkUrl = observedState.showBookmarkUrl,
                     openBookmarkAdjacentOnLargeScreen =
-                        observedState.openBookmarkAdjacentOnLargeScreen,
+                    observedState.openBookmarkAdjacentOnLargeScreen,
                     openBookmarkSidePreviewOnLargeScreen =
-                        observedState.openBookmarkSidePreviewOnLargeScreen,
+                    observedState.openBookmarkSidePreviewOnLargeScreen,
                     showFolderDescription = observedState.showFolderDescription,
                     scrollLongFolderDescription = observedState.scrollLongFolderDescription,
                     folderIconStyle = observedState.folderIconStyle,
@@ -237,6 +237,7 @@ class HomeViewModel @Inject constructor(
                 note = request.note.trim(),
                 tags = normalizeTags(request.tags),
             )
+
             is UpdateBookmarkItemRequest.Folder -> request.copy(title = trimmedTitle)
         }
 
@@ -273,9 +274,7 @@ class HomeViewModel @Inject constructor(
         .filter(String::isNotBlank)
         .distinct()
 
-    private fun List<String>.reorderInboxFirst(
-        bookmarkDocuments: Map<String, BookmarkDocument>,
-    ): List<String> {
+    private fun List<String>.reorderInboxFirst(bookmarkDocuments: Map<String, BookmarkDocument>): List<String> {
         val (inboxIds, otherIds) = partition { snapshotId ->
             bookmarkDocuments[snapshotId]?.isInboxSnapshot() == true
         }

@@ -165,7 +165,7 @@
     <string name="folder_description">Mô tả</string>
     <string name="display_value_loading">Đang tải</string>
     <string name="bookmark_tags">Thẻ</string>
-    <string name="bookmark_note">Ghi chú</string>
+    <string name="bookmark_note">Mô tả</string>
     <string name="bookmark_inbox_title">Hộp thư đến</string>
     <string name="bookmark_inbox_badge">Hộp thư đến</string>
     <string name="bookmark_inbox_empty">Chưa có liên kết nào được lưu trong Hộp thư đến.\nChia sẻ liên kết để lưu vào đây.</string>

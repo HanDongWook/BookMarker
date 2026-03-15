@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -13,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.core.ui.component.BookmarkerTextField
 
 @Composable
 fun AddBookmarkDialog(
@@ -35,14 +35,14 @@ fun AddBookmarkDialog(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                OutlinedTextField(
+                BookmarkerTextField(
                     value = bookmarkTitle,
                     onValueChange = onBookmarkTitleChange,
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(text = stringResource(R.string.bookmark_name)) },
                 )
-                OutlinedTextField(
+                BookmarkerTextField(
                     value = bookmarkUrl,
                     onValueChange = onBookmarkUrlChange,
                     singleLine = false,
@@ -51,14 +51,14 @@ fun AddBookmarkDialog(
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(text = stringResource(R.string.bookmark_url)) },
                 )
-                OutlinedTextField(
+                BookmarkerTextField(
                     value = bookmarkTags,
                     onValueChange = onBookmarkTagsChange,
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(text = stringResource(R.string.bookmark_tags)) },
                 )
-                OutlinedTextField(
+                BookmarkerTextField(
                     value = bookmarkNote,
                     onValueChange = onBookmarkNoteChange,
                     singleLine = false,

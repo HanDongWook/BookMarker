@@ -283,10 +283,7 @@ private fun BookmarkLeafRow(
 }
 
 @Composable
-private fun RowScope.RightAlignedSecondaryText(
-    text: String,
-    scrollLongText: Boolean,
-) {
+private fun RowScope.RightAlignedSecondaryText(text: String, scrollLongText: Boolean) {
     Box(
         modifier = Modifier.weight(1f),
         contentAlignment = Alignment.CenterEnd,

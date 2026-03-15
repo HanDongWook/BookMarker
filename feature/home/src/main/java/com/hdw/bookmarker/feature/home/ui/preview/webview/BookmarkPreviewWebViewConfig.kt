@@ -1,8 +1,8 @@
 package com.hdw.bookmarker.feature.home.ui.preview.webview
 
-import android.graphics.Color as AndroidColor
 import android.webkit.WebSettings
 import android.webkit.WebView
+import android.graphics.Color as AndroidColor
 
 internal fun WebView.configureBookmarkPreviewWebView() {
     settings.javaScriptEnabled = true

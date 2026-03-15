@@ -6,9 +6,7 @@ import com.hdw.bookmarker.core.ui.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class SnapshotTitleGenerator @Inject constructor(
-    @param:ApplicationContext private val context: Context,
-) {
+class SnapshotTitleGenerator @Inject constructor(@param:ApplicationContext private val context: Context) {
     fun inboxTitle(): String = context.getString(R.string.bookmark_inbox_title)
 
     fun nextDefaultTitle(existingDocuments: Collection<BookmarkDocument>): String {

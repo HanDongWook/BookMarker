@@ -3,7 +3,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -13,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.core.ui.component.BookmarkerTextField
 
 @Composable
 fun ManageBookmarkItemDialog(
@@ -37,7 +37,7 @@ fun ManageBookmarkItemDialog(
         title = { Text(text = stringResource(R.string.edit_mode_editing)) },
         text = {
             Column {
-                OutlinedTextField(
+                BookmarkerTextField(
                     value = title,
                     onValueChange = onTitleChange,
                     singleLine = true,
@@ -54,7 +54,7 @@ fun ManageBookmarkItemDialog(
                     },
                 )
                 if (item is BookmarkItem.Bookmark) {
-                    OutlinedTextField(
+                    BookmarkerTextField(
                         value = url,
                         onValueChange = onUrlChange,
                         singleLine = false,
@@ -65,7 +65,7 @@ fun ManageBookmarkItemDialog(
                             .padding(top = 8.dp),
                         label = { Text(text = stringResource(R.string.bookmark_url)) },
                     )
-                    OutlinedTextField(
+                    BookmarkerTextField(
                         value = tags,
                         onValueChange = onTagsChange,
                         singleLine = true,
@@ -74,7 +74,7 @@ fun ManageBookmarkItemDialog(
                             .padding(top = 8.dp),
                         label = { Text(text = stringResource(R.string.bookmark_tags)) },
                     )
-                    OutlinedTextField(
+                    BookmarkerTextField(
                         value = note,
                         onValueChange = onNoteChange,
                         singleLine = false,
@@ -86,7 +86,7 @@ fun ManageBookmarkItemDialog(
                         label = { Text(text = stringResource(R.string.bookmark_note)) },
                     )
                 } else {
-                    OutlinedTextField(
+                    BookmarkerTextField(
                         value = description,
                         onValueChange = onDescriptionChange,
                         singleLine = false,
