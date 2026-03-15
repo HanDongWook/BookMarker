@@ -13,6 +13,7 @@ import com.hdw.bookmarker.feature.settings.presentation.SettingsRoute
 @Composable
 fun AppNavHost(
     navController: NavHostController,
+    isDebugBuild: Boolean = false,
     pendingQuickSaveRequestToken: Long? = null,
     pendingQuickSaveRequest: QuickSaveBookmarkSeed? = null,
     onQuickSaveRequestHandled: () -> Unit = {},
@@ -67,6 +68,7 @@ fun AppNavHost(
         }
         slideComposable<AppRoute.Settings> {
             SettingsRoute(
+                isDebugBuild = isDebugBuild,
                 onBackClick = {
                     navController.popBackStack()
                 },

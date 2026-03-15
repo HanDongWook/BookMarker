@@ -23,6 +23,7 @@ import com.hdw.bookmarker.feature.settings.presentation.model.DisplayValueState
 import com.hdw.bookmarker.feature.settings.presentation.component.SettingsRow
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.appversion.AppUpdateUiState
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.appversion.AppVersionRow
+import com.hdw.bookmarker.feature.settings.presentation.component.tab.development.DevelopmentRow
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.defaultbrowser.DefaultBrowserRow
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.legal.PrivacyPolicyRow
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.opensource.OpenSourceLicenseRow
@@ -47,6 +48,8 @@ fun SettingsScreen(
     onOpenSourceLicensesClick: () -> Unit,
     appUpdateUiState: AppUpdateUiState,
     onAppUpdateClick: () -> Unit,
+    showDevelopmentTab: Boolean,
+    onDevelopmentClick: () -> Unit,
 ) {
     val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
@@ -123,13 +126,20 @@ fun SettingsScreen(
                 onUpdateClick = onAppUpdateClick,
             )
             BookMarkerDivider()
+
+            if (showDevelopmentTab) {
+                DevelopmentRow(
+                    onClick = onDevelopmentClick,
+                )
+                BookMarkerDivider()
+            }
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun SettingsScreenPreview() {
+internal fun SettingsScreenPreview() {
     SettingsScreen(
         onBackClick = {},
         appVersion = DisplayValueState.Loaded("1.0.0"),
@@ -143,5 +153,7 @@ private fun SettingsScreenPreview() {
         onOpenSourceLicensesClick = {},
         appUpdateUiState = AppUpdateUiState.UpToDate,
         onAppUpdateClick = {},
+        showDevelopmentTab = true,
+        onDevelopmentClick = {},
     )
 }

@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.util.PatternsCompat
 import androidx.navigation.compose.rememberNavController
+import com.hdw.bookmarker.BuildConfig
 import com.hdw.bookmarker.base.BaseActivity
 import com.hdw.bookmarker.core.data.repository.SettingsRepository
 import com.hdw.bookmarker.core.designsystem.theme.BookMarkerTheme
@@ -52,6 +53,7 @@ class MainActivity : BaseActivity() {
                 val navController = rememberNavController()
                 AppNavHost(
                     navController = navController,
+                    isDebugBuild = BuildConfig.DEBUG,
                     pendingQuickSaveRequestToken = pendingQuickSaveRequestToken.value,
                     pendingQuickSaveRequest = pendingQuickSaveRequest.value,
                     onQuickSaveRequestHandled = {

@@ -1,5 +1,6 @@
 package com.hdw.bookmarker.feature.settings.presentation
 
+import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -23,7 +24,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
-fun SettingsRoute(onBackClick: () -> Unit) {
+fun SettingsRoute(
+    onBackClick: () -> Unit,
+    isDebugBuild: Boolean,
+) {
     val settingsViewModel: SettingsViewModel = mavericksViewModel()
     val settingsState by settingsViewModel.collectAsState()
 
@@ -52,6 +56,14 @@ fun SettingsRoute(onBackClick: () -> Unit) {
         onTemporaryDataClick = { showClearTemporaryDataDialog = true },
         onAppUpdateClick = appUpdateController::onUpdateClick,
         onDefaultBrowserSelect = settingsViewModel::selectDefaultBrowser,
+        showDevelopmentTab = isDebugBuild,
+        onDevelopmentClick = {
+            val intent = Intent().setClassName(
+                context.packageName,
+                "${context.packageName}.development.DevelopmentActivity",
+            )
+            runCatching { context.startActivity(intent) }
+        },
     )
 
     if (showClearTemporaryDataDialog) {
