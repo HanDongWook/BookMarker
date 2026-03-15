@@ -32,7 +32,6 @@
     <string name="bookmark_inbox_title">Inbox</string>
     <string name="bookmark_inbox_badge">Inbox</string>
     <string name="bookmark_inbox_empty">아직 Inbox에 저장된 링크가 없어요.\n링크를 공유해서 여기에 저장해보세요.</string>
-    <string name="save_to_inbox">Inbox에 저장됨</string>
     <string name="rename_bookmark_snapshot">이름 변경</string>
     <string name="app_version_label">앱 버전</string>
     <string name="app_update_status_latest">최신 버전</string>
@@ -143,7 +142,7 @@
     <string name="delete_bookmark_item_dialog_cancel">취소</string>
     <string name="import_option_dialog_add_empty_bookmark_item">빈 북마크 아이템 추가하기</string>
     <string name="bookmark_color_picker_dialog_title">색상 선택</string>
-    <string name="bookmark_color_picker_dialog_close">닫기</string>
+    <string name="bookmark_color_picker_dialog_close">확인</string>
     <string name="folder_style_label">폴더 스타일</string>
     <string name="app_language_label">언어</string>
     <string name="app_language_system_default">시스템 기본값</string>

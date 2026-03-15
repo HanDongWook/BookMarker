@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">Cancel</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Add empty bookmark item</string>
     <string name="bookmark_color_picker_dialog_title">Select colour</string>
-    <string name="bookmark_color_picker_dialog_close">Close</string>
+    <string name="bookmark_color_picker_dialog_close">Confirm</string>
     <string name="folder_style_label">Folder style</string>
     <string name="app_language_label">Language</string>
     <string name="app_language_system_default">System default</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">Inbox</string>
     <string name="bookmark_inbox_badge">Inbox</string>
     <string name="bookmark_inbox_empty">No saved links in Inbox yet.\nShare a link to save it here.</string>
-    <string name="save_to_inbox">Saved to Inbox</string>
     <string name="import_source_html_file_title">HTML file</string>
     <string name="large_screen_label">Large screen</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Open beside app on large screens</string>
