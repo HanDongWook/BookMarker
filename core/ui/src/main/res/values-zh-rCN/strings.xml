@@ -151,8 +151,11 @@
     <string name="rate_app_open_store_failed">无法打开 Play 商店。</string>
     <string name="appearance_label">外观</string>
     <string name="behavior_label">行为</string>
-    <string name="bookmark_show_url_label">显示 URL</string>
-    <string name="bookmark_scroll_long_url_label">滚动长 URL</string>
+    <string name="bookmark_secondary_info_label">书签信息显示</string>
+    <string name="bookmark_secondary_info_none">无</string>
+    <string name="bookmark_secondary_info_url">URL</string>
+    <string name="bookmark_secondary_info_tag">标签</string>
+    <string name="bookmark_scroll_long_info_label">滚动较长信息</string>
     <string name="bookmark_open_side_preview_label">预览</string>
     <string name="bookmark_preview_title">预览</string>
     <string name="bookmark_preview_placeholder">选择书签以预览</string>

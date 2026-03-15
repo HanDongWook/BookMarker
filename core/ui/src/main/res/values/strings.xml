@@ -158,8 +158,11 @@
     <string name="appearance_label">Appearance</string>
     <string name="behavior_label">Behavior</string>
     <string name="large_screen_label">Large screen</string>
-    <string name="bookmark_show_url_label">Show URL</string>
-    <string name="bookmark_scroll_long_url_label">Scroll long URL</string>
+    <string name="bookmark_secondary_info_label">Bookmark info display</string>
+    <string name="bookmark_secondary_info_none">None</string>
+    <string name="bookmark_secondary_info_url">URL</string>
+    <string name="bookmark_secondary_info_tag">Tag</string>
+    <string name="bookmark_scroll_long_info_label">Scroll long info</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Open beside app on large screens</string>
     <string name="bookmark_open_side_preview_label">Preview</string>
     <string name="bookmark_preview_title">Preview</string>

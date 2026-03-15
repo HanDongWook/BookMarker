@@ -17,7 +17,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetOpenBookmarkSidePreviewOnLargeS
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongFolderDescriptionUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetShowBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSecondaryDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetShowFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.ImportBookmarksFromHtmlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
@@ -31,7 +31,7 @@ import com.hdw.bookmarker.core.domain.usecase.SetOpenBookmarkAdjacentOnLargeScre
 import com.hdw.bookmarker.core.domain.usecase.SetOpenBookmarkSidePreviewOnLargeScreenUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongFolderDescriptionUseCase
-import com.hdw.bookmarker.core.domain.usecase.SetShowBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkSecondaryDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetShowFolderDescriptionUseCase
 import dagger.Module
 import dagger.Provides
@@ -117,8 +117,9 @@ object DomainModule {
 
     @Provides
     @Singleton
-    fun provideGetShowBookmarkUrlUseCase(settingsRepository: SettingsRepository): GetShowBookmarkUrlUseCase =
-        GetShowBookmarkUrlUseCase(settingsRepository)
+    fun provideGetBookmarkSecondaryDisplayTypeUseCase(
+        settingsRepository: SettingsRepository,
+    ): GetBookmarkSecondaryDisplayTypeUseCase = GetBookmarkSecondaryDisplayTypeUseCase(settingsRepository)
 
     @Provides
     @Singleton
@@ -153,8 +154,9 @@ object DomainModule {
 
     @Provides
     @Singleton
-    fun provideSetShowBookmarkUrlUseCase(settingsRepository: SettingsRepository): SetShowBookmarkUrlUseCase =
-        SetShowBookmarkUrlUseCase(settingsRepository)
+    fun provideSetBookmarkSecondaryDisplayTypeUseCase(
+        settingsRepository: SettingsRepository,
+    ): SetBookmarkSecondaryDisplayTypeUseCase = SetBookmarkSecondaryDisplayTypeUseCase(settingsRepository)
 
     @Provides
     @Singleton

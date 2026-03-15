@@ -10,7 +10,7 @@ data class HomeObservedState(
     val defaultBrowserPackage: String?,
     val bookmarkDisplayType: String?,
     val scrollLongBookmarkUrl: Boolean,
-    val showBookmarkUrl: Boolean,
+    val bookmarkSecondaryDisplayType: String?,
     val openBookmarkAdjacentOnLargeScreen: Boolean,
     val openBookmarkSidePreviewOnLargeScreen: Boolean,
     val showFolderDescription: Boolean,

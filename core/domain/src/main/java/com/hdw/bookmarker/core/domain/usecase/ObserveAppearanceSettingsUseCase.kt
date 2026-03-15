@@ -1,13 +1,14 @@
 package com.hdw.bookmarker.core.domain.usecase
 
 import com.hdw.bookmarker.core.model.settings.AppearanceSettings
+import com.hdw.bookmarker.core.model.settings.BookmarkSecondaryDisplayType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 
 class ObserveAppearanceSettingsUseCase @Inject constructor(
     private val getAppThemeModeUseCase: GetAppThemeModeUseCase,
-    private val getShowBookmarkUrlUseCase: GetShowBookmarkUrlUseCase,
+    private val getBookmarkSecondaryDisplayTypeUseCase: GetBookmarkSecondaryDisplayTypeUseCase,
     private val getScrollLongBookmarkUrlUseCase: GetScrollLongBookmarkUrlUseCase,
     private val getOpenBookmarkSidePreviewOnLargeScreenUseCase: GetOpenBookmarkSidePreviewOnLargeScreenUseCase,
     private val getShowFolderDescriptionUseCase: GetShowFolderDescriptionUseCase,
@@ -16,11 +17,16 @@ class ObserveAppearanceSettingsUseCase @Inject constructor(
 ) {
     operator fun invoke(): Flow<AppearanceSettings> {
         val bookmarkAppearance = combine(
-            getShowBookmarkUrlUseCase(),
+            getBookmarkSecondaryDisplayTypeUseCase(),
             getScrollLongBookmarkUrlUseCase(),
             getOpenBookmarkSidePreviewOnLargeScreenUseCase(),
-        ) { showBookmarkUrl, scrollLongBookmarkUrl, openBookmarkSidePreviewOnLargeScreen ->
-            Triple(showBookmarkUrl, scrollLongBookmarkUrl, openBookmarkSidePreviewOnLargeScreen)
+        ) { secondaryDisplayType, scrollLongBookmarkUrl, openBookmarkSidePreviewOnLargeScreen ->
+            Triple(
+                BookmarkSecondaryDisplayType.values().find { it.name == secondaryDisplayType }
+                    ?: BookmarkSecondaryDisplayType.URL,
+                scrollLongBookmarkUrl,
+                openBookmarkSidePreviewOnLargeScreen
+            )
         }
 
         val folderAppearance = combine(
@@ -38,7 +44,7 @@ class ObserveAppearanceSettingsUseCase @Inject constructor(
         ) { selectedThemeMode, bookmarkAppearanceState, folderAppearanceState ->
             AppearanceSettings(
                 selectedThemeMode = selectedThemeMode,
-                showBookmarkUrl = bookmarkAppearanceState.first,
+                secondaryDisplayType = bookmarkAppearanceState.first,
                 scrollLongBookmarkUrl = bookmarkAppearanceState.second,
                 openBookmarkSidePreviewOnLargeScreen = bookmarkAppearanceState.third,
                 showFolderDescription = folderAppearanceState.first,

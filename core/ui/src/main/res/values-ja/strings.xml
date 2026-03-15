@@ -151,8 +151,11 @@
     <string name="rate_app_open_store_failed">Play ストアを開けませんでした。</string>
     <string name="appearance_label">外観</string>
     <string name="behavior_label">動作</string>
-    <string name="bookmark_show_url_label">URLを表示</string>
-    <string name="bookmark_scroll_long_url_label">長いURLをスクロール</string>
+    <string name="bookmark_secondary_info_label">ブックマーク情報の表示</string>
+    <string name="bookmark_secondary_info_none">なし</string>
+    <string name="bookmark_secondary_info_url">URL</string>
+    <string name="bookmark_secondary_info_tag">タグ</string>
+    <string name="bookmark_scroll_long_info_label">長い情報をスクロール</string>
     <string name="bookmark_open_side_preview_label">プレビュー</string>
     <string name="bookmark_preview_title">プレビュー</string>
     <string name="bookmark_preview_placeholder">プレビューするブックマークを選択</string>

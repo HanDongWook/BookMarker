@@ -11,10 +11,11 @@ import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetOpenBookmarkSidePreviewOnLargeScreenUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongFolderDescriptionUseCase
-import com.hdw.bookmarker.core.domain.usecase.SetShowBookmarkUrlUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkSecondaryDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetShowFolderDescriptionUseCase
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconColor
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconShape
+import com.hdw.bookmarker.core.model.settings.BookmarkSecondaryDisplayType
 import com.hdw.bookmarker.feature.settings.model.appearance.AppearanceState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -27,7 +28,7 @@ class AppearanceViewModel @AssistedInject constructor(
     private val observeAppearanceSettingsUseCase: ObserveAppearanceSettingsUseCase,
     private val setAppThemeModeUseCase: SetAppThemeModeUseCase,
     private val setScrollLongBookmarkUrlUseCase: SetScrollLongBookmarkUrlUseCase,
-    private val setShowBookmarkUrlUseCase: SetShowBookmarkUrlUseCase,
+    private val setBookmarkSecondaryDisplayTypeUseCase: SetBookmarkSecondaryDisplayTypeUseCase,
     private val setOpenBookmarkSidePreviewOnLargeScreenUseCase: SetOpenBookmarkSidePreviewOnLargeScreenUseCase,
     private val setScrollLongFolderDescriptionUseCase: SetScrollLongFolderDescriptionUseCase,
     private val setShowFolderDescriptionUseCase: SetShowFolderDescriptionUseCase,
@@ -45,15 +46,15 @@ class AppearanceViewModel @AssistedInject constructor(
         }
     }
 
-    fun setShowBookmarkUrl(show: Boolean) {
-        setState { copy(showBookmarkUrl = show) }
+    fun setBookmarkSecondaryDisplayType(displayType: BookmarkSecondaryDisplayType) {
+        setState { copy(secondaryDisplayType = displayType) }
         viewModelScope.launch {
-            setShowBookmarkUrlUseCase(show)
+            setBookmarkSecondaryDisplayTypeUseCase(displayType.name)
         }
     }
 
-    fun setScrollLongBookmarkUrl(enabled: Boolean) {
-        setState { copy(scrollLongBookmarkUrl = enabled) }
+    fun setScrollLongSecondaryInfo(enabled: Boolean) {
+        setState { copy(scrollLongSecondaryInfo = enabled) }
         viewModelScope.launch {
             setScrollLongBookmarkUrlUseCase(enabled)
         }
@@ -100,8 +101,8 @@ class AppearanceViewModel @AssistedInject constructor(
                 withState { current ->
                     val nextState = current.copy(
                         selectedThemeMode = appearanceSettings.selectedThemeMode,
-                        showBookmarkUrl = appearanceSettings.showBookmarkUrl,
-                        scrollLongBookmarkUrl = appearanceSettings.scrollLongBookmarkUrl,
+                        secondaryDisplayType = appearanceSettings.secondaryDisplayType,
+                        scrollLongSecondaryInfo = appearanceSettings.scrollLongBookmarkUrl,
                         openBookmarkSidePreviewOnLargeScreen =
                         appearanceSettings.openBookmarkSidePreviewOnLargeScreen,
                         showFolderDescription = appearanceSettings.showFolderDescription,

@@ -151,8 +151,11 @@
     <string name="rate_app_open_store_failed">Không thể mở Play Store.</string>
     <string name="appearance_label">Giao diện</string>
     <string name="behavior_label">Hành vi</string>
-    <string name="bookmark_show_url_label">Hiển thị URL</string>
-    <string name="bookmark_scroll_long_url_label">Cuộn URL dài</string>
+    <string name="bookmark_secondary_info_label">Hiển thị thông tin dấu trang</string>
+    <string name="bookmark_secondary_info_none">Không</string>
+    <string name="bookmark_secondary_info_url">URL</string>
+    <string name="bookmark_secondary_info_tag">Thẻ</string>
+    <string name="bookmark_scroll_long_info_label">Cuộn thông tin dài</string>
     <string name="bookmark_open_side_preview_label">Xem trước</string>
     <string name="bookmark_preview_title">Xem trước</string>
     <string name="bookmark_preview_placeholder">Chọn dấu trang để xem trước</string>

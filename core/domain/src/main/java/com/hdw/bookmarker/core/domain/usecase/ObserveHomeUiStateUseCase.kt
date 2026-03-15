@@ -15,7 +15,7 @@ class ObserveHomeUiStateUseCase @Inject constructor(
     private val getDefaultBrowserPackageUseCase: GetDefaultBrowserPackageUseCase,
     private val getBookmarkDisplayTypeUseCase: GetBookmarkDisplayTypeUseCase,
     private val getScrollLongBookmarkUrlUseCase: GetScrollLongBookmarkUrlUseCase,
-    private val getShowBookmarkUrlUseCase: GetShowBookmarkUrlUseCase,
+    private val getBookmarkSecondaryDisplayTypeUseCase: GetBookmarkSecondaryDisplayTypeUseCase,
     private val getOpenBookmarkAdjacentOnLargeScreenUseCase: GetOpenBookmarkAdjacentOnLargeScreenUseCase,
     private val getOpenBookmarkSidePreviewOnLargeScreenUseCase: GetOpenBookmarkSidePreviewOnLargeScreenUseCase,
     private val getShowFolderDescriptionUseCase: GetShowFolderDescriptionUseCase,
@@ -49,13 +49,13 @@ class ObserveHomeUiStateUseCase @Inject constructor(
 
         val displayPreferences = combine(
             getScrollLongBookmarkUrlUseCase(),
-            getShowBookmarkUrlUseCase(),
+            getBookmarkSecondaryDisplayTypeUseCase(),
             getBookmarkDisplayTypeUseCase(),
-        ) { scrollLongBookmarkUrl, showBookmarkUrl, bookmarkDisplayType ->
+        ) { scrollLongBookmarkUrl, bookmarkSecondaryDisplayType, bookmarkDisplayType ->
             BookmarkDisplayPreferences(
                 bookmarkDisplayType = bookmarkDisplayType,
                 scrollLongBookmarkUrl = scrollLongBookmarkUrl,
-                showBookmarkUrl = showBookmarkUrl,
+                bookmarkSecondaryDisplayType = bookmarkSecondaryDisplayType,
             )
         }
 
@@ -84,7 +84,7 @@ class ObserveHomeUiStateUseCase @Inject constructor(
                 defaultBrowserPackage = openingPreferencesState.defaultBrowserPackage,
                 bookmarkDisplayType = bookmarkDisplayPreferences.bookmarkDisplayType,
                 scrollLongBookmarkUrl = bookmarkDisplayPreferences.scrollLongBookmarkUrl,
-                showBookmarkUrl = bookmarkDisplayPreferences.showBookmarkUrl,
+                bookmarkSecondaryDisplayType = bookmarkDisplayPreferences.bookmarkSecondaryDisplayType,
                 openBookmarkAdjacentOnLargeScreen =
                 openingPreferencesState.openBookmarkAdjacentOnLargeScreen,
                 openBookmarkSidePreviewOnLargeScreen =
@@ -111,7 +111,7 @@ class ObserveHomeUiStateUseCase @Inject constructor(
     private data class BookmarkDisplayPreferences(
         val bookmarkDisplayType: String?,
         val scrollLongBookmarkUrl: Boolean,
-        val showBookmarkUrl: Boolean,
+        val bookmarkSecondaryDisplayType: String?,
     )
 
     private data class FolderDisplayPreferences(
