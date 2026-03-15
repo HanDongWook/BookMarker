@@ -168,7 +168,6 @@
     <string name="bookmark_note">説明</string>
     <string name="bookmark_inbox_title">受信トレイ</string>
     <string name="bookmark_inbox_badge">受信トレイ</string>
-    <string name="bookmark_inbox_empty">受信トレイに保存されたリンクはまだありません。\nリンクを共有してここに保存してください。</string>
     <string name="import_source_html_file_title">HTMLファイル</string>
     <string name="large_screen_label">大画面</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">大画面でアプリの横に開く</string>

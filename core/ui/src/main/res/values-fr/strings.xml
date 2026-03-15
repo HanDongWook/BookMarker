@@ -168,7 +168,6 @@
     <string name="bookmark_note">Description</string>
     <string name="bookmark_inbox_title">Boîte de réception</string>
     <string name="bookmark_inbox_badge">Boîte de réception</string>
-    <string name="bookmark_inbox_empty">Aucun lien n\'est encore enregistré dans la Boîte de réception.\nPartagez un lien pour l\'enregistrer ici.</string>
     <string name="import_source_html_file_title">Fichier HTML</string>
     <string name="large_screen_label">Grand écran</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Ouvrir à côté de l\'app sur grands écrans</string>

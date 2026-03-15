@@ -168,7 +168,6 @@
     <string name="bookmark_note">Açıklama</string>
     <string name="bookmark_inbox_title">Gelen Kutusu</string>
     <string name="bookmark_inbox_badge">Gelen Kutusu</string>
-    <string name="bookmark_inbox_empty">Gelen Kutusunda henüz kayıtlı bağlantı yok.\nBuraya kaydetmek için bir bağlantı paylaşın.</string>
     <string name="import_source_html_file_title">HTML dosyası</string>
     <string name="large_screen_label">Büyük ekran</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Büyük ekranlarda uygulamanın yanında aç</string>

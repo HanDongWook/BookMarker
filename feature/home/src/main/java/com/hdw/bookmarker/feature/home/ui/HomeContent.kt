@@ -65,6 +65,8 @@ internal fun HomeContent(
     onPreviewOpenExternally: (String) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
+    val currentSnapshotId = orderedSnapshotIds.getOrNull(pagerState.currentPage)
+    val isCurrentInbox = currentSnapshotId != null && state.bookmarkDocuments[currentSnapshotId]?.isInboxSnapshot() == true
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -82,7 +84,7 @@ internal fun HomeContent(
             )
         },
         floatingActionButton = {
-            if (!showLargeScreenSidePreview) {
+            if (!showLargeScreenSidePreview && !isCurrentInbox) {
                 AddItemFloatingActionButton(onClick = onAddItemClick)
             }
         },
@@ -140,12 +142,14 @@ internal fun HomeContent(
                             onSnapshotExportClick = onSnapshotExportClick,
                             modifier = Modifier.fillMaxSize(),
                         )
-                        AddItemFloatingActionButton(
-                            onClick = onAddItemClick,
-                            modifier = Modifier
-                                .align(Alignment.BottomEnd)
-                                .padding(16.dp),
-                        )
+                        if (!isCurrentInbox) {
+                            AddItemFloatingActionButton(
+                                onClick = onAddItemClick,
+                                modifier = Modifier
+                                    .align(Alignment.BottomEnd)
+                                    .padding(16.dp),
+                            )
+                        }
                     }
                     VerticalDivider(modifier = Modifier.fillMaxHeight())
                     LargeScreenBookmarkPreviewPane(
