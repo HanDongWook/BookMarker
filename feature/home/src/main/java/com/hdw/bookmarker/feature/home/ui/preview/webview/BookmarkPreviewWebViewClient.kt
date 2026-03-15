@@ -16,22 +16,22 @@ internal class BookmarkPreviewWebViewClient(
     private val onPageError: () -> Unit,
 ) : WebViewClient() {
 
-    override fun shouldOverrideUrlLoading(
-        view: WebView?,
-        request: WebResourceRequest?,
-    ): Boolean {
+    override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
         val targetUrl = request?.url?.toString().orEmpty()
         val scheme = request?.url?.scheme.orEmpty()
         val isMainFrame = request?.isForMainFrame == true
         return when (scheme) {
             "https" -> false
+
             "http" if isMainFrame -> {
                 if (!upgradeCleartextNavigation(view = view, targetUrl = targetUrl)) {
                     onPageError()
                 }
                 true
             }
+
             "http" -> false
+
             else -> {
                 if (targetUrl.isNotBlank()) {
                     onOpenExternally(targetUrl)
@@ -66,11 +66,7 @@ internal class BookmarkPreviewWebViewClient(
         )
     }
 
-    override fun onReceivedError(
-        view: WebView?,
-        request: WebResourceRequest?,
-        error: WebResourceError?,
-    ) {
+    override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
         val isMainFrame = request?.isForMainFrame == true
         val targetUrl = request?.url?.toString().orEmpty()
         val isCleartextBlocked =
@@ -92,10 +88,7 @@ internal class BookmarkPreviewWebViewClient(
         }
     }
 
-    private fun upgradeCleartextNavigation(
-        view: WebView?,
-        targetUrl: String,
-    ): Boolean {
+    private fun upgradeCleartextNavigation(view: WebView?, targetUrl: String): Boolean {
         val upgradedUrl = targetUrl
             .replaceFirst("http://", "https://")
             .takeIf { it != targetUrl }

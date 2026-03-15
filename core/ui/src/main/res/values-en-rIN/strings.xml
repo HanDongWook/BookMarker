@@ -165,7 +165,7 @@
     <string name="folder_description">Description</string>
     <string name="display_value_loading">Loading</string>
     <string name="bookmark_tags">Tags</string>
-    <string name="bookmark_note">Note</string>
+    <string name="bookmark_note">Description</string>
     <string name="bookmark_inbox_title">Inbox</string>
     <string name="bookmark_inbox_badge">Inbox</string>
     <string name="bookmark_inbox_empty">No saved links in Inbox yet.\nShare a link to save it here.</string>

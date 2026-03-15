@@ -165,7 +165,7 @@
     <string name="folder_description">คำอธิบาย</string>
     <string name="display_value_loading">กำลังโหลด</string>
     <string name="bookmark_tags">แท็ก</string>
-    <string name="bookmark_note">บันทึก</string>
+    <string name="bookmark_note">คำอธิบาย</string>
     <string name="bookmark_inbox_title">กล่องจดหมาย</string>
     <string name="bookmark_inbox_badge">กล่องจดหมาย</string>
     <string name="bookmark_inbox_empty">ยังไม่มีลิงก์ที่บันทึกไว้ในกล่องจดหมาย\nแชร์ลิงก์เพื่อบันทึกไว้ที่นี่</string>

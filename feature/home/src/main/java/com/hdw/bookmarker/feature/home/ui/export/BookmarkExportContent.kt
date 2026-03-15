@@ -3,11 +3,11 @@ package com.hdw.bookmarker.feature.home.ui.export
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 
-private const val DefaultBookmarkExportTitle = "bookmarks"
+private const val DEFAULT_BOOKMARK_EXPORT_TITLE = "bookmarks"
 
 internal fun buildBookmarkExportTitle(
     bookmarkDocument: BookmarkDocument,
-    fallbackTitle: String = DefaultBookmarkExportTitle,
+    fallbackTitle: String = DEFAULT_BOOKMARK_EXPORT_TITLE,
 ): String = bookmarkDocument.title
     ?.trim()
     ?.takeIf { it.isNotBlank() }
@@ -15,7 +15,7 @@ internal fun buildBookmarkExportTitle(
 
 internal fun buildBookmarkExportTextContent(
     bookmarkDocument: BookmarkDocument,
-    fallbackTitle: String = DefaultBookmarkExportTitle,
+    fallbackTitle: String = DEFAULT_BOOKMARK_EXPORT_TITLE,
 ): String? {
     val entries = flattenBookmarkExportEntries(bookmarkDocument.rootItems)
     if (entries.isEmpty()) return null
@@ -49,15 +49,12 @@ internal fun buildBookmarkExportHtmlContent(bookmarkDocument: BookmarkDocument):
     }
 }
 
-internal fun buildBookmarkExportFileName(
-    bookmarkDocument: BookmarkDocument,
-    extension: String,
-): String {
+internal fun buildBookmarkExportFileName(bookmarkDocument: BookmarkDocument, extension: String): String {
     val base = buildBookmarkExportTitle(bookmarkDocument)
     val sanitized = base
         .replace(Regex("[^a-zA-Z0-9가-힣._-]"), "_")
         .take(40)
-        .ifBlank { DefaultBookmarkExportTitle }
+        .ifBlank { DEFAULT_BOOKMARK_EXPORT_TITLE }
     return "$sanitized.$extension"
 }
 

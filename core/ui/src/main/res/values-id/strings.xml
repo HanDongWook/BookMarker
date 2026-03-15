@@ -165,7 +165,7 @@
     <string name="folder_description">Deskripsi</string>
     <string name="display_value_loading">Memuat</string>
     <string name="bookmark_tags">Tag</string>
-    <string name="bookmark_note">Catatan</string>
+    <string name="bookmark_note">Deskripsi</string>
     <string name="bookmark_inbox_title">Kotak Masuk</string>
     <string name="bookmark_inbox_badge">Kotak Masuk</string>
     <string name="bookmark_inbox_empty">Belum ada tautan yang disimpan di Kotak Masuk.\nBagikan tautan untuk menyimpannya di sini.</string>

@@ -165,7 +165,7 @@
     <string name="folder_description">Descrizione</string>
     <string name="display_value_loading">Caricamento in corso</string>
     <string name="bookmark_tags">Tag</string>
-    <string name="bookmark_note">Nota</string>
+    <string name="bookmark_note">Descrizione</string>
     <string name="bookmark_inbox_title">Posta in arrivo</string>
     <string name="bookmark_inbox_badge">Posta in arrivo</string>
     <string name="bookmark_inbox_empty">Nessun link salvato ancora in Posta in arrivo.\nCondividi un link per salvarlo qui.</string>
