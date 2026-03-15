@@ -31,7 +31,6 @@
     <string name="default_snapshot_title_prefix">북마크</string>
     <string name="bookmark_inbox_title">Inbox</string>
     <string name="bookmark_inbox_badge">Inbox</string>
-    <string name="bookmark_inbox_empty">아직 Inbox에 저장된 링크가 없어요.\n링크를 공유해서 여기에 저장해보세요.</string>
     <string name="rename_bookmark_snapshot">이름 변경</string>
     <string name="app_version_label">앱 버전</string>
     <string name="app_update_status_latest">최신 버전</string>

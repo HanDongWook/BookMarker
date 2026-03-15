@@ -168,7 +168,6 @@
     <string name="bookmark_note">Description</string>
     <string name="bookmark_inbox_title">Inbox</string>
     <string name="bookmark_inbox_badge">Inbox</string>
-    <string name="bookmark_inbox_empty">No saved links in Inbox yet.\nShare a link to save it here.</string>
     <string name="import_source_html_file_title">HTML file</string>
     <string name="large_screen_label">Large screen</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Open beside app on large screens</string>

@@ -168,7 +168,6 @@
     <string name="bookmark_note">Descrizione</string>
     <string name="bookmark_inbox_title">Posta in arrivo</string>
     <string name="bookmark_inbox_badge">Posta in arrivo</string>
-    <string name="bookmark_inbox_empty">Nessun link salvato ancora in Posta in arrivo.\nCondividi un link per salvarlo qui.</string>
     <string name="import_source_html_file_title">File HTML</string>
     <string name="large_screen_label">Schermo grande</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Apri di fianco all\'app su schermi grandi</string>

@@ -168,7 +168,6 @@
     <string name="bookmark_note">Descripción</string>
     <string name="bookmark_inbox_title">Bandeja de entrada</string>
     <string name="bookmark_inbox_badge">Bandeja de entrada</string>
-    <string name="bookmark_inbox_empty">Aún no hay enlaces guardados en la Bandeja de entrada.\nComparte un enlace para guardarlo aquí.</string>
     <string name="import_source_html_file_title">Archivo HTML</string>
     <string name="large_screen_label">Pantalla grande</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Abrir junto a la app en pantallas grandes</string>

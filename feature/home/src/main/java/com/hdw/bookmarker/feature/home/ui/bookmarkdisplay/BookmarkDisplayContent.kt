@@ -128,13 +128,7 @@ private fun EmptyBookmarks(
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = stringResource(
-                    if (isInboxSnapshot) {
-                        R.string.bookmark_inbox_empty
-                    } else {
-                        R.string.empty_bookmarks
-                    },
-                ),
+                text = stringResource(R.string.empty_bookmarks),
                 textAlign = TextAlign.Center,
             )
         }
