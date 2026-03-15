@@ -28,6 +28,8 @@ internal fun SettingsNavHost(
     onTemporaryDataClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
     onDefaultBrowserSelect: (String) -> Unit,
+    showDevelopmentTab: Boolean,
+    onDevelopmentClick: () -> Unit,
 ) {
     val navController = rememberNavController()
 
@@ -63,6 +65,8 @@ internal fun SettingsNavHost(
                 },
                 appUpdateUiState = settingsState.appUpdateUiState,
                 onAppUpdateClick = onAppUpdateClick,
+                showDevelopmentTab = showDevelopmentTab,
+                onDevelopmentClick = onDevelopmentClick,
             )
         }
 
@@ -98,7 +102,7 @@ internal fun SettingsNavHost(
 
 @Preview(showBackground = true)
 @Composable
-private fun SettingsNavHostPreview() {
+internal fun SettingsNavHostPreview() {
     SettingsNavHost(
         settingsState = SettingsState(
             appVersion = DisplayValueState.Loaded("1.2.3 (123)"),
@@ -109,5 +113,7 @@ private fun SettingsNavHostPreview() {
         onTemporaryDataClick = {},
         onAppUpdateClick = {},
         onDefaultBrowserSelect = {},
+        showDevelopmentTab = true,
+        onDevelopmentClick = {},
     )
 }

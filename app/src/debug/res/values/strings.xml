@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources translatable="false">
+    <string name="development_activity_title">Development</string>
+    <string name="development_open_showkase">Open Showkase Browser</string>
+    <string name="development_open_main">Open Main App</string>
+    <string name="development_close">Close</string>
+</resources>
