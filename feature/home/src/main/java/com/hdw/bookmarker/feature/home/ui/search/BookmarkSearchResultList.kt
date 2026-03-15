@@ -120,7 +120,9 @@ private fun BookmarkSearchResultRow(
                 }
             if (result.tags.isNotEmpty()) {
                 Text(
-                    text = stringResource(R.string.bookmark_search_tags_prefix) + result.tags.joinToString(separator = " ") { "#$it" },
+                    text =
+                    stringResource(R.string.bookmark_search_tags_prefix) +
+                        result.tags.joinToString(separator = " ") { "#$it" },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.primary,
                     maxLines = 1,

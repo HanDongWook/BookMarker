@@ -36,6 +36,8 @@ internal fun HomeDialogHost(
     onAddBookmarkItem: (AddBookmarkItemRequest) -> Unit,
     onDefaultBrowserSelected: (String) -> Unit,
     onBookmarkColorSelected: (SnapshotId, Long) -> Unit,
+    onCopyBookmarkItem: (BookmarkItem) -> Unit,
+    onPasteCopiedItem: (BookmarkItem, List<Int>?) -> Unit,
 ) {
     var showImportOptionDialog by uiState.showImportOptionDialog
     var showDefaultBrowserDialog by uiState.showDefaultBrowserDialog
@@ -57,6 +59,7 @@ internal fun HomeDialogHost(
     var pendingSnapshotTitle by uiState.pendingSnapshotTitle
     var pendingEditBookmarkItemPath by uiState.pendingEditBookmarkItemPath
     var pendingDeleteBookmarkItemPath by uiState.pendingDeleteBookmarkItemPath
+    var pendingDeleteBookmarkItem by uiState.pendingDeleteBookmarkItem
     var pendingEditBookmarkItem by uiState.pendingEditBookmarkItem
     var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
@@ -64,6 +67,9 @@ internal fun HomeDialogHost(
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
     var showBookmarkItemActionDialog by uiState.showBookmarkItemActionDialog
     var showEditBookmarkItemDialog by uiState.showEditBookmarkItemDialog
+    var copiedBookmarkItem by uiState.copiedBookmarkItem
+    var pendingPasteFolderPath by uiState.pendingPasteFolderPath
+    var showPasteActionDialog by uiState.showPasteActionDialog
 
     if (showColorPickerDialog && selectedBookmarkId != null) {
         BookmarkColorPickerDialog(
@@ -182,18 +188,60 @@ internal fun HomeDialogHost(
             onDeleteClick = {
                 showBookmarkItemActionDialog = false
                 pendingDeleteBookmarkItemPath = pendingEditBookmarkItemPath
+                pendingDeleteBookmarkItem = pendingEditBookmarkItem
                 pendingEditBookmarkItemPath = null
                 pendingEditBookmarkItem = null
+            },
+            onCopyClick = {
+                onCopyBookmarkItem(pendingEditBookmarkItem ?: return@BookmarkItemActionDialog)
+                showBookmarkItemActionDialog = false
+                pendingEditBookmarkItemPath = null
+                pendingEditBookmarkItem = null
+            },
+            onPasteClick = {
+                val copiedItem = copiedBookmarkItem ?: return@BookmarkItemActionDialog
+                val targetFolderPath = pendingEditBookmarkItemPath ?: return@BookmarkItemActionDialog
+                onPasteCopiedItem(copiedItem, targetFolderPath)
+                showBookmarkItemActionDialog = false
+                pendingEditBookmarkItemPath = null
+                pendingEditBookmarkItem = null
+            }.takeIf {
+                copiedBookmarkItem != null && pendingEditBookmarkItem is BookmarkItem.Folder
             },
         )
     }
 
-    if (pendingDeleteBookmarkItemPath != null) {
+    if (showPasteActionDialog && copiedBookmarkItem != null) {
+        BookmarkItemActionDialog(
+            onDismiss = {
+                showPasteActionDialog = false
+                pendingPasteFolderPath = null
+            },
+            onPasteClick = {
+                val copiedItem = copiedBookmarkItem ?: return@BookmarkItemActionDialog
+                onPasteCopiedItem(copiedItem, pendingPasteFolderPath)
+                showPasteActionDialog = false
+                pendingPasteFolderPath = null
+            },
+        )
+    }
+
+    if (pendingDeleteBookmarkItemPath != null && pendingDeleteBookmarkItem != null) {
         DeleteBookmarkItemDialog(
-            onDismiss = { pendingDeleteBookmarkItemPath = null },
+            title = when (val item = pendingDeleteBookmarkItem) {
+                is BookmarkItem.Bookmark -> item.title
+                is BookmarkItem.Folder -> item.title
+                null -> ""
+            },
+            isFolder = pendingDeleteBookmarkItem is BookmarkItem.Folder,
+            onDismiss = {
+                pendingDeleteBookmarkItemPath = null
+                pendingDeleteBookmarkItem = null
+            },
             onConfirmDelete = {
                 onDeleteBookmarkItem(pendingDeleteBookmarkItemPath ?: return@DeleteBookmarkItemDialog)
                 pendingDeleteBookmarkItemPath = null
+                pendingDeleteBookmarkItem = null
             },
         )
     }

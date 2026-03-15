@@ -138,6 +138,8 @@
     <string name="delete_bookmark_dialog_cancel">Cancel</string>
     <string name="delete_bookmark_item_dialog_title">Delete</string>
     <string name="delete_bookmark_item_dialog_message">Do you want to delete the selected folder or bookmark?</string>
+    <string name="delete_bookmark_item_dialog_message_folder">Delete folder \"%1$s\"?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">Delete bookmark \"%1$s\"?</string>
     <string name="delete_bookmark_item_dialog_confirm">Delete</string>
     <string name="delete_bookmark_item_dialog_cancel">Cancel</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Add empty bookmark item</string>
@@ -186,4 +188,8 @@
     <string name="bookmark_search_tags_prefix">"Tags : "</string>
     <string name="bookmark_item_action_edit">Edit</string>
     <string name="bookmark_item_action_delete">Delete</string>
+    <string name="bookmark_item_action_copy">Copy</string>
+    <string name="bookmark_item_action_paste">Paste</string>
+    <string name="bookmark_item_copy_toast_folder">Folder \"%1$s\" copied.</string>
+    <string name="bookmark_item_copy_toast_bookmark">Bookmark \"%1$s\" copied.</string>
 </resources>

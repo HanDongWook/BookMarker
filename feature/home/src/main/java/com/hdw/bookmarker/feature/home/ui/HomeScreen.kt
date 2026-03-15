@@ -84,6 +84,8 @@ fun HomeScreen(
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
     var pendingEditBookmarkTags by uiState.pendingEditBookmarkTags
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
+    var copiedBookmarkItem by uiState.copiedBookmarkItem
+    var pendingPasteFolderPath by uiState.pendingPasteFolderPath
     val orderedSnapshotIds = remember(state.bookmarkSnapshots) {
         state.bookmarkSnapshots.orderedIds.filter { id -> !state.bookmarkSnapshots.isEmptyInbox(id) }
     }
@@ -100,6 +102,8 @@ fun HomeScreen(
         ?: orderedSnapshotIds.firstOrNull()
     val selectedFolderPath = state.selectedFolderPaths.pathOf(selectedBookmarkId)
     val defaultSnapshotTitlePrefix = stringResource(R.string.default_snapshot_title_prefix)
+    val copyFolderToastFormat = stringResource(R.string.bookmark_item_copy_toast_folder)
+    val copyBookmarkToastFormat = stringResource(R.string.bookmark_item_copy_toast_bookmark)
     val snapshotTitles = remember(orderedSnapshotIds, state.bookmarkSnapshots, defaultSnapshotTitlePrefix) {
         orderedSnapshotIds.mapIndexed { index, snapshotId ->
             val defaultTitle = "$defaultSnapshotTitlePrefix${index + 1}"
@@ -189,6 +193,34 @@ fun HomeScreen(
         onAddBookmarkItem = onAddBookmarkItem,
         onDefaultBrowserSelected = onDefaultBrowserSelected,
         onBookmarkColorSelected = onBookmarkColorSelected,
+        onCopyBookmarkItem = { item ->
+            copiedBookmarkItem = item.deepCopy()
+            val shortenedTitle = item.displayTitle().truncateForToast()
+            val toastMessage = when (item) {
+                is BookmarkItem.Folder -> copyFolderToastFormat.format(shortenedTitle)
+                is BookmarkItem.Bookmark -> copyBookmarkToastFormat.format(shortenedTitle)
+            }
+            context.showShortToast(toastMessage)
+        },
+        onPasteCopiedItem = { item, targetFolderPath ->
+            val request = when (item) {
+                is BookmarkItem.Bookmark -> AddBookmarkItemRequest.Bookmark(
+                    parentFolderPath = targetFolderPath,
+                    title = item.title,
+                    url = item.url,
+                    description = item.description.orEmpty(),
+                    tags = item.tags,
+                )
+
+                is BookmarkItem.Folder -> AddBookmarkItemRequest.Folder(
+                    parentFolderPath = targetFolderPath,
+                    title = item.title,
+                    description = item.description.orEmpty(),
+                    children = item.children,
+                )
+            }
+            onAddBookmarkItem(request)
+        },
     )
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -242,6 +274,12 @@ fun HomeScreen(
                         is BookmarkItem.Folder -> item.description.orEmpty()
                     }
                     uiState.showBookmarkItemActionDialog.value = true
+                },
+                onBlankAreaLongClick = { targetFolderPath ->
+                    if (copiedBookmarkItem != null) {
+                        pendingPasteFolderPath = targetFolderPath
+                        uiState.showPasteActionDialog.value = true
+                    }
                 },
                 onSelectedFolderPathChange = onSelectedFolderPathChange,
                 currentSnapshotTitle = selectedBookmarkId?.let(snapshotTitles::get),
@@ -302,4 +340,20 @@ private fun HomeScreenPreview() {
         onAddEmptyBookmarkSnapshot = {},
         onBookmarkExportRequest = { _, _ -> },
     )
+}
+
+private fun BookmarkItem.deepCopy(): BookmarkItem = when (this) {
+    is BookmarkItem.Bookmark -> copy(tags = tags.toList())
+    is BookmarkItem.Folder -> copy(children = children.map(BookmarkItem::deepCopy))
+}
+
+private fun BookmarkItem.displayTitle(): String = when (this) {
+    is BookmarkItem.Bookmark -> title
+    is BookmarkItem.Folder -> title
+}
+
+private fun String.truncateForToast(maxLength: Int = 16): String {
+    if (length <= maxLength) return this
+    if (maxLength <= 3) return "..."
+    return take(maxLength - 3) + "..."
 }

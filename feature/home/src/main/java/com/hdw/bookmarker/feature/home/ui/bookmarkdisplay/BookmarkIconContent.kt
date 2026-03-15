@@ -2,6 +2,7 @@ package com.hdw.bookmarker.feature.home.ui.bookmarkdisplay
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -40,6 +41,7 @@ internal fun BookmarkIconContent(
     bookmarkDocument: BookmarkDocument,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
+    onBlankAreaLongClick: (List<Int>?) -> Unit,
     folderIconStyle: BookmarkFolderIconStyle,
     modifier: Modifier = Modifier,
     selectedFolderPath: List<Int>? = null,
@@ -100,44 +102,55 @@ internal fun BookmarkIconContent(
             }
         }
 
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(minSize = 96.dp),
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 16.dp, top = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .combinedClickable(
+                    onClick = {},
+                    onLongClick = {
+                        onBlankAreaLongClick(currentPath.takeIf { it.isNotEmpty() })
+                    },
+                ),
         ) {
-            itemsIndexed(
-                items = currentItems,
-                key = { index, item ->
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(minSize = 96.dp),
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 16.dp, top = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                itemsIndexed(
+                    items = currentItems,
+                    key = { index, item ->
+                        when (item) {
+                            is BookmarkItem.Bookmark -> "bookmark-${currentPath.size}-$index-${item.url}"
+                            is BookmarkItem.Folder -> "folder-${currentPath.size}-$index-${item.title}"
+                        }
+                    },
+                ) { index, item ->
                     when (item) {
-                        is BookmarkItem.Bookmark -> "bookmark-${currentPath.size}-$index-${item.url}"
-                        is BookmarkItem.Folder -> "folder-${currentPath.size}-$index-${item.title}"
-                    }
-                },
-            ) { index, item ->
-                when (item) {
-                    is BookmarkItem.Folder -> {
-                        BookmarkFolderIconItem(
-                            folder = item,
-                            folderIconStyle = folderIconStyle,
-                            onClick = {
-                                onSelectedFolderPathChange(currentPath + index)
-                            },
-                            onLongClick = {
-                                onItemLongClick(item, currentPath + index)
-                            },
-                        )
-                    }
+                        is BookmarkItem.Folder -> {
+                            BookmarkFolderIconItem(
+                                folder = item,
+                                folderIconStyle = folderIconStyle,
+                                onClick = {
+                                    onSelectedFolderPathChange(currentPath + index)
+                                },
+                                onLongClick = {
+                                    onItemLongClick(item, currentPath + index)
+                                },
+                            )
+                        }
 
-                    is BookmarkItem.Bookmark -> {
-                        BookmarkLeafIconItem(
-                            bookmark = item,
-                            onClick = { onBookmarkClick(item.url) },
-                            onLongClick = {
-                                onItemLongClick(item, currentPath + index)
-                            },
-                        )
+                        is BookmarkItem.Bookmark -> {
+                            BookmarkLeafIconItem(
+                                bookmark = item,
+                                onClick = { onBookmarkClick(item.url) },
+                                onLongClick = {
+                                    onItemLongClick(item, currentPath + index)
+                                },
+                            )
+                        }
                     }
                 }
             }
@@ -220,6 +233,7 @@ private fun BookmarkIconContentPreview() {
         bookmarkDocument = previewBookmarkIconDocument(),
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
+        onBlankAreaLongClick = {},
         folderIconStyle = BookmarkFolderIconStyle(),
     )
 }

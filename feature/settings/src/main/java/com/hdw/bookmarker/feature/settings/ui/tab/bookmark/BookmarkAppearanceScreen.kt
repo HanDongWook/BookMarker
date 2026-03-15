@@ -81,21 +81,29 @@ fun BookmarkAppearanceScreen(
                                 RadioButton(
                                     selected = secondaryDisplayType == type,
                                     onClick = null,
-                                    modifier = Modifier.size(20.dp)
+                                    modifier = Modifier.size(20.dp),
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
                                     text = when (type) {
-                                        BookmarkSecondaryDisplayType.NONE -> stringResource(R.string.bookmark_secondary_info_none)
-                                        BookmarkSecondaryDisplayType.URL -> stringResource(R.string.bookmark_secondary_info_url)
-                                        BookmarkSecondaryDisplayType.TAG -> stringResource(R.string.bookmark_secondary_info_tag)
+                                        BookmarkSecondaryDisplayType.NONE -> stringResource(
+                                            R.string.bookmark_secondary_info_none,
+                                        )
+
+                                        BookmarkSecondaryDisplayType.URL -> stringResource(
+                                            R.string.bookmark_secondary_info_url,
+                                        )
+
+                                        BookmarkSecondaryDisplayType.TAG -> stringResource(
+                                            R.string.bookmark_secondary_info_tag,
+                                        )
                                     },
-                                    style = MaterialTheme.typography.bodyMedium
+                                    style = MaterialTheme.typography.bodyMedium,
                                 )
                             }
                         }
                     }
-                }
+                },
             )
             BookMarkerDivider()
             SettingsRow(
