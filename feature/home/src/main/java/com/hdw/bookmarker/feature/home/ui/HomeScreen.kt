@@ -59,9 +59,7 @@ fun HomeScreen(
     val uiState = rememberHomeScreenUiState()
     var showAddItemTypeDialog by uiState.showAddItemTypeDialog
     var showImportOptionDialog by uiState.showImportOptionDialog
-    var isBrowserEditMode by uiState.isBrowserEditMode
     var showDefaultBrowserDialog by uiState.showDefaultBrowserDialog
-    var showColorPickerDialog by uiState.showColorPickerDialog
     var showExportBookmarkMethodDialog by uiState.showExportBookmarkMethodDialog
     var showSearchDialog by uiState.showSearchDialog
     var searchQuery by uiState.searchQuery
@@ -74,7 +72,8 @@ fun HomeScreen(
     var pendingBookmarkDescription by uiState.pendingBookmarkDescription
     var pendingBookmarkTags by uiState.pendingBookmarkTags
     var addBookmarkToInbox by uiState.addBookmarkToInbox
-    var pendingDeleteSnapshotId by uiState.pendingDeleteSnapshotId
+    var pendingActionSnapshotId by uiState.pendingActionSnapshotId
+    var pendingActionSnapshotTitle by uiState.pendingActionSnapshotTitle
     var pendingRenameSnapshotId by uiState.pendingRenameSnapshotId
     var pendingSnapshotTitle by uiState.pendingSnapshotTitle
     var pendingBookmarkExportAction by uiState.pendingBookmarkExportAction
@@ -235,7 +234,6 @@ fun HomeScreen(
                 orderedSnapshotIds = orderedSnapshotIds,
                 selectedBookmarkId = selectedBookmarkId,
                 pagerState = pagerState,
-                isBrowserEditMode = isBrowserEditMode,
                 defaultBrowserIcon = defaultBrowserIcon,
                 onSettingsClick = onSettingsClick,
                 onSearchClick = { showSearchDialog = true },
@@ -245,12 +243,13 @@ fun HomeScreen(
                         showDefaultBrowserDialog = true
                     }
                 },
-                onEditLabelClick = { showColorPickerDialog = true },
-                onEditModeDoneClick = { isBrowserEditMode = false },
                 onAddItemClick = { showAddItemTypeDialog = true },
                 onImportClick = { showImportOptionDialog = true },
-                onEnterEditMode = { isBrowserEditMode = true },
-                onDeleteSnapshotRequest = { snapshotId -> pendingDeleteSnapshotId = snapshotId },
+                onSnapshotLongClick = { snapshotId ->
+                    pendingActionSnapshotId = snapshotId
+                    pendingActionSnapshotTitle = snapshotTitles[snapshotId].orEmpty()
+                    uiState.showSnapshotActionDialog.value = true
+                },
                 onBookmarkClick = { url ->
                     if (enableLargeScreenSidePreview) {
                         uiState.previewPaneState.open(url)

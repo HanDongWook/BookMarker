@@ -187,8 +187,16 @@
     <string name="bookmark_item_action_delete">Löschen</string>
     <string name="bookmark_item_action_copy">Kopieren</string>
     <string name="bookmark_item_action_paste">Einfügen</string>
-    <string name="bookmark_item_copy_toast_folder">Ordner &quot;%1&quot; wurde kopiert.</string>
-    <string name="bookmark_item_copy_toast_bookmark">Lesezeichen &quot;%1&quot; wurde kopiert.</string>
-    <string name="delete_bookmark_item_dialog_message_folder">Möchten Sie den Ordner &quot;%1&quot; löschen?</string>
-    <string name="delete_bookmark_item_dialog_message_bookmark">Möchten Sie das Lesezeichen &quot;%1&quot; löschen?</string>
+    <string name="bookmark_item_copy_toast_folder">Ordner \"%1$s\" wurde kopiert.</string>
+    <string name="bookmark_item_copy_toast_bookmark">Lesezeichen \"%1$s\" wurde kopiert.</string>
+    <string name="delete_bookmark_item_dialog_message_folder">Möchten Sie den Ordner \"%1$s\" löschen?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">Möchten Sie das Lesezeichen \"%1$s\" löschen?</string>
+    <string name="bookmark_item_action_color">Farbe</string>
+    <string name="bookmark_item_action_title_bookmark">Lesezeichen "%1$s"</string>
+    <string name="bookmark_item_action_title_folder">Ordner "%1$s"</string>
+    <string name="bookmark_snapshot_action_title">Lesezeichen-Snapshot "%1$s"</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Lesezeichen-Snapshot löschen</string>
+    <string name="delete_bookmark_snapshot_dialog_message">Lesezeichen-Snapshot "%1$s" löschen?</string>
+    <string name="delete_bookmark_snapshot_dialog_confirm">Löschen</string>
+    <string name="delete_bookmark_snapshot_dialog_cancel">Abbrechen</string>
 </resources>

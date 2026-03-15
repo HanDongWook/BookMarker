@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.ContentPaste
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +31,8 @@ import com.hdw.bookmarker.core.ui.R
 @Composable
 fun BookmarkItemActionDialog(
     onDismiss: () -> Unit,
+    titleText: String? = null,
+    onColorClick: (() -> Unit)? = null,
     onEditClick: (() -> Unit)? = null,
     onDeleteClick: (() -> Unit)? = null,
     onCopyClick: (() -> Unit)? = null,
@@ -51,6 +54,15 @@ fun BookmarkItemActionDialog(
                     imageVector = Icons.Default.Delete,
                     title = R.string.bookmark_item_action_delete,
                     onClick = onDeleteClick,
+                ),
+            )
+        }
+        if (onColorClick != null) {
+            add(
+                BookmarkItemAction(
+                    imageVector = Icons.Default.Palette,
+                    title = R.string.bookmark_item_action_color,
+                    onClick = onColorClick,
                 ),
             )
         }
@@ -89,6 +101,12 @@ fun BookmarkItemActionDialog(
                     .padding(horizontal = 16.dp, vertical = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(20.dp),
             ) {
+                if (!titleText.isNullOrBlank()) {
+                    Text(
+                        text = titleText,
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),

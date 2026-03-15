@@ -187,8 +187,16 @@
     <string name="bookmark_item_action_delete">Eliminar</string>
     <string name="bookmark_item_action_copy">Copiar</string>
     <string name="bookmark_item_action_paste">Pegar</string>
-    <string name="bookmark_item_copy_toast_folder">Se copió la carpeta &quot;%1&quot;.</string>
-    <string name="bookmark_item_copy_toast_bookmark">Se copió el marcador &quot;%1&quot;.</string>
-    <string name="delete_bookmark_item_dialog_message_folder">¿Deseas eliminar la carpeta &quot;%1&quot;?</string>
-    <string name="delete_bookmark_item_dialog_message_bookmark">¿Deseas eliminar el marcador &quot;%1&quot;?</string>
+    <string name="bookmark_item_copy_toast_folder">Se copió la carpeta \"%1$s\".</string>
+    <string name="bookmark_item_copy_toast_bookmark">Se copió el marcador \"%1$s\".</string>
+    <string name="delete_bookmark_item_dialog_message_folder">¿Deseas eliminar la carpeta \"%1$s\"?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">¿Deseas eliminar el marcador \"%1$s\"?</string>
+    <string name="bookmark_item_action_color">Color</string>
+    <string name="bookmark_item_action_title_bookmark">Marcador "%1$s"</string>
+    <string name="bookmark_item_action_title_folder">Carpeta "%1$s"</string>
+    <string name="bookmark_snapshot_action_title">Instantánea de marcadores "%1$s"</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Eliminar instantánea de marcadores</string>
+    <string name="delete_bookmark_snapshot_dialog_message">¿Eliminar la instantánea de marcadores "%1$s"?</string>
+    <string name="delete_bookmark_snapshot_dialog_confirm">Eliminar</string>
+    <string name="delete_bookmark_snapshot_dialog_cancel">Cancelar</string>
 </resources>

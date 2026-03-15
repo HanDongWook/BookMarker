@@ -187,8 +187,16 @@
     <string name="bookmark_item_action_delete">Excluir</string>
     <string name="bookmark_item_action_copy">Copiar</string>
     <string name="bookmark_item_action_paste">Colar</string>
-    <string name="bookmark_item_copy_toast_folder">Pasta &quot;%1&quot; copiada.</string>
-    <string name="bookmark_item_copy_toast_bookmark">Favorito &quot;%1&quot; copiado.</string>
-    <string name="delete_bookmark_item_dialog_message_folder">Excluir a pasta &quot;%1&quot;?</string>
-    <string name="delete_bookmark_item_dialog_message_bookmark">Excluir o favorito &quot;%1&quot;?</string>
+    <string name="bookmark_item_copy_toast_folder">Pasta \"%1$s\" copiada.</string>
+    <string name="bookmark_item_copy_toast_bookmark">Favorito \"%1$s\" copiado.</string>
+    <string name="delete_bookmark_item_dialog_message_folder">Excluir a pasta \"%1$s\"?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">Excluir o favorito \"%1$s\"?</string>
+    <string name="bookmark_item_action_color">Cor</string>
+    <string name="bookmark_item_action_title_bookmark">Favorito "%1$s"</string>
+    <string name="bookmark_item_action_title_folder">Pasta "%1$s"</string>
+    <string name="bookmark_snapshot_action_title">Snapshot de favoritos "%1$s"</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Excluir snapshot de favoritos</string>
+    <string name="delete_bookmark_snapshot_dialog_message">Excluir snapshot de favoritos "%1$s"?</string>
+    <string name="delete_bookmark_snapshot_dialog_confirm">Excluir</string>
+    <string name="delete_bookmark_snapshot_dialog_cancel">Cancelar</string>
 </resources>
