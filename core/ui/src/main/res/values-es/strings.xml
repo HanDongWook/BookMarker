@@ -195,7 +195,7 @@
     <string name="bookmark_item_action_title_bookmark">Marcador "%1$s"</string>
     <string name="bookmark_item_action_title_folder">Carpeta "%1$s"</string>
     <string name="bookmark_snapshot_action_title">Instantánea de marcadores "%1$s"</string>
-    <string name="delete_bookmark_snapshot_dialog_title">Eliminar instantánea de marcadores</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Eliminar</string>
     <string name="delete_bookmark_snapshot_dialog_message">¿Eliminar la instantánea de marcadores "%1$s"?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Eliminar</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Cancelar</string>

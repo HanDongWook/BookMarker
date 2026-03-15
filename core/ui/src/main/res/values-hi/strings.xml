@@ -195,7 +195,7 @@
     <string name="bookmark_item_action_title_bookmark">बुकमार्क "%1$s"</string>
     <string name="bookmark_item_action_title_folder">फ़ोल्डर "%1$s"</string>
     <string name="bookmark_snapshot_action_title">बुकमार्क स्नैपशॉट "%1$s"</string>
-    <string name="delete_bookmark_snapshot_dialog_title">बुकमार्क स्नैपशॉट हटाएँ</string>
+    <string name="delete_bookmark_snapshot_dialog_title">हटाएँ</string>
     <string name="delete_bookmark_snapshot_dialog_message">क्या आप बुकमार्क स्नैपशॉट "%1$s" हटाना चाहते हैं?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">हटाएँ</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">रद्द करें</string>
