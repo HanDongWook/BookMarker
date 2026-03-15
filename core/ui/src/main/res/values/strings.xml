@@ -179,4 +179,6 @@
     <string name="folder_scroll_long_description_label">Scroll long description</string>
     <string name="folder_description">Description</string>
     <string name="display_value_loading">Loading</string>
+    <string name="bookmark_search_location_prefix">"Location : "</string>
+    <string name="bookmark_search_tags_prefix">"Tags : "</string>
 </resources>

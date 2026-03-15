@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">Nenhuma pasta ou favorito correspondente.</string>
     <string name="bookmark_search_close">Fechar busca</string>
     <string name="bookmark_search_clear">Limpar texto de busca</string>
+    <string name="bookmark_search_location_prefix">"Localização : "</string>
+    <string name="bookmark_search_tags_prefix">"Etiquetas : "</string>
 </resources>

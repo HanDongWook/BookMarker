@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">Tidak ada folder atau penanda yang cocok.</string>
     <string name="bookmark_search_close">Tutup pencarian</string>
     <string name="bookmark_search_clear">Hapus teks pencarian</string>
+    <string name="bookmark_search_location_prefix">"Lokasi : "</string>
+    <string name="bookmark_search_tags_prefix">"Tag : "</string>
 </resources>

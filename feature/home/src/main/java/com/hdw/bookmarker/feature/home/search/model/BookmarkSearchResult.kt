@@ -18,4 +18,5 @@ data class BookmarkSearchResult(
     val breadcrumb: String,
     val bookmarkUrl: String? = null,
     val bookmarkIconUri: String? = null,
+    val tags: List<String> = emptyList(),
 )
