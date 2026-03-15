@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">Batal</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Tambahkan item bookmark kosong</string>
     <string name="bookmark_color_picker_dialog_title">Pilih warna</string>
-    <string name="bookmark_color_picker_dialog_close">Tutup</string>
+    <string name="bookmark_color_picker_dialog_close">Konfirmasi</string>
     <string name="folder_style_label">Gaya folder</string>
     <string name="app_language_label">Bahasa</string>
     <string name="app_language_system_default">Bawaan sistem</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">Kotak Masuk</string>
     <string name="bookmark_inbox_badge">Kotak Masuk</string>
     <string name="bookmark_inbox_empty">Belum ada tautan yang disimpan di Kotak Masuk.\nBagikan tautan untuk menyimpannya di sini.</string>
-    <string name="save_to_inbox">Disimpan ke Kotak Masuk</string>
     <string name="import_source_html_file_title">File HTML</string>
     <string name="large_screen_label">Layar lebar</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Buka di samping aplikasi di layar lebar</string>

@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">İptal</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Boş yer imi öğesi ekle</string>
     <string name="bookmark_color_picker_dialog_title">Renk seç</string>
-    <string name="bookmark_color_picker_dialog_close">Kapat</string>
+    <string name="bookmark_color_picker_dialog_close">Onayla</string>
     <string name="folder_style_label">Klasör stili</string>
     <string name="app_language_label">Dil</string>
     <string name="app_language_system_default">Sistem varsayılanı</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">Gelen Kutusu</string>
     <string name="bookmark_inbox_badge">Gelen Kutusu</string>
     <string name="bookmark_inbox_empty">Gelen Kutusunda henüz kayıtlı bağlantı yok.\nBuraya kaydetmek için bir bağlantı paylaşın.</string>
-    <string name="save_to_inbox">Gelen Kutusuna kaydedildi</string>
     <string name="import_source_html_file_title">HTML dosyası</string>
     <string name="large_screen_label">Büyük ekran</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Büyük ekranlarda uygulamanın yanında aç</string>

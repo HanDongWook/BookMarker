@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">取消</string>
     <string name="import_option_dialog_add_empty_bookmark_item">新增空白書籤項目</string>
     <string name="bookmark_color_picker_dialog_title">選擇顏色</string>
-    <string name="bookmark_color_picker_dialog_close">關閉</string>
+    <string name="bookmark_color_picker_dialog_close">確認</string>
     <string name="folder_style_label">資料夾樣式</string>
     <string name="app_language_label">語言</string>
     <string name="app_language_system_default">系統預設</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">收件匣</string>
     <string name="bookmark_inbox_badge">收件匣</string>
     <string name="bookmark_inbox_empty">收件匣中尚無保存的連結。\n分享一個連結以將其儲存至此處。</string>
-    <string name="save_to_inbox">已儲存至收件匣</string>
     <string name="import_source_html_file_title">HTML 檔案</string>
     <string name="large_screen_label">大螢幕</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">喺大螢幕應用程式側邊打開</string>

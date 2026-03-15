@@ -231,8 +231,8 @@ private fun BookmarkDocumentsPager(
                 onSelectedFolderPathChange = { path -> onSelectedFolderPathChange(snapshotId, path) },
                 selectedFolderPath = snapshotFolderPath,
                 snapshotTitle = currentSnapshotTitle,
-                onSnapshotTitleClick = onSnapshotTitleClick,
-                onSnapshotExportClick = onSnapshotExportClick,
+                onSnapshotTitleClick = if (bookmarkDocument.isInboxSnapshot()) null else onSnapshotTitleClick,
+                onSnapshotExportClick = if (bookmarkDocument.isInboxSnapshot()) null else onSnapshotExportClick,
             )
         } else {
             NoBookmarkItem(

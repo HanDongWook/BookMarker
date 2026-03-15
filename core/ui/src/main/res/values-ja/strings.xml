@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">キャンセル</string>
     <string name="import_option_dialog_add_empty_bookmark_item">空のブックマーク項目を追加</string>
     <string name="bookmark_color_picker_dialog_title">色を選択</string>
-    <string name="bookmark_color_picker_dialog_close">閉じる</string>
+    <string name="bookmark_color_picker_dialog_close">確認</string>
     <string name="folder_style_label">フォルダスタイル</string>
     <string name="app_language_label">言語</string>
     <string name="app_language_system_default">システムのデフォルト</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">受信トレイ</string>
     <string name="bookmark_inbox_badge">受信トレイ</string>
     <string name="bookmark_inbox_empty">受信トレイに保存されたリンクはまだありません。\nリンクを共有してここに保存してください。</string>
-    <string name="save_to_inbox">受信トレイに保存しました</string>
     <string name="import_source_html_file_title">HTMLファイル</string>
     <string name="large_screen_label">大画面</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">大画面でアプリの横に開く</string>
