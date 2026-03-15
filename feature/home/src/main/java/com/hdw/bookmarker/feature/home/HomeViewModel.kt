@@ -8,11 +8,12 @@ import com.hdw.bookmarker.core.domain.usecase.ObserveHomeUiStateUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
-import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
+import com.hdw.bookmarker.feature.home.contract.BookmarkSnapshots
 import com.hdw.bookmarker.feature.home.contract.HomeSideEffect
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
@@ -41,33 +42,37 @@ class HomeViewModel @Inject constructor(
         loadInstalledBrowsers()
     }
 
-    private fun HomeState.withSelectedBookmarkId(selectedBookmarkId: String?): HomeState = copy(
+    private fun HomeState.withSelectedBookmarkId(selectedBookmarkId: SnapshotId?): HomeState = copy(
         selectedBookmarkId = selectedBookmarkId,
     )
 
     private fun observeHomeUiState() = intent {
         observeHomeUiStateUseCase().collect { observedState ->
             reduce {
-                val orderedSnapshotIds = observedState.orderedSnapshotIds.reorderInboxFirst(
+                // Inbox를 앞으로 정렬한 뒤 BookmarkSnapshots로 통합
+                val reorderedIds = observedState.orderedSnapshotIds.reorderInboxFirst(
                     observedState.bookmarkDocuments,
                 )
-                val visibleSnapshotIds = orderedSnapshotIds
-                    .filter(observedState.bookmarkDocuments::containsKey)
+                val snapshots = BookmarkSnapshots.of(
+                    orderedIds = reorderedIds,
+                    documents = observedState.bookmarkDocuments,
+                )
+
+                val visibleIds = snapshots.orderedIds.filter(snapshots::containsKey)
                 val nextSelectedBookmarkId = state.selectedBookmarkId
-                    ?.takeIf { selectedId ->
-                        observedState.bookmarkDocuments.containsKey(selectedId) &&
-                            (visibleSnapshotIds.isEmpty() || visibleSnapshotIds.contains(selectedId))
+                    ?.takeIf { id ->
+                        snapshots.containsKey(id) &&
+                            (visibleIds.isEmpty() || visibleIds.contains(id))
                     }
-                    ?: visibleSnapshotIds.firstOrNull()
-                    ?: observedState.bookmarkDocuments.keys.firstOrNull()
+                    ?: visibleIds.firstOrNull()
+                    ?: snapshots.orderedIds.firstOrNull()
 
                 state.withSelectedBookmarkId(nextSelectedBookmarkId).copy(
-                    orderedSnapshotIds = orderedSnapshotIds,
-                    bookmarkDocuments = observedState.bookmarkDocuments,
-                    bookmarkColors = observedState.bookmarkColors,
-                    selectedFolderPaths = state.selectedFolderPaths.retain(
-                        observedState.bookmarkDocuments.keys,
-                    ),
+                    bookmarkSnapshots = snapshots,
+                    bookmarkColors = observedState.bookmarkColors.entries.associate { (id, color) ->
+                        SnapshotId(id) to color
+                    },
+                    selectedFolderPaths = state.selectedFolderPaths.retain(snapshots.orderedIds),
                     defaultBrowserPackage = observedState.defaultBrowserPackage,
                     bookmarkDisplayType = observedState.bookmarkDisplayType.toBookmarkDisplayType(),
                     scrollLongBookmarkUrl = observedState.scrollLongBookmarkUrl,
@@ -91,12 +96,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun onSnapshotSelected(snapshotId: String) = intent {
+    fun onSnapshotSelected(snapshotId: SnapshotId) = intent {
         if (state.selectedBookmarkId == snapshotId) return@intent
         reduce { state.withSelectedBookmarkId(snapshotId) }
     }
 
-    fun onSelectedFolderPathChange(snapshotId: String, path: List<Int>?) = intent {
+    fun onSelectedFolderPathChange(snapshotId: SnapshotId, path: List<Int>?) = intent {
         reduce {
             state.copy(
                 selectedFolderPaths = state.selectedFolderPaths.update(snapshotId, path),
@@ -122,11 +127,11 @@ class HomeViewModel @Inject constructor(
             when (
                 val result = bookmarkImportCoordinator.importHtml(
                     uri = uri,
-                    existingDocuments = state.bookmarkDocuments.values,
+                    existingDocuments = state.bookmarkSnapshots.values,
                 )
             ) {
                 is BookmarkImportCoordinatorResult.Success -> {
-                    reduce { state.withSelectedBookmarkId(result.snapshotId) }
+                    reduce { state.withSelectedBookmarkId(SnapshotId(result.snapshotId)) }
                 }
 
                 is BookmarkImportCoordinatorResult.Failure -> {
@@ -143,13 +148,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun onBookmarkColorSelected(snapshotId: String, bookmarkColor: Long) = intent {
-        setBookmarkColorUseCase(snapshotId, bookmarkColor)
+    fun onBookmarkColorSelected(snapshotId: SnapshotId, bookmarkColor: Long) = intent {
+        setBookmarkColorUseCase(snapshotId.value, bookmarkColor)
     }
 
-    fun deleteBookmarkSnapshot(snapshotId: String) = intent {
-        clearBookmarkSnapshotUseCase(snapshotId)
-        val updatedIds = state.orderedSnapshotIds - snapshotId
+    fun deleteBookmarkSnapshot(snapshotId: SnapshotId) = intent {
+        clearBookmarkSnapshotUseCase(snapshotId.value)
+        val updatedIds = state.bookmarkSnapshots.orderedIds - snapshotId
         reduce {
             state.withSelectedBookmarkId(
                 state.selectedBookmarkId
@@ -163,7 +168,7 @@ class HomeViewModel @Inject constructor(
 
     fun addEmptyBookmarkSnapshot() = intent {
         val snapshotId = bookmarkSnapshotEditor.addEmptySnapshot(
-            existingDocuments = state.bookmarkDocuments.values,
+            existingDocuments = state.bookmarkSnapshots.values,
         )
         reduce { state.withSelectedBookmarkId(snapshotId) }
     }
@@ -197,16 +202,16 @@ class HomeViewModel @Inject constructor(
             }
         }
 
-        val currentState = state
+        val snapshots = state.bookmarkSnapshots
         val savedSnapshotId = if (request is AddBookmarkItemRequest.Bookmark && request.saveToInbox) {
             bookmarkSnapshotEditor.addItemToInbox(
-                bookmarkDocuments = currentState.bookmarkDocuments,
+                library = snapshots,
                 item = item,
             )
         } else {
             bookmarkSnapshotEditor.addItem(
-                currentSnapshotId = currentState.selectedBookmarkId,
-                bookmarkDocuments = currentState.bookmarkDocuments,
+                currentSnapshotId = state.selectedBookmarkId,
+                library = snapshots,
                 parentFolderPath = request.parentFolderPath,
                 item = item,
             )
@@ -218,7 +223,7 @@ class HomeViewModel @Inject constructor(
         if (path.isEmpty()) return@intent
 
         val currentSnapshotId = state.selectedBookmarkId ?: return@intent
-        val currentDocument = state.bookmarkDocuments[currentSnapshotId] ?: return@intent
+        val currentDocument = state.bookmarkSnapshots[currentSnapshotId] ?: return@intent
         val savedSnapshotId = bookmarkSnapshotEditor.deleteItem(
             snapshotId = currentSnapshotId,
             document = currentDocument,
@@ -242,7 +247,7 @@ class HomeViewModel @Inject constructor(
         }
 
         val currentSnapshotId = state.selectedBookmarkId ?: return@intent
-        val currentDocument = state.bookmarkDocuments[currentSnapshotId] ?: return@intent
+        val currentDocument = state.bookmarkSnapshots[currentSnapshotId] ?: return@intent
         val savedSnapshotId = bookmarkSnapshotEditor.updateItem(
             snapshotId = currentSnapshotId,
             document = currentDocument,
@@ -251,11 +256,11 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
     }
 
-    fun renameBookmarkSnapshot(snapshotId: String, title: String) = intent {
+    fun renameBookmarkSnapshot(snapshotId: SnapshotId, title: String) = intent {
         val trimmedTitle = title.trim()
         if (trimmedTitle.isBlank()) return@intent
 
-        val currentDocument = state.bookmarkDocuments[snapshotId] ?: return@intent
+        val currentDocument = state.bookmarkSnapshots[snapshotId] ?: return@intent
         val savedSnapshotId = bookmarkSnapshotEditor.renameSnapshot(
             snapshotId = snapshotId,
             document = currentDocument,
@@ -274,10 +279,10 @@ class HomeViewModel @Inject constructor(
         .filter(String::isNotBlank)
         .distinct()
 
-    private fun List<String>.reorderInboxFirst(bookmarkDocuments: Map<String, BookmarkDocument>): List<String> {
-        val (inboxIds, otherIds) = partition { snapshotId ->
-            bookmarkDocuments[snapshotId]?.isInboxSnapshot() == true
-        }
+    private fun List<String>.reorderInboxFirst(
+        bookmarkDocuments: Map<String, com.hdw.bookmarker.core.model.bookmark.BookmarkDocument>,
+    ): List<String> {
+        val (inboxIds, otherIds) = partition { id -> bookmarkDocuments[id]?.isInboxSnapshot() == true }
         return inboxIds + otherIds
     }
 

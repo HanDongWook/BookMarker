@@ -1,4 +1,5 @@
 package com.hdw.bookmarker.feature.home.ui
+
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -30,20 +31,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun BookmarkSnapshotTabBar(
-    orderedSnapshotIds: List<String>,
-    inboxSnapshotIds: Set<String>,
-    bookmarkColors: Map<String, Long>,
-    selectedBookmarkId: String?,
+internal fun BookmarkSnapshotBar(
+    orderedSnapshotIds: List<SnapshotId>,
+    inboxSnapshotIds: Set<SnapshotId>,
+    bookmarkColors: Map<SnapshotId, Long>,
+    selectedBookmarkId: SnapshotId?,
     isEditMode: Boolean,
     onAddClick: () -> Unit,
-    onSnapshotClick: (String) -> Unit,
+    onSnapshotClick: (SnapshotId) -> Unit,
     onEnterEditMode: () -> Unit,
-    onDeleteRequest: (String) -> Unit,
+    onDeleteRequest: (SnapshotId) -> Unit,
 ) {
     val shakeRotation = rememberInfiniteTransition(label = "connected_browser_shake").animateFloat(
         initialValue = -7f,
@@ -89,7 +92,7 @@ internal fun BookmarkSnapshotTabBar(
             }
         }
 
-        items(orderedSnapshotIds, key = { it }) { snapshotId ->
+        items(orderedSnapshotIds, key = { it.value }) { snapshotId ->
             val isSelected = selectedBookmarkId == snapshotId
             val isInboxSnapshot = snapshotId in inboxSnapshotIds
             val colorValue = bookmarkColors[snapshotId] ?: 0L
@@ -161,4 +164,29 @@ internal fun BookmarkSnapshotTabBar(
     }
 
     HorizontalDivider()
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BookmarkSnapshotBarPreview() {
+    val snapshotIds = listOf(
+        SnapshotId("1"),
+        SnapshotId("2"),
+        SnapshotId("3"),
+    )
+    BookmarkSnapshotBar(
+        orderedSnapshotIds = snapshotIds,
+        inboxSnapshotIds = setOf(SnapshotId("1")),
+        bookmarkColors = mapOf(
+            SnapshotId("1") to 0xFFFF0000,
+            SnapshotId("2") to 0xFF00FF00,
+            SnapshotId("3") to 0xFF0000FF,
+        ),
+        selectedBookmarkId = SnapshotId("2"),
+        isEditMode = false,
+        onAddClick = {},
+        onSnapshotClick = {},
+        onEnterEditMode = {},
+        onDeleteRequest = {},
+    )
 }

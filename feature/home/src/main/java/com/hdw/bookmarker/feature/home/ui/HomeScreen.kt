@@ -1,29 +1,25 @@
 package com.hdw.bookmarker.feature.home.ui
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
-import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
+import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.core.ui.R
-import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeState
@@ -33,8 +29,6 @@ import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchItemType
 import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchResult
 import com.hdw.bookmarker.feature.home.ui.dialog.HomeDialogHost
 import com.hdw.bookmarker.feature.home.ui.export.BookmarkExportAction
-import com.hdw.bookmarker.feature.home.ui.preview.BookmarkPreviewPaneState
-import com.hdw.bookmarker.feature.home.ui.preview.rememberBookmarkPreviewPaneState
 import com.hdw.bookmarker.feature.home.ui.search.BookmarkSearchDialog
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
@@ -43,35 +37,36 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     state: HomeState,
     enableLargeScreenSidePreview: Boolean,
-    pendingQuickSaveRequestToken: Long? = null,
-    pendingQuickSaveRequest: QuickSaveBookmarkSeed? = null,
-    onQuickSaveRequestHandled: () -> Unit = {},
+    pendingQuickSaveRequestToken: Long?,
+    pendingQuickSaveRequest: QuickSaveBookmarkSeed?,
+    onQuickSaveRequestHandled: () -> Unit,
     onSettingsClick: () -> Unit,
     onOpenBookmark: (String, String?) -> Boolean,
     onOpenBookmarkImportGuide: () -> Unit,
-    onSnapshotSelected: (String) -> Unit,
-    onSelectedFolderPathChange: (String, List<Int>?) -> Unit,
-    onBookmarkColorSelected: (String, Long) -> Unit,
+    onSnapshotSelected: (SnapshotId) -> Unit,
+    onSelectedFolderPathChange: (SnapshotId, List<Int>?) -> Unit,
+    onBookmarkColorSelected: (SnapshotId, Long) -> Unit,
     onDefaultBrowserSelected: (String) -> Unit,
-    onDeleteBookmarkSnapshot: (String) -> Unit,
+    onDeleteBookmarkSnapshot: (SnapshotId) -> Unit,
     onBookmarkDisplayTypeToggle: () -> Unit,
-    onAddBookmarkItem: (AddBookmarkItemRequest) -> Unit,
-    onRenameBookmarkSnapshot: (String, String) -> Unit,
-    onDeleteBookmarkItem: (List<Int>) -> Unit,
+    onRenameBookmarkSnapshot: (SnapshotId, String) -> Unit,
     onUpdateBookmarkItem: (UpdateBookmarkItemRequest) -> Unit,
+    onDeleteBookmarkItem: (List<Int>) -> Unit,
+    onAddBookmarkItem: (AddBookmarkItemRequest) -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
-    onBookmarkExportRequest: (BookmarkExportAction, BookmarkDocument) -> Unit,
+    onBookmarkExportRequest: (BookmarkExportAction, com.hdw.bookmarker.core.model.bookmark.BookmarkDocument) -> Unit,
 ) {
     val uiState = rememberHomeScreenUiState()
+    var showAddItemTypeDialog by uiState.showAddItemTypeDialog
     var showImportOptionDialog by uiState.showImportOptionDialog
     var isBrowserEditMode by uiState.isBrowserEditMode
     var showDefaultBrowserDialog by uiState.showDefaultBrowserDialog
     var showColorPickerDialog by uiState.showColorPickerDialog
-    var showAddItemTypeDialog by uiState.showAddItemTypeDialog
     var showExportBookmarkMethodDialog by uiState.showExportBookmarkMethodDialog
-    var pendingBookmarkExportAction by uiState.pendingBookmarkExportAction
-    var showAddFolderDialog by uiState.showAddFolderDialog
+    var showSearchDialog by uiState.showSearchDialog
+    var searchQuery by uiState.searchQuery
     var showAddBookmarkDialog by uiState.showAddBookmarkDialog
+    var showAddFolderDialog by uiState.showAddFolderDialog
     var pendingFolderTitle by uiState.pendingFolderTitle
     var pendingFolderDescription by uiState.pendingFolderDescription
     var pendingBookmarkTitle by uiState.pendingBookmarkTitle
@@ -82,24 +77,18 @@ fun HomeScreen(
     var pendingDeleteSnapshotId by uiState.pendingDeleteSnapshotId
     var pendingRenameSnapshotId by uiState.pendingRenameSnapshotId
     var pendingSnapshotTitle by uiState.pendingSnapshotTitle
-    var showSearchDialog by uiState.showSearchDialog
-    var searchQuery by uiState.searchQuery
-    var pendingEditBookmarkItemPath by uiState.pendingEditBookmarkItemPath
-    var pendingDeleteBookmarkItemPath by uiState.pendingDeleteBookmarkItemPath
+    var pendingBookmarkExportAction by uiState.pendingBookmarkExportAction
     var pendingEditBookmarkItem by uiState.pendingEditBookmarkItem
+    var pendingEditBookmarkItemPath by uiState.pendingEditBookmarkItemPath
     var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
     var pendingEditBookmarkNote by uiState.pendingEditBookmarkNote
     var pendingEditBookmarkTags by uiState.pendingEditBookmarkTags
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
-    val orderedSnapshotIds = remember(state.orderedSnapshotIds, state.bookmarkDocuments) {
-        state.orderedSnapshotIds.filter { id ->
-            val doc = state.bookmarkDocuments[id]
-            !(doc?.isInboxSnapshot() == true && doc.rootItems.isEmpty())
-        }
+    val orderedSnapshotIds = remember(state.bookmarkSnapshots) {
+        state.bookmarkSnapshots.orderedIds.filter { id -> !state.bookmarkSnapshots.isEmptyInbox(id) }
     }
     val context = LocalContext.current
-    val resources = LocalResources.current
 
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -111,12 +100,12 @@ fun HomeScreen(
         ?: orderedSnapshotIds.getOrNull(pagerState.currentPage)
         ?: orderedSnapshotIds.firstOrNull()
     val selectedFolderPath = state.selectedFolderPaths.pathOf(selectedBookmarkId)
-    val defaultSnapshotTitlePrefix = resources.getString(R.string.default_snapshot_title_prefix)
-    val snapshotTitles = remember(orderedSnapshotIds, state.bookmarkDocuments, defaultSnapshotTitlePrefix) {
+    val defaultSnapshotTitlePrefix = stringResource(R.string.default_snapshot_title_prefix)
+    val snapshotTitles = remember(orderedSnapshotIds, state.bookmarkSnapshots, defaultSnapshotTitlePrefix) {
         orderedSnapshotIds.mapIndexed { index, snapshotId ->
             val defaultTitle = "$defaultSnapshotTitlePrefix${index + 1}"
             snapshotId to (
-                state.bookmarkDocuments[snapshotId]
+                state.bookmarkSnapshots[snapshotId]
                     ?.title
                     ?.trim()
                     ?.takeIf { it.isNotBlank() }
@@ -129,7 +118,7 @@ fun HomeScreen(
         .firstOrNull { it.packageName == state.defaultBrowserPackage }
         ?.icon
     val selectedBookmarkDocument = selectedBookmarkId
-        ?.let { state.bookmarkDocuments[it] }
+        ?.let { state.bookmarkSnapshots[it] }
     val dismissSearchDialog = {
         showSearchDialog = false
         searchQuery = ""
@@ -235,7 +224,11 @@ fun HomeScreen(
                     if (enableLargeScreenSidePreview) {
                         uiState.previewPaneState.open(url)
                     } else if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
-                        context.showShortToast(resources.getString(R.string.open_bookmark_failed))
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.open_bookmark_failed),
+                            Toast.LENGTH_SHORT,
+                        ).show()
                     }
                 },
                 onItemLongClick = { item, path ->
@@ -265,15 +258,18 @@ fun HomeScreen(
                 showLargeScreenSidePreview = enableLargeScreenSidePreview,
                 onPreviewOpenExternally = { url ->
                     if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
-                        context.showShortToast(resources.getString(R.string.open_bookmark_failed))
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.open_bookmark_failed),
+                            Toast.LENGTH_SHORT,
+                        ).show()
                     }
                 },
             )
             if (showSearchDialog) {
                 BookmarkSearchDialog(
                     query = searchQuery,
-                    orderedSnapshotIds = orderedSnapshotIds,
-                    bookmarkDocuments = state.bookmarkDocuments,
+                    library = state.bookmarkSnapshots,
                     snapshotTitles = snapshotTitles,
                     folderIconStyle = state.folderIconStyle,
                     onQueryChange = { searchQuery = it },
@@ -285,79 +281,11 @@ fun HomeScreen(
     }
 }
 
-internal class HomeScreenUiState(
-    val showImportOptionDialog: MutableState<Boolean>,
-    val isBrowserEditMode: MutableState<Boolean>,
-    val showDefaultBrowserDialog: MutableState<Boolean>,
-    val showColorPickerDialog: MutableState<Boolean>,
-    val showAddItemTypeDialog: MutableState<Boolean>,
-    val showExportBookmarkMethodDialog: MutableState<Boolean>,
-    val pendingBookmarkExportAction: MutableState<BookmarkExportAction?>,
-    val showAddFolderDialog: MutableState<Boolean>,
-    val showAddBookmarkDialog: MutableState<Boolean>,
-    val pendingFolderTitle: MutableState<String>,
-    val pendingFolderDescription: MutableState<String>,
-    val pendingBookmarkTitle: MutableState<String>,
-    val pendingBookmarkUrl: MutableState<String>,
-    val pendingBookmarkNote: MutableState<String>,
-    val pendingBookmarkTags: MutableState<String>,
-    val addBookmarkToInbox: MutableState<Boolean>,
-    val pendingDeleteSnapshotId: MutableState<String?>,
-    val pendingRenameSnapshotId: MutableState<String?>,
-    val pendingSnapshotTitle: MutableState<String>,
-    val showSearchDialog: MutableState<Boolean>,
-    val searchQuery: MutableState<String>,
-    val pendingEditBookmarkItemPath: MutableState<List<Int>?>,
-    val pendingDeleteBookmarkItemPath: MutableState<List<Int>?>,
-    val pendingEditBookmarkItem: MutableState<BookmarkItem?>,
-    val pendingEditBookmarkTitle: MutableState<String>,
-    val pendingEditBookmarkUrl: MutableState<String>,
-    val pendingEditBookmarkNote: MutableState<String>,
-    val pendingEditBookmarkTags: MutableState<String>,
-    val pendingEditBookmarkDescription: MutableState<String>,
-    val previewPaneState: BookmarkPreviewPaneState,
-)
-
-@Composable
-private fun rememberHomeScreenUiState(): HomeScreenUiState = HomeScreenUiState(
-    showImportOptionDialog = rememberSaveable { mutableStateOf(false) },
-    isBrowserEditMode = rememberSaveable { mutableStateOf(false) },
-    showDefaultBrowserDialog = rememberSaveable { mutableStateOf(false) },
-    showColorPickerDialog = rememberSaveable { mutableStateOf(false) },
-    showAddItemTypeDialog = rememberSaveable { mutableStateOf(false) },
-    showExportBookmarkMethodDialog = rememberSaveable { mutableStateOf(false) },
-    pendingBookmarkExportAction = remember { mutableStateOf<BookmarkExportAction?>(null) },
-    showAddFolderDialog = rememberSaveable { mutableStateOf(false) },
-    showAddBookmarkDialog = rememberSaveable { mutableStateOf(false) },
-    pendingFolderTitle = rememberSaveable { mutableStateOf("") },
-    pendingFolderDescription = rememberSaveable { mutableStateOf("") },
-    pendingBookmarkTitle = rememberSaveable { mutableStateOf("") },
-    pendingBookmarkUrl = rememberSaveable { mutableStateOf("") },
-    pendingBookmarkNote = rememberSaveable { mutableStateOf("") },
-    pendingBookmarkTags = rememberSaveable { mutableStateOf("") },
-    addBookmarkToInbox = rememberSaveable { mutableStateOf(false) },
-    pendingDeleteSnapshotId = rememberSaveable { mutableStateOf<String?>(null) },
-    pendingRenameSnapshotId = rememberSaveable { mutableStateOf<String?>(null) },
-    pendingSnapshotTitle = rememberSaveable { mutableStateOf("") },
-    showSearchDialog = rememberSaveable { mutableStateOf(false) },
-    searchQuery = rememberSaveable { mutableStateOf("") },
-    pendingEditBookmarkItemPath = remember { mutableStateOf<List<Int>?>(null) },
-    pendingDeleteBookmarkItemPath = remember { mutableStateOf<List<Int>?>(null) },
-    pendingEditBookmarkItem = remember { mutableStateOf<BookmarkItem?>(null) },
-    pendingEditBookmarkTitle = rememberSaveable { mutableStateOf("") },
-    pendingEditBookmarkUrl = rememberSaveable { mutableStateOf("") },
-    pendingEditBookmarkNote = rememberSaveable { mutableStateOf("") },
-    pendingEditBookmarkTags = rememberSaveable { mutableStateOf("") },
-    pendingEditBookmarkDescription = rememberSaveable { mutableStateOf("") },
-    previewPaneState = rememberBookmarkPreviewPaneState(),
-)
-
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
     HomeScreen(
         state = HomeState(
-            orderedSnapshotIds = emptyList(),
             bookmarkDisplayType = BookmarkDisplayType.LIST,
         ),
         enableLargeScreenSidePreview = false,
@@ -373,10 +301,10 @@ private fun HomeScreenPreview() {
         onDefaultBrowserSelected = {},
         onDeleteBookmarkSnapshot = {},
         onBookmarkDisplayTypeToggle = {},
-        onAddBookmarkItem = { _ -> },
         onRenameBookmarkSnapshot = { _, _ -> },
+        onUpdateBookmarkItem = {},
         onDeleteBookmarkItem = {},
-        onUpdateBookmarkItem = { _ -> },
+        onAddBookmarkItem = {},
         onAddEmptyBookmarkSnapshot = {},
         onBookmarkExportRequest = { _, _ -> },
     )

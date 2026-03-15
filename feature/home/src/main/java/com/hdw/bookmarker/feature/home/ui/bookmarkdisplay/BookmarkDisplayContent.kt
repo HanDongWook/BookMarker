@@ -59,7 +59,7 @@ fun BookmarkDisplayContent(
 
     Column(modifier = modifier.fillMaxSize()) {
         if (!snapshotTitle.isNullOrBlank()) {
-            SnapshotTitleText(
+            SnapshotTitleBar(
                 snapshotTitle = snapshotTitle,
                 isInboxSnapshot = isInboxSnapshot,
                 onSnapshotTitleClick = onSnapshotTitleClick,
@@ -113,7 +113,7 @@ private fun EmptyBookmarks(
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         if (!snapshotTitle.isNullOrBlank()) {
-            SnapshotTitleText(
+            SnapshotTitleBar(
                 snapshotTitle = snapshotTitle,
                 isInboxSnapshot = isInboxSnapshot,
                 onSnapshotTitleClick = onSnapshotTitleClick,
@@ -136,7 +136,7 @@ private fun EmptyBookmarks(
 }
 
 @Composable
-private fun SnapshotTitleText(
+private fun SnapshotTitleBar(
     snapshotTitle: String,
     isInboxSnapshot: Boolean = false,
     onSnapshotTitleClick: (() -> Unit)?,
@@ -155,7 +155,7 @@ private fun SnapshotTitleText(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .weight(1f)
-                .padding(start = 8.dp, end = 4.dp)
+                .padding(start = 8.dp, end = 4.dp, top = 4.dp)
                 .then(
                     if (onSnapshotTitleClick != null && !isInboxSnapshot) {
                         Modifier.clickable(onClick = onSnapshotTitleClick)

@@ -1,29 +1,29 @@
 package com.hdw.bookmarker.feature.home.search
 
-import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.model.bookmark.SnapshotId
+import com.hdw.bookmarker.feature.home.contract.BookmarkSnapshots
 import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchItemType
 import com.hdw.bookmarker.feature.home.search.model.BookmarkSearchResult
 
 class BookmarkSearchEngine {
     fun search(
         query: String,
-        orderedSnapshotIds: List<String>,
-        bookmarkDocuments: Map<String, BookmarkDocument>,
-        snapshotTitles: Map<String, String>,
+        library: BookmarkSnapshots,
+        snapshotTitles: Map<SnapshotId, String>,
     ): List<BookmarkSearchResult> {
         val normalizedQuery = query.trim().lowercase()
         if (normalizedQuery.isBlank()) return emptyList()
 
-        return orderedSnapshotIds.flatMap { snapshotId ->
-            val document = bookmarkDocuments[snapshotId] ?: return@flatMap emptyList()
+        return library.orderedIds.flatMap { snapshotId ->
+            val document = library[snapshotId] ?: return@flatMap emptyList()
             val snapshotTitle = snapshotTitles[snapshotId]
                 ?.trim()
                 ?.takeIf(String::isNotBlank)
-                ?: snapshotId
+                ?: document.title
             searchItems(
                 snapshotId = snapshotId,
-                snapshotTitle = snapshotTitle,
+                snapshotTitle = snapshotTitle.orEmpty(),
                 items = document.rootItems,
                 normalizedQuery = normalizedQuery,
             )
@@ -31,7 +31,7 @@ class BookmarkSearchEngine {
     }
 
     private fun searchItems(
-        snapshotId: String,
+        snapshotId: SnapshotId,
         snapshotTitle: String,
         items: List<BookmarkItem>,
         normalizedQuery: String,
