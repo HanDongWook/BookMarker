@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
 import com.hdw.bookmarker.core.common.uri.AppUri
-import com.hdw.bookmarker.core.model.browser.Browser
 import com.hdw.bookmarker.core.model.browser.BookmarkOpenRequest
+import com.hdw.bookmarker.core.model.browser.Browser
 
 object ExternalAppNavigator {
     fun openBookmarkUrl(context: Context, request: BookmarkOpenRequest): Boolean = openUri(
@@ -84,20 +84,17 @@ object ExternalAppNavigator {
         }
     }
 
-    private fun createViewIntent(
-        uri: android.net.Uri,
-        packageName: String?,
-        launchAdjacent: Boolean,
-    ): Intent = Intent(Intent.ACTION_VIEW, uri).apply {
-        if (!packageName.isNullOrBlank()) {
-            `package` = packageName
+    private fun createViewIntent(uri: android.net.Uri, packageName: String?, launchAdjacent: Boolean): Intent =
+        Intent(Intent.ACTION_VIEW, uri).apply {
+            if (!packageName.isNullOrBlank()) {
+                `package` = packageName
+            }
+            if (launchAdjacent) {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT)
+            }
         }
-        if (launchAdjacent) {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT)
-        }
-    }
 
     private fun Browser.toBookmarkGuideUrl(): String? = when (this) {
         Browser.CHROME -> AppUri.CHROME_BOOKMARK_EXPORT_GUIDE_URL

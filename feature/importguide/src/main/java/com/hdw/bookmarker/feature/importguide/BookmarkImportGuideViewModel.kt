@@ -9,9 +9,7 @@ import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
 
-data class BookmarkImportGuideState(
-    val guideItems: List<BrowserGuideItem> = emptyList(),
-)
+data class BookmarkImportGuideState(val guideItems: List<BrowserGuideItem> = emptyList())
 
 @HiltViewModel
 class BookmarkImportGuideViewModel @Inject constructor(

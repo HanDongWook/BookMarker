@@ -50,9 +50,8 @@ object DomainModule {
 
     @Provides
     @Singleton
-    fun provideImportBookmarksFromHtmlUseCase(
-        bookmarkRepository: BookmarkRepository,
-    ): ImportBookmarksFromHtmlUseCase = ImportBookmarksFromHtmlUseCase(bookmarkRepository)
+    fun provideImportBookmarksFromHtmlUseCase(bookmarkRepository: BookmarkRepository): ImportBookmarksFromHtmlUseCase =
+        ImportBookmarksFromHtmlUseCase(bookmarkRepository)
 
     @Provides
     @Singleton
@@ -131,8 +130,7 @@ object DomainModule {
     @Singleton
     fun provideGetOpenBookmarkAdjacentOnLargeScreenUseCase(
         settingsRepository: SettingsRepository,
-    ): GetOpenBookmarkAdjacentOnLargeScreenUseCase =
-        GetOpenBookmarkAdjacentOnLargeScreenUseCase(settingsRepository)
+    ): GetOpenBookmarkAdjacentOnLargeScreenUseCase = GetOpenBookmarkAdjacentOnLargeScreenUseCase(settingsRepository)
 
     @Provides
     @Singleton
@@ -168,8 +166,7 @@ object DomainModule {
     @Singleton
     fun provideSetOpenBookmarkAdjacentOnLargeScreenUseCase(
         settingsRepository: SettingsRepository,
-    ): SetOpenBookmarkAdjacentOnLargeScreenUseCase =
-        SetOpenBookmarkAdjacentOnLargeScreenUseCase(settingsRepository)
+    ): SetOpenBookmarkAdjacentOnLargeScreenUseCase = SetOpenBookmarkAdjacentOnLargeScreenUseCase(settingsRepository)
 
     @Provides
     @Singleton
