@@ -183,4 +183,6 @@
     <string name="bookmark_search_clear">Xóa văn bản tìm kiếm</string>
     <string name="bookmark_search_location_prefix">"Vị trí : "</string>
     <string name="bookmark_search_tags_prefix">"Thẻ : "</string>
+    <string name="bookmark_item_action_edit">Chỉnh sửa</string>
+    <string name="bookmark_item_action_delete">Xóa</string>
 </resources>
