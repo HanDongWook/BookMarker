@@ -104,6 +104,10 @@ dependencies {
 
     implementation(libs.mavericks.core)
 
+    debugImplementation(libs.showkase)
+    implementation(libs.showkase.annotation)
+    kspDebug(libs.showkase.processor)
+
     implementation(libs.timber)
 
     implementation(platform(libs.firebase.bom))
