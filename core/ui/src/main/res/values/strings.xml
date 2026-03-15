@@ -163,7 +163,7 @@
     <string name="bookmark_show_url_label">Show URL</string>
     <string name="bookmark_scroll_long_url_label">Scroll long URL</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Open beside app on large screens</string>
-    <string name="bookmark_open_side_preview_label">Open side preview</string>
+    <string name="bookmark_open_side_preview_label">Preview</string>
     <string name="bookmark_preview_title">Preview</string>
     <string name="bookmark_preview_placeholder">Select a bookmark to preview</string>
     <string name="bookmark_preview_refresh">Refresh preview</string>
