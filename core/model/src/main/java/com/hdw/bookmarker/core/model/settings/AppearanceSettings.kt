@@ -4,7 +4,7 @@ import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 
 data class AppearanceSettings(
     val selectedThemeMode: String?,
-    val showBookmarkUrl: Boolean,
+    val secondaryDisplayType: BookmarkSecondaryDisplayType,
     val scrollLongBookmarkUrl: Boolean,
     val openBookmarkSidePreviewOnLargeScreen: Boolean,
     val showFolderDescription: Boolean,

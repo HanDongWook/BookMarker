@@ -151,8 +151,11 @@
     <string name="rate_app_open_store_failed">ไม่สามารถเปิด Play Store ได้</string>
     <string name="appearance_label">รูปลักษณ์</string>
     <string name="behavior_label">พฤติกรรม</string>
-    <string name="bookmark_show_url_label">แสดง URL</string>
-    <string name="bookmark_scroll_long_url_label">เลื่อน URL ยาว</string>
+    <string name="bookmark_secondary_info_label">การแสดงข้อมูลบุ๊กมาร์ก</string>
+    <string name="bookmark_secondary_info_none">ไม่มี</string>
+    <string name="bookmark_secondary_info_url">URL</string>
+    <string name="bookmark_secondary_info_tag">แท็ก</string>
+    <string name="bookmark_scroll_long_info_label">เลื่อนข้อมูลที่ยาว</string>
     <string name="bookmark_open_side_preview_label">ตัวอย่าง</string>
     <string name="bookmark_preview_title">ตัวอย่าง</string>
     <string name="bookmark_preview_placeholder">เลือกบุ๊กมาร์กเพื่อดูตัวอย่าง</string>

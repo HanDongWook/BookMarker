@@ -23,7 +23,7 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
     object Keys {
         val defaultBrowserPackage = stringPreferencesKey("default_browser_package")
         val bookmarkDisplayType = stringPreferencesKey("bookmark_display_type")
-        val showBookmarkUrl = booleanPreferencesKey("show_bookmark_url")
+        val bookmarkSecondaryDisplayType = stringPreferencesKey("bookmark_secondary_display_type")
         val scrollLongBookmarkUrl = booleanPreferencesKey("scroll_long_bookmark_url")
         val openBookmarkAdjacentOnLargeScreen = booleanPreferencesKey("open_bookmark_adjacent_on_large_screen")
         val openBookmarkSidePreviewOnLargeScreen =
@@ -51,14 +51,13 @@ class BookMarkerDatastore @Inject constructor(@ApplicationContext context: Conte
         preferences[Keys.bookmarkDisplayType]
     }
 
-    suspend fun saveShowBookmarkUrl(value: Boolean) {
-        saveBoolean(Keys.showBookmarkUrl, value)
+    suspend fun saveBookmarkSecondaryDisplayType(value: String) {
+        saveString(Keys.bookmarkSecondaryDisplayType, value)
     }
 
-    fun getShowBookmarkUrl(): Flow<Boolean> = getBoolean(
-        key = Keys.showBookmarkUrl,
-        defaultValue = true,
-    )
+    fun getBookmarkSecondaryDisplayType(): Flow<String?> = safeData.map { preferences ->
+        preferences[Keys.bookmarkSecondaryDisplayType]
+    }
 
     suspend fun saveScrollLongBookmarkUrl(value: Boolean) {
         saveBoolean(Keys.scrollLongBookmarkUrl, value)

@@ -151,8 +151,11 @@
     <string name="rate_app_open_store_failed">Не удалось открыть Play Маркет.</string>
     <string name="appearance_label">Внешний вид</string>
     <string name="behavior_label">Поведение</string>
-    <string name="bookmark_show_url_label">Показывать URL</string>
-    <string name="bookmark_scroll_long_url_label">Прокручивать длинный URL</string>
+    <string name="bookmark_secondary_info_label">Отображение информации о закладке</string>
+    <string name="bookmark_secondary_info_none">Нет</string>
+    <string name="bookmark_secondary_info_url">URL</string>
+    <string name="bookmark_secondary_info_tag">Тег</string>
+    <string name="bookmark_scroll_long_info_label">Прокручивать длинную информацию</string>
     <string name="bookmark_open_side_preview_label">Предпросмотр</string>
     <string name="bookmark_preview_title">Предпросмотр</string>
     <string name="bookmark_preview_placeholder">Выберите закладку для предпросмотра</string>

@@ -151,8 +151,11 @@
     <string name="rate_app_open_store_failed">Impossible d’ouvrir le Play Store.</string>
     <string name="appearance_label">Apparence</string>
     <string name="behavior_label">Comportement</string>
-    <string name="bookmark_show_url_label">Afficher l’URL</string>
-    <string name="bookmark_scroll_long_url_label">Faire défiler l’URL longue</string>
+    <string name="bookmark_secondary_info_label">Affichage des infos du signet</string>
+    <string name="bookmark_secondary_info_none">Aucun</string>
+    <string name="bookmark_secondary_info_url">URL</string>
+    <string name="bookmark_secondary_info_tag">Tag</string>
+    <string name="bookmark_scroll_long_info_label">Faire défiler les infos longues</string>
     <string name="bookmark_open_side_preview_label">Aperçu</string>
     <string name="bookmark_preview_title">Aperçu</string>
     <string name="bookmark_preview_placeholder">Sélectionnez un favori pour l’aperçu</string>

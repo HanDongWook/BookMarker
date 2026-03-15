@@ -9,7 +9,7 @@ class SettingsRepositoryImpl @Inject constructor(private val bookMarkerDatastore
 
     override fun getDefaultBrowserPackageFlow(): Flow<String?> = bookMarkerDatastore.getDefaultBrowserPackage()
     override fun getBookmarkDisplayTypeFlow(): Flow<String?> = bookMarkerDatastore.getBookmarkDisplayType()
-    override fun getShowBookmarkUrlFlow(): Flow<Boolean> = bookMarkerDatastore.getShowBookmarkUrl()
+    override fun getBookmarkSecondaryDisplayTypeFlow(): Flow<String?> = bookMarkerDatastore.getBookmarkSecondaryDisplayType()
     override fun getScrollLongBookmarkUrlFlow(): Flow<Boolean> = bookMarkerDatastore.getScrollLongBookmarkUrl()
     override fun getOpenBookmarkAdjacentOnLargeScreenFlow(): Flow<Boolean> =
         bookMarkerDatastore.getOpenBookmarkAdjacentOnLargeScreen()
@@ -30,8 +30,8 @@ class SettingsRepositoryImpl @Inject constructor(private val bookMarkerDatastore
         bookMarkerDatastore.saveBookmarkDisplayType(displayType)
     }
 
-    override suspend fun setShowBookmarkUrl(show: Boolean) {
-        bookMarkerDatastore.saveShowBookmarkUrl(show)
+    override suspend fun setBookmarkSecondaryDisplayType(displayType: String) {
+        bookMarkerDatastore.saveBookmarkSecondaryDisplayType(displayType)
     }
 
     override suspend fun setScrollLongBookmarkUrl(enabled: Boolean) {

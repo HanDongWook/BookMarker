@@ -3,6 +3,7 @@ package com.hdw.bookmarker.feature.home.contract
 import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
+import com.hdw.bookmarker.core.model.settings.BookmarkSecondaryDisplayType
 
 data class HomeState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
@@ -12,8 +13,8 @@ data class HomeState(
     val selectedFolderPaths: SnapshotFolderPathState = SnapshotFolderPathState(),
     val defaultBrowserPackage: String? = null,
     val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
-    val scrollLongBookmarkUrl: Boolean = true,
-    val showBookmarkUrl: Boolean = true,
+    val scrollLongSecondaryInfo: Boolean = true,
+    val secondaryDisplayType: BookmarkSecondaryDisplayType = BookmarkSecondaryDisplayType.URL,
     val openBookmarkAdjacentOnLargeScreen: Boolean = false,
     val openBookmarkSidePreviewOnLargeScreen: Boolean = false,
     val showFolderDescription: Boolean = true,
