@@ -1,5 +1,6 @@
 package com.hdw.bookmarker.feature.home.ui.bookmarkdisplay
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,6 +35,7 @@ fun BookmarkDisplayContent(
     isInboxSnapshot: Boolean,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
+    onBlankAreaLongClick: (List<Int>?) -> Unit,
     displayType: BookmarkDisplayType,
     scrollLongSecondaryInfo: Boolean,
     secondaryDisplayType: BookmarkSecondaryDisplayType,
@@ -54,6 +56,8 @@ fun BookmarkDisplayContent(
             snapshotTitle = snapshotTitle,
             onSnapshotTitleClick = onSnapshotTitleClick,
             onSnapshotExportClick = onSnapshotExportClick,
+            onBlankAreaLongClick = onBlankAreaLongClick,
+            selectedFolderPath = selectedFolderPath,
         )
         return
     }
@@ -81,6 +85,7 @@ fun BookmarkDisplayContent(
                     selectedFolderPath = selectedFolderPath,
                     onSelectedFolderPathChange = onSelectedFolderPathChange,
                     folderIconStyle = folderIconStyle,
+                    onBlankAreaLongClick = onBlankAreaLongClick,
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
@@ -95,6 +100,7 @@ fun BookmarkDisplayContent(
                     folderIconStyle = folderIconStyle,
                     onSelectedFolderPathChange = onSelectedFolderPathChange,
                     selectedFolderPath = selectedFolderPath,
+                    onBlankAreaLongClick = onBlankAreaLongClick,
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
@@ -111,6 +117,8 @@ private fun EmptyBookmarks(
     snapshotTitle: String? = null,
     onSnapshotTitleClick: (() -> Unit)? = null,
     onSnapshotExportClick: (() -> Unit)? = null,
+    onBlankAreaLongClick: (List<Int>?) -> Unit = {},
+    selectedFolderPath: List<Int>? = null,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         if (!snapshotTitle.isNullOrBlank()) {
@@ -125,7 +133,11 @@ private fun EmptyBookmarks(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
+                .weight(1f)
+                .combinedClickable(
+                    onClick = {},
+                    onLongClick = { onBlankAreaLongClick(selectedFolderPath) },
+                ),
             contentAlignment = Alignment.Center,
         ) {
             Text(
@@ -194,6 +206,7 @@ private fun BookmarkDisplayContentListPreview() {
         isInboxSnapshot = false,
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
+        onBlankAreaLongClick = {},
         displayType = BookmarkDisplayType.LIST,
         scrollLongSecondaryInfo = true,
         secondaryDisplayType = BookmarkSecondaryDisplayType.URL,
@@ -214,6 +227,7 @@ private fun BookmarkDisplayContentIconPreview() {
         isInboxSnapshot = false,
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
+        onBlankAreaLongClick = {},
         displayType = BookmarkDisplayType.ICON,
         scrollLongSecondaryInfo = true,
         secondaryDisplayType = BookmarkSecondaryDisplayType.URL,

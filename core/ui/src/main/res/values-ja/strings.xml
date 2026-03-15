@@ -185,4 +185,10 @@
     <string name="bookmark_search_tags_prefix">"タグ : "</string>
     <string name="bookmark_item_action_edit">編集</string>
     <string name="bookmark_item_action_delete">削除</string>
+    <string name="bookmark_item_action_copy">コピー</string>
+    <string name="bookmark_item_action_paste">貼り付け</string>
+    <string name="bookmark_item_copy_toast_folder">フォルダ「%1」をコピーしました。</string>
+    <string name="bookmark_item_copy_toast_bookmark">ブックマーク「%1」をコピーしました。</string>
+    <string name="delete_bookmark_item_dialog_message_folder">「%1」フォルダを削除しますか？</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">「%1」ブックマークを削除しますか？</string>
 </resources>

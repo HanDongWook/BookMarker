@@ -8,6 +8,7 @@ import com.hdw.bookmarker.core.domain.usecase.GetAppThemeModeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkFolderIconStyleUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkRawFileHashUseCase
+import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSecondaryDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotRawFileHashUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSnapshotsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
@@ -17,7 +18,6 @@ import com.hdw.bookmarker.core.domain.usecase.GetOpenBookmarkSidePreviewOnLargeS
 import com.hdw.bookmarker.core.domain.usecase.GetOrderedSnapshotIdsUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetScrollLongFolderDescriptionUseCase
-import com.hdw.bookmarker.core.domain.usecase.GetBookmarkSecondaryDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetShowFolderDescriptionUseCase
 import com.hdw.bookmarker.core.domain.usecase.ImportBookmarksFromHtmlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SaveBookmarkSnapshotUseCase
@@ -26,12 +26,12 @@ import com.hdw.bookmarker.core.domain.usecase.SetBookmarkColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconColorUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetBookmarkFolderIconShapeUseCase
+import com.hdw.bookmarker.core.domain.usecase.SetBookmarkSecondaryDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetOpenBookmarkAdjacentOnLargeScreenUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetOpenBookmarkSidePreviewOnLargeScreenUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongBookmarkUrlUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetScrollLongFolderDescriptionUseCase
-import com.hdw.bookmarker.core.domain.usecase.SetBookmarkSecondaryDisplayTypeUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetShowFolderDescriptionUseCase
 import dagger.Module
 import dagger.Provides

@@ -9,7 +9,8 @@ class SettingsRepositoryImpl @Inject constructor(private val bookMarkerDatastore
 
     override fun getDefaultBrowserPackageFlow(): Flow<String?> = bookMarkerDatastore.getDefaultBrowserPackage()
     override fun getBookmarkDisplayTypeFlow(): Flow<String?> = bookMarkerDatastore.getBookmarkDisplayType()
-    override fun getBookmarkSecondaryDisplayTypeFlow(): Flow<String?> = bookMarkerDatastore.getBookmarkSecondaryDisplayType()
+    override fun getBookmarkSecondaryDisplayTypeFlow(): Flow<String?> =
+        bookMarkerDatastore.getBookmarkSecondaryDisplayType()
     override fun getScrollLongBookmarkUrlFlow(): Flow<Boolean> = bookMarkerDatastore.getScrollLongBookmarkUrl()
     override fun getOpenBookmarkAdjacentOnLargeScreenFlow(): Flow<Boolean> =
         bookMarkerDatastore.getOpenBookmarkAdjacentOnLargeScreen()

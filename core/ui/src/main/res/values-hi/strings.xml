@@ -185,4 +185,10 @@
     <string name="bookmark_search_tags_prefix">"टैग : "</string>
     <string name="bookmark_item_action_edit">संपादित करें</string>
     <string name="bookmark_item_action_delete">हटाएँ</string>
+    <string name="bookmark_item_action_copy">कॉपी</string>
+    <string name="bookmark_item_action_paste">पेस्ट</string>
+    <string name="bookmark_item_copy_toast_folder">फ़ोल्डर &quot;%1&quot; कॉपी किया गया।</string>
+    <string name="bookmark_item_copy_toast_bookmark">बुकमार्क &quot;%1&quot; कॉपी किया गया।</string>
+    <string name="delete_bookmark_item_dialog_message_folder">क्या आप &quot;%1&quot; फ़ोल्डर हटाना चाहते हैं?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">क्या आप &quot;%1&quot; बुकमार्क हटाना चाहते हैं?</string>
 </resources>

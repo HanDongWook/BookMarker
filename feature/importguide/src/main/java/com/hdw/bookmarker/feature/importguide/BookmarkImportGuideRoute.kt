@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalResources
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -35,7 +34,6 @@ fun BookmarkImportGuideRoute(
     val navController: NavHostController = rememberNavController()
     val state by viewModel.collectAsState()
     val context = LocalContext.current
-    val resources = LocalResources.current
 
     SharedTransitionLayout {
         NavHost(
@@ -111,7 +109,7 @@ fun BookmarkImportGuideRoute(
                                 currentSelectedGuideItem.installedBrowser?.packageName,
                             )
                         ) {
-                            context.showShortToast(resources.getString(R.string.import_guide_open_guide_failed))
+                            context.showShortToast(R.string.import_guide_open_guide_failed)
                         }
                     },
                     iconModifier = currentSelectedGuideItem.let { guideItem ->

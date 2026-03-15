@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.ContentPaste
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Icon
@@ -28,9 +30,51 @@ import com.hdw.bookmarker.core.ui.R
 @Composable
 fun BookmarkItemActionDialog(
     onDismiss: () -> Unit,
-    onEditClick: () -> Unit,
-    onDeleteClick: () -> Unit,
+    onEditClick: (() -> Unit)? = null,
+    onDeleteClick: (() -> Unit)? = null,
+    onCopyClick: (() -> Unit)? = null,
+    onPasteClick: (() -> Unit)? = null,
 ) {
+    val actions = buildList {
+        if (onEditClick != null) {
+            add(
+                BookmarkItemAction(
+                    imageVector = Icons.Default.Edit,
+                    title = R.string.bookmark_item_action_edit,
+                    onClick = onEditClick,
+                ),
+            )
+        }
+        if (onDeleteClick != null) {
+            add(
+                BookmarkItemAction(
+                    imageVector = Icons.Default.Delete,
+                    title = R.string.bookmark_item_action_delete,
+                    onClick = onDeleteClick,
+                ),
+            )
+        }
+        if (onCopyClick != null) {
+            add(
+                BookmarkItemAction(
+                    imageVector = Icons.Default.ContentCopy,
+                    title = R.string.bookmark_item_action_copy,
+                    onClick = onCopyClick,
+                ),
+            )
+        }
+        if (onPasteClick != null) {
+            add(
+                BookmarkItemAction(
+                    imageVector = Icons.Default.ContentPaste,
+                    title = R.string.bookmark_item_action_paste,
+                    onClick = onPasteClick,
+                ),
+            )
+        }
+    }
+    if (actions.isEmpty()) return
+
     Dialog(onDismissRequest = onDismiss) {
         Surface(
             modifier = Modifier
@@ -50,23 +94,21 @@ fun BookmarkItemActionDialog(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.Top,
                 ) {
-                    BookmarkItemActionOption(
-                        modifier = Modifier.weight(1f),
-                        imageVector = Icons.Default.Edit,
-                        title = stringResource(R.string.bookmark_item_action_edit),
-                        onClick = onEditClick,
-                    )
-                    BookmarkItemActionOption(
-                        modifier = Modifier.weight(1f),
-                        imageVector = Icons.Default.Delete,
-                        title = stringResource(R.string.bookmark_item_action_delete),
-                        onClick = onDeleteClick,
-                    )
+                    actions.forEach { action ->
+                        BookmarkItemActionOption(
+                            modifier = Modifier.weight(1f),
+                            imageVector = action.imageVector,
+                            title = stringResource(action.title),
+                            onClick = action.onClick,
+                        )
+                    }
                 }
             }
         }
     }
 }
+
+private data class BookmarkItemAction(val imageVector: ImageVector, val title: Int, val onClick: () -> Unit)
 
 @Composable
 private fun BookmarkItemActionOption(
@@ -82,13 +124,13 @@ private fun BookmarkItemActionOption(
     ) {
         IconButton(
             onClick = onClick,
-            modifier = Modifier.size(48.dp)
+            modifier = Modifier.size(48.dp),
         ) {
             Icon(
                 imageVector = imageVector,
                 contentDescription = title,
                 modifier = Modifier.size(32.dp),
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.primary,
             )
         }
         Text(
@@ -106,5 +148,6 @@ private fun BookmarkItemActionDialogPreview() {
         onDismiss = {},
         onEditClick = {},
         onDeleteClick = {},
+        onCopyClick = {},
     )
 }
