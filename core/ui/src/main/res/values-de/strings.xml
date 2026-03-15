@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">Abbrechen</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Leeren Lesezeicheneintrag hinzufügen</string>
     <string name="bookmark_color_picker_dialog_title">Farbe auswählen</string>
-    <string name="bookmark_color_picker_dialog_close">Schließen</string>
+    <string name="bookmark_color_picker_dialog_close">Bestätigen</string>
     <string name="folder_style_label">Ordnerstil</string>
     <string name="app_language_label">Sprache</string>
     <string name="app_language_system_default">Systemstandard</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">Posteingang</string>
     <string name="bookmark_inbox_badge">Posteingang</string>
     <string name="bookmark_inbox_empty">Noch keine gespeicherten Links im Posteingang.\nTeilen Sie einen Link, um ihn hier zu speichern.</string>
-    <string name="save_to_inbox">Im Posteingang gespeichert</string>
     <string name="import_source_html_file_title">HTML-Datei</string>
     <string name="large_screen_label">Großer Bildschirm</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Auf großen Bildschirmen neben der App öffnen</string>

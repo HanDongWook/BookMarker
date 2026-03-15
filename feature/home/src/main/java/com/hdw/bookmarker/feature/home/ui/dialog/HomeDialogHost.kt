@@ -262,7 +262,6 @@ internal fun HomeDialogHost(
             bookmarkUrl = pendingBookmarkUrl,
             bookmarkNote = pendingBookmarkNote,
             bookmarkTags = pendingBookmarkTags,
-            saveToInbox = addBookmarkToInbox,
             onBookmarkTitleChange = { pendingBookmarkTitle = it },
             onBookmarkUrlChange = { pendingBookmarkUrl = it },
             onBookmarkNoteChange = { pendingBookmarkNote = it },

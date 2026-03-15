@@ -120,7 +120,7 @@
     <string name="delete_bookmark_item_dialog_cancel">Hủy</string>
     <string name="import_option_dialog_add_empty_bookmark_item">Thêm mục dấu trang trống</string>
     <string name="bookmark_color_picker_dialog_title">Chọn màu</string>
-    <string name="bookmark_color_picker_dialog_close">Đóng</string>
+    <string name="bookmark_color_picker_dialog_close">Xác nhận</string>
     <string name="folder_style_label">Kiểu thư mục</string>
     <string name="app_language_label">Ngôn ngữ</string>
     <string name="app_language_system_default">Mặc định hệ thống</string>
@@ -169,7 +169,6 @@
     <string name="bookmark_inbox_title">Hộp thư đến</string>
     <string name="bookmark_inbox_badge">Hộp thư đến</string>
     <string name="bookmark_inbox_empty">Chưa có liên kết nào được lưu trong Hộp thư đến.\nChia sẻ liên kết để lưu vào đây.</string>
-    <string name="save_to_inbox">Đã lưu vào Hộp thư đến</string>
     <string name="import_source_html_file_title">Tệp HTML</string>
     <string name="large_screen_label">Màn hình lớn</string>
     <string name="bookmark_open_beside_app_on_large_screens_label">Mở bên cạnh ứng dụng trên màn hình lớn</string>
