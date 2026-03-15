@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">ไม่มีโฟลเดอร์หรือบุ๊กมาร์กที่ตรงกัน</string>
     <string name="bookmark_search_close">ปิดการค้นหา</string>
     <string name="bookmark_search_clear">ล้างข้อความค้นหา</string>
+    <string name="bookmark_search_location_prefix">"ตำแหน่ง : "</string>
+    <string name="bookmark_search_tags_prefix">"แท็ก : "</string>
 </resources>

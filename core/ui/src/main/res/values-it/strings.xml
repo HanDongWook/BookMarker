@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">Nessuna cartella o segnalibro corrispondente.</string>
     <string name="bookmark_search_close">Chiudi ricerca</string>
     <string name="bookmark_search_clear">Cancella testo di ricerca</string>
+    <string name="bookmark_search_location_prefix">"Posizione : "</string>
+    <string name="bookmark_search_tags_prefix">"Tag : "</string>
 </resources>

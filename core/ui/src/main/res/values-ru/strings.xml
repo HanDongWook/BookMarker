@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">Нет подходящих папок или закладок.</string>
     <string name="bookmark_search_close">Закрыть поиск</string>
     <string name="bookmark_search_clear">Очистить текст поиска</string>
+    <string name="bookmark_search_location_prefix">"Местоположение : "</string>
+    <string name="bookmark_search_tags_prefix">"Теги : "</string>
 </resources>

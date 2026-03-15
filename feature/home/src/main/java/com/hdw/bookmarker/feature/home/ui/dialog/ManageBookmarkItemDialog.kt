@@ -73,7 +73,7 @@ fun ManageBookmarkItemDialog(
                         label = { Text(text = stringResource(R.string.bookmark_tags)) },
                     )
                 }
-                
+
                 BookmarkerTextField(
                     value = description,
                     onValueChange = onDescriptionChange,

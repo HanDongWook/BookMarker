@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">Không có thư mục hoặc dấu trang nào khớp.</string>
     <string name="bookmark_search_close">Đóng tìm kiếm</string>
     <string name="bookmark_search_clear">Xóa văn bản tìm kiếm</string>
+    <string name="bookmark_search_location_prefix">"Vị trí : "</string>
+    <string name="bookmark_search_tags_prefix">"Thẻ : "</string>
 </resources>

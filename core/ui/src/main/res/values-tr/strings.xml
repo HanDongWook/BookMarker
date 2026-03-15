@@ -178,4 +178,6 @@
     <string name="bookmark_search_no_results">Eşleşen klasör veya yer işareti yok.</string>
     <string name="bookmark_search_close">Aramayı kapat</string>
     <string name="bookmark_search_clear">Arama metnini temizle</string>
+    <string name="bookmark_search_location_prefix">"Konum : "</string>
+    <string name="bookmark_search_tags_prefix">"Etiketler : "</string>
 </resources>
