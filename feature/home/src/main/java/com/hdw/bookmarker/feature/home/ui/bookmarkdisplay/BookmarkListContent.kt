@@ -118,13 +118,15 @@ internal fun BookmarkListContent(
                         folderIconStyle = folderIconStyle,
                         onLongClick = { onItemLongClick(item, node.path) },
                         onToggle = {
-                            val isSelected = selectedFolderKey == node.key
-                            selectedFolderKey = if (isSelected) null else node.key
-                            onSelectedFolderPathChange(if (isSelected) null else node.path)
-                            if (expandedFolders[node.key] == true) {
-                                expandedFolders.remove(node.key)
+                            if (selectedFolderKey == node.key) {
+                                onSelectedFolderPathChange(null)
+                                if (expandedFolders[node.key] == true) {
+                                    expandedFolders.remove(node.key)
+                                } else {
+                                    expandedFolders[node.key] = true
+                                }
                             } else {
-                                expandedFolders[node.key] = true
+                                onSelectedFolderPathChange(node.path)
                             }
                         },
                     )
