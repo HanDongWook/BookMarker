@@ -1,5 +1,7 @@
 package com.hdw.bookmarker.feature.home.contract
 
+import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+
 sealed interface AddBookmarkItemRequest {
     val parentFolderPath: List<Int>?
     val title: String
@@ -13,6 +15,10 @@ sealed interface AddBookmarkItemRequest {
         val saveToInbox: Boolean = false,
     ) : AddBookmarkItemRequest
 
-    data class Folder(override val parentFolderPath: List<Int>?, override val title: String, val description: String) :
-        AddBookmarkItemRequest
+    data class Folder(
+        override val parentFolderPath: List<Int>?,
+        override val title: String,
+        val description: String,
+        val children: List<BookmarkItem> = emptyList(),
+    ) : AddBookmarkItemRequest
 }

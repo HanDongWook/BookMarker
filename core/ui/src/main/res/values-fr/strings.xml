@@ -185,4 +185,10 @@
     <string name="bookmark_search_tags_prefix">"Mots-clés : "</string>
     <string name="bookmark_item_action_edit">Modifier</string>
     <string name="bookmark_item_action_delete">Supprimer</string>
+    <string name="bookmark_item_action_copy">Copier</string>
+    <string name="bookmark_item_action_paste">Coller</string>
+    <string name="bookmark_item_copy_toast_folder">Le dossier &quot;%1&quot; a été copié.</string>
+    <string name="bookmark_item_copy_toast_bookmark">Le signet &quot;%1&quot; a été copié.</string>
+    <string name="delete_bookmark_item_dialog_message_folder">Supprimer le dossier &quot;%1&quot; ?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">Supprimer le signet &quot;%1&quot; ?</string>
 </resources>

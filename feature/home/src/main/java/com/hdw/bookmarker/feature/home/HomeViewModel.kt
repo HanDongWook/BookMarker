@@ -187,7 +187,7 @@ class HomeViewModel @Inject constructor(
                 description = request.description.trim().takeIf { it.isNotBlank() },
                 addDate = now,
                 lastModified = now,
-                children = emptyList(),
+                children = request.children,
             )
 
             is AddBookmarkItemRequest.Bookmark -> {

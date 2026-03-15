@@ -185,4 +185,10 @@
     <string name="bookmark_search_tags_prefix">"Etiquetas : "</string>
     <string name="bookmark_item_action_edit">Editar</string>
     <string name="bookmark_item_action_delete">Excluir</string>
+    <string name="bookmark_item_action_copy">Copiar</string>
+    <string name="bookmark_item_action_paste">Colar</string>
+    <string name="bookmark_item_copy_toast_folder">Pasta &quot;%1&quot; copiada.</string>
+    <string name="bookmark_item_copy_toast_bookmark">Favorito &quot;%1&quot; copiado.</string>
+    <string name="delete_bookmark_item_dialog_message_folder">Excluir a pasta &quot;%1&quot;?</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">Excluir o favorito &quot;%1&quot;?</string>
 </resources>

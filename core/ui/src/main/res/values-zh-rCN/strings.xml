@@ -185,4 +185,10 @@
     <string name="bookmark_search_tags_prefix">"标签 : "</string>
     <string name="bookmark_item_action_edit">编辑</string>
     <string name="bookmark_item_action_delete">删除</string>
+    <string name="bookmark_item_action_copy">复制</string>
+    <string name="bookmark_item_action_paste">粘贴</string>
+    <string name="bookmark_item_copy_toast_folder">已复制文件夹“%1”。</string>
+    <string name="bookmark_item_copy_toast_bookmark">已复制书签“%1”。</string>
+    <string name="delete_bookmark_item_dialog_message_folder">要删除“%1”文件夹吗？</string>
+    <string name="delete_bookmark_item_dialog_message_bookmark">要删除“%1”书签吗？</string>
 </resources>
