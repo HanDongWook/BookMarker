@@ -27,7 +27,6 @@ fun ManageBookmarkItemDialog(
     onDescriptionChange: (String) -> Unit,
     onDismiss: () -> Unit,
     onApply: () -> Unit,
-    onDelete: () -> Unit,
 ) {
     val canApply = title.isNotBlank() && (item !is BookmarkItem.Bookmark || url.isNotBlank())
     AlertDialog(
@@ -100,8 +99,8 @@ fun ManageBookmarkItemDialog(
             }
         },
         dismissButton = {
-            TextButton(onClick = onDelete) {
-                Text(text = stringResource(R.string.delete_bookmark_item_dialog_confirm))
+            TextButton(onClick = onDismiss) {
+                Text(text = stringResource(R.string.delete_bookmark_item_dialog_cancel))
             }
         },
     )
@@ -128,7 +127,6 @@ private fun ManageFolderDialogPreview() {
         onDescriptionChange = {},
         onDismiss = {},
         onApply = {},
-        onDelete = {},
     )
 }
 
@@ -153,6 +151,5 @@ private fun ManageBookmarkDialogPreview() {
         onDescriptionChange = {},
         onDismiss = {},
         onApply = {},
-        onDelete = {},
     )
 }
