@@ -2,7 +2,10 @@
 
 <p align="center">
   <img src="design/icons/app_icon.png" alt="Screenshot 1" width="250" style="border-radius: 50%;" />
-  <a href="https://play.google.com/store/apps/details?id=com.hdw.bookmarker"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="70"></a>
+  <br><br> 
+  <a href="https://play.google.com/store/apps/details?id=com.hdw.bookmarker">
+    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="70">
+  </a>
 </p>
 
 ## 앱 소개
