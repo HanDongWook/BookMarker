@@ -46,7 +46,7 @@ fun FolderSettingsRow(folderIconStyle: BookmarkFolderIconStyle, onClick: () -> U
 
 @Preview(showBackground = true)
 @Composable
-private fun FolderSettingsRowPreview() {
+internal fun FolderSettingsRowPreview() {
     MaterialTheme {
         FolderSettingsRow(
             folderIconStyle = BookmarkFolderIconStyle(),

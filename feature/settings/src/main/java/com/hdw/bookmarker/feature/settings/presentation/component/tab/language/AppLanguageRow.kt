@@ -37,7 +37,7 @@ private fun String.toReadableLanguageLabel(resources: Resources): String {
 
 @Preview(showBackground = true)
 @Composable
-private fun AppLanguageRowPreview() {
+internal fun AppLanguageRowPreview() {
     MaterialTheme {
         AppLanguageRow(
             languageTag = "ko-KR",

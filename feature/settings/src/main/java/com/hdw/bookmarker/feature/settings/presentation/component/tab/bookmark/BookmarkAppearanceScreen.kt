@@ -123,7 +123,7 @@ fun BookmarkAppearanceScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkAppearanceScreenPreview() {
+internal fun BookmarkAppearanceScreenPreview() {
     BookmarkAppearanceScreen(
         scrollLongSecondaryInfo = true,
         secondaryDisplayType = BookmarkSecondaryDisplayType.URL,

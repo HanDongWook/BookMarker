@@ -111,13 +111,13 @@ private fun BrowserIcon(icon: Any) {
 
 @Preview(showBackground = true)
 @Composable
-private fun BrowserIconPreview() {
+internal fun BrowserIconPreview() {
     BrowserIcon(icon = ColorDrawable(Color.GRAY))
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun DefaultBrowserScreenPreview() {
+internal fun DefaultBrowserScreenPreview() {
     DefaultBrowserScreen(
         installedBrowsers = listOf(
             BrowserInfo(

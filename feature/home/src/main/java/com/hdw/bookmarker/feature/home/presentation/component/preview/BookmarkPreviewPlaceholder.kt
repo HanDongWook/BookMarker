@@ -30,6 +30,6 @@ internal fun BookmarkPreviewPlaceholder(text: String, modifier: Modifier = Modif
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkPreviewPlaceholderPreview() {
+internal fun BookmarkPreviewPlaceholderPreview() {
     BookmarkPreviewPlaceholder(text = "Select a bookmark to preview")
 }

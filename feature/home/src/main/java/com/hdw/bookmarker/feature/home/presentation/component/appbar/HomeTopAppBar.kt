@@ -81,7 +81,7 @@ fun HomeTopAppBar(
 
 @Preview(showBackground = true)
 @Composable
-private fun HomeTopAppBarPreview() {
+internal fun HomeTopAppBarPreview() {
     MaterialTheme {
         HomeTopAppBar(
             bookmarkDisplayType = BookmarkDisplayType.LIST,

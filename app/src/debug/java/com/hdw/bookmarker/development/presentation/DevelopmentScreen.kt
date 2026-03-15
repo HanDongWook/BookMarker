@@ -20,13 +20,9 @@ import com.hdw.bookmarker.core.designsystem.theme.BookMarkerTheme
 import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.feature.settings.presentation.component.SettingsRow
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun DevelopmentScreen(
-    onBackClick: () -> Unit,
-    onOpenShowkaseClick: () -> Unit,
-) {
+internal fun DevelopmentScreen(onBackClick: () -> Unit, onOpenShowkaseClick: () -> Unit) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {

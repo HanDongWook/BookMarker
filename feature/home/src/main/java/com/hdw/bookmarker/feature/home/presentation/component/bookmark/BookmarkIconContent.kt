@@ -228,7 +228,7 @@ private fun BookmarkLeafIconItem(bookmark: BookmarkItem.Bookmark, onClick: () ->
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkIconContentPreview() {
+internal fun BookmarkIconContentPreview() {
     BookmarkIconContent(
         bookmarkDocument = previewBookmarkIconDocument(),
         onBookmarkClick = {},
@@ -240,7 +240,7 @@ private fun BookmarkIconContentPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkFolderIconItemPreview() {
+internal fun BookmarkFolderIconItemPreview() {
     BookmarkFolderIconItem(
         folder = BookmarkItem.Folder(
             title = "Favorites",
@@ -257,7 +257,7 @@ private fun BookmarkFolderIconItemPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkLeafIconItemPreview() {
+internal fun BookmarkLeafIconItemPreview() {
     BookmarkLeafIconItem(
         bookmark = BookmarkItem.Bookmark(
             title = "OpenAI",
