@@ -70,7 +70,6 @@ internal fun HomeDialogHost(
                 ?: BookmarkColorGenerator.generateColorForId(selectedBookmarkId),
             onColorSelect = { color ->
                 onBookmarkColorSelected(selectedBookmarkId, color)
-                showColorPickerDialog = false
             },
             onDismiss = { showColorPickerDialog = false },
         )
