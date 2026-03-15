@@ -91,6 +91,7 @@ dependencies {
     // core
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
+    implementation(projects.core.model)
     implementation(projects.core.navigation)
     implementation(projects.core.ui)
 

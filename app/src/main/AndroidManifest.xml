@@ -72,6 +72,16 @@
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="text/html" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="navigate"
+                    android:scheme="bookmarker" />
+            </intent-filter>
         </activity>
     </application>
 
