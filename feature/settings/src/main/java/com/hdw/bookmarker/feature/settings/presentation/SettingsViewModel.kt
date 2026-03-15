@@ -7,9 +7,9 @@ import com.airbnb.mvrx.hilt.hiltMavericksViewModelFactory
 import com.hdw.bookmarker.core.domain.usecase.GetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.domain.usecase.GetInstalledBrowsersUseCase
 import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
+import com.hdw.bookmarker.feature.settings.presentation.component.tab.appversion.AppUpdateUiState
 import com.hdw.bookmarker.feature.settings.presentation.model.DisplayValueState
 import com.hdw.bookmarker.feature.settings.presentation.model.SettingsState
-import com.hdw.bookmarker.feature.settings.presentation.component.tab.appversion.AppUpdateUiState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

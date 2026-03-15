@@ -17,7 +17,7 @@ fun RateAppRow(onClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-private fun RateAppRowPreview() {
+internal fun RateAppRowPreview() {
     MaterialTheme {
         RateAppRow(onClick = {})
     }

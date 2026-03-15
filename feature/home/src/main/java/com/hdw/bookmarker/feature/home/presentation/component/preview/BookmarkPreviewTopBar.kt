@@ -72,7 +72,7 @@ internal fun BookmarkPreviewTopBar(
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkPreviewTopBarPreview() {
+internal fun BookmarkPreviewTopBarPreview() {
     BookmarkPreviewTopBar(
         title = "OpenAI",
         currentUrl = "https://openai.com",

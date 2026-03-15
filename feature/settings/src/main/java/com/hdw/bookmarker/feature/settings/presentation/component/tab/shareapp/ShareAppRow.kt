@@ -17,7 +17,7 @@ fun ShareAppRow(onClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-private fun ShareAppRowPreview() {
+internal fun ShareAppRowPreview() {
     MaterialTheme {
         ShareAppRow(onClick = {})
     }

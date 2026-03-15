@@ -19,12 +19,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.ui.BookMarkerDivider
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.url.AppWebUrl
-import com.hdw.bookmarker.feature.settings.presentation.model.DisplayValueState
 import com.hdw.bookmarker.feature.settings.presentation.component.SettingsRow
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.appversion.AppUpdateUiState
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.appversion.AppVersionRow
-import com.hdw.bookmarker.feature.settings.presentation.component.tab.development.DevelopmentRow
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.defaultbrowser.DefaultBrowserRow
+import com.hdw.bookmarker.feature.settings.presentation.component.tab.development.DevelopmentRow
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.legal.PrivacyPolicyRow
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.opensource.OpenSourceLicenseRow
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.rateapp.RateAppRow
@@ -32,6 +31,7 @@ import com.hdw.bookmarker.feature.settings.presentation.component.tab.rateapp.re
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.shareapp.ShareAppRow
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.shareapp.requestAppShare
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.temporarydata.TemporaryDataRow
+import com.hdw.bookmarker.feature.settings.presentation.model.DisplayValueState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

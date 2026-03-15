@@ -194,13 +194,13 @@ private fun SnapshotTitleBar(
 
 @Preview(showBackground = true)
 @Composable
-private fun EmptyBookmarksPreview() {
+internal fun EmptyBookmarksPreview() {
     EmptyBookmarks()
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkDisplayContentListPreview() {
+internal fun BookmarkDisplayContentListPreview() {
     BookmarkDisplayContent(
         bookmarkDocument = previewBookmarkDocument(),
         isInboxSnapshot = false,
@@ -221,7 +221,7 @@ private fun BookmarkDisplayContentListPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun BookmarkDisplayContentIconPreview() {
+internal fun BookmarkDisplayContentIconPreview() {
     BookmarkDisplayContent(
         bookmarkDocument = previewBookmarkDocument(),
         isInboxSnapshot = false,

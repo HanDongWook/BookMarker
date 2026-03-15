@@ -52,7 +52,7 @@ fun SettingsRow(
 
 @Preview(showBackground = true, name = "Value")
 @Composable
-private fun SettingsRowValuePreview() {
+internal fun SettingsRowValuePreview() {
     MaterialTheme {
         SettingsRow(
             title = "Setting title",
@@ -63,7 +63,7 @@ private fun SettingsRowValuePreview() {
 
 @Preview(showBackground = true, name = "Trailing")
 @Composable
-private fun SettingsRowTrailingPreview() {
+internal fun SettingsRowTrailingPreview() {
     MaterialTheme {
         SettingsRow(
             title = "Setting title",

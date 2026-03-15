@@ -67,7 +67,7 @@ fun LargeScreenAppearanceScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun LargeScreenAppearanceScreenPreview() {
+internal fun LargeScreenAppearanceScreenPreview() {
     LargeScreenAppearanceScreen(
         openBookmarkSidePreviewOnLargeScreen = false,
         onOpenBookmarkSidePreviewOnLargeScreenChange = {},

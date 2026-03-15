@@ -67,7 +67,7 @@ fun BehaviorScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun BehaviorScreenPreview() {
+internal fun BehaviorScreenPreview() {
     BehaviorScreen(
         openBookmarkAdjacentOnLargeScreen = false,
         onOpenBookmarkAdjacentOnLargeScreenChange = {},

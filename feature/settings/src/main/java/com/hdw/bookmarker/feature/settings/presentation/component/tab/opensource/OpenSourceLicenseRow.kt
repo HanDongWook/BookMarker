@@ -17,7 +17,7 @@ fun OpenSourceLicenseRow(onClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-private fun OpenSourceLicenseRowPreview() {
+internal fun OpenSourceLicenseRowPreview() {
     MaterialTheme {
         OpenSourceLicenseRow(onClick = {})
     }

@@ -170,7 +170,7 @@ private fun FolderSettingIcon(selectedFolderIconStyle: BookmarkFolderIconStyle) 
 
 @Preview(showBackground = true)
 @Composable
-private fun FolderAppearanceScreenPreview() {
+internal fun FolderAppearanceScreenPreview() {
     FolderAppearanceScreen(
         selectedFolderIconStyle = BookmarkFolderIconStyle(
             shape = BookmarkFolderIconShape.FILLED,

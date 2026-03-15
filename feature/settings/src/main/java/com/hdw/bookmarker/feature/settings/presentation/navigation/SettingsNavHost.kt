@@ -11,14 +11,14 @@ import com.airbnb.mvrx.compose.mavericksViewModel
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.settings.presentation.behavior.BehaviorViewModel
-import com.hdw.bookmarker.feature.settings.presentation.model.DisplayValueState
-import com.hdw.bookmarker.feature.settings.presentation.model.SettingsState
-import com.hdw.bookmarker.feature.settings.presentation.navigation.appearance.appearanceGraph
 import com.hdw.bookmarker.feature.settings.presentation.component.SettingsScreen
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.appversion.AppUpdateUiState
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.behavior.BehaviorScreen
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.defaultbrowser.DefaultBrowserScreen
 import com.hdw.bookmarker.feature.settings.presentation.component.tab.opensource.OpenSourceLicensesScreen
+import com.hdw.bookmarker.feature.settings.presentation.model.DisplayValueState
+import com.hdw.bookmarker.feature.settings.presentation.model.SettingsState
+import com.hdw.bookmarker.feature.settings.presentation.navigation.appearance.appearanceGraph
 
 @Composable
 internal fun SettingsNavHost(

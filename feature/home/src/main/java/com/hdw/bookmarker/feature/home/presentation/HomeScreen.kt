@@ -317,7 +317,7 @@ fun HomeScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun HomeScreenPreview() {
+internal fun HomeScreenPreview() {
     HomeScreen(
         state = HomeState(
             bookmarkDisplayType = BookmarkDisplayType.LIST,
