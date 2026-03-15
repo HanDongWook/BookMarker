@@ -11,6 +11,7 @@ import com.hdw.bookmarker.core.domain.usecase.SetDefaultBrowserPackageUseCase
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
+import com.hdw.bookmarker.core.model.settings.BookmarkSecondaryDisplayType
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.BookmarkSnapshots
@@ -75,8 +76,10 @@ class HomeViewModel @Inject constructor(
                     selectedFolderPaths = state.selectedFolderPaths.retain(snapshots.orderedIds),
                     defaultBrowserPackage = observedState.defaultBrowserPackage,
                     bookmarkDisplayType = observedState.bookmarkDisplayType.toBookmarkDisplayType(),
-                    scrollLongBookmarkUrl = observedState.scrollLongBookmarkUrl,
-                    showBookmarkUrl = observedState.showBookmarkUrl,
+                    scrollLongSecondaryInfo = observedState.scrollLongBookmarkUrl,
+                    secondaryDisplayType = observedState.bookmarkSecondaryDisplayType?.let {
+                        BookmarkSecondaryDisplayType.values().find { type -> type.name == it }
+                    } ?: BookmarkSecondaryDisplayType.URL,
                     openBookmarkAdjacentOnLargeScreen =
                     observedState.openBookmarkAdjacentOnLargeScreen,
                     openBookmarkSidePreviewOnLargeScreen =

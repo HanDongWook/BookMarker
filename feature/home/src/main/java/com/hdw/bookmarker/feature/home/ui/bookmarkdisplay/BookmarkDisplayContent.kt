@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
+import com.hdw.bookmarker.core.model.settings.BookmarkSecondaryDisplayType
 import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 
@@ -34,8 +35,8 @@ fun BookmarkDisplayContent(
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
     displayType: BookmarkDisplayType,
-    scrollLongBookmarkUrl: Boolean,
-    showBookmarkUrl: Boolean,
+    scrollLongSecondaryInfo: Boolean,
+    secondaryDisplayType: BookmarkSecondaryDisplayType,
     showFolderDescription: Boolean,
     scrollLongFolderDescription: Boolean,
     folderIconStyle: BookmarkFolderIconStyle,
@@ -73,8 +74,8 @@ fun BookmarkDisplayContent(
                     bookmarkDocument = bookmarkDocument,
                     onBookmarkClick = onBookmarkClick,
                     onItemLongClick = onItemLongClick,
-                    scrollLongBookmarkUrl = scrollLongBookmarkUrl,
-                    showBookmarkUrl = showBookmarkUrl,
+                    scrollLongSecondaryInfo = scrollLongSecondaryInfo,
+                    secondaryDisplayType = secondaryDisplayType,
                     showFolderDescription = showFolderDescription,
                     scrollLongFolderDescription = scrollLongFolderDescription,
                     selectedFolderPath = selectedFolderPath,
@@ -194,8 +195,8 @@ private fun BookmarkDisplayContentListPreview() {
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
         displayType = BookmarkDisplayType.LIST,
-        scrollLongBookmarkUrl = true,
-        showBookmarkUrl = true,
+        scrollLongSecondaryInfo = true,
+        secondaryDisplayType = BookmarkSecondaryDisplayType.URL,
         showFolderDescription = true,
         scrollLongFolderDescription = true,
         folderIconStyle = BookmarkFolderIconStyle(),
@@ -214,8 +215,8 @@ private fun BookmarkDisplayContentIconPreview() {
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
         displayType = BookmarkDisplayType.ICON,
-        scrollLongBookmarkUrl = true,
-        showBookmarkUrl = true,
+        scrollLongSecondaryInfo = true,
+        secondaryDisplayType = BookmarkSecondaryDisplayType.URL,
         showFolderDescription = true,
         scrollLongFolderDescription = true,
         folderIconStyle = BookmarkFolderIconStyle(),

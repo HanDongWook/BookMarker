@@ -58,10 +58,10 @@ internal fun NavGraphBuilder.appearanceGraph(navController: NavHostController) {
                 currentEntry = entry,
             ) { appearanceState, appearanceViewModel ->
                 BookmarkAppearanceScreen(
-                    scrollLongBookmarkUrl = appearanceState.scrollLongBookmarkUrl,
-                    showBookmarkUrl = appearanceState.showBookmarkUrl,
-                    onScrollLongBookmarkUrlChange = appearanceViewModel::setScrollLongBookmarkUrl,
-                    onShowBookmarkUrlChange = appearanceViewModel::setShowBookmarkUrl,
+                    scrollLongSecondaryInfo = appearanceState.scrollLongSecondaryInfo,
+                    secondaryDisplayType = appearanceState.secondaryDisplayType,
+                    onScrollLongSecondaryInfoChange = appearanceViewModel::setScrollLongSecondaryInfo,
+                    onSecondaryDisplayTypeChange = appearanceViewModel::setBookmarkSecondaryDisplayType,
                     onBackClick = { navController.popBackStack() },
                 )
             }
