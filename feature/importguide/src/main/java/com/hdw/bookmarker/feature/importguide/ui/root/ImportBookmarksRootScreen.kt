@@ -86,11 +86,7 @@ fun ImportBookmarksRootScreen(
 }
 
 @Composable
-private fun ImportSourceRow(
-    title: String,
-    onClick: () -> Unit,
-    leadingContent: @Composable () -> Unit,
-) {
+private fun ImportSourceRow(title: String, onClick: () -> Unit, leadingContent: @Composable () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
