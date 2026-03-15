@@ -8,7 +8,7 @@ sealed interface UpdateBookmarkItemRequest {
         override val path: List<Int>,
         override val title: String,
         val url: String,
-        val note: String = "",
+        val description: String = "",
         val tags: List<String> = emptyList(),
     ) : UpdateBookmarkItemRequest
 

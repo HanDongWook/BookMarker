@@ -27,7 +27,7 @@
     <string name="bookmark_name">Name</string>
     <string name="bookmark_url">URL</string>
     <string name="bookmark_tags">Tags</string>
-    <string name="bookmark_note">Description</string>
+    <string name="bookmark_description">Description</string>
     <string name="bookmark_snapshot_name">Name</string>
     <string name="default_snapshot_title_prefix">Bookmark</string>
     <string name="bookmark_inbox_title">Inbox</string>

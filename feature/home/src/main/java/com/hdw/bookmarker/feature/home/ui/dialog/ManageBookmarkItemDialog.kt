@@ -19,12 +19,10 @@ fun ManageBookmarkItemDialog(
     item: BookmarkItem,
     title: String,
     url: String,
-    note: String,
     tags: String,
     description: String,
     onTitleChange: (String) -> Unit,
     onUrlChange: (String) -> Unit,
-    onNoteChange: (String) -> Unit,
     onTagsChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
     onDismiss: () -> Unit,
@@ -74,30 +72,26 @@ fun ManageBookmarkItemDialog(
                             .padding(top = 8.dp),
                         label = { Text(text = stringResource(R.string.bookmark_tags)) },
                     )
-                    BookmarkerTextField(
-                        value = note,
-                        onValueChange = onNoteChange,
-                        singleLine = false,
-                        minLines = 2,
-                        maxLines = 5,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp),
-                        label = { Text(text = stringResource(R.string.bookmark_note)) },
-                    )
-                } else {
-                    BookmarkerTextField(
-                        value = description,
-                        onValueChange = onDescriptionChange,
-                        singleLine = false,
-                        minLines = 2,
-                        maxLines = 5,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp),
-                        label = { Text(text = stringResource(R.string.folder_description)) },
-                    )
                 }
+                
+                BookmarkerTextField(
+                    value = description,
+                    onValueChange = onDescriptionChange,
+                    singleLine = false,
+                    minLines = 2,
+                    maxLines = 5,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    label = {
+                        Text(
+                            text = when (item) {
+                                is BookmarkItem.Folder -> stringResource(R.string.folder_description)
+                                is BookmarkItem.Bookmark -> stringResource(R.string.bookmark_description)
+                            },
+                        )
+                    },
+                )
             }
         },
         confirmButton = {
@@ -126,12 +120,10 @@ private fun ManageFolderDialogPreview() {
         ),
         title = "개발",
         url = "",
-        note = "",
         tags = "",
         description = "개발 관련 링크 모음",
         onTitleChange = {},
         onUrlChange = {},
-        onNoteChange = {},
         onTagsChange = {},
         onDescriptionChange = {},
         onDismiss = {},
@@ -153,12 +145,10 @@ private fun ManageBookmarkDialogPreview() {
         ),
         title = "OpenAI",
         url = "https://openai.com",
-        note = "LLM docs",
         tags = "ai, docs",
-        description = "",
+        description = "LLM docs",
         onTitleChange = {},
         onUrlChange = {},
-        onNoteChange = {},
         onTagsChange = {},
         onDescriptionChange = {},
         onDismiss = {},

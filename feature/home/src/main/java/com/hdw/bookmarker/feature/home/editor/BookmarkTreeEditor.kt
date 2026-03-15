@@ -62,7 +62,7 @@ class BookmarkTreeEditor @Inject constructor() {
                     target.copy(
                         title = request.title,
                         url = normalizeUrl(trimmedUrl),
-                        note = request.note.trim().takeIf { it.isNotBlank() },
+                        description = request.description.trim().takeIf { it.isNotBlank() },
                         tags = normalizeTags(request.tags),
                         lastModified = now,
                     )
