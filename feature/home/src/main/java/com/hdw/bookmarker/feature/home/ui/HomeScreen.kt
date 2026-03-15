@@ -1,6 +1,5 @@
 package com.hdw.bookmarker.feature.home.ui
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
@@ -20,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.core.ui.R
+import com.hdw.bookmarker.core.ui.util.showShortToast
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.contract.HomeState
@@ -94,9 +94,9 @@ fun HomeScreen(
         pageCount = { orderedSnapshotIds.size },
     )
     val scope = rememberCoroutineScope()
-    val selectedBookmarkId = state.selectedBookmarkId
-        ?.takeIf { id -> orderedSnapshotIds.contains(id) }
-        ?: orderedSnapshotIds.getOrNull(pagerState.currentPage)
+    val selectedBookmarkId = orderedSnapshotIds.getOrNull(pagerState.currentPage)
+        ?: state.selectedBookmarkId
+            ?.takeIf { id -> orderedSnapshotIds.contains(id) }
         ?: orderedSnapshotIds.firstOrNull()
     val selectedFolderPath = state.selectedFolderPaths.pathOf(selectedBookmarkId)
     val defaultSnapshotTitlePrefix = stringResource(R.string.default_snapshot_title_prefix)
@@ -223,11 +223,7 @@ fun HomeScreen(
                     if (enableLargeScreenSidePreview) {
                         uiState.previewPaneState.open(url)
                     } else if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.open_bookmark_failed),
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                        context.showShortToast(R.string.open_bookmark_failed)
                     }
                 },
                 onItemLongClick = { item, path ->
@@ -260,11 +256,7 @@ fun HomeScreen(
                 showLargeScreenSidePreview = enableLargeScreenSidePreview,
                 onPreviewOpenExternally = { url ->
                     if (!onOpenBookmark(url, state.defaultBrowserPackage)) {
-                        Toast.makeText(
-                            context,
-                            context.getString(R.string.open_bookmark_failed),
-                            Toast.LENGTH_SHORT,
-                        ).show()
+                        context.showShortToast(R.string.open_bookmark_failed)
                     }
                 },
             )
