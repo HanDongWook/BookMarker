@@ -24,8 +24,8 @@
     <string name="add_bookmark">Bookmark</string>
     <string name="add_bookmark_or_folder">Add</string>
     <string name="folder_name">Folder name</string>
-    <string name="bookmark_name">Bookmark name</string>
-    <string name="bookmark_url">Bookmark URL</string>
+    <string name="bookmark_name">Name</string>
+    <string name="bookmark_url">URL</string>
     <string name="bookmark_tags">Tags</string>
     <string name="bookmark_note">Note</string>
     <string name="bookmark_snapshot_name">Name</string>

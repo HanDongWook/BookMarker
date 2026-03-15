@@ -23,8 +23,8 @@
     <string name="add_bookmark">закладка</string>
     <string name="add_bookmark_or_folder">Добавить</string>
     <string name="folder_name">Название папки</string>
-    <string name="bookmark_name">Название закладки</string>
-    <string name="bookmark_url">URL закладки</string>
+    <string name="bookmark_name">Название</string>
+    <string name="bookmark_url">URL</string>
     <string name="bookmark_snapshot_name">Название</string>
     <string name="default_snapshot_title_prefix">Закладка</string>
     <string name="rename_bookmark_snapshot">Переименовать</string>
