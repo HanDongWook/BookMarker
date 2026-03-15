@@ -168,11 +168,11 @@
     <string name="bookmark_note">Note</string>
     <string name="bookmark_inbox_title">Boîte de réception</string>
     <string name="bookmark_inbox_badge">Boîte de réception</string>
-    <string name="bookmark_inbox_empty">Aucun lien n'est encore enregistré dans la Boîte de réception.\nPartagez un lien pour l'enregistrer ici.</string>
+    <string name="bookmark_inbox_empty">Aucun lien n\'est encore enregistré dans la Boîte de réception.\nPartagez un lien pour l\'enregistrer ici.</string>
     <string name="save_to_inbox">Enregistré dans la Boîte de réception</string>
     <string name="import_source_html_file_title">Fichier HTML</string>
     <string name="large_screen_label">Grand écran</string>
-    <string name="bookmark_open_beside_app_on_large_screens_label">Ouvrir à côté de l'app sur grands écrans</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">Ouvrir à côté de l\'app sur grands écrans</string>
     <string name="bookmark_search_open">Rechercher des favoris</string>
     <string name="bookmark_search_hint">Rechercher dossiers et favoris</string>
     <string name="bookmark_search_empty">Recherchez des dossiers et des favoris dans tous les instantanés.</string>
