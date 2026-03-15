@@ -153,6 +153,7 @@
     <string name="behavior_label">動作</string>
     <string name="bookmark_show_url_label">URLを表示</string>
     <string name="bookmark_scroll_long_url_label">長いURLをスクロール</string>
+    <string name="bookmark_open_side_preview_label">プレビュー</string>
     <string name="bookmark_preview_title">プレビュー</string>
     <string name="bookmark_preview_placeholder">プレビューするブックマークを選択</string>
     <string name="bookmark_preview_refresh">プレビューを更新</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">長い説明をスクロール</string>
     <string name="folder_description">説明</string>
     <string name="display_value_loading">読み込み中</string>
+    <string name="bookmark_tags">タグ</string>
+    <string name="bookmark_note">メモ</string>
+    <string name="bookmark_inbox_title">受信トレイ</string>
+    <string name="bookmark_inbox_badge">受信トレイ</string>
+    <string name="bookmark_inbox_empty">受信トレイに保存されたリンクはまだありません。\nリンクを共有してここに保存してください。</string>
+    <string name="save_to_inbox">受信トレイに保存しました</string>
+    <string name="import_source_html_file_title">HTMLファイル</string>
+    <string name="large_screen_label">大画面</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">大画面でアプリの横に開く</string>
+    <string name="bookmark_search_open">ブックマークを検索</string>
+    <string name="bookmark_search_hint">フォルダとブックマークを検索</string>
+    <string name="bookmark_search_empty">すべてのスナップショットからフォルダやブックマークを検索します。</string>
+    <string name="bookmark_search_loading">検索中…</string>
+    <string name="bookmark_search_no_results">一致するフォルダやブックマークはありません。</string>
+    <string name="bookmark_search_close">検索を閉じる</string>
+    <string name="bookmark_search_clear">検索テキストをクリア</string>
 </resources>

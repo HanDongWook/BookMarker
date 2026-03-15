@@ -153,6 +153,7 @@
     <string name="behavior_label">व्यवहार</string>
     <string name="bookmark_show_url_label">URL दिखाएं</string>
     <string name="bookmark_scroll_long_url_label">लंबा URL स्क्रॉल करें</string>
+    <string name="bookmark_open_side_preview_label">प्रीव्यू</string>
     <string name="bookmark_preview_title">प्रीव्यू</string>
     <string name="bookmark_preview_placeholder">प्रीव्यू के लिए बुकमार्क चुनें</string>
     <string name="bookmark_preview_refresh">प्रीव्यू रीफ़्रेश करें</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">लंबा विवरण स्क्रॉल करें</string>
     <string name="folder_description">विवरण</string>
     <string name="display_value_loading">लोड हो रहा है</string>
+    <string name="bookmark_tags">टैग</string>
+    <string name="bookmark_note">नोट</string>
+    <string name="bookmark_inbox_title">इनबॉक्स</string>
+    <string name="bookmark_inbox_badge">इनबॉक्स</string>
+    <string name="bookmark_inbox_empty">इनबॉक्स में अभी तक कोई लिंक सेव नहीं किया गया है।\nयहां सेव करने के लिए लिंक शेयर करें।</string>
+    <string name="save_to_inbox">इनबॉक्स में सेव किया गया</string>
+    <string name="import_source_html_file_title">HTML फ़ाइल</string>
+    <string name="large_screen_label">बड़ी स्क्रीन</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">बड़ी स्क्रीन पर ऐप के बगल में खोलें</string>
+    <string name="bookmark_search_open">बुकमार्क खोजें</string>
+    <string name="bookmark_search_hint">फ़ोल्डर और बुकमार्क खोजें</string>
+    <string name="bookmark_search_empty">सभी स्नैपशॉट में फ़ोल्डर और बुकमार्क खोजें।</string>
+    <string name="bookmark_search_loading">खोज रहा है…</string>
+    <string name="bookmark_search_no_results">कोई मिलता-जुलता फ़ोल्डर या बुकमार्क नहीं।</string>
+    <string name="bookmark_search_close">खोज बंद करें</string>
+    <string name="bookmark_search_clear">खोज पाठ साफ़ करें</string>
 </resources>

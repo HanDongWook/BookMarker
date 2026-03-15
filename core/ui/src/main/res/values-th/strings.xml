@@ -153,6 +153,7 @@
     <string name="behavior_label">พฤติกรรม</string>
     <string name="bookmark_show_url_label">แสดง URL</string>
     <string name="bookmark_scroll_long_url_label">เลื่อน URL ยาว</string>
+    <string name="bookmark_open_side_preview_label">ตัวอย่าง</string>
     <string name="bookmark_preview_title">ตัวอย่าง</string>
     <string name="bookmark_preview_placeholder">เลือกบุ๊กมาร์กเพื่อดูตัวอย่าง</string>
     <string name="bookmark_preview_refresh">รีเฟรชตัวอย่าง</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">เลื่อนคำอธิบายยาว</string>
     <string name="folder_description">คำอธิบาย</string>
     <string name="display_value_loading">กำลังโหลด</string>
+    <string name="bookmark_tags">แท็ก</string>
+    <string name="bookmark_note">บันทึก</string>
+    <string name="bookmark_inbox_title">กล่องจดหมาย</string>
+    <string name="bookmark_inbox_badge">กล่องจดหมาย</string>
+    <string name="bookmark_inbox_empty">ยังไม่มีลิงก์ที่บันทึกไว้ในกล่องจดหมาย\nแชร์ลิงก์เพื่อบันทึกไว้ที่นี่</string>
+    <string name="save_to_inbox">บันทึกในกล่องจดหมายแล้ว</string>
+    <string name="import_source_html_file_title">ไฟล์ HTML</string>
+    <string name="large_screen_label">หน้าจอขนาดใหญ่</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">เปิดข้างแอปบนหน้าจอขนาดใหญ่</string>
+    <string name="bookmark_search_open">ค้นหาบุ๊กมาร์ก</string>
+    <string name="bookmark_search_hint">ค้นหาโฟลเดอร์และบุ๊กมาร์ก</string>
+    <string name="bookmark_search_empty">ค้นหาโฟลเดอร์และบุ๊กมาร์กในสแนปชอตทั้งหมด</string>
+    <string name="bookmark_search_loading">กำลังค้นหา…</string>
+    <string name="bookmark_search_no_results">ไม่มีโฟลเดอร์หรือบุ๊กมาร์กที่ตรงกัน</string>
+    <string name="bookmark_search_close">ปิดการค้นหา</string>
+    <string name="bookmark_search_clear">ล้างข้อความค้นหา</string>
 </resources>
