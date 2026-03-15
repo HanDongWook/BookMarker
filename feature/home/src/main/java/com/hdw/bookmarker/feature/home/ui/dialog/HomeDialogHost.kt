@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.hdw.bookmarker.core.domain.util.BookmarkColorGenerator
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
+import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.feature.home.contract.AddBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.contract.HomeState
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
@@ -24,17 +25,17 @@ private fun parseBookmarkTags(rawValue: String): List<String> = rawValue
 internal fun HomeDialogHost(
     state: HomeState,
     uiState: HomeScreenUiState,
-    selectedBookmarkId: String?,
+    selectedBookmarkId: SnapshotId?,
     selectedFolderPath: List<Int>?,
     onOpenBookmarkImportGuide: () -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
-    onDeleteBookmarkSnapshot: (String) -> Unit,
-    onRenameBookmarkSnapshot: (String, String) -> Unit,
+    onDeleteBookmarkSnapshot: (SnapshotId) -> Unit,
+    onRenameBookmarkSnapshot: (SnapshotId, String) -> Unit,
     onUpdateBookmarkItem: (UpdateBookmarkItemRequest) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
     onAddBookmarkItem: (AddBookmarkItemRequest) -> Unit,
     onDefaultBrowserSelected: (String) -> Unit,
-    onBookmarkColorSelected: (String, Long) -> Unit,
+    onBookmarkColorSelected: (SnapshotId, Long) -> Unit,
 ) {
     var showImportOptionDialog by uiState.showImportOptionDialog
     var showDefaultBrowserDialog by uiState.showDefaultBrowserDialog
@@ -67,7 +68,7 @@ internal fun HomeDialogHost(
         BookmarkColorPickerDialog(
             colors = BookmarkColorGenerator.getAllColors(),
             currentColor = state.bookmarkColors[selectedBookmarkId]
-                ?: BookmarkColorGenerator.generateColorForId(selectedBookmarkId),
+                ?: BookmarkColorGenerator.generateColorForId(selectedBookmarkId.value),
             onColorSelect = { color ->
                 onBookmarkColorSelected(selectedBookmarkId, color)
             },
@@ -263,7 +264,7 @@ internal fun HomeDialogHost(
             bookmarkNote = pendingBookmarkNote,
             bookmarkTags = pendingBookmarkTags,
             onBookmarkTitleChange = { pendingBookmarkTitle = it },
-            onBookmarkUrlChange = { pendingBookmarkUrl = it },
+            onBookmarkUrlChange = { pendingBookmarkUrl = it }, // typo in original? No, should be URL
             onBookmarkNoteChange = { pendingBookmarkNote = it },
             onBookmarkTagsChange = { pendingBookmarkTags = it },
             onDismiss = {

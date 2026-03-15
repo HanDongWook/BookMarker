@@ -1,15 +1,14 @@
 package com.hdw.bookmarker.feature.home.contract
 
-import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
+import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.core.model.browser.BrowserInfo
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 
 data class HomeState(
     val installedBrowsers: List<BrowserInfo> = emptyList(),
-    val orderedSnapshotIds: List<String> = emptyList(),
-    val bookmarkDocuments: Map<String, BookmarkDocument> = emptyMap(),
-    val bookmarkColors: Map<String, Long> = emptyMap(),
-    val selectedBookmarkId: String? = null,
+    val bookmarkSnapshots: BookmarkSnapshots = BookmarkSnapshots(),
+    val bookmarkColors: Map<SnapshotId, Long> = emptyMap(),
+    val selectedBookmarkId: SnapshotId? = null,
     val selectedFolderPaths: SnapshotFolderPathState = SnapshotFolderPathState(),
     val defaultBrowserPackage: String? = null,
     val bookmarkDisplayType: BookmarkDisplayType = BookmarkDisplayType.LIST,
@@ -28,10 +27,10 @@ enum class BookmarkDisplayType {
     ICON,
 }
 
-data class SnapshotFolderPathState(private val pathsBySnapshotId: Map<String, List<Int>> = emptyMap()) {
-    fun pathOf(snapshotId: String?): List<Int>? = snapshotId?.let(pathsBySnapshotId::get)
+data class SnapshotFolderPathState(private val pathsBySnapshotId: Map<SnapshotId, List<Int>> = emptyMap()) {
+    fun pathOf(snapshotId: SnapshotId?): List<Int>? = snapshotId?.let(pathsBySnapshotId::get)
 
-    fun update(snapshotId: String, path: List<Int>?): SnapshotFolderPathState {
+    fun update(snapshotId: SnapshotId, path: List<Int>?): SnapshotFolderPathState {
         val updated = pathsBySnapshotId.toMutableMap()
         if (path.isNullOrEmpty()) {
             updated.remove(snapshotId)
@@ -41,11 +40,11 @@ data class SnapshotFolderPathState(private val pathsBySnapshotId: Map<String, Li
         return copy(pathsBySnapshotId = updated)
     }
 
-    fun remove(snapshotId: String): SnapshotFolderPathState = copy(
+    fun remove(snapshotId: SnapshotId): SnapshotFolderPathState = copy(
         pathsBySnapshotId = pathsBySnapshotId - snapshotId,
     )
 
-    fun retain(validSnapshotIds: Collection<String>): SnapshotFolderPathState = copy(
+    fun retain(validSnapshotIds: Collection<SnapshotId>): SnapshotFolderPathState = copy(
         pathsBySnapshotId = pathsBySnapshotId.filterKeys { it in validSnapshotIds },
     )
 }

@@ -6,7 +6,8 @@ import com.hdw.bookmarker.core.model.bookmark.BOOKMARK_DOCUMENT_KIND_INBOX
 import com.hdw.bookmarker.core.model.bookmark.BOOKMARK_DOCUMENT_META_KIND
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
-import com.hdw.bookmarker.core.model.bookmark.isInboxSnapshot
+import com.hdw.bookmarker.core.model.bookmark.SnapshotId
+import com.hdw.bookmarker.feature.home.contract.BookmarkSnapshots
 import com.hdw.bookmarker.feature.home.contract.UpdateBookmarkItemRequest
 import com.hdw.bookmarker.feature.home.editor.BookmarkTreeEditor
 import javax.inject.Inject
@@ -17,7 +18,7 @@ class BookmarkSnapshotEditor @Inject constructor(
     private val bookmarkTreeEditor: BookmarkTreeEditor,
     private val snapshotTitleGenerator: SnapshotTitleGenerator,
 ) {
-    suspend fun addEmptySnapshot(existingDocuments: Collection<BookmarkDocument>): String {
+    suspend fun addEmptySnapshot(existingDocuments: Collection<BookmarkDocument>): SnapshotId {
         val snapshotTitle = snapshotTitleGenerator.nextDefaultTitle(existingDocuments)
         return saveSnapshot(
             snapshotId = null,
@@ -29,14 +30,10 @@ class BookmarkSnapshotEditor @Inject constructor(
         )
     }
 
-    suspend fun getOrCreateInboxSnapshot(
-        bookmarkDocuments: Map<String, BookmarkDocument>,
-    ): Pair<String?, BookmarkDocument> {
-        val existingInbox = bookmarkDocuments.entries.firstOrNull { (_, document) ->
-            document.isInboxSnapshot()
-        }
-        if (existingInbox != null) {
-            return existingInbox.key to existingInbox.value
+    suspend fun getOrCreateInboxSnapshot(library: BookmarkSnapshots): Pair<SnapshotId?, BookmarkDocument> {
+        val existingInboxId = library.inboxIds.firstOrNull()
+        if (existingInboxId != null) {
+            return existingInboxId to library[existingInboxId]!!
         }
 
         return null to BookmarkDocument(
@@ -46,8 +43,8 @@ class BookmarkSnapshotEditor @Inject constructor(
         )
     }
 
-    suspend fun addItemToInbox(bookmarkDocuments: Map<String, BookmarkDocument>, item: BookmarkItem): String {
-        val (snapshotId, inboxDocument) = getOrCreateInboxSnapshot(bookmarkDocuments)
+    suspend fun addItemToInbox(library: BookmarkSnapshots, item: BookmarkItem): SnapshotId {
+        val (snapshotId, inboxDocument) = getOrCreateInboxSnapshot(library)
         return saveSnapshot(
             snapshotId = snapshotId,
             document = inboxDocument.copy(rootItems = inboxDocument.rootItems + item),
@@ -55,15 +52,15 @@ class BookmarkSnapshotEditor @Inject constructor(
     }
 
     suspend fun addItem(
-        currentSnapshotId: String?,
-        bookmarkDocuments: Map<String, BookmarkDocument>,
+        currentSnapshotId: SnapshotId?,
+        library: BookmarkSnapshots,
         item: BookmarkItem,
         parentFolderPath: List<Int>? = null,
-    ): String {
+    ): SnapshotId {
         val currentDocument = currentSnapshotId
-            ?.let(bookmarkDocuments::get)
+            ?.let(library::get)
             ?: BookmarkDocument(
-                title = snapshotTitleGenerator.nextDefaultTitle(bookmarkDocuments.values),
+                title = snapshotTitleGenerator.nextDefaultTitle(library.values),
                 metas = emptyMap(),
                 rootItems = emptyList(),
             )
@@ -84,7 +81,7 @@ class BookmarkSnapshotEditor @Inject constructor(
         )
     }
 
-    suspend fun deleteItem(snapshotId: String, document: BookmarkDocument, path: List<Int>): String? {
+    suspend fun deleteItem(snapshotId: SnapshotId, document: BookmarkDocument, path: List<Int>): SnapshotId? {
         val updatedRootItems = bookmarkTreeEditor.removeItemByPath(
             items = document.rootItems,
             path = path,
@@ -97,10 +94,10 @@ class BookmarkSnapshotEditor @Inject constructor(
     }
 
     suspend fun updateItem(
-        snapshotId: String,
+        snapshotId: SnapshotId,
         document: BookmarkDocument,
         request: UpdateBookmarkItemRequest,
-    ): String? {
+    ): SnapshotId? {
         val updatedRootItems = bookmarkTreeEditor.updateItemByPath(
             items = document.rootItems,
             path = request.path,
@@ -113,22 +110,24 @@ class BookmarkSnapshotEditor @Inject constructor(
         )
     }
 
-    suspend fun renameSnapshot(snapshotId: String, document: BookmarkDocument, title: String): String = saveSnapshot(
-        snapshotId = snapshotId,
-        document = document.copy(title = title),
-    )
+    suspend fun renameSnapshot(snapshotId: SnapshotId, document: BookmarkDocument, title: String): SnapshotId =
+        saveSnapshot(
+            snapshotId = snapshotId,
+            document = document.copy(title = title),
+        )
 
-    private suspend fun saveSnapshot(snapshotId: String?, document: BookmarkDocument): String {
+    private suspend fun saveSnapshot(snapshotId: SnapshotId?, document: BookmarkDocument): SnapshotId {
         val sourceHash = snapshotId
             ?.let { currentSnapshotId ->
-                getBookmarkSnapshotRawFileHashUseCase(currentSnapshotId)
+                getBookmarkSnapshotRawFileHashUseCase(currentSnapshotId.value)
             }
             .orEmpty()
 
-        return saveBookmarkSnapshotUseCase(
-            snapshotId = snapshotId,
+        val savedId = saveBookmarkSnapshotUseCase(
+            snapshotId = snapshotId?.value,
             document = document,
             sourceHash = sourceHash,
         )
+        return SnapshotId(savedId)
     }
 }
