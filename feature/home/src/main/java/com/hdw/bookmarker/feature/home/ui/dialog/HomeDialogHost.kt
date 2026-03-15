@@ -49,7 +49,7 @@ internal fun HomeDialogHost(
     var pendingFolderDescription by uiState.pendingFolderDescription
     var pendingBookmarkTitle by uiState.pendingBookmarkTitle
     var pendingBookmarkUrl by uiState.pendingBookmarkUrl
-    var pendingBookmarkNote by uiState.pendingBookmarkNote
+    var pendingBookmarkDescription by uiState.pendingBookmarkDescription
     var pendingBookmarkTags by uiState.pendingBookmarkTags
     var addBookmarkToInbox by uiState.addBookmarkToInbox
     var pendingDeleteSnapshotId by uiState.pendingDeleteSnapshotId
@@ -60,7 +60,6 @@ internal fun HomeDialogHost(
     var pendingEditBookmarkItem by uiState.pendingEditBookmarkItem
     var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
-    var pendingEditBookmarkNote by uiState.pendingEditBookmarkNote
     var pendingEditBookmarkTags by uiState.pendingEditBookmarkTags
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
 
@@ -131,12 +130,10 @@ internal fun HomeDialogHost(
             item = editingItem,
             title = pendingEditBookmarkTitle,
             url = pendingEditBookmarkUrl,
-            note = pendingEditBookmarkNote,
             tags = pendingEditBookmarkTags,
             description = pendingEditBookmarkDescription,
             onTitleChange = { pendingEditBookmarkTitle = it },
             onUrlChange = { pendingEditBookmarkUrl = it },
-            onNoteChange = { pendingEditBookmarkNote = it },
             onTagsChange = { pendingEditBookmarkTags = it },
             onDescriptionChange = { pendingEditBookmarkDescription = it },
             onDismiss = {
@@ -150,7 +147,7 @@ internal fun HomeDialogHost(
                         path = path,
                         title = pendingEditBookmarkTitle,
                         url = pendingEditBookmarkUrl,
-                        note = pendingEditBookmarkNote,
+                        description = pendingEditBookmarkDescription,
                         tags = parseBookmarkTags(pendingEditBookmarkTags),
                     )
 
@@ -195,7 +192,7 @@ internal fun HomeDialogHost(
                 showAddItemTypeDialog = false
                 pendingBookmarkTitle = ""
                 pendingBookmarkUrl = ""
-                pendingBookmarkNote = ""
+                pendingBookmarkDescription = ""
                 pendingBookmarkTags = ""
                 addBookmarkToInbox = false
                 showAddBookmarkDialog = true
@@ -261,11 +258,11 @@ internal fun HomeDialogHost(
         AddBookmarkDialog(
             bookmarkTitle = pendingBookmarkTitle,
             bookmarkUrl = pendingBookmarkUrl,
-            bookmarkNote = pendingBookmarkNote,
+            bookmarkDescription = pendingBookmarkDescription,
             bookmarkTags = pendingBookmarkTags,
             onBookmarkTitleChange = { pendingBookmarkTitle = it },
-            onBookmarkUrlChange = { pendingBookmarkUrl = it }, // typo in original? No, should be URL
-            onBookmarkNoteChange = { pendingBookmarkNote = it },
+            onBookmarkUrlChange = { pendingBookmarkUrl = it },
+            onBookmarkDescriptionChange = { pendingBookmarkDescription = it },
             onBookmarkTagsChange = { pendingBookmarkTags = it },
             onDismiss = {
                 showAddBookmarkDialog = false
@@ -277,7 +274,7 @@ internal fun HomeDialogHost(
                         parentFolderPath = selectedFolderPath.takeUnless { addBookmarkToInbox },
                         title = pendingBookmarkTitle,
                         url = pendingBookmarkUrl,
-                        note = pendingBookmarkNote,
+                        description = pendingBookmarkDescription,
                         tags = parseBookmarkTags(pendingBookmarkTags),
                         saveToInbox = addBookmarkToInbox,
                     ),

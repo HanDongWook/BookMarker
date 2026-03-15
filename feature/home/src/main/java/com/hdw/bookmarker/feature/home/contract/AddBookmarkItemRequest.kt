@@ -8,7 +8,7 @@ sealed interface AddBookmarkItemRequest {
         override val parentFolderPath: List<Int>?,
         override val title: String,
         val url: String,
-        val note: String = "",
+        val description: String = "",
         val tags: List<String> = emptyList(),
         val saveToInbox: Boolean = false,
     ) : AddBookmarkItemRequest

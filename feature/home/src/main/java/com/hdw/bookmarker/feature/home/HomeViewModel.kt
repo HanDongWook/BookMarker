@@ -196,7 +196,7 @@ class HomeViewModel @Inject constructor(
                     addDate = now,
                     lastModified = now,
                     iconUri = null,
-                    note = request.note.trim().takeIf { it.isNotBlank() },
+                    description = request.description.trim().takeIf { it.isNotBlank() },
                     tags = normalizeTags(request.tags),
                 )
             }
@@ -239,7 +239,7 @@ class HomeViewModel @Inject constructor(
         val normalizedRequest = when (request) {
             is UpdateBookmarkItemRequest.Bookmark -> request.copy(
                 title = trimmedTitle,
-                note = request.note.trim(),
+                description = request.description.trim(),
                 tags = normalizeTags(request.tags),
             )
 
