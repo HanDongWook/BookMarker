@@ -1,12 +1,14 @@
 package com.hdw.bookmarker.feature.home.search.model
 
+import com.hdw.bookmarker.core.model.bookmark.SnapshotId
+
 enum class BookmarkSearchItemType {
     FOLDER,
     BOOKMARK,
 }
 
 data class BookmarkSearchResult(
-    val snapshotId: String,
+    val snapshotId: SnapshotId,
     val snapshotTitle: String,
     val itemPath: List<Int>,
     val revealFolderPath: List<Int>?,

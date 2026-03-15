@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.core.model.folderstyle.BookmarkFolderIconStyle
 import com.hdw.bookmarker.core.ui.BookmarkSiteImage
 import com.hdw.bookmarker.core.ui.folderstyle.iconVector
@@ -41,7 +42,7 @@ internal fun BookmarkSearchResultList(
         items(
             items = results,
             key = { result ->
-                "${result.snapshotId}:${result.itemType}:${result.itemPath.joinToString(separator = "/")}"
+                "${result.snapshotId.value}:${result.itemType}:${result.itemPath.joinToString(separator = "/")}"
             },
         ) { result ->
             BookmarkSearchResultRow(
@@ -125,7 +126,7 @@ private fun BookmarkSearchResultListPreview() {
     BookmarkSearchResultList(
         results = listOf(
             BookmarkSearchResult(
-                snapshotId = "snapshot-1",
+                snapshotId = SnapshotId("snapshot-1"),
                 snapshotTitle = "Bookmark 1",
                 itemPath = listOf(0),
                 revealFolderPath = listOf(0),
@@ -135,7 +136,7 @@ private fun BookmarkSearchResultListPreview() {
                 breadcrumb = "Bookmark 1",
             ),
             BookmarkSearchResult(
-                snapshotId = "snapshot-1",
+                snapshotId = SnapshotId("snapshot-1"),
                 snapshotTitle = "Bookmark 1",
                 itemPath = listOf(0, 0),
                 revealFolderPath = listOf(0),
