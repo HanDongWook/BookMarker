@@ -62,6 +62,8 @@ internal fun HomeDialogHost(
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
     var pendingEditBookmarkTags by uiState.pendingEditBookmarkTags
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
+    var showBookmarkItemActionDialog by uiState.showBookmarkItemActionDialog
+    var showEditBookmarkItemDialog by uiState.showEditBookmarkItemDialog
 
     if (showColorPickerDialog && selectedBookmarkId != null) {
         BookmarkColorPickerDialog(
@@ -124,7 +126,7 @@ internal fun HomeDialogHost(
         )
     }
 
-    if (pendingEditBookmarkItemPath != null && pendingEditBookmarkItem != null) {
+    if (showEditBookmarkItemDialog && pendingEditBookmarkItemPath != null && pendingEditBookmarkItem != null) {
         val editingItem = pendingEditBookmarkItem!!
         ManageBookmarkItemDialog(
             item = editingItem,
@@ -137,6 +139,7 @@ internal fun HomeDialogHost(
             onTagsChange = { pendingEditBookmarkTags = it },
             onDescriptionChange = { pendingEditBookmarkDescription = it },
             onDismiss = {
+                showEditBookmarkItemDialog = false
                 pendingEditBookmarkItemPath = null
                 pendingEditBookmarkItem = null
             },
@@ -158,10 +161,26 @@ internal fun HomeDialogHost(
                     )
                 }
                 onUpdateBookmarkItem(request)
+                showEditBookmarkItemDialog = false
                 pendingEditBookmarkItemPath = null
                 pendingEditBookmarkItem = null
             },
-            onDelete = {
+        )
+    }
+
+    if (showBookmarkItemActionDialog && pendingEditBookmarkItemPath != null && pendingEditBookmarkItem != null) {
+        BookmarkItemActionDialog(
+            onDismiss = {
+                showBookmarkItemActionDialog = false
+                pendingEditBookmarkItemPath = null
+                pendingEditBookmarkItem = null
+            },
+            onEditClick = {
+                showBookmarkItemActionDialog = false
+                showEditBookmarkItemDialog = true
+            },
+            onDeleteClick = {
+                showBookmarkItemActionDialog = false
                 pendingDeleteBookmarkItemPath = pendingEditBookmarkItemPath
                 pendingEditBookmarkItemPath = null
                 pendingEditBookmarkItem = null
