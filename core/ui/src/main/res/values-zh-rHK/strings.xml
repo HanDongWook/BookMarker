@@ -153,6 +153,7 @@
     <string name="behavior_label">行為</string>
     <string name="bookmark_show_url_label">顯示 URL</string>
     <string name="bookmark_scroll_long_url_label">捲動長 URL</string>
+    <string name="bookmark_open_side_preview_label">預覽</string>
     <string name="bookmark_preview_title">預覽</string>
     <string name="bookmark_preview_placeholder">選擇書籤以預覽</string>
     <string name="bookmark_preview_refresh">重新整理預覽</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">捲動長描述</string>
     <string name="folder_description">描述</string>
     <string name="display_value_loading">載入中</string>
+    <string name="bookmark_tags">標籤</string>
+    <string name="bookmark_note">筆記</string>
+    <string name="bookmark_inbox_title">收件匣</string>
+    <string name="bookmark_inbox_badge">收件匣</string>
+    <string name="bookmark_inbox_empty">收件匣中尚無保存的連結。\n分享一個連結以將其儲存至此處。</string>
+    <string name="save_to_inbox">已儲存至收件匣</string>
+    <string name="import_source_html_file_title">HTML 檔案</string>
+    <string name="large_screen_label">大螢幕</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">喺大螢幕應用程式側邊打開</string>
+    <string name="bookmark_search_open">搜尋書籤</string>
+    <string name="bookmark_search_hint">搜尋資料夾與書籤</string>
+    <string name="bookmark_search_empty">在所有快照中搜尋資料夾與書籤。</string>
+    <string name="bookmark_search_loading">搜尋中…</string>
+    <string name="bookmark_search_no_results">沒有相符的資料夾或書籤。</string>
+    <string name="bookmark_search_close">關閉搜尋</string>
+    <string name="bookmark_search_clear">清除搜尋文字</string>
 </resources>

@@ -153,6 +153,7 @@
     <string name="behavior_label">Perilaku</string>
     <string name="bookmark_show_url_label">Tampilkan URL</string>
     <string name="bookmark_scroll_long_url_label">Gulir URL panjang</string>
+    <string name="bookmark_open_side_preview_label">Pratinjau</string>
     <string name="bookmark_preview_title">Pratinjau</string>
     <string name="bookmark_preview_placeholder">Pilih bookmark untuk dipratinjau</string>
     <string name="bookmark_preview_refresh">Muat ulang pratinjau</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">Gulir deskripsi panjang</string>
     <string name="folder_description">Deskripsi</string>
     <string name="display_value_loading">Memuat</string>
+    <string name="bookmark_tags">Tag</string>
+    <string name="bookmark_note">Catatan</string>
+    <string name="bookmark_inbox_title">Kotak Masuk</string>
+    <string name="bookmark_inbox_badge">Kotak Masuk</string>
+    <string name="bookmark_inbox_empty">Belum ada tautan yang disimpan di Kotak Masuk.\nBagikan tautan untuk menyimpannya di sini.</string>
+    <string name="save_to_inbox">Disimpan ke Kotak Masuk</string>
+    <string name="import_source_html_file_title">File HTML</string>
+    <string name="large_screen_label">Layar lebar</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">Buka di samping aplikasi di layar lebar</string>
+    <string name="bookmark_search_open">Cari penanda</string>
+    <string name="bookmark_search_hint">Cari folder dan penanda</string>
+    <string name="bookmark_search_empty">Cari folder dan penanda di seluruh snapshot.</string>
+    <string name="bookmark_search_loading">Mencari…</string>
+    <string name="bookmark_search_no_results">Tidak ada folder atau penanda yang cocok.</string>
+    <string name="bookmark_search_close">Tutup pencarian</string>
+    <string name="bookmark_search_clear">Hapus teks pencarian</string>
 </resources>

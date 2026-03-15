@@ -153,6 +153,7 @@
     <string name="behavior_label">行为</string>
     <string name="bookmark_show_url_label">显示 URL</string>
     <string name="bookmark_scroll_long_url_label">滚动长 URL</string>
+    <string name="bookmark_open_side_preview_label">预览</string>
     <string name="bookmark_preview_title">预览</string>
     <string name="bookmark_preview_placeholder">选择书签以预览</string>
     <string name="bookmark_preview_refresh">刷新预览</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">滚动长说明</string>
     <string name="folder_description">说明</string>
     <string name="display_value_loading">加载中</string>
+    <string name="bookmark_tags">标签</string>
+    <string name="bookmark_note">笔记</string>
+    <string name="bookmark_inbox_title">收件箱</string>
+    <string name="bookmark_inbox_badge">收件箱</string>
+    <string name="bookmark_inbox_empty">收件箱中尚无保存的链接。\n分享一个链接以将其保存至此处。</string>
+    <string name="save_to_inbox">已保存至收件箱</string>
+    <string name="import_source_html_file_title">HTML 文件</string>
+    <string name="large_screen_label">大屏幕</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">在大屏幕上于应用旁打开</string>
+    <string name="bookmark_search_open">搜索书签</string>
+    <string name="bookmark_search_hint">搜索文件夹和书签</string>
+    <string name="bookmark_search_empty">在所有快照中搜索文件夹和书签。</string>
+    <string name="bookmark_search_loading">搜索中…</string>
+    <string name="bookmark_search_no_results">没有匹配的文件夹或书签。</string>
+    <string name="bookmark_search_close">关闭搜索</string>
+    <string name="bookmark_search_clear">清除搜索文本</string>
 </resources>

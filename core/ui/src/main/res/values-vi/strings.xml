@@ -153,6 +153,7 @@
     <string name="behavior_label">Hành vi</string>
     <string name="bookmark_show_url_label">Hiển thị URL</string>
     <string name="bookmark_scroll_long_url_label">Cuộn URL dài</string>
+    <string name="bookmark_open_side_preview_label">Xem trước</string>
     <string name="bookmark_preview_title">Xem trước</string>
     <string name="bookmark_preview_placeholder">Chọn dấu trang để xem trước</string>
     <string name="bookmark_preview_refresh">Làm mới phần xem trước</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">Cuộn mô tả dài</string>
     <string name="folder_description">Mô tả</string>
     <string name="display_value_loading">Đang tải</string>
+    <string name="bookmark_tags">Thẻ</string>
+    <string name="bookmark_note">Ghi chú</string>
+    <string name="bookmark_inbox_title">Hộp thư đến</string>
+    <string name="bookmark_inbox_badge">Hộp thư đến</string>
+    <string name="bookmark_inbox_empty">Chưa có liên kết nào được lưu trong Hộp thư đến.\nChia sẻ liên kết để lưu vào đây.</string>
+    <string name="save_to_inbox">Đã lưu vào Hộp thư đến</string>
+    <string name="import_source_html_file_title">Tệp HTML</string>
+    <string name="large_screen_label">Màn hình lớn</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">Mở bên cạnh ứng dụng trên màn hình lớn</string>
+    <string name="bookmark_search_open">Tìm kiếm dấu trang</string>
+    <string name="bookmark_search_hint">Tìm kiếm thư mục và dấu trang</string>
+    <string name="bookmark_search_empty">Tìm kiếm thư mục và dấu trang trên tất cả ảnh chụp nhanh.</string>
+    <string name="bookmark_search_loading">Đang tìm kiếm…</string>
+    <string name="bookmark_search_no_results">Không có thư mục hoặc dấu trang nào khớp.</string>
+    <string name="bookmark_search_close">Đóng tìm kiếm</string>
+    <string name="bookmark_search_clear">Xóa văn bản tìm kiếm</string>
 </resources>

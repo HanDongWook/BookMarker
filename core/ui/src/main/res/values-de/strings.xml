@@ -153,6 +153,7 @@
     <string name="behavior_label">Verhalten</string>
     <string name="bookmark_show_url_label">URL anzeigen</string>
     <string name="bookmark_scroll_long_url_label">Lange URL scrollen</string>
+    <string name="bookmark_open_side_preview_label">Vorschau</string>
     <string name="bookmark_preview_title">Vorschau</string>
     <string name="bookmark_preview_placeholder">Wähle ein Lesezeichen für die Vorschau aus</string>
     <string name="bookmark_preview_refresh">Vorschau aktualisieren</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">Lange Beschreibung scrollen</string>
     <string name="folder_description">Beschreibung</string>
     <string name="display_value_loading">Wird geladen</string>
+    <string name="bookmark_tags">Tags</string>
+    <string name="bookmark_note">Notiz</string>
+    <string name="bookmark_inbox_title">Posteingang</string>
+    <string name="bookmark_inbox_badge">Posteingang</string>
+    <string name="bookmark_inbox_empty">Noch keine gespeicherten Links im Posteingang.\nTeilen Sie einen Link, um ihn hier zu speichern.</string>
+    <string name="save_to_inbox">Im Posteingang gespeichert</string>
+    <string name="import_source_html_file_title">HTML-Datei</string>
+    <string name="large_screen_label">Großer Bildschirm</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">Auf großen Bildschirmen neben der App öffnen</string>
+    <string name="bookmark_search_open">Lesezeichen suchen</string>
+    <string name="bookmark_search_hint">Ordner und Lesezeichen suchen</string>
+    <string name="bookmark_search_empty">Suchen Sie Ordner und Lesezeichen in allen Snapshots.</string>
+    <string name="bookmark_search_loading">Suchen…</string>
+    <string name="bookmark_search_no_results">Keine passenden Ordner oder Lesezeichen.</string>
+    <string name="bookmark_search_close">Suche schließen</string>
+    <string name="bookmark_search_clear">Suchtext löschen</string>
 </resources>

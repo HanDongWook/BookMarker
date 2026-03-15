@@ -153,6 +153,7 @@
     <string name="behavior_label">Behavior</string>
     <string name="bookmark_show_url_label">Show URL</string>
     <string name="bookmark_scroll_long_url_label">Scroll long URL</string>
+    <string name="bookmark_open_side_preview_label">Preview</string>
     <string name="bookmark_preview_title">Preview</string>
     <string name="bookmark_preview_placeholder">Select a bookmark to preview</string>
     <string name="bookmark_preview_refresh">Refresh preview</string>
@@ -163,4 +164,20 @@
     <string name="folder_scroll_long_description_label">Scroll long description</string>
     <string name="folder_description">Description</string>
     <string name="display_value_loading">Loading</string>
+    <string name="bookmark_tags">Tags</string>
+    <string name="bookmark_note">Note</string>
+    <string name="bookmark_inbox_title">Inbox</string>
+    <string name="bookmark_inbox_badge">Inbox</string>
+    <string name="bookmark_inbox_empty">No saved links in Inbox yet.\nShare a link to save it here.</string>
+    <string name="save_to_inbox">Saved to Inbox</string>
+    <string name="import_source_html_file_title">HTML file</string>
+    <string name="large_screen_label">Large screen</string>
+    <string name="bookmark_open_beside_app_on_large_screens_label">Open beside app on large screens</string>
+    <string name="bookmark_search_open">Search bookmarks</string>
+    <string name="bookmark_search_hint">Search folders and bookmarks</string>
+    <string name="bookmark_search_empty">Search folders and bookmarks across all snapshots.</string>
+    <string name="bookmark_search_loading">Searching…</string>
+    <string name="bookmark_search_no_results">No matching folders or bookmarks.</string>
+    <string name="bookmark_search_close">Close search</string>
+    <string name="bookmark_search_clear">Clear search text</string>
 </resources>
