@@ -23,8 +23,8 @@
     <string name="add_bookmark">Yer imi</string>
     <string name="add_bookmark_or_folder">Ekle</string>
     <string name="folder_name">Klasör adı</string>
-    <string name="bookmark_name">Yer imi adı</string>
-    <string name="bookmark_url">Yer imi URL’si</string>
+    <string name="bookmark_name">Ad</string>
+    <string name="bookmark_url">URL</string>
     <string name="bookmark_snapshot_name">Ad</string>
     <string name="default_snapshot_title_prefix">Yer imi</string>
     <string name="rename_bookmark_snapshot">Yeniden adlandır</string>

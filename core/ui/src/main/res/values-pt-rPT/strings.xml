@@ -23,8 +23,8 @@
     <string name="add_bookmark">marcador</string>
     <string name="add_bookmark_or_folder">Adicionar</string>
     <string name="folder_name">Nome da pasta</string>
-    <string name="bookmark_name">Nome do marcador</string>
-    <string name="bookmark_url">URL do marcador</string>
+    <string name="bookmark_name">Nome</string>
+    <string name="bookmark_url">URL</string>
     <string name="bookmark_snapshot_name">Nome</string>
     <string name="default_snapshot_title_prefix">Favorito</string>
     <string name="rename_bookmark_snapshot">Renomear</string>

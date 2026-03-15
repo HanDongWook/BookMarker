@@ -23,8 +23,8 @@
     <string name="add_bookmark">bookmark</string>
     <string name="add_bookmark_or_folder">Tambah</string>
     <string name="folder_name">Nama folder</string>
-    <string name="bookmark_name">Nama bookmark</string>
-    <string name="bookmark_url">URL bookmark</string>
+    <string name="bookmark_name">Nama</string>
+    <string name="bookmark_url">URL</string>
     <string name="bookmark_snapshot_name">Nama</string>
     <string name="default_snapshot_title_prefix">Bookmark</string>
     <string name="rename_bookmark_snapshot">Ubah nama</string>
