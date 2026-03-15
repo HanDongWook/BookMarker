@@ -165,7 +165,7 @@
     <string name="folder_description">विवरण</string>
     <string name="display_value_loading">लोड हो रहा है</string>
     <string name="bookmark_tags">टैग</string>
-    <string name="bookmark_note">विवरण</string>
+    <string name="bookmark_description">विवरण</string>
     <string name="bookmark_inbox_title">इनबॉक्स</string>
     <string name="bookmark_inbox_badge">इनबॉक्स</string>
     <string name="import_source_html_file_title">HTML फ़ाइल</string>

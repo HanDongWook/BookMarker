@@ -165,7 +165,7 @@
     <string name="folder_description">Descrição</string>
     <string name="display_value_loading">Carregando</string>
     <string name="bookmark_tags">Tags</string>
-    <string name="bookmark_note">Descrição</string>
+    <string name="bookmark_description">Descrição</string>
     <string name="bookmark_inbox_title">Caixa de entrada</string>
     <string name="bookmark_inbox_badge">Caixa de entrada</string>
     <string name="import_source_html_file_title">Arquivo HTML</string>

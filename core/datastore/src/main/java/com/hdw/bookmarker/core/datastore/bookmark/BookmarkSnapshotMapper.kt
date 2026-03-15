@@ -27,7 +27,7 @@ private fun BookmarkItem.toNodeProto(): BookmarkNodeProto = when (this) {
             addDate = addDate.orEmpty(),
             lastModified = lastModified.orEmpty(),
             iconUri = iconUri.orEmpty(),
-            note = note.orEmpty(),
+            description = description.orEmpty(),
             tags = tags,
         ),
     )
@@ -63,6 +63,6 @@ private fun BookmarkLinkProto.toModel(): BookmarkItem.Bookmark = BookmarkItem.Bo
     addDate = addDate.ifBlank { null },
     lastModified = lastModified.ifBlank { null },
     iconUri = iconUri.ifBlank { null },
-    note = note.ifBlank { null },
+    description = description.ifBlank { null },
     tags = tags,
 )

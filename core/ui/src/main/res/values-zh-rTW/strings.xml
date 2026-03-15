@@ -165,7 +165,7 @@
     <string name="folder_description">描述</string>
     <string name="display_value_loading">載入中</string>
     <string name="bookmark_tags">標籤</string>
-    <string name="bookmark_note">描述</string>
+    <string name="bookmark_description">描述</string>
     <string name="bookmark_inbox_title">收件匣</string>
     <string name="bookmark_inbox_badge">收件匣</string>
     <string name="import_source_html_file_title">HTML 檔案</string>

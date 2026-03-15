@@ -73,7 +73,7 @@ class BookmarkSearchEngine {
                     if (
                         item.title.contains(normalizedQuery, ignoreCase = true) ||
                         item.url.contains(normalizedQuery, ignoreCase = true) ||
-                        item.note.orEmpty().contains(normalizedQuery, ignoreCase = true) ||
+                        item.description.orEmpty().contains(normalizedQuery, ignoreCase = true) ||
                         item.tags.any { tag -> tag.contains(normalizedQuery, ignoreCase = true) }
                     ) {
                         results += BookmarkSearchResult(
@@ -83,7 +83,7 @@ class BookmarkSearchEngine {
                             revealFolderPath = pathPrefix.takeIf(List<Int>::isNotEmpty),
                             itemType = BookmarkSearchItemType.BOOKMARK,
                             title = item.title,
-                            secondaryText = item.note?.takeIf(String::isNotBlank) ?: item.url,
+                            secondaryText = item.description?.takeIf(String::isNotBlank) ?: item.url,
                             breadcrumb = buildBreadcrumb(snapshotTitle, parentFolderTitles),
                             bookmarkUrl = item.url,
                             bookmarkIconUri = item.iconUri,
