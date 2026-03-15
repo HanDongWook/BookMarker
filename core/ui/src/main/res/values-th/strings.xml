@@ -195,7 +195,7 @@
     <string name="bookmark_item_action_title_bookmark">บุ๊กมาร์ก "%1$s"</string>
     <string name="bookmark_item_action_title_folder">โฟลเดอร์ "%1$s"</string>
     <string name="bookmark_snapshot_action_title">สแนปชอตบุ๊กมาร์ก "%1$s"</string>
-    <string name="delete_bookmark_snapshot_dialog_title">ลบสแนปชอตบุ๊กมาร์ก</string>
+    <string name="delete_bookmark_snapshot_dialog_title">ลบ</string>
     <string name="delete_bookmark_snapshot_dialog_message">ลบสแนปชอตบุ๊กมาร์ก "%1$s" หรือไม่?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">ลบ</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">ยกเลิก</string>

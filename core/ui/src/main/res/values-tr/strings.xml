@@ -195,7 +195,7 @@
     <string name="bookmark_item_action_title_bookmark">Yer imi "%1$s"</string>
     <string name="bookmark_item_action_title_folder">Klasör "%1$s"</string>
     <string name="bookmark_snapshot_action_title">Yer imi anlık görüntüsü "%1$s"</string>
-    <string name="delete_bookmark_snapshot_dialog_title">Yer imi anlık görüntüsünü sil</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Sil</string>
     <string name="delete_bookmark_snapshot_dialog_message">"%1$s" yer imi anlık görüntüsü silinsin mi?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Sil</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">İptal</string>

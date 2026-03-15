@@ -195,7 +195,7 @@
     <string name="bookmark_item_action_title_bookmark">Signet "%1$s"</string>
     <string name="bookmark_item_action_title_folder">Dossier "%1$s"</string>
     <string name="bookmark_snapshot_action_title">Instantané de signets "%1$s"</string>
-    <string name="delete_bookmark_snapshot_dialog_title">Supprimer l’instantané de signets</string>
+    <string name="delete_bookmark_snapshot_dialog_title">Supprimer</string>
     <string name="delete_bookmark_snapshot_dialog_message">Supprimer l’instantané de signets "%1$s" ?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Supprimer</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Annuler</string>
