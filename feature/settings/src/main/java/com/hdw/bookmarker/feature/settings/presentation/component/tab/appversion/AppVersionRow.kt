@@ -14,12 +14,7 @@ fun AppVersionRow(version: DisplayValueState, appUpdateUiState: AppUpdateUiState
     val updateStatusText = when (appUpdateUiState) {
         AppUpdateUiState.UpToDate -> stringResource(R.string.app_update_status_latest)
 
-        is AppUpdateUiState.UpdateAvailable -> {
-            stringResource(
-                R.string.app_update_status_available,
-                appUpdateUiState.availableVersionCode,
-            )
-        }
+        AppUpdateUiState.UpdateAvailable -> stringResource(R.string.app_update_status_available)
 
         AppUpdateUiState.Checking,
         AppUpdateUiState.InProgress,
@@ -80,7 +75,7 @@ internal fun AppVersionRowUpToDatePreview() {
 @Preview(showBackground = true, name = "UpdateAvailable")
 @Composable
 internal fun AppVersionRowUpdateAvailablePreview() {
-    AppVersionRowPreviewContent(appUpdateUiState = AppUpdateUiState.UpdateAvailable(availableVersionCode = 124))
+    AppVersionRowPreviewContent(appUpdateUiState = AppUpdateUiState.UpdateAvailable)
 }
 
 @Preview(showBackground = true, name = "InProgress")

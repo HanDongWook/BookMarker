@@ -5,7 +5,7 @@ sealed interface AppUpdateUiState {
 
     data object UpToDate : AppUpdateUiState
 
-    data class UpdateAvailable(val availableVersionCode: Int) : AppUpdateUiState
+    data object UpdateAvailable : AppUpdateUiState
 
     data object InProgress : AppUpdateUiState
 
