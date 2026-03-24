@@ -134,7 +134,7 @@
     <string name="folder_color_orange">नारंगी</string>
     <string name="folder_color_purple">बैंगनी</string>
     <string name="app_update_status_latest">नवीनतम संस्करण</string>
-    <string name="app_update_status_available">अपडेट उपलब्ध है (v%1$d)</string>
+    <string name="app_update_status_available">अपडेट उपलब्ध है</string>
     <string name="app_update_flow_canceled">अपडेट रद्द कर दिया गया।</string>
     <string name="app_update_flow_failed">अपडेट शुरू नहीं हो सका।</string>
     <string name="rate_app_review_requested_hint">अगर कोई पॉपअप नहीं दिखे, तो कृपया Play Store में रेटिंग दें।</string>

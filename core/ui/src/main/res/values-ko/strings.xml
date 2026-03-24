@@ -34,7 +34,7 @@
     <string name="rename_bookmark_snapshot">이름 변경</string>
     <string name="app_version_label">앱 버전</string>
     <string name="app_update_status_latest">최신 버전</string>
-    <string name="app_update_status_available">업데이트 가능 (v%1$d)</string>
+    <string name="app_update_status_available">업데이트 가능</string>
     <string name="app_update_flow_canceled">업데이트가 취소되었어요.</string>
     <string name="app_update_flow_failed">업데이트 시작에 실패했어요.</string>
     <string name="rate_app_label">앱 평가하기</string>

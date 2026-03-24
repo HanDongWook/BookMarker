@@ -134,7 +134,7 @@
     <string name="folder_color_orange">オレンジ</string>
     <string name="folder_color_purple">紫</string>
     <string name="app_update_status_latest">最新バージョン</string>
-    <string name="app_update_status_available">アップデートあり (v%1$d)</string>
+    <string name="app_update_status_available">アップデートあり</string>
     <string name="app_update_flow_canceled">アップデートはキャンセルされました。</string>
     <string name="app_update_flow_failed">アップデートの開始に失敗しました。</string>
     <string name="rate_app_review_requested_hint">ポップアップが表示されない場合は、Play ストアで評価してください。</string>
