@@ -134,7 +134,7 @@
     <string name="folder_color_orange">Orange</string>
     <string name="folder_color_purple">Lila</string>
     <string name="app_update_status_latest">Neueste Version</string>
-    <string name="app_update_status_available">Update verfügbar (v%1$d)</string>
+    <string name="app_update_status_available">Update verfügbar</string>
     <string name="app_update_flow_canceled">Update abgebrochen.</string>
     <string name="app_update_flow_failed">Update konnte nicht gestartet werden.</string>
     <string name="rate_app_review_requested_hint">Wenn kein Popup erscheint, bewerten Sie bitte im Play Store.</string>

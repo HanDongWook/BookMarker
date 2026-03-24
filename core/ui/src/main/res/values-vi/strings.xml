@@ -134,7 +134,7 @@
     <string name="folder_color_orange">Cam</string>
     <string name="folder_color_purple">Tím</string>
     <string name="app_update_status_latest">Phiên bản mới nhất</string>
-    <string name="app_update_status_available">Có bản cập nhật (v%1$d)</string>
+    <string name="app_update_status_available">Có bản cập nhật</string>
     <string name="app_update_flow_canceled">Đã hủy cập nhật.</string>
     <string name="app_update_flow_failed">Không thể bắt đầu cập nhật.</string>
     <string name="rate_app_review_requested_hint">Nếu không thấy cửa sổ bật lên, vui lòng đánh giá trên Play Store.</string>

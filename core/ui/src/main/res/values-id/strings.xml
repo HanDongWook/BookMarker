@@ -134,7 +134,7 @@
     <string name="folder_color_orange">Oranye</string>
     <string name="folder_color_purple">Ungu</string>
     <string name="app_update_status_latest">Versi terbaru</string>
-    <string name="app_update_status_available">Pembaruan tersedia (v%1$d)</string>
+    <string name="app_update_status_available">Pembaruan tersedia</string>
     <string name="app_update_flow_canceled">Pembaruan dibatalkan.</string>
     <string name="app_update_flow_failed">Gagal memulai pembaruan.</string>
     <string name="rate_app_review_requested_hint">Jika tidak ada popup, beri nilai aplikasi di Play Store.</string>

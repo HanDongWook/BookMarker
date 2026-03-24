@@ -134,7 +134,7 @@
     <string name="folder_color_orange">Laranja</string>
     <string name="folder_color_purple">Roxo</string>
     <string name="app_update_status_latest">Versão mais recente</string>
-    <string name="app_update_status_available">Atualização disponível (v%1$d)</string>
+    <string name="app_update_status_available">Atualização disponível</string>
     <string name="app_update_flow_canceled">Atualização cancelada.</string>
     <string name="app_update_flow_failed">Falha ao iniciar a atualização.</string>
     <string name="rate_app_review_requested_hint">Se não aparecer qualquer pop-up, avalie a app na Play Store.</string>
