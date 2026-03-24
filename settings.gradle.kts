@@ -12,6 +12,20 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+plugins {
+    id("com.gradle.develocity") version "4.3.2"
+}
+
+develocity {
+    buildScan {
+        termsOfUseUrl.set("https://gradle.com/help/legal-terms-of-use")
+        termsOfUseAgree.set("yes")
+        publishing.onlyIf { !System.getenv("CI").isNullOrEmpty() }
+        uploadInBackground.set(System.getenv("CI").isNullOrEmpty())
+    }
+}
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -21,9 +35,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "BookMarker"
-
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
 include(":app")
 
 listOf(
@@ -46,3 +57,5 @@ listOf(
 ).forEach { module ->
     include(":feature:$module")
 }
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

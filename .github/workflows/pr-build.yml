@@ -38,4 +38,4 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build debug app
-        run: ./gradlew :app:assembleDebug -x :app:processDebugGoogleServices
+        run: ./gradlew :app:assembleDebug -x :app:processDebugGoogleServices --scan
