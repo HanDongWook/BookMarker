@@ -26,15 +26,23 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app")
 
-include(":core:model")
-include(":core:data")
-include(":core:datastore")
-include(":core:domain")
-include(":core:designsystem")
-include(":core:navigation")
-include(":core:ui")
-include(":core:common")
+listOf(
+    "model",
+    "data",
+    "datastore",
+    "domain",
+    "designsystem",
+    "navigation",
+    "ui",
+    "common"
+).forEach { module ->
+    include(":core:$module")
+}
 
-include(":feature:settings")
-include(":feature:home")
-include(":feature:importguide")
+listOf(
+    "home",
+    "settings",
+    "importguide",
+).forEach { module ->
+    include(":feature:$module")
+}
