@@ -84,16 +84,18 @@ tasks.named("preBuild") {
 }
 
 dependencies {
-    // feature
-    implementation(projects.feature.home)
-    implementation(projects.feature.settings)
+    with(projects.feature) {
+        implementation(home)
+        implementation(settings)
+    }
 
-    // core
-    implementation(projects.core.data)
-    implementation(projects.core.designsystem)
-    implementation(projects.core.model)
-    implementation(projects.core.navigation)
-    implementation(projects.core.ui)
+    with(projects.core) {
+        implementation(data)
+        implementation(designsystem)
+        implementation(model)
+        implementation(navigation)
+        implementation(ui)
+    }
 
     implementation(libs.androidx.startup)
     implementation(libs.androidx.activity.compose)
