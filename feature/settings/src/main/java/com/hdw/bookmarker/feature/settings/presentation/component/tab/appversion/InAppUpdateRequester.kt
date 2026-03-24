@@ -35,9 +35,7 @@ internal suspend fun requestAppUpdateState(appUpdateManager: AppUpdateManager): 
 
         appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
             appUpdateInfo.isImmediateUpdateAllowed -> {
-            AppUpdateUiState.UpdateAvailable(
-                availableVersionCode = appUpdateInfo.availableVersionCode(),
-            )
+            AppUpdateUiState.UpdateAvailable
         }
 
         appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_NOT_AVAILABLE -> {
@@ -54,7 +52,7 @@ internal suspend fun requestAppUpdateState(appUpdateManager: AppUpdateManager): 
     }
 
     val pendingUpdateInfo = when (updateState) {
-        is AppUpdateUiState.UpdateAvailable,
+        AppUpdateUiState.UpdateAvailable,
         AppUpdateUiState.InProgress,
         -> appUpdateInfo
 
