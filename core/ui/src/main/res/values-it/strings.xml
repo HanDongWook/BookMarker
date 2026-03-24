@@ -134,7 +134,7 @@
     <string name="folder_color_orange">Arancione</string>
     <string name="folder_color_purple">Viola</string>
     <string name="app_update_status_latest">Versione più recente</string>
-    <string name="app_update_status_available">Aggiornamento disponibile (v%1$d)</string>
+    <string name="app_update_status_available">Aggiornamento disponibile</string>
     <string name="app_update_flow_canceled">Aggiornamento annullato.</string>
     <string name="app_update_flow_failed">Avvio dell’aggiornamento non riuscito.</string>
     <string name="rate_app_review_requested_hint">Se non compare alcun popup, valuta l’app nel Play Store.</string>

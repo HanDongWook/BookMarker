@@ -134,7 +134,7 @@
     <string name="folder_color_orange">สีส้ม</string>
     <string name="folder_color_purple">สีม่วง</string>
     <string name="app_update_status_latest">เวอร์ชันล่าสุด</string>
-    <string name="app_update_status_available">มีการอัปเดต (v%1$d)</string>
+    <string name="app_update_status_available">มีการอัปเดต</string>
     <string name="app_update_flow_canceled">ยกเลิกการอัปเดตแล้ว</string>
     <string name="app_update_flow_failed">เริ่มการอัปเดตไม่สำเร็จ</string>
     <string name="rate_app_review_requested_hint">หากไม่มีป๊อปอัป โปรดให้คะแนนใน Play Store</string>
