@@ -10,8 +10,10 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.domain)
-    implementation(projects.core.model)
+    with(projects.core) {
+        implementation(domain)
+        implementation(model)
+    }
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.ui)
