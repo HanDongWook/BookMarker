@@ -8,9 +8,11 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.common)
-    implementation(projects.core.model)
-    implementation(projects.core.datastore)
+    with(projects.core) {
+        implementation(common)
+        implementation(model)
+        implementation(datastore)
+    }
 
     implementation(libs.timber)
     implementation(libs.jsoup)
