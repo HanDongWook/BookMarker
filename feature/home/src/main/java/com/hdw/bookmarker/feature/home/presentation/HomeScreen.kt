@@ -129,17 +129,6 @@ fun HomeScreen(
         searchQuery = ""
     }
     val onSnapshotTabClick = fun(snapshotId: SnapshotId) {
-        if (uiState.isSelectingMoveDestination.value) {
-            val sourceSnapshotId = uiState.pendingMoveSourceSnapshotId.value
-            val canSelectAsMoveTarget =
-                snapshotId != sourceSnapshotId && !state.bookmarkSnapshots.isInbox(snapshotId)
-            if (!canSelectAsMoveTarget) {
-                return
-            }
-            uiState.pendingMoveTargetSnapshotId.value = snapshotId
-            return
-        }
-
         val targetPage = orderedSnapshotIds.indexOf(snapshotId)
         if (targetPage >= 0 && targetPage != pagerState.currentPage) {
             scope.launch {
@@ -199,24 +188,6 @@ fun HomeScreen(
         pendingBookmarkExportAction = null
     }
 
-    LaunchedEffect(uiState.pendingMoveTargetSnapshotId.value) {
-        val targetSnapshotId = uiState.pendingMoveTargetSnapshotId.value ?: return@LaunchedEffect
-        val sourceSnapshotId = uiState.pendingMoveSourceSnapshotId.value ?: return@LaunchedEffect
-        val sourcePath = uiState.pendingMoveBookmarkPath.value ?: return@LaunchedEffect
-        val targetFolderPath = state.selectedFolderPaths.pathOf(targetSnapshotId)
-        onMoveInboxBookmark(
-            sourceSnapshotId,
-            sourcePath,
-            targetSnapshotId,
-            targetFolderPath,
-        )
-        uiState.pendingMoveBookmarkItem.value = null
-        uiState.pendingMoveBookmarkPath.value = null
-        uiState.pendingMoveSourceSnapshotId.value = null
-        uiState.pendingMoveTargetSnapshotId.value = null
-        uiState.isSelectingMoveDestination.value = false
-    }
-
     HomeScreenBackHandler(uiState = uiState)
     HomeDialogHost(
         state = state,
@@ -230,6 +201,7 @@ fun HomeScreen(
         onUpdateBookmarkItem = onUpdateBookmarkItem,
         onDeleteBookmarkItem = onDeleteBookmarkItem,
         onAddBookmarkItem = onAddBookmarkItem,
+        onMoveInboxBookmark = onMoveInboxBookmark,
         onDefaultBrowserSelected = onDefaultBrowserSelected,
         onBookmarkColorSelected = onBookmarkColorSelected,
         onCopyBookmarkItem = { item ->

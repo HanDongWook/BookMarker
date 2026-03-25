@@ -20,6 +20,7 @@ import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.BookmarkItem
 import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.DefaultBrowserPickerDialog
 import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.DeleteBookmarkItemDialog
 import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.ManageBookmarkItemDialog
+import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.MoveBookmarkDialog
 import com.hdw.bookmarker.feature.home.presentation.dialog.importexport.ExportBookmarkMethodDialog
 import com.hdw.bookmarker.feature.home.presentation.dialog.importexport.ImportOptionDialog
 import com.hdw.bookmarker.feature.home.presentation.dialog.snapshot.BookmarkColorPickerDialog
@@ -47,6 +48,7 @@ internal fun HomeDialogHost(
     onUpdateBookmarkItem: (UpdateBookmarkItemRequest) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
     onAddBookmarkItem: (AddBookmarkItemRequest) -> Unit,
+    onMoveInboxBookmark: (SnapshotId, List<Int>, SnapshotId, List<Int>?) -> Unit,
     onDefaultBrowserSelected: (String) -> Unit,
     onBookmarkColorSelected: (SnapshotId, Long) -> Unit,
     onCopyBookmarkItem: (BookmarkItem) -> Unit,
@@ -82,6 +84,11 @@ internal fun HomeDialogHost(
     var pendingEditBookmarkUrl by uiState.pendingEditBookmarkUrl
     var pendingEditBookmarkTags by uiState.pendingEditBookmarkTags
     var pendingEditBookmarkDescription by uiState.pendingEditBookmarkDescription
+    var pendingMoveBookmarkItem by uiState.pendingMoveBookmarkItem
+    var pendingMoveBookmarkPath by uiState.pendingMoveBookmarkPath
+    var pendingMoveSourceSnapshotId by uiState.pendingMoveSourceSnapshotId
+    var pendingMoveTargetSnapshotId by uiState.pendingMoveTargetSnapshotId
+    var showMoveBookmarkDialog by uiState.showMoveBookmarkDialog
     var showBookmarkItemActionDialog by uiState.showBookmarkItemActionDialog
     var showEditBookmarkItemDialog by uiState.showEditBookmarkItemDialog
     var copiedBookmarkItem by uiState.copiedBookmarkItem
@@ -127,6 +134,46 @@ internal fun HomeDialogHost(
             onAddEmptyBookmarkItem = {
                 showImportOptionDialog = false
                 onAddEmptyBookmarkSnapshot()
+            },
+        )
+    }
+
+    if (showMoveBookmarkDialog && pendingMoveSourceSnapshotId != null && pendingMoveBookmarkPath != null) {
+        val sourceSnapshotId = pendingMoveSourceSnapshotId ?: return
+        val moveTargets = state.bookmarkSnapshots.orderedIds
+            .filter { snapshotId ->
+                snapshotId != sourceSnapshotId && !state.bookmarkSnapshots.isInbox(snapshotId)
+            }
+            .mapNotNull { snapshotId ->
+                state.bookmarkSnapshots[snapshotId]?.title
+                    ?.trim()
+                    ?.takeIf(String::isNotBlank)
+                    ?.let { title -> snapshotId to title }
+            }
+
+        MoveBookmarkDialog(
+            targets = moveTargets,
+            onDismiss = {
+                showMoveBookmarkDialog = false
+                pendingMoveBookmarkItem = null
+                pendingMoveBookmarkPath = null
+                pendingMoveSourceSnapshotId = null
+                pendingMoveTargetSnapshotId = null
+            },
+            onTargetClick = { targetSnapshotId ->
+                val sourcePath = pendingMoveBookmarkPath ?: return@MoveBookmarkDialog
+                val targetFolderPath = state.selectedFolderPaths.pathOf(targetSnapshotId)
+                onMoveInboxBookmark(
+                    sourceSnapshotId,
+                    sourcePath,
+                    targetSnapshotId,
+                    targetFolderPath,
+                )
+                showMoveBookmarkDialog = false
+                pendingMoveBookmarkItem = null
+                pendingMoveBookmarkPath = null
+                pendingMoveSourceSnapshotId = null
+                pendingMoveTargetSnapshotId = targetSnapshotId
             },
         )
     }
@@ -261,7 +308,7 @@ internal fun HomeDialogHost(
                 uiState.pendingMoveBookmarkItem.value = item
                 uiState.pendingMoveBookmarkPath.value = itemPath
                 uiState.pendingMoveTargetSnapshotId.value = null
-                uiState.isSelectingMoveDestination.value = true
+                uiState.showMoveBookmarkDialog.value = true
                 showBookmarkItemActionDialog = false
                 pendingEditBookmarkItemPath = null
                 pendingEditBookmarkItem = null
