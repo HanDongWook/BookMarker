@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.presentation.component.bookmark.export
+package com.hdw.bookmarker.feature.home.domain.export
 
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem

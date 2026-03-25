@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.bookmark.SnapshotId
-import com.hdw.bookmarker.feature.home.presentation.component.bookmark.export.BookmarkExportAction
+import com.hdw.bookmarker.feature.home.domain.export.BookmarkExportAction
 import com.hdw.bookmarker.feature.home.presentation.component.preview.BookmarkPreviewPaneState
 import com.hdw.bookmarker.feature.home.presentation.component.preview.rememberBookmarkPreviewPaneState
 
