@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.bookmarker.android.feature)
     alias(libs.plugins.bookmarker.android.library.compose)
+    alias(libs.plugins.bookmarker.android.mvi.circuit)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -9,9 +11,12 @@ android {
 
 dependencies {
     with(projects.core) {
-        implementation(ui)
+        implementation(domain)
+        implementation(model)
     }
 
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
+
+    implementation(libs.timber)
 }
