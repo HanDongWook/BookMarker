@@ -15,6 +15,7 @@ import com.hdw.bookmarker.feature.home.domain.model.QuickSaveBookmarkSeed
 import com.hdw.bookmarker.feature.home.presentation.HomeRoute
 import com.hdw.bookmarker.feature.importguide.presentation.BookmarkImportGuideRoute
 import com.hdw.bookmarker.feature.settings.presentation.SettingsRoute
+import com.hdw.bookmarker.feature.trends.presentation.TrendsRoute
 
 @Composable
 fun AppNavHost(
@@ -87,7 +88,7 @@ fun AppNavHost(
                 )
             }
             slideComposable<AppRoute.Trends> {
-                TrendsPlaceholderScreen()
+                TrendsRoute()
             }
             slideComposable<AppRoute.BookmarkImportGuide> {
                 BookmarkImportGuideRoute(
