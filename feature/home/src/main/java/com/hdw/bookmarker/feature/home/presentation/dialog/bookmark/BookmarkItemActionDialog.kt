@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.DriveFileMove
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.ContentPaste
 import androidx.compose.material.icons.filled.Delete
@@ -37,6 +38,7 @@ fun BookmarkItemActionDialog(
     onDeleteClick: (() -> Unit)? = null,
     onCopyClick: (() -> Unit)? = null,
     onPasteClick: (() -> Unit)? = null,
+    onMoveClick: (() -> Unit)? = null,
 ) {
     val actions = buildList {
         if (onEditClick != null) {
@@ -81,6 +83,15 @@ fun BookmarkItemActionDialog(
                     imageVector = Icons.Default.ContentPaste,
                     title = R.string.bookmark_item_action_paste,
                     onClick = onPasteClick,
+                ),
+            )
+        }
+        if (onMoveClick != null) {
+            add(
+                BookmarkItemAction(
+                    imageVector = Icons.AutoMirrored.Filled.DriveFileMove,
+                    title = R.string.bookmark_item_action_move,
+                    onClick = onMoveClick,
                 ),
             )
         }
@@ -167,5 +178,6 @@ private fun BookmarkItemActionDialogPreview() {
         onEditClick = {},
         onDeleteClick = {},
         onCopyClick = {},
+        onMoveClick = {},
     )
 }

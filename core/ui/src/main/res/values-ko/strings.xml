@@ -194,6 +194,7 @@
     <string name="bookmark_item_action_color">색상</string>
     <string name="bookmark_item_action_copy">복사</string>
     <string name="bookmark_item_action_paste">붙여넣기</string>
+    <string name="bookmark_item_action_move">이동</string>
     <string name="bookmark_item_action_title_bookmark">북마크 \"%1$s\"</string>
     <string name="bookmark_item_action_title_folder">폴더 \"%1$s\"</string>
     <string name="bookmark_snapshot_action_title">북마크 스냅샷 \"%1$s\"</string>
