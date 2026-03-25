@@ -288,7 +288,7 @@ fun HomeScreen(
                     uiState.showBookmarkItemActionDialog.value = true
                 },
                 onBlankAreaLongClick = { targetFolderPath ->
-                    if (copiedBookmarkItem != null) {
+                    if (copiedBookmarkItem != null && selectedBookmarkId?.let(state.bookmarkSnapshots::isInbox) != true) {
                         pendingPasteFolderPath = targetFolderPath
                         uiState.showPasteActionDialog.value = true
                     }

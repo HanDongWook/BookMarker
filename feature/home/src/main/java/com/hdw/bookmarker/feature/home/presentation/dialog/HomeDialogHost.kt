@@ -298,7 +298,9 @@ internal fun HomeDialogHost(
                 pendingEditBookmarkItemPath = null
                 pendingEditBookmarkItem = null
             }.takeIf {
-                copiedBookmarkItem != null && pendingEditBookmarkItem is BookmarkItem.Folder
+                copiedBookmarkItem != null &&
+                    pendingEditBookmarkItem is BookmarkItem.Folder &&
+                    selectedSnapshotId?.let(state.bookmarkSnapshots::isInbox) != true
             },
             onMoveClick = {
                 val sourceSnapshotId = selectedSnapshotId ?: return@BookmarkItemActionDialog
