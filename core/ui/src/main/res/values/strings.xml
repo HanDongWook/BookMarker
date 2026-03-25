@@ -196,6 +196,7 @@
     <string name="bookmark_item_action_copy">Copy</string>
     <string name="bookmark_item_action_paste">Paste</string>
     <string name="bookmark_item_action_move">Move</string>
+    <string name="bookmark_move_completed">Bookmark moved.</string>
     <string name="bookmark_item_action_title_bookmark">Bookmark \"%1$s\"</string>
     <string name="bookmark_item_action_title_folder">Folder \"%1$s\"</string>
     <string name="bookmark_snapshot_action_title">Bookmark Snapshot \"%1$s\"</string>

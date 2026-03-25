@@ -187,6 +187,8 @@
     <string name="bookmark_item_action_delete">Excluir</string>
     <string name="bookmark_item_action_copy">Copiar</string>
     <string name="bookmark_item_action_paste">Colar</string>
+    <string name="bookmark_item_action_move">Mover</string>
+    <string name="bookmark_move_completed">Favorito movido.</string>
     <string name="bookmark_item_copy_toast_folder">Pasta \"%1$s\" copiada.</string>
     <string name="bookmark_item_copy_toast_bookmark">Favorito \"%1$s\" copiado.</string>
     <string name="delete_bookmark_item_dialog_message_folder">Excluir a pasta \"%1$s\"?</string>

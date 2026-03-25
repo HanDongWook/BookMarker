@@ -187,6 +187,8 @@
     <string name="bookmark_item_action_delete">削除</string>
     <string name="bookmark_item_action_copy">コピー</string>
     <string name="bookmark_item_action_paste">貼り付け</string>
+    <string name="bookmark_item_action_move">移動</string>
+    <string name="bookmark_move_completed">ブックマークを移動しました。</string>
     <string name="bookmark_item_copy_toast_folder">フォルダ「%1$s」をコピーしました。</string>
     <string name="bookmark_item_copy_toast_bookmark">ブックマーク「%1$s」をコピーしました。</string>
     <string name="delete_bookmark_item_dialog_message_folder">「%1$s」フォルダを削除しますか？</string>

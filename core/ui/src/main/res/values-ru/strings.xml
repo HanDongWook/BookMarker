@@ -187,6 +187,8 @@
     <string name="bookmark_item_action_delete">Удалить</string>
     <string name="bookmark_item_action_copy">Копировать</string>
     <string name="bookmark_item_action_paste">Вставить</string>
+    <string name="bookmark_item_action_move">Переместить</string>
+    <string name="bookmark_move_completed">Закладка перемещена.</string>
     <string name="bookmark_item_copy_toast_folder">Папка \"%1$s\" скопирована.</string>
     <string name="bookmark_item_copy_toast_bookmark">Закладка \"%1$s\" скопирована.</string>
     <string name="delete_bookmark_item_dialog_message_folder">Удалить папку \"%1$s\"?</string>

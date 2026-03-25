@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.core.ui.R
@@ -56,6 +55,7 @@ fun HomeScreen(
     onUpdateBookmarkItem: (UpdateBookmarkItemRequest) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
     onAddBookmarkItem: (AddBookmarkItemRequest) -> Unit,
+    onMoveInboxBookmark: (SnapshotId, List<Int>, SnapshotId, List<Int>?) -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
     onBookmarkExportRequest: (BookmarkExportAction, com.hdw.bookmarker.core.model.bookmark.BookmarkDocument) -> Unit,
 ) {
@@ -199,6 +199,24 @@ fun HomeScreen(
         pendingBookmarkExportAction = null
     }
 
+    LaunchedEffect(uiState.pendingMoveTargetSnapshotId.value) {
+        val targetSnapshotId = uiState.pendingMoveTargetSnapshotId.value ?: return@LaunchedEffect
+        val sourceSnapshotId = uiState.pendingMoveSourceSnapshotId.value ?: return@LaunchedEffect
+        val sourcePath = uiState.pendingMoveBookmarkPath.value ?: return@LaunchedEffect
+        val targetFolderPath = state.selectedFolderPaths.pathOf(targetSnapshotId)
+        onMoveInboxBookmark(
+            sourceSnapshotId,
+            sourcePath,
+            targetSnapshotId,
+            targetFolderPath,
+        )
+        uiState.pendingMoveBookmarkItem.value = null
+        uiState.pendingMoveBookmarkPath.value = null
+        uiState.pendingMoveSourceSnapshotId.value = null
+        uiState.pendingMoveTargetSnapshotId.value = null
+        uiState.isSelectingMoveDestination.value = false
+    }
+
     HomeScreenBackHandler(uiState = uiState)
     HomeDialogHost(
         state = state,
@@ -333,35 +351,6 @@ fun HomeScreen(
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-internal fun HomeScreenPreview() {
-    HomeScreen(
-        state = HomeState(
-            bookmarkDisplayType = BookmarkDisplayType.LIST,
-        ),
-        enableLargeScreenSidePreview = false,
-        pendingQuickSaveRequestToken = null,
-        pendingQuickSaveRequest = null,
-        onQuickSaveRequestHandled = {},
-        onSettingsClick = {},
-        onOpenBookmark = { _, _ -> true },
-        onOpenBookmarkImportGuide = {},
-        onSnapshotSelected = {},
-        onSelectedFolderPathChange = { _, _ -> },
-        onBookmarkColorSelected = { _, _ -> },
-        onDefaultBrowserSelected = {},
-        onDeleteBookmarkSnapshot = {},
-        onBookmarkDisplayTypeToggle = {},
-        onRenameBookmarkSnapshot = { _, _ -> },
-        onUpdateBookmarkItem = {},
-        onDeleteBookmarkItem = {},
-        onAddBookmarkItem = {},
-        onAddEmptyBookmarkSnapshot = {},
-        onBookmarkExportRequest = { _, _ -> },
-    )
 }
 
 private fun BookmarkItem.deepCopy(): BookmarkItem = when (this) {

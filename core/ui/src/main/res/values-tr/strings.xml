@@ -187,6 +187,8 @@
     <string name="bookmark_item_action_delete">Sil</string>
     <string name="bookmark_item_action_copy">Kopyala</string>
     <string name="bookmark_item_action_paste">Yapıştır</string>
+    <string name="bookmark_item_action_move">Taşı</string>
+    <string name="bookmark_move_completed">Yer imi taşındı.</string>
     <string name="bookmark_item_copy_toast_folder">\"%1$s\" klasörü kopyalandı.</string>
     <string name="bookmark_item_copy_toast_bookmark">\"%1$s\" yer imi kopyalandı.</string>
     <string name="delete_bookmark_item_dialog_message_folder">\"%1$s\" klasörü silinsin mi?</string>

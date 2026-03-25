@@ -187,6 +187,8 @@
     <string name="bookmark_item_action_delete">Elimina</string>
     <string name="bookmark_item_action_copy">Copia</string>
     <string name="bookmark_item_action_paste">Incolla</string>
+    <string name="bookmark_item_action_move">Sposta</string>
+    <string name="bookmark_move_completed">Segnalibro spostato.</string>
     <string name="bookmark_item_copy_toast_folder">La cartella \"%1$s\" è stata copiata.</string>
     <string name="bookmark_item_copy_toast_bookmark">Il segnalibro \"%1$s\" è stato copiato.</string>
     <string name="delete_bookmark_item_dialog_message_folder">Eliminare la cartella \"%1$s\"?</string>

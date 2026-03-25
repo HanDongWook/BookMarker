@@ -5,6 +5,19 @@ import com.hdw.bookmarker.feature.home.domain.model.UpdateBookmarkItemRequest
 import javax.inject.Inject
 
 class BookmarkTreeEditor @Inject constructor() {
+    fun getItemByPath(items: List<BookmarkItem>, path: List<Int>): BookmarkItem? {
+        val targetIndex = path.firstOrNull() ?: return null
+        if (targetIndex !in items.indices) return null
+
+        val targetItem = items[targetIndex]
+        if (path.size == 1) {
+            return targetItem
+        }
+
+        val targetFolder = targetItem as? BookmarkItem.Folder ?: return null
+        return getItemByPath(targetFolder.children, path.drop(1))
+    }
+
     fun removeItemByPath(items: List<BookmarkItem>, path: List<Int>): List<BookmarkItem>? {
         val targetIndex = path.firstOrNull() ?: return null
         if (targetIndex !in items.indices) return null

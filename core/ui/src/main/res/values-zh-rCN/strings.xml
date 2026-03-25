@@ -187,6 +187,8 @@
     <string name="bookmark_item_action_delete">删除</string>
     <string name="bookmark_item_action_copy">复制</string>
     <string name="bookmark_item_action_paste">粘贴</string>
+    <string name="bookmark_item_action_move">移动</string>
+    <string name="bookmark_move_completed">书签已移动。</string>
     <string name="bookmark_item_copy_toast_folder">已复制文件夹“%1$s”。</string>
     <string name="bookmark_item_copy_toast_bookmark">已复制书签“%1$s”。</string>
     <string name="delete_bookmark_item_dialog_message_folder">要删除“%1$s”文件夹吗？</string>

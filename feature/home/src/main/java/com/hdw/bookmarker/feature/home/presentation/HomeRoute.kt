@@ -214,6 +214,7 @@ fun HomeRoute(
         onDefaultBrowserSelected = viewModel::onDefaultBrowserSelected,
         onDeleteBookmarkSnapshot = viewModel::deleteBookmarkSnapshot,
         onBookmarkDisplayTypeToggle = viewModel::onBookmarkDisplayTypeToggle,
+        onMoveInboxBookmark = viewModel::moveInboxBookmark,
         onAddBookmarkItem = viewModel::addBookmarkItem,
         onRenameBookmarkSnapshot = viewModel::renameBookmarkSnapshot,
         onDeleteBookmarkItem = viewModel::deleteBookmarkItem,

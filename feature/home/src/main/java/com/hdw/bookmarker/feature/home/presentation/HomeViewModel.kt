@@ -273,6 +273,37 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
     }
 
+    fun moveInboxBookmark(
+        sourceSnapshotId: SnapshotId,
+        sourcePath: List<Int>,
+        targetSnapshotId: SnapshotId,
+        targetFolderPath: List<Int>?,
+    ) = intent {
+        val sourceDocument = state.bookmarkSnapshots[sourceSnapshotId] ?: return@intent
+        if (!sourceDocument.isInboxSnapshot()) return@intent
+
+        val targetDocument = state.bookmarkSnapshots[targetSnapshotId] ?: return@intent
+        val savedTargetSnapshotId = bookmarkSnapshotEditor.moveBookmark(
+            sourceSnapshotId = sourceSnapshotId,
+            sourceDocument = sourceDocument,
+            sourcePath = sourcePath,
+            targetSnapshotId = targetSnapshotId,
+            targetDocument = targetDocument,
+            targetFolderPath = targetFolderPath,
+        ) ?: return@intent
+
+        reduce {
+            state.copy(
+                selectedBookmarkId = savedTargetSnapshotId,
+                selectedFolderPaths = state.selectedFolderPaths.update(
+                    snapshotId = savedTargetSnapshotId,
+                    path = targetFolderPath,
+                ),
+            )
+        }
+        postSideEffect(HomeSideEffect.ShowMessage(com.hdw.bookmarker.core.ui.R.string.bookmark_move_completed))
+    }
+
     private fun normalizeUrl(url: String): String {
         val trimmedUrl = url.trim()
         return if (trimmedUrl.contains("://")) trimmedUrl else "https://$trimmedUrl"

@@ -187,6 +187,8 @@
     <string name="bookmark_item_action_delete">हटाएँ</string>
     <string name="bookmark_item_action_copy">कॉपी</string>
     <string name="bookmark_item_action_paste">पेस्ट</string>
+    <string name="bookmark_item_action_move">स्थानांतरित करें</string>
+    <string name="bookmark_move_completed">बुकमार्क स्थानांतरित हो गया।</string>
     <string name="bookmark_item_copy_toast_folder">फ़ोल्डर \"%1$s\" कॉपी किया गया।</string>
     <string name="bookmark_item_copy_toast_bookmark">बुकमार्क \"%1$s\" कॉपी किया गया।</string>
     <string name="delete_bookmark_item_dialog_message_folder">क्या आप \"%1$s\" फ़ोल्डर हटाना चाहते हैं?</string>

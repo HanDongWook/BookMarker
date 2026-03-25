@@ -116,6 +116,44 @@ class BookmarkSnapshotEditor @Inject constructor(
             document = document.copy(title = title),
         )
 
+    suspend fun moveBookmark(
+        sourceSnapshotId: SnapshotId,
+        sourceDocument: BookmarkDocument,
+        sourcePath: List<Int>,
+        targetSnapshotId: SnapshotId,
+        targetDocument: BookmarkDocument,
+        targetFolderPath: List<Int>? = null,
+    ): SnapshotId? {
+        val itemToMove = bookmarkTreeEditor.getItemByPath(
+            items = sourceDocument.rootItems,
+            path = sourcePath,
+        ) as? BookmarkItem.Bookmark ?: return null
+
+        val updatedSourceRootItems = bookmarkTreeEditor.removeItemByPath(
+            items = sourceDocument.rootItems,
+            path = sourcePath,
+        ) ?: return null
+
+        val updatedTargetRootItems = if (targetFolderPath.isNullOrEmpty()) {
+            targetDocument.rootItems + itemToMove
+        } else {
+            bookmarkTreeEditor.addItemToFolderByPath(
+                items = targetDocument.rootItems,
+                path = targetFolderPath,
+                item = itemToMove,
+            ) ?: (targetDocument.rootItems + itemToMove)
+        }
+
+        saveSnapshot(
+            snapshotId = sourceSnapshotId,
+            document = sourceDocument.copy(rootItems = updatedSourceRootItems),
+        )
+        return saveSnapshot(
+            snapshotId = targetSnapshotId,
+            document = targetDocument.copy(rootItems = updatedTargetRootItems),
+        )
+    }
+
     private suspend fun saveSnapshot(snapshotId: SnapshotId?, document: BookmarkDocument): SnapshotId {
         val sourceHash = snapshotId
             ?.let { currentSnapshotId ->
