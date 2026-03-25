@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.home.presentation.component.bookmark.export
+package com.hdw.bookmarker.feature.home.domain.export
 
 enum class BookmarkExportMethod {
     SHARE,
