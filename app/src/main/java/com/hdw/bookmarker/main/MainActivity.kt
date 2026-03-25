@@ -72,7 +72,7 @@ class MainActivity : BaseActivity() {
                     when (target) {
                         AppNavigationDeepLink.Target.Home -> {
                             navController.popBackStack(
-                                route = AppRoute.Home,
+                                route = AppRoute.Bookmarks,
                                 inclusive = false,
                             )
                         }

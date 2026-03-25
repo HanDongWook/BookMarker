@@ -202,6 +202,9 @@
     <string name="bookmark_snapshot_action_title">Bookmark Snapshot \"%1$s\"</string>
     <string name="bookmark_item_copy_toast_folder">Folder \"%1$s\" copied.</string>
     <string name="bookmark_item_copy_toast_bookmark">Bookmark \"%1$s\" copied.</string>
+    <string name="bottom_tab_bookmarks">Bookmarks</string>
+    <string name="bottom_tab_trends">Trends</string>
+    <string name="trends_placeholder_message">Google Trends tab will be added here next.</string>
 
     // development
     <string name="development_label" translatable="false">Development</string>

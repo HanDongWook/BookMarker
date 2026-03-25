@@ -4,7 +4,10 @@ import kotlinx.serialization.Serializable
 
 sealed interface AppRoute {
     @Serializable
-    data object Home : AppRoute
+    data object Bookmarks : AppRoute
+
+    @Serializable
+    data object Trends : AppRoute
 
     @Serializable
     data object BookmarkImportGuide : AppRoute
