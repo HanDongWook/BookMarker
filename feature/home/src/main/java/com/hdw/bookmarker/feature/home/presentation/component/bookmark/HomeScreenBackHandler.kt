@@ -8,6 +8,7 @@ import com.hdw.bookmarker.feature.home.presentation.model.HomeScreenUiState
 internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
     val shouldHandleBack = uiState.pendingDeleteBookmarkItemPath.value != null ||
         uiState.pendingEditBookmarkItemPath.value != null ||
+        uiState.isSelectingMoveDestination.value ||
         uiState.showAddBookmarkDialog.value ||
         uiState.showAddFolderDialog.value ||
         uiState.showExportBookmarkMethodDialog.value ||
@@ -24,6 +25,14 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
             uiState.pendingEditBookmarkItemPath.value != null -> {
                 uiState.pendingEditBookmarkItemPath.value = null
                 uiState.pendingEditBookmarkItem.value = null
+            }
+
+            uiState.isSelectingMoveDestination.value -> {
+                uiState.isSelectingMoveDestination.value = false
+                uiState.pendingMoveBookmarkItem.value = null
+                uiState.pendingMoveBookmarkPath.value = null
+                uiState.pendingMoveSourceSnapshotId.value = null
+                uiState.pendingMoveTargetSnapshotId.value = null
             }
 
             uiState.showAddBookmarkDialog.value -> {

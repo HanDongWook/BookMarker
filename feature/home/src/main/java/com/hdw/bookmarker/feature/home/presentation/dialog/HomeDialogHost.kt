@@ -260,6 +260,7 @@ internal fun HomeDialogHost(
                 uiState.pendingMoveSourceSnapshotId.value = sourceSnapshotId
                 uiState.pendingMoveBookmarkItem.value = item
                 uiState.pendingMoveBookmarkPath.value = itemPath
+                uiState.pendingMoveTargetSnapshotId.value = null
                 uiState.isSelectingMoveDestination.value = true
                 showBookmarkItemActionDialog = false
                 pendingEditBookmarkItemPath = null

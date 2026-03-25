@@ -128,6 +128,25 @@ fun HomeScreen(
         showSearchDialog = false
         searchQuery = ""
     }
+    val onSnapshotTabClick = fun(snapshotId: SnapshotId) {
+        if (uiState.isSelectingMoveDestination.value) {
+            val sourceSnapshotId = uiState.pendingMoveSourceSnapshotId.value
+            val canSelectAsMoveTarget =
+                snapshotId != sourceSnapshotId && !state.bookmarkSnapshots.isInbox(snapshotId)
+            if (!canSelectAsMoveTarget) {
+                return
+            }
+            uiState.pendingMoveTargetSnapshotId.value = snapshotId
+            return
+        }
+
+        val targetPage = orderedSnapshotIds.indexOf(snapshotId)
+        if (targetPage >= 0 && targetPage != pagerState.currentPage) {
+            scope.launch {
+                pagerState.animateScrollToPage(targetPage)
+            }
+        }
+    }
 
     LaunchedEffect(pendingQuickSaveRequestToken) {
         val quickSaveRequest = pendingQuickSaveRequest ?: return@LaunchedEffect
@@ -248,6 +267,7 @@ fun HomeScreen(
                 },
                 onAddItemClick = { showAddItemTypeDialog = true },
                 onImportClick = { showImportOptionDialog = true },
+                onSnapshotClick = onSnapshotTabClick,
                 onSnapshotLongClick = { snapshotId ->
                     pendingActionSnapshotId = snapshotId
                     pendingActionSnapshotTitle = snapshotTitles[snapshotId].orEmpty()

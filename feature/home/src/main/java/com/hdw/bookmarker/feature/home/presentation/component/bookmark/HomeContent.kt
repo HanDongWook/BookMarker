@@ -21,7 +21,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,7 +39,6 @@ import com.hdw.bookmarker.feature.home.presentation.component.preview.rememberBo
 import com.hdw.bookmarker.feature.home.presentation.component.snapshot.BookmarkSnapshotBar
 import com.hdw.bookmarker.feature.home.presentation.model.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.presentation.model.HomeState
-import kotlinx.coroutines.launch
 
 @Composable
 internal fun HomeContent(
@@ -55,6 +53,7 @@ internal fun HomeContent(
     onDefaultBrowserPickerOpen: () -> Unit,
     onAddItemClick: () -> Unit,
     onImportClick: () -> Unit,
+    onSnapshotClick: (SnapshotId) -> Unit,
     onSnapshotLongClick: (SnapshotId) -> Unit,
     onBookmarkClick: (String) -> Unit,
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
@@ -67,7 +66,6 @@ internal fun HomeContent(
     previewPaneState: BookmarkPreviewPaneState,
     onPreviewOpenExternally: (String) -> Unit,
 ) {
-    val scope = rememberCoroutineScope()
     val currentSnapshotId = orderedSnapshotIds.getOrNull(pagerState.currentPage)
     val isCurrentInbox = currentSnapshotId != null && state.bookmarkSnapshots.isInbox(currentSnapshotId)
 
@@ -96,14 +94,7 @@ internal fun HomeContent(
                 bookmarkColors = state.bookmarkColors,
                 selectedBookmarkId = selectedBookmarkId,
                 onAddClick = onImportClick,
-                onSnapshotClick = { snapshotId ->
-                    val targetPage = orderedSnapshotIds.indexOf(snapshotId)
-                    if (targetPage >= 0 && targetPage != pagerState.currentPage) {
-                        scope.launch {
-                            pagerState.animateScrollToPage(targetPage)
-                        }
-                    }
-                },
+                onSnapshotClick = onSnapshotClick,
                 onSnapshotLongClick = onSnapshotLongClick,
             )
 
@@ -285,6 +276,7 @@ internal fun HomeContentPreview() {
         onDefaultBrowserPickerOpen = {},
         onAddItemClick = {},
         onImportClick = {},
+        onSnapshotClick = {},
         onSnapshotLongClick = {},
         onBookmarkClick = {},
         onItemLongClick = { _, _ -> },
