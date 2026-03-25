@@ -146,7 +146,7 @@ internal fun HomeDialogHost(
         )
     }
 
-    if (pendingRenameSnapshotId != null) {
+    if (pendingRenameSnapshotId != null && pendingRenameSnapshotId !in state.bookmarkSnapshots.inboxIds) {
         RenameBookmarkSnapshotDialog(
             snapshotTitle = pendingSnapshotTitle,
             onSnapshotTitleChange = { pendingSnapshotTitle = it },
@@ -253,6 +253,8 @@ internal fun HomeDialogHost(
     }
 
     if (showSnapshotActionDialog && pendingActionSnapshotId != null) {
+        val snapshotId = pendingActionSnapshotId ?: return
+        val isInboxSnapshot = state.bookmarkSnapshots.isInbox(snapshotId)
         BookmarkItemActionDialog(
             onDismiss = {
                 showSnapshotActionDialog = false
@@ -263,16 +265,18 @@ internal fun HomeDialogHost(
                 R.string.bookmark_snapshot_action_title,
                 pendingActionSnapshotTitle,
             ),
-            onEditClick = {
-                val snapshotId = pendingActionSnapshotId ?: return@BookmarkItemActionDialog
-                pendingRenameSnapshotId = snapshotId
-                pendingSnapshotTitle = pendingActionSnapshotTitle
-                showSnapshotActionDialog = false
-                pendingActionSnapshotId = null
-                pendingActionSnapshotTitle = ""
+            onEditClick = if (isInboxSnapshot) {
+                null
+            } else {
+                {
+                    pendingRenameSnapshotId = snapshotId
+                    pendingSnapshotTitle = pendingActionSnapshotTitle
+                    showSnapshotActionDialog = false
+                    pendingActionSnapshotId = null
+                    pendingActionSnapshotTitle = ""
+                }
             },
             onColorClick = {
-                val snapshotId = pendingActionSnapshotId ?: return@BookmarkItemActionDialog
                 pendingColorPickerSnapshotId = snapshotId
                 showColorPickerDialog = true
                 showSnapshotActionDialog = false
@@ -280,7 +284,6 @@ internal fun HomeDialogHost(
                 pendingActionSnapshotTitle = ""
             },
             onDeleteClick = {
-                val snapshotId = pendingActionSnapshotId ?: return@BookmarkItemActionDialog
                 pendingDeleteSnapshotId = snapshotId
                 pendingDeleteSnapshotTitle = pendingActionSnapshotTitle
                 showSnapshotActionDialog = false

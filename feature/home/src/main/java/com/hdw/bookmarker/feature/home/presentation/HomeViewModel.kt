@@ -264,6 +264,7 @@ class HomeViewModel @Inject constructor(
         if (trimmedTitle.isBlank()) return@intent
 
         val currentDocument = state.bookmarkSnapshots[snapshotId] ?: return@intent
+        if (currentDocument.isInboxSnapshot()) return@intent
         val savedSnapshotId = bookmarkSnapshotEditor.renameSnapshot(
             snapshotId = snapshotId,
             document = currentDocument,
