@@ -9,6 +9,7 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
     val shouldHandleBack = uiState.pendingDeleteBookmarkItemPath.value != null ||
         uiState.pendingEditBookmarkItemPath.value != null ||
         uiState.showMoveBookmarkDialog.value ||
+        uiState.showExportSnapshotDialog.value ||
         uiState.showAddBookmarkDialog.value ||
         uiState.showAddFolderDialog.value ||
         uiState.showExportBookmarkMethodDialog.value ||
@@ -33,6 +34,11 @@ internal fun HomeScreenBackHandler(uiState: HomeScreenUiState) {
                 uiState.pendingMoveBookmarkPath.value = null
                 uiState.pendingMoveSourceSnapshotId.value = null
                 uiState.pendingMoveTargetSnapshotId.value = null
+            }
+
+            uiState.showExportSnapshotDialog.value -> {
+                uiState.showExportSnapshotDialog.value = false
+                uiState.pendingExportSnapshotId.value = null
             }
 
             uiState.showAddBookmarkDialog.value -> {

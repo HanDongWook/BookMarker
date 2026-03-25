@@ -63,6 +63,7 @@ fun HomeScreen(
     var showImportOptionDialog by uiState.showImportOptionDialog
     var showDefaultBrowserDialog by uiState.showDefaultBrowserDialog
     var showExportBookmarkMethodDialog by uiState.showExportBookmarkMethodDialog
+    var showExportSnapshotDialog by uiState.showExportSnapshotDialog
     var showSearchDialog by uiState.showSearchDialog
     var searchQuery by uiState.searchQuery
     var showAddBookmarkDialog by uiState.showAddBookmarkDialog
@@ -79,6 +80,7 @@ fun HomeScreen(
     var pendingRenameSnapshotId by uiState.pendingRenameSnapshotId
     var pendingSnapshotTitle by uiState.pendingSnapshotTitle
     var pendingBookmarkExportAction by uiState.pendingBookmarkExportAction
+    var pendingExportSnapshotId by uiState.pendingExportSnapshotId
     var pendingEditBookmarkItem by uiState.pendingEditBookmarkItem
     var pendingEditBookmarkItemPath by uiState.pendingEditBookmarkItemPath
     var pendingEditBookmarkTitle by uiState.pendingEditBookmarkTitle
@@ -121,8 +123,9 @@ fun HomeScreen(
     val defaultBrowserIcon = state.installedBrowsers
         .firstOrNull { it.packageName == state.defaultBrowserPackage }
         ?.icon
-    val selectedBookmarkDocument = selectedBookmarkId
+    val selectedBookmarkDocument = pendingExportSnapshotId
         ?.let { state.bookmarkSnapshots[it] }
+        ?: selectedBookmarkId?.let { state.bookmarkSnapshots[it] }
     val dismissSearchDialog = {
         showSearchDialog = false
         searchQuery = ""
@@ -185,6 +188,7 @@ fun HomeScreen(
             onBookmarkExportRequest(exportAction, document)
         }
         pendingBookmarkExportAction = null
+        pendingExportSnapshotId = null
     }
 
     HomeScreenBackHandler(uiState = uiState)
@@ -254,6 +258,10 @@ fun HomeScreen(
                         showDefaultBrowserDialog = true
                     }
                 },
+                onShareClick = {
+                    pendingExportSnapshotId = null
+                    showExportSnapshotDialog = true
+                },
                 onAddItemClick = { showAddItemTypeDialog = true },
                 onImportClick = { showImportOptionDialog = true },
                 onSnapshotClick = onSnapshotTabClick,
@@ -302,7 +310,6 @@ fun HomeScreen(
                         pendingSnapshotTitle = snapshotTitles[selectedBookmarkId].orEmpty()
                     }
                 },
-                onSnapshotExportClick = { showExportBookmarkMethodDialog = true },
                 previewPaneState = uiState.previewPaneState,
                 showLargeScreenSidePreview = enableLargeScreenSidePreview,
                 onPreviewOpenExternally = { url ->

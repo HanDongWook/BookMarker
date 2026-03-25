@@ -3,15 +3,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.IosShare
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -47,7 +41,6 @@ fun BookmarkDisplayContent(
     selectedFolderPath: List<Int>? = null,
     snapshotTitle: String? = null,
     onSnapshotTitleClick: (() -> Unit)? = null,
-    onSnapshotExportClick: (() -> Unit)? = null,
 ) {
     if (bookmarkDocument.rootItems.isEmpty()) {
         EmptyBookmarks(
@@ -55,7 +48,6 @@ fun BookmarkDisplayContent(
             isInboxSnapshot = isInboxSnapshot,
             snapshotTitle = snapshotTitle,
             onSnapshotTitleClick = onSnapshotTitleClick,
-            onSnapshotExportClick = onSnapshotExportClick,
             onBlankAreaLongClick = onBlankAreaLongClick,
             selectedFolderPath = selectedFolderPath,
         )
@@ -68,7 +60,6 @@ fun BookmarkDisplayContent(
                 snapshotTitle = snapshotTitle,
                 isInboxSnapshot = isInboxSnapshot,
                 onSnapshotTitleClick = onSnapshotTitleClick,
-                onSnapshotExportClick = onSnapshotExportClick,
             )
         }
 
@@ -116,7 +107,6 @@ private fun EmptyBookmarks(
     isInboxSnapshot: Boolean = false,
     snapshotTitle: String? = null,
     onSnapshotTitleClick: (() -> Unit)? = null,
-    onSnapshotExportClick: (() -> Unit)? = null,
     onBlankAreaLongClick: (List<Int>?) -> Unit = {},
     selectedFolderPath: List<Int>? = null,
 ) {
@@ -126,7 +116,6 @@ private fun EmptyBookmarks(
                 snapshotTitle = snapshotTitle,
                 isInboxSnapshot = isInboxSnapshot,
                 onSnapshotTitleClick = onSnapshotTitleClick,
-                onSnapshotExportClick = onSnapshotExportClick,
             )
         }
 
@@ -153,43 +142,23 @@ private fun SnapshotTitleBar(
     snapshotTitle: String,
     isInboxSnapshot: Boolean = false,
     onSnapshotTitleClick: (() -> Unit)?,
-    onSnapshotExportClick: (() -> Unit)?,
 ) {
-    Row(
+    Text(
+        text = snapshotTitle,
+        style = MaterialTheme.typography.titleLarge,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            text = snapshotTitle,
-            style = MaterialTheme.typography.titleLarge,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 8.dp, end = 4.dp, top = 4.dp)
-                .then(
-                    if (onSnapshotTitleClick != null && !isInboxSnapshot) {
-                        Modifier.clickable(onClick = onSnapshotTitleClick)
-                    } else {
-                        Modifier
-                    },
-                ),
-        )
-        if (!isInboxSnapshot) {
-            IconButton(
-                onClick = { onSnapshotExportClick?.invoke() },
-                enabled = onSnapshotExportClick != null,
-                modifier = Modifier.size(40.dp),
-            ) {
-                Icon(
-                    imageVector = Icons.Default.IosShare,
-                    contentDescription = stringResource(R.string.export_current_bookmarks_label),
-                )
-            }
-        }
-    }
+            .padding(start = 16.dp, end = 12.dp, top = 8.dp, bottom = 4.dp)
+            .then(
+                if (onSnapshotTitleClick != null && !isInboxSnapshot) {
+                    Modifier.clickable(onClick = onSnapshotTitleClick)
+                } else {
+                    Modifier
+                },
+            ),
+    )
 }
 
 @Preview(showBackground = true)
@@ -215,7 +184,6 @@ internal fun BookmarkDisplayContentListPreview() {
         folderIconStyle = BookmarkFolderIconStyle(),
         snapshotTitle = "북마크1",
         onSnapshotTitleClick = {},
-        onSnapshotExportClick = {},
     )
 }
 
@@ -236,7 +204,6 @@ internal fun BookmarkDisplayContentIconPreview() {
         folderIconStyle = BookmarkFolderIconStyle(),
         snapshotTitle = "북마크1",
         onSnapshotTitleClick = {},
-        onSnapshotExportClick = {},
     )
 }
 

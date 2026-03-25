@@ -19,6 +19,7 @@ import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.AddItemTypeD
 import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.BookmarkItemActionDialog
 import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.DefaultBrowserPickerDialog
 import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.DeleteBookmarkItemDialog
+import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.ExportBookmarkSnapshotDialog
 import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.ManageBookmarkItemDialog
 import com.hdw.bookmarker.feature.home.presentation.dialog.bookmark.MoveBookmarkDialog
 import com.hdw.bookmarker.feature.home.presentation.dialog.importexport.ExportBookmarkMethodDialog
@@ -61,6 +62,8 @@ internal fun HomeDialogHost(
     var showAddItemTypeDialog by uiState.showAddItemTypeDialog
     var showExportBookmarkMethodDialog by uiState.showExportBookmarkMethodDialog
     var pendingBookmarkExportAction by uiState.pendingBookmarkExportAction
+    var pendingExportSnapshotId by uiState.pendingExportSnapshotId
+    var showExportSnapshotDialog by uiState.showExportSnapshotDialog
     var showAddFolderDialog by uiState.showAddFolderDialog
     var showAddBookmarkDialog by uiState.showAddBookmarkDialog
     var pendingFolderTitle by uiState.pendingFolderTitle
@@ -174,6 +177,32 @@ internal fun HomeDialogHost(
                 pendingMoveBookmarkPath = null
                 pendingMoveSourceSnapshotId = null
                 pendingMoveTargetSnapshotId = targetSnapshotId
+            },
+        )
+    }
+
+    if (showExportSnapshotDialog) {
+        val exportTargets = state.bookmarkSnapshots.orderedIds
+            .filterNot(state.bookmarkSnapshots::isInbox)
+            .mapIndexedNotNull { index, snapshotId ->
+                state.bookmarkSnapshots[snapshotId]?.let { snapshot ->
+                    snapshotId to snapshot.title
+                        .orEmpty()
+                        .trim()
+                        .ifBlank { "${stringResource(R.string.default_snapshot_title_prefix)}${index + 1}" }
+                }
+            }
+
+        ExportBookmarkSnapshotDialog(
+            targets = exportTargets,
+            onDismiss = {
+                showExportSnapshotDialog = false
+                pendingExportSnapshotId = null
+            },
+            onTargetClick = { targetSnapshotId ->
+                pendingExportSnapshotId = targetSnapshotId
+                showExportSnapshotDialog = false
+                showExportBookmarkMethodDialog = true
             },
         )
     }
@@ -416,7 +445,10 @@ internal fun HomeDialogHost(
 
     if (showExportBookmarkMethodDialog) {
         ExportBookmarkMethodDialog(
-            onDismiss = { showExportBookmarkMethodDialog = false },
+            onDismiss = {
+                showExportBookmarkMethodDialog = false
+                pendingExportSnapshotId = null
+            },
             onShareTextClick = {
                 showExportBookmarkMethodDialog = false
                 pendingBookmarkExportAction = BookmarkExportAction(

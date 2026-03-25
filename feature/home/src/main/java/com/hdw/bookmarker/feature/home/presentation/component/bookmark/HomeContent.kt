@@ -53,6 +53,7 @@ internal fun HomeContent(
     onDefaultBrowserPickerOpen: () -> Unit,
     onAddItemClick: () -> Unit,
     onImportClick: () -> Unit,
+    onShareClick: () -> Unit,
     onSnapshotClick: (SnapshotId) -> Unit,
     onSnapshotLongClick: (SnapshotId) -> Unit,
     onBookmarkClick: (String) -> Unit,
@@ -61,7 +62,6 @@ internal fun HomeContent(
     onSelectedFolderPathChange: (SnapshotId, List<Int>?) -> Unit,
     currentSnapshotTitle: String?,
     onSnapshotTitleClick: () -> Unit,
-    onSnapshotExportClick: () -> Unit,
     showLargeScreenSidePreview: Boolean,
     previewPaneState: BookmarkPreviewPaneState,
     onPreviewOpenExternally: (String) -> Unit,
@@ -76,6 +76,7 @@ internal fun HomeContent(
                 bookmarkDisplayType = state.bookmarkDisplayType,
                 defaultBrowserIcon = defaultBrowserIcon,
                 onSearchClick = onSearchClick,
+                onShareClick = onShareClick,
                 onBookmarkDisplayTypeClick = onBookmarkDisplayTypeToggle,
                 onDefaultBrowserIconClick = onDefaultBrowserPickerOpen,
                 onSettingsClick = onSettingsClick,
@@ -127,7 +128,6 @@ internal fun HomeContent(
                             onSelectedFolderPathChange = onSelectedFolderPathChange,
                             currentSnapshotTitle = currentSnapshotTitle,
                             onSnapshotTitleClick = onSnapshotTitleClick,
-                            onSnapshotExportClick = onSnapshotExportClick,
                             modifier = Modifier.fillMaxSize(),
                         )
                         if (!isCurrentInbox) {
@@ -160,7 +160,6 @@ internal fun HomeContent(
                     onSelectedFolderPathChange = onSelectedFolderPathChange,
                     currentSnapshotTitle = currentSnapshotTitle,
                     onSnapshotTitleClick = onSnapshotTitleClick,
-                    onSnapshotExportClick = onSnapshotExportClick,
                     modifier = Modifier.weight(1f),
                 )
             }
@@ -196,7 +195,6 @@ private fun BookmarkDocumentsPager(
     onSelectedFolderPathChange: (SnapshotId, List<Int>?) -> Unit,
     currentSnapshotTitle: String?,
     onSnapshotTitleClick: () -> Unit,
-    onSnapshotExportClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     HorizontalPager(
@@ -224,14 +222,6 @@ private fun BookmarkDocumentsPager(
                 selectedFolderPath = snapshotFolderPath,
                 snapshotTitle = currentSnapshotTitle,
                 onSnapshotTitleClick = if (state.bookmarkSnapshots.isInbox(snapshotId)) null else onSnapshotTitleClick,
-                onSnapshotExportClick = if (state.bookmarkSnapshots.isInbox(
-                        snapshotId,
-                    )
-                ) {
-                    null
-                } else {
-                    onSnapshotExportClick
-                },
             )
         } else {
             NoBookmarkItem(
@@ -276,6 +266,7 @@ internal fun HomeContentPreview() {
         onDefaultBrowserPickerOpen = {},
         onAddItemClick = {},
         onImportClick = {},
+        onShareClick = {},
         onSnapshotClick = {},
         onSnapshotLongClick = {},
         onBookmarkClick = {},
@@ -284,7 +275,6 @@ internal fun HomeContentPreview() {
         onSelectedFolderPathChange = { _, _ -> },
         currentSnapshotTitle = "Preview",
         onSnapshotTitleClick = {},
-        onSnapshotExportClick = {},
         showLargeScreenSidePreview = false,
         previewPaneState = rememberBookmarkPreviewPaneState(),
         onPreviewOpenExternally = {},

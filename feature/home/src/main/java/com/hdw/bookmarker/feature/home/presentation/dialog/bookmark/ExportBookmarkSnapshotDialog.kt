@@ -23,7 +23,7 @@ import com.hdw.bookmarker.core.ui.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MoveBookmarkDialog(
+fun ExportBookmarkSnapshotDialog(
     targets: List<Pair<SnapshotId, String>>,
     onDismiss: () -> Unit,
     onTargetClick: (SnapshotId) -> Unit,
@@ -37,7 +37,7 @@ fun MoveBookmarkDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = stringResource(R.string.bookmark_item_action_move)) },
+        title = { Text(text = stringResource(R.string.export_current_bookmarks_label)) },
         text = {
             ExposedDropdownMenuBox(
                 expanded = expanded,
@@ -47,7 +47,7 @@ fun MoveBookmarkDialog(
                     value = selectedTargetTitle,
                     onValueChange = {},
                     readOnly = true,
-                    label = { Text(text = stringResource(R.string.bookmark_item_action_move)) },
+                    label = { Text(text = stringResource(R.string.bookmark_snapshot_name)) },
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                     },
@@ -91,8 +91,8 @@ fun MoveBookmarkDialog(
 
 @Preview(showBackground = true)
 @Composable
-private fun MoveBookmarkDialogPreview() {
-    MoveBookmarkDialog(
+private fun ExportBookmarkSnapshotDialogPreview() {
+    ExportBookmarkSnapshotDialog(
         targets = listOf(
             SnapshotId("1") to "Bookmarks 1",
             SnapshotId("2") to "Bookmarks 2",
