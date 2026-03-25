@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.core.navigation
+package com.hdw.bookmarker.feature.trends.presentation.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,11 +11,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.hdw.bookmarker.core.designsystem.theme.BookMarkerTheme
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
-internal fun TrendsPlaceholderScreen(modifier: Modifier = Modifier) {
+internal fun TrendsScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -33,5 +35,13 @@ internal fun TrendsPlaceholderScreen(modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 12.dp),
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TrendsScreenPreview() {
+    BookMarkerTheme {
+        TrendsScreen()
     }
 }

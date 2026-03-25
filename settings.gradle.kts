@@ -54,6 +54,7 @@ listOf(
     "home",
     "settings",
     "importguide",
+    "trends",
 ).forEach { module ->
     include(":feature:$module")
 }
