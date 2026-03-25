@@ -3,8 +3,8 @@ package com.hdw.bookmarker.main
 import android.net.Uri
 
 internal object AppNavigationDeepLink {
-    const val scheme = "bookmarker"
-    const val host = "navigate"
+    const val SCHEME = "bookmarker"
+    const val HOST = "navigate"
 
     enum class Target(val path: String) {
         Home(path = "home"),
@@ -13,8 +13,8 @@ internal object AppNavigationDeepLink {
     }
 
     fun toUri(target: Target): Uri = Uri.Builder()
-        .scheme(scheme)
-        .authority(host)
+        .scheme(SCHEME)
+        .authority(HOST)
         .appendPath(target.path)
         .build()
 }

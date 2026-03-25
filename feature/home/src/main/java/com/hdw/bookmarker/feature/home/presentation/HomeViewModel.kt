@@ -273,17 +273,17 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(selectedBookmarkId = savedSnapshotId) }
     }
 
-    fun moveInboxBookmark(
+    fun moveBookmark(
         sourceSnapshotId: SnapshotId,
         sourcePath: List<Int>,
         targetSnapshotId: SnapshotId,
         targetFolderPath: List<Int>?,
     ) = intent {
         val sourceDocument = state.bookmarkSnapshots[sourceSnapshotId] ?: return@intent
-        if (!sourceDocument.isInboxSnapshot()) return@intent
-
         val targetDocument = state.bookmarkSnapshots[targetSnapshotId] ?: return@intent
-        val savedTargetSnapshotId = bookmarkSnapshotEditor.moveBookmark(
+        if (sourceSnapshotId == targetSnapshotId) return@intent
+        if (targetDocument.isInboxSnapshot()) return@intent
+        val savedTargetSnapshotId = bookmarkSnapshotEditor.moveItem(
             sourceSnapshotId = sourceSnapshotId,
             sourceDocument = sourceDocument,
             sourcePath = sourcePath,

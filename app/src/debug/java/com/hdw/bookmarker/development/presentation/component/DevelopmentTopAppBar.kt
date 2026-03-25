@@ -13,10 +13,7 @@ import com.hdw.bookmarker.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun DevelopmentTopAppBar(
-    isDeepLinkScreen: Boolean,
-    onBackClick: () -> Unit,
-) {
+internal fun DevelopmentTopAppBar(isDeepLinkScreen: Boolean, onBackClick: () -> Unit) {
     TopAppBar(
         title = {
             Text(

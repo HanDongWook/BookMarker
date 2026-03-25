@@ -29,7 +29,7 @@ internal fun HomeScreenPreview() {
         onUpdateBookmarkItem = {},
         onDeleteBookmarkItem = {},
         onAddBookmarkItem = {},
-        onMoveInboxBookmark = { _, _, _, _ -> },
+        onMoveBookmark = { _, _, _, _ -> },
         onAddEmptyBookmarkSnapshot = {},
         onBookmarkExportRequest = { _, _ -> },
     )

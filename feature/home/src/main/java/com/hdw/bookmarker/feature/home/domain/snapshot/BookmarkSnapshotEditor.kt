@@ -116,7 +116,7 @@ class BookmarkSnapshotEditor @Inject constructor(
             document = document.copy(title = title),
         )
 
-    suspend fun moveBookmark(
+    suspend fun moveItem(
         sourceSnapshotId: SnapshotId,
         sourceDocument: BookmarkDocument,
         sourcePath: List<Int>,
@@ -127,7 +127,7 @@ class BookmarkSnapshotEditor @Inject constructor(
         val itemToMove = bookmarkTreeEditor.getItemByPath(
             items = sourceDocument.rootItems,
             path = sourcePath,
-        ) as? BookmarkItem.Bookmark ?: return null
+        ) ?: return null
 
         val updatedSourceRootItems = bookmarkTreeEditor.removeItemByPath(
             items = sourceDocument.rootItems,

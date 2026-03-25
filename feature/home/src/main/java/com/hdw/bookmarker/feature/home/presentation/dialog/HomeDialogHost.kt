@@ -48,7 +48,7 @@ internal fun HomeDialogHost(
     onUpdateBookmarkItem: (UpdateBookmarkItemRequest) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
     onAddBookmarkItem: (AddBookmarkItemRequest) -> Unit,
-    onMoveInboxBookmark: (SnapshotId, List<Int>, SnapshotId, List<Int>?) -> Unit,
+    onMoveBookmark: (SnapshotId, List<Int>, SnapshotId, List<Int>?) -> Unit,
     onDefaultBrowserSelected: (String) -> Unit,
     onBookmarkColorSelected: (SnapshotId, Long) -> Unit,
     onCopyBookmarkItem: (BookmarkItem) -> Unit,
@@ -163,7 +163,7 @@ internal fun HomeDialogHost(
             onTargetClick = { targetSnapshotId ->
                 val sourcePath = pendingMoveBookmarkPath ?: return@MoveBookmarkDialog
                 val targetFolderPath = state.selectedFolderPaths.pathOf(targetSnapshotId)
-                onMoveInboxBookmark(
+                onMoveBookmark(
                     sourceSnapshotId,
                     sourcePath,
                     targetSnapshotId,
@@ -250,9 +250,8 @@ internal fun HomeDialogHost(
 
     if (showBookmarkItemActionDialog && pendingEditBookmarkItemPath != null && pendingEditBookmarkItem != null) {
         val selectedSnapshotId = selectedBookmarkId
-        val isInboxBookmarkMoveTarget = selectedSnapshotId != null &&
-            state.bookmarkSnapshots.isInbox(selectedSnapshotId) &&
-            pendingEditBookmarkItem is BookmarkItem.Bookmark
+        val canMoveBookmark = selectedSnapshotId != null &&
+            pendingEditBookmarkItem != null
         val itemActionTitle = when (val item = pendingEditBookmarkItem) {
             is BookmarkItem.Folder -> stringResource(
                 R.string.bookmark_item_action_title_folder,
@@ -304,7 +303,7 @@ internal fun HomeDialogHost(
             },
             onMoveClick = {
                 val sourceSnapshotId = selectedSnapshotId ?: return@BookmarkItemActionDialog
-                val item = pendingEditBookmarkItem as? BookmarkItem.Bookmark ?: return@BookmarkItemActionDialog
+                val item = pendingEditBookmarkItem ?: return@BookmarkItemActionDialog
                 val itemPath = pendingEditBookmarkItemPath ?: return@BookmarkItemActionDialog
                 uiState.pendingMoveSourceSnapshotId.value = sourceSnapshotId
                 uiState.pendingMoveBookmarkItem.value = item
@@ -314,7 +313,7 @@ internal fun HomeDialogHost(
                 showBookmarkItemActionDialog = false
                 pendingEditBookmarkItemPath = null
                 pendingEditBookmarkItem = null
-            }.takeIf { isInboxBookmarkMoveTarget },
+            }.takeIf { canMoveBookmark },
         )
     }
 

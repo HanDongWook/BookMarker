@@ -29,7 +29,6 @@ import com.hdw.bookmarker.feature.home.presentation.component.bookmark.HomeScree
 import com.hdw.bookmarker.feature.home.presentation.component.bookmark.export.BookmarkExportAction
 import com.hdw.bookmarker.feature.home.presentation.component.search.BookmarkSearchDialog
 import com.hdw.bookmarker.feature.home.presentation.dialog.HomeDialogHost
-import com.hdw.bookmarker.feature.home.presentation.model.BookmarkDisplayType
 import com.hdw.bookmarker.feature.home.presentation.model.HomeState
 import com.hdw.bookmarker.feature.home.presentation.model.rememberHomeScreenUiState
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -55,7 +54,7 @@ fun HomeScreen(
     onUpdateBookmarkItem: (UpdateBookmarkItemRequest) -> Unit,
     onDeleteBookmarkItem: (List<Int>) -> Unit,
     onAddBookmarkItem: (AddBookmarkItemRequest) -> Unit,
-    onMoveInboxBookmark: (SnapshotId, List<Int>, SnapshotId, List<Int>?) -> Unit,
+    onMoveBookmark: (SnapshotId, List<Int>, SnapshotId, List<Int>?) -> Unit,
     onAddEmptyBookmarkSnapshot: () -> Unit,
     onBookmarkExportRequest: (BookmarkExportAction, com.hdw.bookmarker.core.model.bookmark.BookmarkDocument) -> Unit,
 ) {
@@ -201,7 +200,7 @@ fun HomeScreen(
         onUpdateBookmarkItem = onUpdateBookmarkItem,
         onDeleteBookmarkItem = onDeleteBookmarkItem,
         onAddBookmarkItem = onAddBookmarkItem,
-        onMoveInboxBookmark = onMoveInboxBookmark,
+        onMoveBookmark = onMoveBookmark,
         onDefaultBrowserSelected = onDefaultBrowserSelected,
         onBookmarkColorSelected = onBookmarkColorSelected,
         onCopyBookmarkItem = { item ->
@@ -288,7 +287,9 @@ fun HomeScreen(
                     uiState.showBookmarkItemActionDialog.value = true
                 },
                 onBlankAreaLongClick = { targetFolderPath ->
-                    if (copiedBookmarkItem != null && selectedBookmarkId?.let(state.bookmarkSnapshots::isInbox) != true) {
+                    if (copiedBookmarkItem != null &&
+                        selectedBookmarkId?.let(state.bookmarkSnapshots::isInbox) != true
+                    ) {
                         pendingPasteFolderPath = targetFolderPath
                         uiState.showPasteActionDialog.value = true
                     }

@@ -42,7 +42,7 @@ class HomeScreenUiState(
     val pendingEditBookmarkUrl: MutableState<String>,
     val pendingEditBookmarkTags: MutableState<String>,
     val pendingEditBookmarkDescription: MutableState<String>,
-    val pendingMoveBookmarkItem: MutableState<BookmarkItem.Bookmark?>,
+    val pendingMoveBookmarkItem: MutableState<BookmarkItem?>,
     val pendingMoveBookmarkPath: MutableState<List<Int>?>,
     val pendingMoveSourceSnapshotId: MutableState<SnapshotId?>,
     val pendingMoveTargetSnapshotId: MutableState<SnapshotId?>,
