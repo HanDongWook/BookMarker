@@ -9,7 +9,7 @@ junitVersion = "1.3.0"
 espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.10.0"
 activityCompose = "1.13.0"
-kotlin = "2.3.10"
+kotlin = "2.3.20"
 composeBom = "2026.03.00"
 timber = "5.0.1"
 jsoup = "1.22.1"
@@ -24,7 +24,7 @@ mavericks = "3.1.0"
 showkase = "1.0.5"
 ksp = "2.3.6"
 ktlint = "1.8.0"
-spotless = "8.3.0"
+spotless = "8.4.0"
 detekt = "1.23.8"
 dependencyAnalysis = "3.6.1"
 kotlinSerialization = "1.10.0"
@@ -33,12 +33,13 @@ kotest = "6.1.7"
 kotlinxCoroutines = "1.10.2"
 coil = "2.7.0"
 aboutLibraries = "13.2.1"
-firebaseBom = "34.10.0"
+firebaseBom = "34.11.0"
 googleServices = "4.4.4"
 firebaseCrashlyticsPlugin = "3.0.6"
 leakcanary = "2.14"
 playReview = "2.0.2"
 playAppUpdate = "2.1.0"
+circuit = "0.33.1"
 
 [libraries]
 # androidx
@@ -118,6 +119,7 @@ jsoup = { group = "org.jsoup", name = "jsoup", version.ref = "jsoup" }
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
 aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
 leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
+circuit-foundation = { group = "com.slack.circuit", name = "circuit-foundation", version.ref = "circuit" }
 
 # Dependencies of the included build-logic
 android-gradleApiPlugin = { group = "com.android.tools.build", name = "gradle-api", version.ref = "agp" }
@@ -130,6 +132,7 @@ ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "symbol-processin
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -156,3 +159,4 @@ bookmarker-code-quality = { id = "bookmarker.code.quality" }
 
 bookmarker-android-mvi-orbit = { id = "bookmarker.android.mvi.orbit" }
 bookmarker-android-mvi-mavericks = { id = "bookmarker.android.mvi.mavericks" }
+bookmarker-android-mvi-circuit = { id = "bookmarker.android.mvi.circuit" }
