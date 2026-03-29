@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hdw.bookmarker.feature.trends"
+    namespace = "com.hdw.bookmarker.feature.following"
 }
 
 dependencies {

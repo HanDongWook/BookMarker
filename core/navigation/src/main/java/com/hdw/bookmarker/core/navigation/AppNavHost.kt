@@ -27,7 +27,7 @@ import com.hdw.bookmarker.feature.home.presentation.HomeBottomBarActionState
 import com.hdw.bookmarker.feature.home.presentation.HomeRoute
 import com.hdw.bookmarker.feature.importguide.presentation.BookmarkImportGuideRoute
 import com.hdw.bookmarker.feature.settings.presentation.SettingsRoute
-import com.hdw.bookmarker.feature.trends.presentation.TrendsRoute
+import com.hdw.bookmarker.feature.following.presentation.FollowingRoute
 import com.kyant.backdrop.backdrops.layerBackdrop
 import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 
@@ -46,10 +46,10 @@ fun AppNavHost(
     val currentDestination = backStackEntry?.destination
     val isBookmarksRoute = currentDestination?.hasRoute<AppRoute.Bookmarks>() == true
     val showBottomBar = currentDestination?.hasRoute<AppRoute.Bookmarks>() == true ||
-        currentDestination?.hasRoute<AppRoute.Trends>() == true
+        currentDestination?.hasRoute<AppRoute.Following>() == true
     val currentBottomBarRoute = when {
         currentDestination?.hasRoute<AppRoute.Bookmarks>() == true -> AppRoute.Bookmarks
-        currentDestination?.hasRoute<AppRoute.Trends>() == true -> AppRoute.Trends
+        currentDestination?.hasRoute<AppRoute.Following>() == true -> AppRoute.Following
         else -> null
     }
     val backgroundColor = MaterialTheme.colorScheme.surface
@@ -92,8 +92,8 @@ fun AppNavHost(
                     },
                 )
             }
-            composable<AppRoute.Trends> {
-                TrendsRoute()
+            composable<AppRoute.Following> {
+                FollowingRoute()
             }
             slideComposable<AppRoute.BookmarkImportGuide> {
                 BookmarkImportGuideRoute(
@@ -134,8 +134,8 @@ fun AppNavHost(
                     restoreState = true
                 }
             }
-            val onTrendsClick = {
-                navController.navigate(AppRoute.Trends) {
+            val onFollowingClick = {
+                navController.navigate(AppRoute.Following) {
                     popUpTo(navController.graph.startDestinationId) {
                         saveState = true
                     }
@@ -154,7 +154,7 @@ fun AppNavHost(
                 backdrop = backdrop,
                 currentRoute = currentBottomBarRoute,
                 onBookmarksClick = onBookmarksClick,
-                onTrendsClick = onTrendsClick,
+                onFollowingClick = onFollowingClick,
                 showAddButton = isBookmarksRoute && bookmarksBottomBarActionState.showAddButton,
                 onAddClick = bookmarksBottomBarActionState.onAddButtonClick,
             )

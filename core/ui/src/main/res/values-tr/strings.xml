@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">"%1$s" yer imi anlık görüntüsü silinsin mi?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Sil</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">İptal</string>
+    <string name="bottom_tab_following">Takip</string>
+    <string name="following_placeholder_message">Takip ettiğiniz YouTube kanalları ve favori sitelerden gelen en son güncellemeler burada görünecek.</string>
 </resources>

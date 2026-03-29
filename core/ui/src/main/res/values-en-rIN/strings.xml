@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">Delete bookmark snapshot "%1$s"?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Delete</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Cancel</string>
+    <string name="bottom_tab_following">Following</string>
+    <string name="following_placeholder_message">Latest updates from followed YouTube channels and favourite sites will appear here.</string>
 </resources>

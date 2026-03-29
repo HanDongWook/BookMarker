@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">¿Eliminar la instantánea de marcadores "%1$s"?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Eliminar</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Cancelar</string>
+    <string name="bottom_tab_following">Siguiendo</string>
+    <string name="following_placeholder_message">Aquí aparecerán las últimas actualizaciones de los canales de YouTube y sitios web que sigues.</string>
 </resources>

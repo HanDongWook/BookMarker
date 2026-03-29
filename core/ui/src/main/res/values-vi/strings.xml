@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">Xóa ảnh chụp dấu trang "%1$s"?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Xóa</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Hủy</string>
+    <string name="bottom_tab_following">Đang theo dõi</string>
+    <string name="following_placeholder_message">Các cập nhật mới nhất từ kênh YouTube và trang web yêu thích mà bạn theo dõi sẽ hiển thị ở đây.</string>
 </resources>

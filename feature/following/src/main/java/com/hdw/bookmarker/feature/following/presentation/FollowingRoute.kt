@@ -1,25 +1,25 @@
-package com.hdw.bookmarker.feature.trends.presentation
+package com.hdw.bookmarker.feature.following.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.designsystem.theme.BookMarkerTheme
-import com.hdw.bookmarker.feature.trends.presentation.component.TrendsScreen
+import com.hdw.bookmarker.feature.following.presentation.component.FollowingScreen
 import com.slack.circuit.foundation.CircuitContent
 import com.slack.circuit.runtime.presenter.presenterOf
 import com.slack.circuit.runtime.ui.ui
 
 @Composable
-fun TrendsRoute() {
-    val presenter = remember { presenterOf<TrendsUiState> { TrendsUiState } }
+fun FollowingRoute() {
+    val presenter = remember { presenterOf<FollowingUiState> { FollowingUiState } }
     val ui = remember {
-        ui<TrendsUiState> { _, modifier ->
-            TrendsScreen(modifier = modifier)
+        ui<FollowingUiState> { _, modifier ->
+            FollowingScreen(modifier = modifier)
         }
     }
 
     CircuitContent(
-        screen = TrendsCircuitScreen,
+        screen = FollowingCircuitScreen,
         presenter = presenter,
         ui = ui,
     )
@@ -27,8 +27,8 @@ fun TrendsRoute() {
 
 @Preview(showBackground = true)
 @Composable
-private fun TrendsRoutePreview() {
+private fun FollowingRoutePreview() {
     BookMarkerTheme {
-        TrendsRoute()
+        FollowingRoute()
     }
 }

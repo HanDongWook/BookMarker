@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">Supprimer l’instantané de signets "%1$s" ?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Supprimer</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Annuler</string>
+    <string name="bottom_tab_following">Suivis</string>
+    <string name="following_placeholder_message">Les dernières mises à jour des chaînes YouTube et des sites favoris que vous suivez apparaîtront ici.</string>
 </resources>

@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">要刪除書籤快照 "%1$s" 嗎？</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">刪除</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">取消</string>
+    <string name="bottom_tab_following">追蹤</string>
+    <string name="following_placeholder_message">已追蹤的 YouTube 頻道和常用網站的最新更新會顯示在這裡。</string>
 </resources>

@@ -35,10 +35,10 @@
             <option value="$PROJECT_DIR$/core/navigation" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/following" />
             <option value="$PROJECT_DIR$/feature/home" />
             <option value="$PROJECT_DIR$/feature/importguide" />
             <option value="$PROJECT_DIR$/feature/settings" />
-            <option value="$PROJECT_DIR$/feature/trends" />
           </set>
         </option>
       </GradleProjectSettings>

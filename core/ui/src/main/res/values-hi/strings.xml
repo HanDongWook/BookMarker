@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">क्या आप बुकमार्क स्नैपशॉट "%1$s" हटाना चाहते हैं?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">हटाएँ</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">रद्द करें</string>
+    <string name="bottom_tab_following">फ़ॉलोइंग</string>
+    <string name="following_placeholder_message">जिन YouTube चैनलों और पसंदीदा साइटों को आप फ़ॉलो करते हैं, उनके नवीनतम अपडेट यहां दिखाई देंगे।</string>
 </resources>
