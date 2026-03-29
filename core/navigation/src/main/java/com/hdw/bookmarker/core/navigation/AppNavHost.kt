@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.home.domain.model.QuickSaveBookmarkSeed
@@ -65,7 +66,7 @@ fun AppNavHost(
                 .fillMaxSize()
                 .layerBackdrop(backdrop),
         ) {
-            slideComposable<AppRoute.Bookmarks> { entry ->
+            composable<AppRoute.Bookmarks> { entry ->
                 HomeRoute(
                     onSettingsClick = {
                         navController.navigate(AppRoute.Settings)
@@ -91,7 +92,7 @@ fun AppNavHost(
                     },
                 )
             }
-            slideComposable<AppRoute.Trends> {
+            composable<AppRoute.Trends> {
                 TrendsRoute()
             }
             slideComposable<AppRoute.BookmarkImportGuide> {
