@@ -1,17 +1,30 @@
 package com.hdw.bookmarker.core.navigation
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.kyant.backdrop.backdrops.layerBackdrop
+import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.home.domain.model.QuickSaveBookmarkSeed
+import com.hdw.bookmarker.feature.home.presentation.HomeBottomBarActionState
 import com.hdw.bookmarker.feature.home.presentation.HomeRoute
 import com.hdw.bookmarker.feature.importguide.presentation.BookmarkImportGuideRoute
 import com.hdw.bookmarker.feature.settings.presentation.SettingsRoute
@@ -27,42 +40,30 @@ fun AppNavHost(
 ) {
     val context = LocalContext.current
     val importHtmlRequestKey = "import_html_request_token"
+    var homeBottomBarActionState by remember { mutableStateOf(HomeBottomBarActionState()) }
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
+    val isHomeRoute = currentDestination?.hasRoute<AppRoute.Bookmarks>() == true
     val showBottomBar = currentDestination?.hasRoute<AppRoute.Bookmarks>() == true ||
         currentDestination?.hasRoute<AppRoute.Trends>() == true
+    val currentBottomBarRoute = when {
+        currentDestination?.hasRoute<AppRoute.Bookmarks>() == true -> AppRoute.Bookmarks
+        currentDestination?.hasRoute<AppRoute.Trends>() == true -> AppRoute.Trends
+        else -> null
+    }
+    val backgroundColor = MaterialTheme.colorScheme.surface
+    val backdrop = rememberLayerBackdrop {
+        drawRect(backgroundColor)
+        drawContent()
+    }
 
-    Scaffold(
-        bottomBar = {
-            if (showBottomBar) {
-                AppBottomBar(
-                    currentDestination = currentDestination,
-                    onBookmarksClick = {
-                        navController.navigate(AppRoute.Bookmarks) {
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                    onTrendsClick = {
-                        navController.navigate(AppRoute.Trends) {
-                            popUpTo(navController.graph.startDestinationId) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                )
-            }
-        },
-    ) { innerPadding ->
+    Box(modifier = Modifier.fillMaxSize()) {
         NavHost(
             navController = navController,
             startDestination = AppRoute.Bookmarks,
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier
+                .fillMaxSize()
+                .layerBackdrop(backdrop),
         ) {
             slideComposable<AppRoute.Bookmarks> { entry ->
                 HomeRoute(
@@ -77,6 +78,9 @@ fun AppNavHost(
                     },
                     onOpenBookmarkImportGuide = {
                         navController.navigate(AppRoute.BookmarkImportGuide)
+                    },
+                    onBottomBarActionStateChange = { actionState ->
+                        homeBottomBarActionState = actionState
                     },
                     pendingQuickSaveRequestToken = pendingQuickSaveRequestToken,
                     pendingQuickSaveRequest = pendingQuickSaveRequest,
@@ -115,6 +119,53 @@ fun AppNavHost(
                     onBackClick = {
                         navController.popBackStack()
                     },
+                )
+            }
+        }
+
+        if (showBottomBar) {
+            val onBookmarksClick = {
+                navController.navigate(AppRoute.Bookmarks) {
+                    popUpTo(navController.graph.startDestinationId) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            }
+            val onTrendsClick = {
+                navController.navigate(AppRoute.Trends) {
+                    popUpTo(navController.graph.startDestinationId) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            }
+
+            if (isHomeRoute && homeBottomBarActionState.showAddButton) {
+                HomeBottomBar(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    backdrop = backdrop,
+                    currentRoute = currentBottomBarRoute,
+                    onBookmarksClick = onBookmarksClick,
+                    onTrendsClick = onTrendsClick,
+                    onAddClick = {
+                        homeBottomBarActionState.onAddButtonClick?.invoke()
+                    },
+                )
+            } else {
+                AppBottomBar(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .navigationBarsPadding()
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .fillMaxWidth()
+                        .height(72.dp),
+                    backdrop = backdrop,
+                    currentRoute = currentBottomBarRoute,
+                    onBookmarksClick = onBookmarksClick,
+                    onTrendsClick = onTrendsClick,
                 )
             }
         }

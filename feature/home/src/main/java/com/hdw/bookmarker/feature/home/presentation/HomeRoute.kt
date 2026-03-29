@@ -85,6 +85,7 @@ fun HomeRoute(
     onSettingsClick: () -> Unit,
     onOpenBookmark: (BookmarkOpenRequest) -> Boolean,
     onOpenBookmarkImportGuide: () -> Unit,
+    onBottomBarActionStateChange: (HomeBottomBarActionState) -> Unit = {},
     pendingQuickSaveRequestToken: Long? = null,
     pendingQuickSaveRequest: QuickSaveBookmarkSeed? = null,
     onQuickSaveRequestHandled: () -> Unit = {},
@@ -197,6 +198,7 @@ fun HomeRoute(
         pendingQuickSaveRequestToken = pendingQuickSaveRequestToken,
         pendingQuickSaveRequest = pendingQuickSaveRequest,
         onQuickSaveRequestHandled = onQuickSaveRequestHandled,
+        onBottomBarActionStateChange = onBottomBarActionStateChange,
         onSettingsClick = onSettingsClick,
         onOpenBookmark = { url, preferredBrowserPackage ->
             onOpenBookmark(

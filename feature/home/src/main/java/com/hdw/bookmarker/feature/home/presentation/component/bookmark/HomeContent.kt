@@ -12,25 +12,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hdw.bookmarker.core.designsystem.theme.BookMarkerYellow
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.bookmark.SnapshotId
-import com.hdw.bookmarker.core.ui.R
 import com.hdw.bookmarker.feature.home.presentation.component.appbar.HomeTopAppBar
 import com.hdw.bookmarker.feature.home.presentation.component.bookmark.BookmarkDisplayContent
 import com.hdw.bookmarker.feature.home.presentation.component.preview.BookmarkPreviewPane
@@ -51,7 +41,6 @@ internal fun HomeContent(
     onSearchClick: () -> Unit,
     onBookmarkDisplayTypeToggle: () -> Unit,
     onDefaultBrowserPickerOpen: () -> Unit,
-    onAddItemClick: () -> Unit,
     onImportClick: () -> Unit,
     onShareClick: () -> Unit,
     onSnapshotClick: (SnapshotId) -> Unit,
@@ -66,9 +55,6 @@ internal fun HomeContent(
     previewPaneState: BookmarkPreviewPaneState,
     onPreviewOpenExternally: (String) -> Unit,
 ) {
-    val currentSnapshotId = orderedSnapshotIds.getOrNull(pagerState.currentPage)
-    val isCurrentInbox = currentSnapshotId != null && state.bookmarkSnapshots.isInbox(currentSnapshotId)
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -81,11 +67,6 @@ internal fun HomeContent(
                 onDefaultBrowserIconClick = onDefaultBrowserPickerOpen,
                 onSettingsClick = onSettingsClick,
             )
-        },
-        floatingActionButton = {
-            if (!showLargeScreenSidePreview && !isCurrentInbox) {
-                AddItemFloatingActionButton(onClick = onAddItemClick)
-            }
         },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
@@ -130,14 +111,6 @@ internal fun HomeContent(
                             onSnapshotTitleClick = onSnapshotTitleClick,
                             modifier = Modifier.fillMaxSize(),
                         )
-                        if (!isCurrentInbox) {
-                            AddItemFloatingActionButton(
-                                onClick = onAddItemClick,
-                                modifier = Modifier
-                                    .align(Alignment.BottomEnd)
-                                    .padding(16.dp),
-                            )
-                        }
                     }
                     VerticalDivider(modifier = Modifier.fillMaxHeight())
                     LargeScreenBookmarkPreviewPane(
@@ -164,22 +137,6 @@ internal fun HomeContent(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun AddItemFloatingActionButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    FloatingActionButton(
-        onClick = onClick,
-        shape = CircleShape,
-        containerColor = BookMarkerYellow,
-        contentColor = Color.Black,
-        modifier = modifier,
-    ) {
-        Icon(
-            imageVector = Icons.Default.Add,
-            contentDescription = stringResource(R.string.add_bookmark_or_folder),
-        )
     }
 }
 
@@ -264,7 +221,6 @@ internal fun HomeContentPreview() {
         onSearchClick = {},
         onBookmarkDisplayTypeToggle = {},
         onDefaultBrowserPickerOpen = {},
-        onAddItemClick = {},
         onImportClick = {},
         onShareClick = {},
         onSnapshotClick = {},
