@@ -22,7 +22,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -42,7 +41,8 @@ internal fun BookmarksBottomBar(
     onTrendsClick: () -> Unit,
     onAddClick: () -> Unit,
 ) {
-    val addButtonTint = MaterialTheme.colorScheme.primary
+    val addButtonSurfaceColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.45f)
+    val addButtonContentColor = MaterialTheme.colorScheme.onSurface
 
     Row(
         modifier = modifier
@@ -74,7 +74,7 @@ internal fun BookmarksBottomBar(
                     onClick = onAddClick,
                     shape = CircleShape,
                     containerColor = Color.Transparent,
-                    contentColor = Color.White,
+                    contentColor = addButtonContentColor,
                     elevation = FloatingActionButtonDefaults.elevation(
                         defaultElevation = 0.dp,
                         pressedElevation = 0.dp,
@@ -92,8 +92,7 @@ internal fun BookmarksBottomBar(
                                 lens(16.dp.toPx(), 32.dp.toPx())
                             },
                             onDrawSurface = {
-                                drawRect(addButtonTint, blendMode = BlendMode.Hue)
-                                drawRect(addButtonTint.copy(alpha = 0.82f))
+                                drawRect(addButtonSurfaceColor)
                             },
                         ),
                 ) {
