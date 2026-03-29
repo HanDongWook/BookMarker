@@ -12,7 +12,7 @@ dependencies {
     with(projects.core) {
         implementation(common)
         implementation(model)
-        implementation(navigation)
+        implementation(ui)
     }
 
     with(projects.feature) {
