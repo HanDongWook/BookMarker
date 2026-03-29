@@ -18,7 +18,6 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
 import com.hdw.bookmarker.core.model.bookmark.SnapshotId
 import com.hdw.bookmarker.feature.home.presentation.component.appbar.HomeTopAppBar
@@ -172,6 +171,7 @@ private fun BookmarkDocumentsPager(
                 showFolderDescription = state.showFolderDescription,
                 scrollLongFolderDescription = state.scrollLongFolderDescription,
                 folderIconStyle = state.folderIconStyle,
+                extraBottomContentPadding = BookmarkContentPaddingTokens.BottomOverlayClearance,
                 onBookmarkClick = onBookmarkClick,
                 onItemLongClick = onItemLongClick,
                 onBlankAreaLongClick = onBlankAreaLongClick,

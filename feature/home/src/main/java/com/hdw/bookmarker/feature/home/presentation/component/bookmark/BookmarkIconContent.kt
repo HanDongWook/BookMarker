@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
@@ -43,6 +44,7 @@ internal fun BookmarkIconContent(
     onItemLongClick: (BookmarkItem, List<Int>) -> Unit,
     onBlankAreaLongClick: (List<Int>?) -> Unit,
     folderIconStyle: BookmarkFolderIconStyle,
+    extraBottomContentPadding: Dp = 0.dp,
     modifier: Modifier = Modifier,
     selectedFolderPath: List<Int>? = null,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
@@ -115,7 +117,12 @@ internal fun BookmarkIconContent(
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(minSize = 96.dp),
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 16.dp, top = 8.dp),
+                contentPadding = PaddingValues(
+                    start = 8.dp,
+                    end = 8.dp,
+                    top = 8.dp,
+                    bottom = BookmarkContentPaddingTokens.GridBottomPadding + extraBottomContentPadding,
+                ),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {

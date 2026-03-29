@@ -65,7 +65,7 @@ internal fun HomeBottomBar(
         BoxWithConstraints(
             modifier = Modifier
                 .fillMaxHeight()
-                .aspectRatio(0.75f)
+                .aspectRatio(0.75f),
         ) {
             val diameter = if (maxWidth < maxHeight) maxWidth else maxHeight
 

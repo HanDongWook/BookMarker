@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.hdw.bookmarker.core.designsystem.theme.BookMarkerTheme
+import com.hdw.bookmarker.feature.trends.presentation.component.TrendsScreen
 import com.slack.circuit.foundation.CircuitContent
 import com.slack.circuit.runtime.presenter.presenterOf
 import com.slack.circuit.runtime.ui.ui
-import com.hdw.bookmarker.feature.trends.presentation.component.TrendsScreen
 
 @Composable
 fun TrendsRoute() {
