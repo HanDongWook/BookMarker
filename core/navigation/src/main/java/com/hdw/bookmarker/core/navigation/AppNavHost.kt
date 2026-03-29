@@ -40,10 +40,10 @@ fun AppNavHost(
 ) {
     val context = LocalContext.current
     val importHtmlRequestKey = "import_html_request_token"
-    var homeBottomBarActionState by remember { mutableStateOf(HomeBottomBarActionState()) }
+    var bookmarksBottomBarActionState by remember { mutableStateOf(HomeBottomBarActionState()) }
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = backStackEntry?.destination
-    val isHomeRoute = currentDestination?.hasRoute<AppRoute.Bookmarks>() == true
+    val isBookmarksRoute = currentDestination?.hasRoute<AppRoute.Bookmarks>() == true
     val showBottomBar = currentDestination?.hasRoute<AppRoute.Bookmarks>() == true ||
         currentDestination?.hasRoute<AppRoute.Trends>() == true
     val currentBottomBarRoute = when {
@@ -80,7 +80,7 @@ fun AppNavHost(
                         navController.navigate(AppRoute.BookmarkImportGuide)
                     },
                     onBottomBarActionStateChange = { actionState ->
-                        homeBottomBarActionState = actionState
+                        bookmarksBottomBarActionState = actionState
                     },
                     pendingQuickSaveRequestToken = pendingQuickSaveRequestToken,
                     pendingQuickSaveRequest = pendingQuickSaveRequest,
@@ -143,15 +143,15 @@ fun AppNavHost(
                 }
             }
 
-            if (isHomeRoute && homeBottomBarActionState.showAddButton) {
-                HomeBottomBar(
+            if (isBookmarksRoute && bookmarksBottomBarActionState.showAddButton) {
+                BookmarksBottomBar(
                     modifier = Modifier.align(Alignment.BottomCenter),
                     backdrop = backdrop,
                     currentRoute = currentBottomBarRoute,
                     onBookmarksClick = onBookmarksClick,
                     onTrendsClick = onTrendsClick,
                     onAddClick = {
-                        homeBottomBarActionState.onAddButtonClick?.invoke()
+                        bookmarksBottomBarActionState.onAddButtonClick?.invoke()
                     },
                 )
             } else {

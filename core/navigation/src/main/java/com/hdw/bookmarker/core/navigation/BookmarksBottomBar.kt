@@ -34,7 +34,7 @@ import com.kyant.backdrop.effects.lens
 import com.kyant.backdrop.effects.vibrancy
 
 @Composable
-internal fun HomeBottomBar(
+internal fun BookmarksBottomBar(
     modifier: Modifier = Modifier,
     backdrop: LayerBackdrop,
     currentRoute: AppRoute?,
