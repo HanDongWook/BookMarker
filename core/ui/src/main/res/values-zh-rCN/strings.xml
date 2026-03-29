@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">要删除书签快照 "%1$s" 吗？</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">删除</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">取消</string>
+    <string name="bottom_tab_following">关注</string>
+    <string name="following_placeholder_message">已关注的 YouTube 频道和常用网站的最新更新将显示在这里。</string>
 </resources>

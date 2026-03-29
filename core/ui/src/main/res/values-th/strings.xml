@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">ลบสแนปชอตบุ๊กมาร์ก "%1$s" หรือไม่?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">ลบ</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">ยกเลิก</string>
+    <string name="bottom_tab_following">กำลังติดตาม</string>
+    <string name="following_placeholder_message">การอัปเดตล่าสุดจากช่อง YouTube และเว็บไซต์โปรดที่คุณติดตามจะแสดงที่นี่</string>
 </resources>

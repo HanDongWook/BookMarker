@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">ブックマークスナップショット "%1$s" を削除しますか？</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">削除</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">キャンセル</string>
+    <string name="bottom_tab_following">フォロー中</string>
+    <string name="following_placeholder_message">フォローしている YouTube チャンネルやお気に入りサイトの最新更新がここに表示されます。</string>
 </resources>

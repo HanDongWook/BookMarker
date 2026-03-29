@@ -19,7 +19,7 @@ dependencies {
         implementation(home)
         implementation(importguide)
         implementation(settings)
-        implementation(trends)
+        implementation(following)
     }
 
     implementation(libs.androidx.compose.ui)

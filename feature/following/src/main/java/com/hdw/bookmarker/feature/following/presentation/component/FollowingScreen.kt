@@ -1,4 +1,4 @@
-package com.hdw.bookmarker.feature.trends.presentation.component
+package com.hdw.bookmarker.feature.following.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +18,7 @@ import com.hdw.bookmarker.core.designsystem.theme.BookMarkerTheme
 import com.hdw.bookmarker.core.ui.R
 
 @Composable
-internal fun TrendsScreen(modifier: Modifier = Modifier) {
+internal fun FollowingScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -28,12 +28,12 @@ internal fun TrendsScreen(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = stringResource(R.string.bottom_tab_trends),
+            text = stringResource(R.string.bottom_tab_following),
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.onBackground,
         )
         Text(
-            text = stringResource(R.string.trends_placeholder_message),
+            text = stringResource(R.string.following_placeholder_message),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -44,8 +44,8 @@ internal fun TrendsScreen(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-private fun TrendsScreenPreview() {
+private fun FollowingScreenPreview() {
     BookMarkerTheme {
-        TrendsScreen()
+        FollowingScreen()
     }
 }

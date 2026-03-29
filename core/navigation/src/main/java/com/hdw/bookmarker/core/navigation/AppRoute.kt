@@ -7,7 +7,7 @@ sealed interface AppRoute {
     data object Bookmarks : AppRoute
 
     @Serializable
-    data object Trends : AppRoute
+    data object Following : AppRoute
 
     @Serializable
     data object BookmarkImportGuide : AppRoute

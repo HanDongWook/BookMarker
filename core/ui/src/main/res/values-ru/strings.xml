@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">Удалить снимок закладок "%1$s"?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Удалить</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Отмена</string>
+    <string name="bottom_tab_following">Подписки</string>
+    <string name="following_placeholder_message">Здесь будут показаны последние обновления YouTube-каналов и избранных сайтов, на которые вы подписаны.</string>
 </resources>

@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">Hapus snapshot bookmark "%1$s"?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Hapus</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Batal</string>
+    <string name="bottom_tab_following">Mengikuti</string>
+    <string name="following_placeholder_message">Update terbaru dari channel YouTube dan situs favorit yang Anda ikuti akan muncul di sini.</string>
 </resources>

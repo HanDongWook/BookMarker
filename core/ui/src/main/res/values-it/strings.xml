@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">Eliminare lo snapshot segnalibri "%1$s"?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Elimina</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Annulla</string>
+    <string name="bottom_tab_following">Seguiti</string>
+    <string name="following_placeholder_message">Qui appariranno gli ultimi aggiornamenti dei canali YouTube e dei siti preferiti che segui.</string>
 </resources>

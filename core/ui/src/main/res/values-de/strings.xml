@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">Lesezeichen-Snapshot "%1$s" löschen?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Löschen</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Abbrechen</string>
+    <string name="bottom_tab_following">Folgen</string>
+    <string name="following_placeholder_message">Die neuesten Updates von gefolgten YouTube-Kanälen und bevorzugten Websites werden hier angezeigt.</string>
 </resources>

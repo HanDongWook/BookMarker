@@ -13,11 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.ui.draw.clip
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.TrendingUp
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.RssFeed
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
@@ -34,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
@@ -57,7 +57,7 @@ internal fun AppBottomBar(
     backdrop: LayerBackdrop,
     currentRoute: AppRoute?,
     onBookmarksClick: () -> Unit,
-    onTrendsClick: () -> Unit,
+    onFollowingClick: () -> Unit,
     showAddButton: Boolean = false,
     onAddClick: (() -> Unit)? = null,
 ) {
@@ -145,18 +145,18 @@ internal fun AppBottomBar(
                 label = { Text(text = stringResource(R.string.bottom_tab_bookmarks)) },
             )
             NavigationBarItem(
-                selected = currentRoute == AppRoute.Trends,
-                onClick = onTrendsClick,
+                selected = currentRoute == AppRoute.Following,
+                onClick = onFollowingClick,
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = indicatorColor,
                 ),
                 icon = {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.TrendingUp,
-                        contentDescription = stringResource(R.string.bottom_tab_trends),
+                        imageVector = Icons.Default.RssFeed,
+                        contentDescription = stringResource(R.string.bottom_tab_following),
                     )
                 },
-                label = { Text(text = stringResource(R.string.bottom_tab_trends)) },
+                label = { Text(text = stringResource(R.string.bottom_tab_following)) },
             )
         }
 
@@ -224,7 +224,7 @@ private fun AppBottomBarPreview() {
             backdrop = previewBackdrop,
             currentRoute = AppRoute.Bookmarks,
             onBookmarksClick = {},
-            onTrendsClick = {},
+            onFollowingClick = {},
             showAddButton = true,
             onAddClick = {},
         )

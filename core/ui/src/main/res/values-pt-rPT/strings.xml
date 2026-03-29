@@ -201,4 +201,6 @@
     <string name="delete_bookmark_snapshot_dialog_message">Eliminar instantâneo de favoritos "%1$s"?</string>
     <string name="delete_bookmark_snapshot_dialog_confirm">Eliminar</string>
     <string name="delete_bookmark_snapshot_dialog_cancel">Cancelar</string>
+    <string name="bottom_tab_following">A seguir</string>
+    <string name="following_placeholder_message">As atualizações mais recentes dos canais do YouTube e dos sites favoritos que segue aparecerão aqui.</string>
 </resources>

@@ -202,8 +202,8 @@
     <string name="bookmark_item_copy_toast_folder">폴더 \"%1$s\"이 복사 되었습니다.</string>
     <string name="bookmark_item_copy_toast_bookmark">북마크 \"%1$s\"이 복사되었습니다.</string>
     <string name="bottom_tab_bookmarks">북마크</string>
-    <string name="bottom_tab_trends">트렌드</string>
-    <string name="trends_placeholder_message">다음 단계에서 이 탭에 Google Trends 화면을 추가합니다.</string>
+    <string name="bottom_tab_following">팔로잉</string>
+    <string name="following_placeholder_message">팔로우한 유튜브 채널과 자주 보는 사이트의 최신 업데이트가 여기에 표시됩니다.</string>
 
     // development
     <string name="development_label">개발</string>
