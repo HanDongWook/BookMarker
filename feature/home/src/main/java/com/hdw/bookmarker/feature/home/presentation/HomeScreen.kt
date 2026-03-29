@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -38,6 +39,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     state: HomeState,
     enableLargeScreenSidePreview: Boolean,
+    onBottomBarActionStateChange: (HomeBottomBarActionState) -> Unit = {},
     pendingQuickSaveRequestToken: Long?,
     pendingQuickSaveRequest: QuickSaveBookmarkSeed?,
     onQuickSaveRequestHandled: () -> Unit,
@@ -103,6 +105,7 @@ fun HomeScreen(
         ?: state.selectedBookmarkId
             ?.takeIf { id -> orderedSnapshotIds.contains(id) }
         ?: orderedSnapshotIds.firstOrNull()
+    val currentSnapshotId = orderedSnapshotIds.getOrNull(pagerState.currentPage)
     val selectedFolderPath = state.selectedFolderPaths.pathOf(selectedBookmarkId)
     val defaultSnapshotTitlePrefix = stringResource(R.string.default_snapshot_title_prefix)
     val copyFolderToastFormat = stringResource(R.string.bookmark_item_copy_toast_folder)
@@ -191,6 +194,25 @@ fun HomeScreen(
         pendingExportSnapshotId = null
     }
 
+    val showBottomBarAddButton = currentSnapshotId != null &&
+        !state.bookmarkSnapshots.isInbox(currentSnapshotId)
+
+    DisposableEffect(showBottomBarAddButton, onBottomBarActionStateChange) {
+        onBottomBarActionStateChange(
+            HomeBottomBarActionState(
+                showAddButton = showBottomBarAddButton,
+                onAddButtonClick = if (showBottomBarAddButton) {
+                    { showAddItemTypeDialog = true }
+                } else {
+                    null
+                },
+            ),
+        )
+        onDispose {
+            onBottomBarActionStateChange(HomeBottomBarActionState())
+        }
+    }
+
     HomeScreenBackHandler(uiState = uiState)
     HomeDialogHost(
         state = state,
@@ -262,7 +284,6 @@ fun HomeScreen(
                     pendingExportSnapshotId = null
                     showExportSnapshotDialog = true
                 },
-                onAddItemClick = { showAddItemTypeDialog = true },
                 onImportClick = { showImportOptionDialog = true },
                 onSnapshotClick = onSnapshotTabClick,
                 onSnapshotLongClick = { snapshotId ->
