@@ -20,8 +20,6 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.kyant.backdrop.backdrops.layerBackdrop
-import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import com.hdw.bookmarker.core.ui.navigation.slideComposable
 import com.hdw.bookmarker.feature.home.domain.model.QuickSaveBookmarkSeed
 import com.hdw.bookmarker.feature.home.presentation.HomeBottomBarActionState
@@ -29,6 +27,8 @@ import com.hdw.bookmarker.feature.home.presentation.HomeRoute
 import com.hdw.bookmarker.feature.importguide.presentation.BookmarkImportGuideRoute
 import com.hdw.bookmarker.feature.settings.presentation.SettingsRoute
 import com.hdw.bookmarker.feature.trends.presentation.TrendsRoute
+import com.kyant.backdrop.backdrops.layerBackdrop
+import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 
 @Composable
 fun AppNavHost(

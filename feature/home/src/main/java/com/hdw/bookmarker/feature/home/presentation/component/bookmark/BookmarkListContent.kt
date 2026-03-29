@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
@@ -76,6 +77,7 @@ internal fun BookmarkListContent(
     showFolderDescription: Boolean,
     scrollLongFolderDescription: Boolean,
     folderIconStyle: BookmarkFolderIconStyle,
+    extraBottomContentPadding: Dp = 0.dp,
     modifier: Modifier = Modifier,
     selectedFolderPath: List<Int>? = null,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
@@ -112,7 +114,12 @@ internal fun BookmarkListContent(
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(2.dp),
-            contentPadding = PaddingValues(start = 8.dp, top = 4.dp, end = 4.dp, bottom = 4.dp),
+            contentPadding = PaddingValues(
+                start = 8.dp,
+                top = 4.dp,
+                end = 4.dp,
+                bottom = BookmarkContentPaddingTokens.ListBottomPadding + extraBottomContentPadding,
+            ),
         ) {
             items(items = visibleNodes, key = { it.key }) { node ->
                 when (val item = node.item) {

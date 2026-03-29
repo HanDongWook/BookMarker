@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hdw.bookmarker.core.model.bookmark.BookmarkDocument
 import com.hdw.bookmarker.core.model.bookmark.BookmarkItem
@@ -36,6 +37,7 @@ fun BookmarkDisplayContent(
     showFolderDescription: Boolean,
     scrollLongFolderDescription: Boolean,
     folderIconStyle: BookmarkFolderIconStyle,
+    extraBottomContentPadding: Dp = 0.dp,
     modifier: Modifier = Modifier,
     onSelectedFolderPathChange: (List<Int>?) -> Unit = {},
     selectedFolderPath: List<Int>? = null,
@@ -77,6 +79,7 @@ fun BookmarkDisplayContent(
                     onSelectedFolderPathChange = onSelectedFolderPathChange,
                     folderIconStyle = folderIconStyle,
                     onBlankAreaLongClick = onBlankAreaLongClick,
+                    extraBottomContentPadding = extraBottomContentPadding,
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
@@ -92,6 +95,7 @@ fun BookmarkDisplayContent(
                     onSelectedFolderPathChange = onSelectedFolderPathChange,
                     selectedFolderPath = selectedFolderPath,
                     onBlankAreaLongClick = onBlankAreaLongClick,
+                    extraBottomContentPadding = extraBottomContentPadding,
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
