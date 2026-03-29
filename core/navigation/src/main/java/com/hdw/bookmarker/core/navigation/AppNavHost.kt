@@ -144,31 +144,20 @@ fun AppNavHost(
                 }
             }
 
-            if (isBookmarksRoute && bookmarksBottomBarActionState.showAddButton) {
-                BookmarksBottomBar(
-                    modifier = Modifier.align(Alignment.BottomCenter),
-                    backdrop = backdrop,
-                    currentRoute = currentBottomBarRoute,
-                    onBookmarksClick = onBookmarksClick,
-                    onTrendsClick = onTrendsClick,
-                    onAddClick = {
-                        bookmarksBottomBarActionState.onAddButtonClick?.invoke()
-                    },
-                )
-            } else {
-                AppBottomBar(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .navigationBarsPadding()
-                        .padding(horizontal = 16.dp, vertical = 12.dp)
-                        .fillMaxWidth()
-                        .height(72.dp),
-                    backdrop = backdrop,
-                    currentRoute = currentBottomBarRoute,
-                    onBookmarksClick = onBookmarksClick,
-                    onTrendsClick = onTrendsClick,
-                )
-            }
+            AppBottomBar(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .navigationBarsPadding()
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                    .fillMaxWidth()
+                    .height(72.dp),
+                backdrop = backdrop,
+                currentRoute = currentBottomBarRoute,
+                onBookmarksClick = onBookmarksClick,
+                onTrendsClick = onTrendsClick,
+                showAddButton = isBookmarksRoute && bookmarksBottomBarActionState.showAddButton,
+                onAddClick = bookmarksBottomBarActionState.onAddButtonClick,
+            )
         }
     }
 }
